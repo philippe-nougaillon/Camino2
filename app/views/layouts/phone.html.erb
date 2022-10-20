@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camino Alpha</title>
+  <%= stylesheet_link_tag "phone", media: "all", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag '/fav.ico' %>
+</head>
+<body>
+	<% if session[:user_id] %>
+		<div class="mobilenav">
+			<ul>
+				<li><%= link_to "To-do", todos_path(user:@user.id), class:(@ctrl == 'todos' ? 'active':'') %></li>
+				<li><%= link_to "Agenda", agenda_index_path, class:(@ctrl == 'agenda' ? 'active':'') %></li>
+				<li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'active':'') %></li>
+			</ul>
+		</div>
+		<div class="notice_box"> 
+			<span class="notice"><%= notice %></span>
+		</div>
+	<% end %>
+	<%= yield %>
+	<% unless request.host == 'localhost' %>
+	   <%= render "layouts/ga" %>
+   <% end %>
+</body>
+</html>

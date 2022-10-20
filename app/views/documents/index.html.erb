@@ -1,0 +1,36 @@
+<h1>Documents</h1>
+
+<div id="gallery">
+  <ul id="grid">
+    <% @documents.each do |doc| %>
+     <li>
+      <%= link_to(image_tag(doc.preview_name, width:'100px', alt:'Image manquante !', title:doc.project.name), "/documents/#{doc.docfilename}",:target => "_blank") %>
+      <%= link_to doc.docname, "/documents/#{doc.docfilename}", :target => "_blank" %>
+     </li>
+    <% end %>
+  </ul>
+</div>
+
+<div style="display:block;clear: both;">
+  <br>
+  <hr class="style-two">
+
+  <% if @logs.any? %>
+    <h3>Activité</h3>
+    <table id="logs">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= render partial:'documents/document', collection:@logs, as: :log, day:0, user_id:0 %>  
+      </tbody>
+    </table>
+  <% end %>
+  <br>
+</div>

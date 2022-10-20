@@ -1,0 +1,18 @@
+<br>
+<%= month_calendar day_names: "date.day_names", table: {class: "calendar"} do |date| %>
+
+  <div id="date">
+  	<%= date.day %>
+  </div>
+
+  <% @projects.where(duedate:date).each do |project| %>
+      <span style="background-color:<%= project.color %>;padding-left:5px;margin-right:2px;"></span>
+      <%= link_to project.name, project %>
+  <% end %>
+
+  <% @todos.undone.where(duedate:date).each do |todo| %>
+      <span style="background-color:<%= todo.project.color %>;padding-left:5px;margin-right:2px;"></span>
+      <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+  <% end %>
+
+<% end %>

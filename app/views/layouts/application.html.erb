@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
   <head>
-    <title>CaminoV2</title>
+    <title><%= @sitename %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,6 +14,7 @@
   </head>
 
   <body>
+    <%= render partial: "partials/navbar" %>
     <main class="container mx-auto px-2 mt-8">
       <%= yield %>
     </main>

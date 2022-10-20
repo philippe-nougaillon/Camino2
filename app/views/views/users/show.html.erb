@@ -1,0 +1,73 @@
+<p>
+  <%= image_tag url_for(@user.avatar) if @user.avatar.attached? %>
+	<%# <%= image_tag(@user.avatar.url(:medium), class:"avatar") if @user.avatar %>
+</p>
+
+<h3><%= @user.name %><%= link_to image_tag("modif.png"), edit_user_path(@user), title:'Modifier' %> </h3>
+<p>
+	<i>Alias '<%= @user.username %>'</i>
+</p>
+<p>
+	<strong>Courriel:</strong>
+	<%= @user.email %>
+</p>
+
+<p>
+  <strong>Créé le:</strong>
+  <%= l(@user.created_at) %>
+</p>
+<br>
+
+<h2>Espace de travail</h2>
+<p>
+  <strong>Nom: </strong>
+  <%= @user.account.name %>
+</p>
+<p>
+  <strong>Nom du site: </strong>
+  <%= @user.account.sitename %>
+</p>
+<p>
+  <strong>hostname: </strong>
+  <%= @user.account.hostname %>
+</p>
+
+<p>
+  <%= link_to "Modifier", edit_account_path(@user.account) %> | 
+  <%= link_to "Voir les participants", users_path %> |
+  <%= link_to "Voir les modèles", templates_path %> |
+  <%= link_to "Voir les documents", documents_index_path %>
+</p>
+<br>
+
+<hr class="style-two">
+<br>
+
+<% if @user.participants.any? %>
+  <h2>Vos abonnements</h2>
+  <table class="table">
+    <thead>
+      <tr style="text-align:left;color:lightgray;">
+        <th />
+      	<th>Nom du projet</th>
+      	<th>Recevoir les notification par mail ?</th>
+      	<th>Recevoir la Daily Newsletter?</th>
+      	<th>Recevoir la Weekly Newsletter?</th>
+      	<th />
+      </tr>
+    </thead>	
+    <%= render partial:'participants/participant', collection:@user.participants %>
+  </table>
+  <br>
+<% end %>
+
+<hr class="style-two">
+<br>
+
+<% if @user.logs.any? %>
+  <h2>Votre activité</h2>
+  <table id="logs">
+    <%= render partial:'logs/log', collection:@user.logs, :day => 0 %>
+  </table>
+  <br>
+<% end %>

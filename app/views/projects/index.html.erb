@@ -1,0 +1,97 @@
+<h1>Projets <%= link_to image_tag("new.png"), new_project_path, title:'Ajouter un projet' %></h1>
+
+<% if @tags.any? %>
+  Tags:
+  <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+    <%= link_to(tag.name, projects_path(tag:tag.name), :class => css_class) %>
+  <% end %>
+  <br><br>
+<% end %>
+
+<% if @projects.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th />
+        <th />
+        <th>Echéance</th>
+        <th>Progression</th>
+        <th>Phase en cours</th>
+        <th>Participants</th>
+        <th>Dernière mise à jour</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td style="background-color:<%= project.color %>;padding-left: 7px;"></td>
+          <td>
+            <%= link_to project.name, project, class: 'bold-title' %>
+            <br>
+            <i><small><%= project.description %></small></i>
+          </td>
+          <td><%= l(project.duedate) if project.duedate %></td>
+          <td>
+            <% unless project.todos.count.zero? %>
+              <%= raw project.bar_avancee %>
+              <small>(<%= project.pct_avancee %>%)</small>
+            <% end %>
+          </td> 
+          <td>
+            <% if project.workflow? and project.current_todolist %>
+              <small><%= truncate(project.current_todolist.name, length: 15) %></small>  
+            <% end %>
+          </td>
+          <td>
+            <% project.participants.each do |participant| %>
+              <%# <%= image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar" %>
+              <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
+            <% end %>
+            <%= link_to image_tag("new.png", size:'15x15', title:'Inviter un nouveau participant'), invite_path(id:project.id) %>
+          </td>
+          <td style="color:lightgrey"><%= "Il y a #{time_ago_in_words(project.last_update)}" if project.logs.any? %></td>
+        </tr>
+        <tr />  
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <% unless params[:search].blank? %>
+    <i>Aucun projet à afficher...</i>
+  <% else %>
+    <i>Vous ne participez à aucun projet actuellement. Cliquez sur  <%= link_to image_tag("new.png"), new_project_path %> pour ajouter un projet.</i>
+  <% end %>
+  <br>
+<% end %>
+
+
+<% if @logs.any? %>
+  <br>
+  <hr class="style-two">
+  <h3>Activité</h3>
+  <table id="logs">
+    <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
+  </table>
+  <br>
+  <% if @logs.count >= 5 %>  
+    <small><i>Liste des 5 derniers changements. <%= link_to "Afficher tout", logs_path %></i></small>
+    <br>
+  <% end %>
+  <br>
+<% end %>
+
+
+<% if @comments.any? %>
+  <hr class="style-two">
+  <h3>Discussions</h3>
+  <table id="logs">
+    <%= render partial:'comments/commentfull', collection:@comments, as: :comment, comment_day:0, user_id:0  %>
+  </table>
+  <br>
+  <% if @comments.count >= 5 %>  
+    <small><i>Liste des 5 derniers commentaires. <%= link_to "Afficher tout", comments_path %></i></small>
+    <br>
+  <% end %>
+  <br>
+<% end %>

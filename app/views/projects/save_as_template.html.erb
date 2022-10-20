@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Enregistrer comme modèle</h3>
+
+<b>Projet</b><br>
+<%= @project.name %> 
+<br><br>
+
+
+<%= form_tag do %>
+	Nom du nouveau modèle<br>
+	<%= text_field_tag "name" %>
+
+	<%= submit_tag "Enregistrer" %>
+<% end %>

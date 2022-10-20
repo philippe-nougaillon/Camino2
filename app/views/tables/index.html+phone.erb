@@ -1,0 +1,8 @@
+<br><br><br><br>
+<hr>
+
+<% @tables.each do |table| %>
+    <%= link_to "Ajouter un(e) #{table.name}", fill_url(table.id), class:"orange-button-mobile-fullsize" %>
+    <hr>
+<% end %>
+

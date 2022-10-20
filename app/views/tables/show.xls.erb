@@ -1,0 +1,44 @@
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+</head>
+
+<% if @table.fields.any? %>
+    <table id="table_list" style="border:0;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <% @table.fields.each do | field | %>
+            <th><%= field.name %></th>
+          <% end %>
+          <th>Opération</th>
+          <th>Créé le</th>
+          <th>Modifié le</th>
+          <th>Par</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @table.record_index.times do | i | %>
+          <% index = i + 1 %> 
+          <% if @values.records_at(index).any? %>
+            <% record = @values.records_at(index).first %>
+            <tr>
+              <td><%= index %></td>
+              <% @table.fields.each do | field | %>
+                <td>
+                  <%= field.values.records_at(index).first.data if field.values.records_at(index).first %>
+                </td>
+              <% end %>
+              <td>
+                <% if record.todo %>
+                  <%= record.todo.fullname %>
+                <% end %>
+              </td>
+              <td><%= l(record.created_at) %></td>
+              <td><%= l(record.updated_at) %></td>
+              <td><%= record.user.username if record.user %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+<% end %>

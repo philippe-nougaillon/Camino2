@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  	<h3>Bienvenue !</h3>
+  	Votre espace de projet <b>'<%= @account.name %>'</b> a été créé. <br><br>
+
+    Pour vous connecter, veuillez utiliser les informations suivantes:<br><br>
+
+    Utilisateur: <%= @user.username %><br>
+    Mot de passe: Celui définit à la création du compte<br><br>
+
+    Une fois connecté(e), vous pourrez modifier ces informations ou changer votre mot de passe. <br><br>
+
+    <%= link_to "Se connecter", projects_url %>
+
+  </body>
+</html>

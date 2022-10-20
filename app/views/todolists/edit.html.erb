@@ -1,0 +1,13 @@
+<h2>
+	<%= link_to @todolist.project.name, @todolist.project %>
+</h2>
+
+<h3>Modification de la liste '<%= @todolist.name %>'</h3>
+
+<%= render 'form' %>
+
+<br>
+<%= link_to "[X] Supprimer cette liste et son contenu", @todolist, method: :delete, data: { confirm: 'Etes-vous bien certain(e) ?' }  %>
+<br><br>
+
+<%= link_to 'Retour', @todolist %>

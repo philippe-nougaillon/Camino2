@@ -1,0 +1,44 @@
+<% if @comment_day != comment.created_at.day %>
+  <tr>
+    <td /><td /><td />
+  </tr>
+  <tr>
+    <td /><td /><td />
+  </tr>
+<% end %>    
+<tr>
+  <% if @comment_day != comment.created_at.day %>
+      <% @user_id = 0 %>
+      <% @comment_day = comment.created_at.day %>
+      <% month_name = I18n.t("date.month_names")[comment.created_at.month] %>
+      <tr style="margin-top:50px;"></tr>
+      <td  style="width:100px;">
+        <b><%= "#{@comment_day} #{month_name}" %></b>
+        <%= "Aujourd'hui" if comment.created_at.to_date == Date.today %>
+      </td>
+  <% else %>
+      <td /> 
+  <% end %>
+  <td>
+    <% if @user_id != comment.user_id %>
+      <% @user_id = comment.user_id %>
+      <%= image_tag(comment.user.avatar.url(:thumb), size:'30x30', alt:'', class:"mini_avatar") %>
+    <% end %>
+  </td>
+  <td><span style="background-color:<%= comment.project.color %>;padding-left:5px;margin-right:5px;"></span></td>
+  <td>
+    <% if comment.user_id == session[:user_id] %>
+      <b>Vous</b> avez commenté
+    <% else %>
+      <b><%= comment.user.name %></b> a commenté
+    <% end %>
+    <b>'<%= "#{comment.texte}" %>'</b>
+    au sujet de <%= link_to "#{comment.project.name}:#{comment.todolist.name}:#{comment.todo.name}", edit_todo_path(comment.todo) %>
+  </td>
+  <td>
+    <div style="color:lightgrey">
+      <%= comment.created_at.strftime("%H:%M") %>
+    </div>
+  </td>
+</tr>
+<tr /><tr /><tr />

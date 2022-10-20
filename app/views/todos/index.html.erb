@@ -1,0 +1,65 @@
+<h1>To-do</h1>
+
+<% if @tags.any? %>
+  Tags:
+  <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+    <%= link_to(tag.name, todos_path(tag:tag.name)) %>
+  <% end %>
+<% end %>
+<br><br>
+
+Afficher les opérations: 
+<%= link_to_unless params[:user],"A faire", todos_path(user:@user.id), title:"Affiche les opérations non terminées qui vous sont assignées" %> |
+<%= link_to_unless params[:undone],"En attente", todos_path(undone:true), title:"Affiche toutes opérations non terminées"  %> |
+<%= link_to_unless params[:notify], "A notifier", todos_path(notify:1), title:"Affiche les opérations non terminées et arrivées à échéance" %> |
+<%= link_to_if (params[:user] or params[:undone] or params[:notify]), "Toutes", todos_path %>
+<br><br>
+
+<% if @todos.any? %>
+  <table class="table">
+    <thead>
+      <tr style="color:lightgray;">
+        <th>Fait?</th>
+        <th>Doc</th>
+        <th>Tags</th>
+        <th>A faire</th>
+        <th COLSPAN=2>Assigné à</th>
+        <th>Projet</th>
+        <th>Echéance</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @todos.each do |todo| %>
+        <tr>
+          <td><%= image_tag("yes.png") if todo.done %></td>
+          <td>
+            <%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document'), '/documents/' + todo.docfilename, { target:'_blank' }) if todo.docfilename %>
+          </td>
+          <td>
+            <% todo.tags.each do |tag| %>
+              <%= link_to(tag.name, todos_path(tag:tag.name)) %>
+            <% end %>
+          </td>
+          <td style="width:400px;"><b><%= link_to todo.name, edit_todo_path(todo)%></b></td>
+          <td>
+            <%# <%= image_tag(todo.user.avatar.url(:thumb), alt:'', class:"mini_avatar") %>
+          </td>
+          <td><%= todo.user.name if todo.user %></td>
+          <td><span style="background-color:<%= todo.project.color %>;padding-left:5px;margin-right:5px;"></span>
+            <%= link_to todo.fullname, todo.todolist %>
+          </td>
+          <td>
+            <% if todo.duedate %>
+              <small><%=  todo.duedate >= Date.today ? "dans" : "il y a " %>
+              <%= time_ago_in_words(todo.duedate) %></small>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  Rien à afficher...<br> 
+<% end %>
+<br>

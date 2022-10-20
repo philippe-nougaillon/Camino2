@@ -1,0 +1,56 @@
+<h3><%= @table.name %></h3>
+
+<%= form_tag do %>
+
+  <%= hidden_field_tag :table_id, @table.id %>
+
+  <% if @todo %>
+    <%= hidden_field_tag :todo_id, @todo.id %>
+  <% end %>
+
+	<% @table.fields.each do |field| %>
+      <% field_name = "[data][#{@record_index}][#{field.id}]" %> 
+      <% value = field.values.find_by(record_index:@record_index) %> 
+      <% field_value = value.data if value %>
+
+  		<div class="field">
+    			<%= label_tag field.name %><br>
+
+          <% if field.datatype == "texte" %>  
+            <%= text_field_tag field_name, field_value %>
+
+          <% elsif field.datatype == "nombre" %>
+            <%= number_field_tag field_name, field_value %>
+
+          <% elsif field.datatype == "euros" %>  
+            <%= number_field_tag field_name, field_value, step: 'any' %> €
+
+          <% elsif field.datatype == "date" %>
+            <%= text_field_tag field_name, field_value, class:"datepicker", size:6 %>
+
+          <% elsif field.datatype == "oui_non?" %>
+            <%= radio_button_tag field_name, 'Oui', (field_value == 'Oui') %> Oui
+            <%= radio_button_tag field_name, 'Non', (field_value == 'Non') %> Non
+
+          <% elsif field.datatype == "liste" %>
+            <%= select_tag field_name, options_for_select(field.items.split(","), field_value), include_blank: true %>
+
+          <% end %>
+  		</div>
+	<% end %>  
+  <br>
+
+  <div class="actions">
+     <%= submit_tag "Enregistrer", class: 'alizarin-flat-button' %>
+  </div>
+
+  <% if @todo %>
+    <%= link_to 'Retour', edit_todo_path(@todo) %>
+  <% else %>
+    <%= link_to 'Retour', @table %>
+  <% end %>
+
+<% end %>
+
+
+

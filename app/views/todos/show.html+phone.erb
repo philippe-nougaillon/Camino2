@@ -1,0 +1,79 @@
+
+<div class="mobile">
+  
+  <br><br>
+
+  <%= image_tag(@todo.done ? 'yes.png': 'checkboxno.png', size:'100x100') %><br><br>
+  
+  <span style="background-color:<%= @todo.project.color %>; color:white;padding-left:35px;margin-right:15px;"></span>
+  <%= "#{@todo.project.name} : #{@todo.todolist.name}" %>
+  <br><br>
+  
+  <div style="font-size:70px">
+    <%= link_to @todo.name, @todo %>
+    <br><br>
+  </div>
+
+  <% if @todo.docfilename %>
+    <%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document', size:'50x50'), '/documents/' + @todo.docfilename, { target:'_blank' }) %>
+    <%= @todo.docname %>
+    <br><br>  
+  <% end %>
+  
+  <% if @todo.user %>
+    <small>Assigné à: <%= @todo.user.name %></small>
+    <br><br>
+  <% end %>
+
+  <% if @todo.duedate %>
+    <small>
+      Echéance: <%= @todo.duedate >= Date.today ? "dans" : "il y a" %> <%= time_ago_in_words(@todo.duedate) %>
+    </small>
+    <br><br>
+  <% end %>
+
+  <% unless @todo.done %>
+    <%= button_to 'Marquer comme fait', {action:'close', id:@todo.id}, class:"alizarin-flat-button-mobile-fullsize" %>
+  <% else %>
+    <%= button_to 'Ré-ouvrir', {action:'reopen', id:@todo.id}, class:"alizarin-flat-button-mobile-fullsize" %>
+  <% end %>  
+
+  <br>
+  <h3>Commentaires</h3>
+  <% if @todo.comments.any? %>
+    <% @todo.comments.each do | comment | %>
+      <small>
+        <%= image_tag(comment.user.avatar.url(:medium), alt:'', class:"mini_avatar-phone") %>
+        <%= comment.user.name %>,
+        <small><%= "il y a #{time_ago_in_words(comment.created_at)}" %></small><br>
+      </small>
+      <br>
+      <b><%= comment.texte %></b>
+      <br><br>
+    <% end %>  
+  <% else %>
+    <small><i>Il n'y a pas encore de commentaires</i></small>
+  <% end %>
+
+  <br><br>
+  <b>Votre commentaire</b>
+  <br><br>
+  <%= form_for(@comment) do |f| %>
+    <%= f.hidden_field :todo_id %>
+    <%= f.hidden_field :user_id %>
+    <%= f.text_area :texte, class:'mobile_textarea' %>
+    <br><br>
+    Visible par 
+    <%= f.radio_button :audience, 1, checked:true, class:"big-radiobutton" %> l'Equipe
+    <%= f.radio_button :audience, 2, checked:false, class:"big-radiobutton" %> le Client
+    <%= f.radio_button :audience, 0, checked:false, class:"big-radiobutton" %> Tous
+    <br><br>
+    <%= f.submit 'Publier', class:'alizarin-flat-button-mobile-fullsize' %>
+  <% end %>
+  <br><br>
+</div>
+
+<% if @table %>
+    <%= link_to "Ajouter un(e) #{@table.name}", fill_url(@table.id, todo_id:@todo), class:"orange-button-mobile-fullsize" %>
+    <br><br>
+<% end %>

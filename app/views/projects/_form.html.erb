@@ -1,0 +1,97 @@
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @templates.any? %>
+    <div class="field">
+      <%= f.label 'modèle' %><br>
+      <%= select_tag :template_id, options_from_collection_for_select(@templates, "id", "name"), include_blank: true %>
+      <small><i>Créez votre nouveau projet à partir d'un modèle de projet existant</i></small>
+    </div>
+  <% end %>  
+
+  <div class="field">
+    <%= f.label 'nom' %><br>
+    <%= f.text_field :name, size:'40' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description, size:'40' %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Echéance" %><br>
+    <%= f.date_field :duedate, size:5, value:(@project.duedate ? @project.duedate : nil) %>
+    <small><i>Cette date va s'ajouter au calendrier des participants</i></small>
+  </div> 
+
+  <div>
+    <%= f.label 'tags' %><br>
+    <%= f.text_field :tag_list, value:@project.tag_list.join(", ") %><small><i>Séparés d'une virgule</i></small>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Couleur' %><br>
+    <%= f.color_field :color, size:'5', class: 'colorpicker' %>
+    <small><i>Pour repérer rapidement les informations en rapport avec ce projet</i></small>
+  </div>
+
+  <div class="field">
+    <%= f.label "Mémo" %><br>
+    <%= f.text_area :memo, size:'56x4' %>
+  </div>
+
+  <h2>Déroulement</h2>
+  <%= f.radio_button :workflow, 0 %> Libre
+  <%= f.radio_button :workflow, 1 %> Linéaire
+  <br><br>
+    <b>Libre</b>; les tâches peuvent être terminées librement, dans n'importe quel ordre.<br>
+    <b>Linéaire (Workflow)</b>; les tâches d'une liste doivent être terminées avant de pouvoir passer à la liste de tâches suivante.<br>
+    Quand une tâche est terminée, le participant assigné à la tâche suivante en est informé par un email. <br>
+  <br>
+  <small><i>Vous pourrez toujours changer ce paramètre ultérieurement</i></small> 
+
+  <div> 
+    <h2>Participants</h2>
+    <%= select_tag :participants, options_from_collection_for_select(@participants, "id", "name", @project.participants.pluck(:user_id).to_a ), multiple: true %>
+
+     <small><i>
+        Pour inviter un nouveau participant, utilisez le lien 
+        <%= image_tag("new.png", size:'15x15', title:'Inviter un nouveau participant') %> dans la liste des projets
+     </i></small>
+    <% if @participants.count > 1 %>
+      <small><i>Utilisez 'Ctrl' ou 'Maj' pour une sélection multiple</i></small>
+    <% end %>
+  </div>
+
+  <br>
+  <%= check_box_tag "welcome_message" %> Envoyer un message de bienvenue aux participants ?
+
+  <% unless @project.new_record? %>
+    <h2>Table de données</h2>
+    <% unless @tables.any? %>
+      <div> 
+        <%= f.select :table_id, options_from_collection_for_select(@tables, "id", "name", @project.table_id), include_blank: true %>
+      </div>
+      <small><i>Pour associer ce projet à une table de données</i></small>
+    <% else %>
+      <small><i>Pour associer ce projet à une table de données. Il n'y a pas de table actuellement. Voulez-vous ajouter une <%= link_to 'Nouvelle Table', new_table_path %> ?</i></small>
+    <% end %>
+  <% end %>
+
+
+  <br><br>
+  <div class="actions">
+    <%= f.submit "Enregistrer", class: 'alizarin-flat-button' %>
+  </div>
+<% end %>

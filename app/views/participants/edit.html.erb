@@ -1,0 +1,7 @@
+<h1>Abonnements du participant '<%= @participant.user.name %>'</h1>
+<h3>Projet: <%= @participant.project.name %></h3>
+<br>
+
+<%= render 'form' %>
+
+<%= link_to 'Retour', user_path(@participant.user_id) %>

@@ -14,7 +14,174 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_092351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
+  create_table "accounts", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "logo_file_name"
+    t.string "logo_content_type"
+    t.integer "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string "sitename"
+    t.string "hostname"
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "comments", id: :serial, force: :cascade do |t|
+    t.integer "todo_id"
+    t.integer "user_id"
+    t.string "texte"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "audience"
+    t.index ["todo_id"], name: "index_comments_on_todo_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "fields", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "table_id"
+    t.integer "datatype", default: 0
+    t.string "items"
+  end
+
+  create_table "logs", id: :serial, force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "todolist_id"
+    t.integer "user_id"
+    t.text "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "action_id"
+    t.integer "account_id"
+    t.index ["account_id"], name: "index_logs_on_account_id"
+    t.index ["project_id"], name: "index_logs_on_project_id"
+    t.index ["todolist_id"], name: "index_logs_on_todolist_id"
+    t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "participants", id: :serial, force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "want_notification", default: true
+    t.boolean "want_dailynewsletter"
+    t.boolean "want_weeklynewsletter"
+    t.boolean "client"
+    t.index ["project_id"], name: "index_participants_on_project_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
+  end
+
+  create_table "projects", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "description"
+    t.date "duedate"
+    t.integer "account_id"
+    t.integer "workflow", default: 0
+    t.text "memo"
+    t.string "color"
+    t.integer "table_id"
+    t.index ["account_id"], name: "index_projects_on_account_id"
+  end
+
+  create_table "tables", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "record_index", default: 0
+    t.integer "account_id"
+  end
+
+  create_table "taggings", id: :serial, force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "taggable_id"
+    t.string "taggable_type"
+    t.integer "tagger_id"
+    t.string "tagger_type"
+    t.string "context", limit: 128
+    t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+  end
+
+  create_table "tags", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "templates", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "project"
+    t.text "participants"
+    t.text "todolists"
+    t.text "todos"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "account_id"
+    t.index ["account_id"], name: "index_templates_on_account_id"
+  end
+
+  create_table "todolists", id: :serial, force: :cascade do |t|
+    t.integer "project_id"
+    t.string "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "row"
+    t.date "duedate"
+    t.index ["project_id"], name: "index_todolists_on_project_id"
+  end
+
+  create_table "todos", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.boolean "done"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "notify"
+    t.date "duedate"
+    t.integer "todolist_id"
+    t.string "docfilename"
+    t.string "docname"
+    t.integer "notifydays", default: 1
+    t.index ["todolist_id"], name: "index_todos_on_todolist_id"
+    t.index ["user_id"], name: "index_todos_on_user_id"
+  end
+
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "username"
     t.string "picturelink"
@@ -25,8 +192,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_092351) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "account_id"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  create_table "values", id: :serial, force: :cascade do |t|
+    t.integer "field_id"
+    t.string "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "table_id"
+    t.integer "record_index"
+    t.integer "todo_id"
+    t.integer "user_id"
+    t.index ["field_id"], name: "index_values_on_field_id"
+    t.index ["record_index"], name: "index_values_on_record_index"
+  end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 
 end

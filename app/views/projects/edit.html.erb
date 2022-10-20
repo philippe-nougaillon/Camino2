@@ -1,0 +1,14 @@
+<h1>Modification projet</h1>
+
+<%= render 'form' %>
+
+<br>
+|
+<%= link_to "Enregistrer ce projet comme modèle", 'save_as_template' %> |
+<%= link_to "Archiver ce projet", 'archive' %> |
+<%= link_to "Supprimer ce projet", @project, method: :delete, data: { confirm: 'Certain(e) de vouloir supprimer définitivement ce projet ?' } %> |
+<%= link_to 'Retour aux projets', @project %> |
+<br>
+<br>
+
+

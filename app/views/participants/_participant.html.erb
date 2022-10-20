@@ -1,0 +1,20 @@
+<tr>
+	<td><span style="background-color:<%= participant.project.color %>;padding-left:5px;margin-right:5px;"></span></td>
+	<td>
+		<%= participant.project.name %>
+	</td>
+	<td>
+		<%= image_tag "yes.png" if participant.want_notification %>
+	</td>
+	<td>
+		<%= image_tag "yes.png" if participant.want_dailynewsletter %>
+	</td>
+	<td>
+		<%= image_tag "yes.png" if participant.want_weeklynewsletter %>
+	</td>
+	<td>
+		<%= link_to image_tag("modif.png"), edit_participant_path(participant), title:'Modifier' %>
+	</td>
+</tr>
+
+

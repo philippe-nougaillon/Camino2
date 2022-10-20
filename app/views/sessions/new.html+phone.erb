@@ -1,0 +1,25 @@
+<% if @host == "camino.philnoug.com" or @host == "dev.philnoug.com" or @account == nil %>
+	<%= image_tag "new_logo.png", width:300 %>
+<% end -%>
+
+<br><br><br>
+
+<%= form_tag do %>
+	<div style="font-weight:bold;font-size:50px;text-align:center">
+		<%= label_tag :username, 'Utilisateur' %><br>
+		<br><br>
+		<%= text_field_tag :username, params[:username], class:'mobile_textfield' %>
+		<br><br>
+		<%= label_tag :password, 'Mot de passe' %><br>
+		<br><br>
+		<%= password_field_tag :password, params[:password], class:'mobile_textfield' %>
+		<br><br><br>
+		<%= submit_tag "Connexion", class:'alizarin-flat-button-mobile-fullsize' %>
+		<br><br><br><br>
+		<small><i><%= link_to "Mot de passe oublié ?", forgot_password_path %></i></small>
+	</div>
+<% end %>
+
+<div style="font-size:50px;text-align:center;margin:150px 50px;line-height:80px;color:red;"> 
+	<%= notice %>
+</div>

@@ -1,0 +1,78 @@
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= t('errors.messages.not_saved', count: @account.errors.count) %></h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, 'Nom du compte' %><br>
+    <%= f.text_field :name %><br>
+    <small><i>Veuillez nommer votre espace de projets. C'est dans cet espace que seront partagés les projets entre vous et les participants que vous inviterez.<br>
+    Vous pouvez en avoir plusieurs, selon la nature de vos projets (Pro/Perso/etc.).</i></small>
+  </div>
+
+  <% unless @account.new_record? %>
+    <div class="field">
+      <%= f.label :sitename, 'Nom du site' %><br>
+      <%= f.text_field :sitename %><br>
+      <small><i>Afficher le nom de site de votre choix pour remplacer l'actuel 'Camino'</i></small> 
+    </div>  
+
+    <div class="field">
+      <%= f.label 'Logo' %><br>
+      <%= f.file_field :logo %>
+    </div>
+
+    <div class="field">
+      <%= f.label :hostname %><br>
+      <%= f.text_field :hostname %><br>
+    </div>  
+
+    <br>
+  <% end %>
+
+  <% if @account.new_record? %>
+    <%= f.fields_for :users do |users_form| %>
+      <div class="field">
+        <%= users_form.label :name, "Votre nom" %><br>
+        <%= users_form.text_field :name %><br>
+        <small><i>C'est le nom que verront les autres participants</i></small>
+      </div>
+
+      <div class="field">
+        <%= users_form.label :username, "Votre identifiant" %><br>
+        <%= users_form.text_field :username %><br>
+        <small><i>Cet identifiant vous sera demandé à chaque connexion.<br> Faites court, si vous avez un pseudo, c'est le moment de l'utiliser ;-)</i></small>
+      </div>
+
+      <div class="field">
+        <%= users_form.label :email, 'Courriel' %><br>
+        <%= users_form.text_field :email %><br>
+        <small><i>Indiquez l'adresse de messagerie qui recevra les notifications</i></small>
+      </div>  
+
+      <div class="field">
+        <%= users_form.label :password, 'Mot de passe' %><br>
+        <%= users_form.password_field :password %><br>
+      </div>  
+
+      <div class="field">
+        <%= users_form.label :password_confirmation, 'Confirmation' %><br>
+        <%= users_form.password_field :password_confirmation %><br>
+      </div>  
+
+    <% end %>
+    <br>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit @account.new_record? ? 'Créer le compte' : 'Enregistrer', class: 'alizarin-flat-button' %>
+  </div>
+<% end %>

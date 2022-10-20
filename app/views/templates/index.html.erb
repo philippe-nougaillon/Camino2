@@ -1,0 +1,30 @@
+<h1>Modèles</h1>
+
+<table class="table">
+  <thead>
+    <tr style="color:lightgray;">
+      <th>Nom</th>
+      <th>Projet source</th>
+      <th>Description</th>
+      <th>Créé le</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @templates.each do |template| %>
+      <% th = JSON.parse(template.project).to_hash %> 
+      <tr>
+        <td><b><%= template.name %></b></td>
+        <td><%= th["name"] %></td>
+        <td><%= th["description"] %></td>
+        <td><%= l(template.created_at) %></td>
+        <td><%= link_to 'Voir', template %></td>
+        <td><%= link_to '[X]', template, method: :delete, data: { confirm: 'Certain(e) ?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

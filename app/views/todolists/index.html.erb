@@ -1,0 +1,27 @@
+<h1>To-do list</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @todolists.each do |todolist| %>
+      <tr>
+        <td><%= todolist.project.name %></td>
+        <td><%= todolist.name %></td>
+        <td><%= link_to 'Voir', todolist %></td>
+        <td><%= link_to image_tag("modif.png"), edit_todolist_path(todolist) %></td>
+        <td><%= link_to '[X]', todolist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

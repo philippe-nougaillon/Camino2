@@ -1,0 +1,45 @@
+<h2>
+	<span style="background-color:<%= @todolist.project.color %>;padding-left: 7px;margin-right: 7px;"></span>
+	<%= link_to @todolist.project.name, @todolist.project %> : <%= @todolist.name %>
+	<%= link_to image_tag("modif.png"), edit_todolist_path(@todolist), title:'Modifier' %> 
+</h2>
+
+<% if @todolist.todos.any? %>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Fait?</th>
+				<th>Intitulé</th>
+				<th>Assigné à</th>
+				<th>Echéance</th>
+				<th>Document</th>
+				<th>Tags</th>
+			</tr>
+		</thead>
+		<%= render partial:'todos/todo', collection: @todolist.todos %>
+	</table>
+<% else %>
+	<small><i>Commencez cette liste en ajoutant, ci-dessous, une première chose à faire</i></small><br><br>
+<% end %>
+
+<div style="margin-left:6px">
+	<%= render partial:'todos/form' %>
+</div>
+
+<% if @todolist.logs.any? %>
+	<br>
+	<hr class="style-two">
+	<h3>Activité</h3>
+	<table id="logs">
+	  	<%= render partial:'logs/log', collection:@todolist.logs.limit(15) %>
+	</table>
+	<br>
+	<% if @todolist.logs.count > 15 %> 	
+		<small><i>Liste des 15 derniers changements.
+			<%= link_to "Afficher tout", logs_path(project_id:@todolist.project.id) %>
+		</i></small>
+		<br>
+	<% end %>
+<% end %>
+
+

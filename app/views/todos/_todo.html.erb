@@ -1,0 +1,31 @@
+<%= form_for(todo) do |f| %>
+<tr>
+	<td><%= f.check_box :done, :onclick => "this.form.commit.click();" %></td>
+	<td>
+		<% unless todo.done %>
+			<b><%= todo.name %></b>
+		<% else %>
+			<strike><b><%= todo.name %></b></strike>
+		<% end %>
+	</td>
+	<td><%= todo.user.name if todo.user %></td>
+	<td><%= l(todo.duedate) if todo.duedate %></td>
+	<td>
+		<%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document'), '/documents/' + todo.docfilename, { target:'_blank' }) if todo.docfilename %>
+	</td>
+	<td>
+		<% if todo.tags.any? %>
+		    <% tag_cloud(todo.tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+		      <%= link_to(tag.name, todos_path(tag:tag.name)) %>
+		    <% end %>
+		<% end %>
+	</td>
+	<td><%= link_to image_tag("modif.png"), edit_todo_path(todo), title:'Modifier' %></td>
+	<td>
+		<%= link_to '[X]', todo, method: :delete, data: { confirm: 'Etes vous certain(e) de vouloir supprimer cette tâche ?' } %>
+	</td>
+	<div style="display:none">
+		<%= submit_tag %>
+	</div>
+</tr>
+<% end %>

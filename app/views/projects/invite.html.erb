@@ -1,0 +1,28 @@
+<h2><%= link_to @project.name, @project %></h2>
+<i><%= @project.description %></i>
+<h3>Participants actuels</h3>
+<table>
+	<tr>
+		<% @project.participants.each do |participant| %>
+			<td>
+				<%= image_tag(participant.user.avatar.url(:thumb), size:'25x25', alt:'') %>
+				<%= participant.user.name %>
+				<%= "(Client)" if participant.client %>
+			</td>
+		<% end %>
+	</tr>
+</table>
+
+<br>
+<h2>Inviter un nouveau participant à rejoindre le projet '<%= @project.name %>'</h2>
+
+Veuillez saisir ci-dessous son adresse email afin de lui envoyer une invitation
+<br><br>
+
+<%= form_tag do %>
+	<%= hidden_field_tag 'id', params[:id] %>
+	<%= label_tag "Courriel:" %>	 
+	<%= text_field_tag :courriel %>
+	<%= submit_tag "Envoyer"%><br>
+	<%= check_box_tag :client %> C'est mon client <small><i>(Il ne pourra pas se connecter à Camino mais sera notifié dès qu'une tâche est terminée)</i></small><br>
+<% end %>

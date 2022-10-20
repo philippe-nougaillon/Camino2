@@ -1,0 +1,46 @@
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :todo_id %>
+  <%= f.hidden_field :user_id %>
+
+  <table>
+    <tr>
+      <td style="vertical-align:top;">
+        <%# <%= image_tag(@user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
+        <br>  
+        <%= @user.name %>
+          <div style="color:lightgrey;vertical-align:top;">
+            <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
+          </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.text_area :texte, size:'65x3' %>
+        </div>
+      </td>
+      <td>
+          <small>
+            Visible par:   
+            <%= f.radio_button :audience, 1, checked:true %> l'Equipe
+            <%= f.radio_button :audience, 2, checked:false %> le Client
+            <%= f.radio_button :audience, 0, checked:false %> Tous
+          </small>
+          <br><br>
+          <div class="actions">
+            <%= f.submit 'Publier'%>
+          </div>
+      </td>    
+    </tr>
+  </table>
+<% end %>

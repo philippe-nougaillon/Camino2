@@ -1,0 +1,40 @@
+<script>
+  $(document).ready(function(){
+    $("#field_items").css('display','none')
+    if($('#field_datatype').val()== "liste"){
+          $("#field_items").css('display','inline')
+    }
+    $('#field_datatype').change(function(){
+      if($('#field_datatype').val()== "liste"){
+          $("#field_items").css('display','inline')
+       } else {
+          $("#field_items").css('display','none')
+       }
+    })
+  });
+</script>
+
+<%= form_for(@field) do |f| %>
+  <% if @field.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= t('errors.messages.not_saved', count: @field.errors.count) %></h2>
+
+      <ul>
+      <% @field.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :table_id %>
+
+    <%= f.label :name, @field.new_record? ? "Ajouter un nouvel attribut" : "Nom de l'attribut" %><br>
+    <%= f.text_field :name %>
+    <%= f.select :datatype, options_for_select(Field.datatypes.keys.to_a, @field.datatype) %>
+    <%= f.text_field :items  %>
+    
+    <%= f.submit @field.new_record? ? "Ajouter" : "Modifier" %>
+  </div>
+<% end %>

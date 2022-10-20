@@ -1,0 +1,23 @@
+<h1>Activité</h1>
+
+<table id="logs">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+     <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
+  </tbody>
+</table>
+<% unless @logs.any? %>
+  Aucune activité pour le moment... Pas encore de projets ? 
+<% end %>
+
+<br>
+<% if @logs.count >= 100 %>
+	Seules les 100 premières lignes d'activité sont affichées. <%= link_to "Afficher toute l'activité", logs_path(limit:0) %>
+<% end %>
+<br><br>

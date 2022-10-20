@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @template.name %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @template.project %>
+</p>
+
+<p>
+  <strong>Participants:</strong>
+  <%= @template.participants %>
+</p>
+
+<p>
+  <strong>Todolists:</strong>
+  <%= @template.todolists %>
+</p>
+
+<p>
+  <strong>Todos:</strong>
+  <%= @template.todos %>
+</p>
+
+<%= link_to 'Modifier', edit_template_path(@template) %> |
+<%= link_to 'Retour', templates_path %>
