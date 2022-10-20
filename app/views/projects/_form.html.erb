@@ -65,10 +65,9 @@
     <h2>Participants</h2>
     <%= select_tag :participants, options_from_collection_for_select(@participants, "id", "name", @project.participants.pluck(:user_id).to_a ), multiple: true %>
 
-     <small><i>
-        Pour inviter un nouveau participant, utilisez le lien 
-        <%= image_tag("new.png", size:'15x15', title:'Inviter un nouveau participant') %> dans la liste des projets
-     </i></small>
+    <small><i>
+      Pour inviter un nouveau participant, utilisez le lien <%= image_tag("new.png", size:'15x15', title:'Inviter un nouveau participant') %> dans la liste des projets
+    </i></small>
     <% if @participants.count > 1 %>
       <small><i>Utilisez 'Ctrl' ou 'Maj' pour une sélection multiple</i></small>
     <% end %>
@@ -92,6 +91,6 @@
 
   <br><br>
   <div class="actions">
-    <%= f.submit "Enregistrer", class: 'alizarin-flat-button' %>
+    <%= f.submit "Enregistrer", class: 'btn btn-success' %>
   </div>
 <% end %>

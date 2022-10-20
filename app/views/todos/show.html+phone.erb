@@ -33,9 +33,9 @@
   <% end %>
 
   <% unless @todo.done %>
-    <%= button_to 'Marquer comme fait', {action:'close', id:@todo.id}, class:"alizarin-flat-button-mobile-fullsize" %>
+    <%= button_to 'Marquer comme fait', {action:'close', id:@todo.id}, class:"btn btn-success" %>
   <% else %>
-    <%= button_to 'Ré-ouvrir', {action:'reopen', id:@todo.id}, class:"alizarin-flat-button-mobile-fullsize" %>
+    <%= button_to 'Ré-ouvrir', {action:'reopen', id:@todo.id}, class:"btn btn-success" %>
   <% end %>  
 
   <br>
@@ -68,7 +68,7 @@
     <%= f.radio_button :audience, 2, checked:false, class:"big-radiobutton" %> le Client
     <%= f.radio_button :audience, 0, checked:false, class:"big-radiobutton" %> Tous
     <br><br>
-    <%= f.submit 'Publier', class:'alizarin-flat-button-mobile-fullsize' %>
+    <%= f.submit 'Publier', class:'btn btn-success' %>
   <% end %>
   <br><br>
 </div>

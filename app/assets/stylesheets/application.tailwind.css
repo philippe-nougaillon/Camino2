@@ -4,6 +4,11 @@
 
 
 @layer components {
+  h2{
+    @apply text-2xl font-bold
+  }
+
+
   #connexion{
     @apply p-8 border-2 rounded-xl mt-12
   }
