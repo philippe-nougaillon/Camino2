@@ -26,7 +26,7 @@
             <% else %>
               |
             <% end %>
-            <% if p.participants.where(user_id:session[:user_id]).any? %>
+            <% if p.participants.where(user_id:current_user.id).any? %>
               <%= link_to p.name, project_path(p) %>
             <% else %>
               <%= p.name %>

@@ -3,8 +3,8 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    user = User.find(session[:user_id])
-    @participants = user.account.participants.group(:user_id)
+    @user = current_user
+    @participants = @user.account.participants.group(:user_id)
   end
 
   # GET /users/1 or /users/1.json
@@ -26,6 +26,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        @account = Account.create(name:@user.username)
+        @account.users << @user
+
+        # notifier par mail le nouveau mot de passe 
+        Notifier.account_welcome_with_password(@account, @user, pass).deliver_later
+
         format.html { redirect_to user_url(@user), notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else

@@ -1,6 +1,4 @@
-require 'concerns/logmodule.rb'
-
-class Todo < ActiveRecord::Base
+class Todo < ApplicationRecord
 	include LogModule
 
 	acts_as_taggable

@@ -16,13 +16,13 @@ class TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
-    user = User.find(session[:user_id])
+    @user = current_user
     # test si l'utilisateur est le propriétaire du compte
-    if user != user.account.users.first
+    if @user != @user.account.users.first
         redirect_to root_path, notice: "Désolé mais vous n'êtes pas autorisé à afficher les tables..."
         return
     end
-    @tables = user.account.tables
+    @tables = @user.account.tables
   end
 
   # GET /tables/1
@@ -62,7 +62,7 @@ class TablesController < ApplicationController
   end
 
   def fill_do
-    user = User.find(session[:user_id])
+    @user = current_user
     data = params[:data]
     table = Table.find(params[:table_id])
     record_index = data.first.first
@@ -84,7 +84,7 @@ class TablesController < ApplicationController
 
       # ajout des données
       table.fields.each do |field|
-        @table.values.create(record_index:record_index, field_id:field.id, todo_id:todo.id, data:values[field.id.to_s], user_id:user.id, created_at:created_at_date )
+        @table.values.create(record_index:record_index, field_id:field.id, todo_id:todo.id, data:values[field.id.to_s], user_id:@user.id, created_at:created_at_date )
       end
       table.update_attributes(record_index:record_index) if not update
 
@@ -129,8 +129,8 @@ class TablesController < ApplicationController
   # POST /tables.json
   def create
     @table = Table.new(table_params)
-    user = User.find(session[:user_id])
-    @table.account = user.account
+    @user = current_user
+    @table.account = @user.account
 
     respond_to do |format|
       if @table.save

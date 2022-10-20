@@ -1,6 +1,4 @@
-require 'concerns/logmodule.rb'
-
-class Project < ActiveRecord::Base
+class Project < ApplicationRecord
 	include LogModule
 	extend SimpleCalendar
 

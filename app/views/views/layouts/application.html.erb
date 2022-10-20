@@ -15,7 +15,7 @@
 	    });
 	</script>
 
-	<% if session[:user_id] %>
+	<% if current_user.id %>
 		<div class="logout">
 			<%= link_to image_tag("close.png", size:'20x20'), logout_path, method: :delete %>
 			<%= link_to "Se déconnecter", logout_path, method: :delete %>

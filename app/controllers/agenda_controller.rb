@@ -11,9 +11,9 @@ class AgendaController < ApplicationController
   end
 
   def index
-    user = User.find(session[:user_id])
-    @projects = user.projects.where("duedate is not null")
-    @todos = user.todos.where("duedate is not null")
+    @user = current_user
+    @projects = @user.projects.where("duedate is not null")
+    @todos = @user.todos.where("duedate is not null")
     unless params[:search].blank?
     	@projects = @projects.where("name like ?", "%#{ params[:search]}%")
     end

@@ -16,16 +16,16 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    user = User.find(session[:user_id])
-    @todos = Todo.joins(:todolist).where("todolists.project_id in (?)", user.projects.pluck(:id)).order("todos.duedate")
+    @user = current_user
+    @todos = Todo.joins(:todolist).where("todolists.project_id in (?)", @user.projects.pluck(:id)).order("todos.duedate")
     @tags = @todos.tag_counts_on(:tags)
     
     unless params[:user].blank?
-      @todos = user.todos.undone.order("duedate")
+      @todos = @user.todos.undone.order("duedate")
     end
 
     unless params[:undone].blank? 
-      @todos = Todo.joins(:todolist).where("todolists.project_id in (?)", user.projects.pluck(:id)).undone.order("todos.duedate")
+      @todos = Todo.joins(:todolist).where("todolists.project_id in (?)", @user.projects.pluck(:id)).undone.order("todos.duedate")
     end
     
     unless params[:search].blank?
@@ -70,9 +70,10 @@ class TodosController < ApplicationController
   # GET /todos/1/edit
   def edit
     @project = @todo.project
-    @user = User.find(session[:user_id])
+    @user = current_user
     
     @comment = Comment.new
+    # TODO Améliorer le code
     @comment.todo_id = @todo.id
     @comment.user_id = @user.id
 
@@ -91,7 +92,7 @@ class TodosController < ApplicationController
         else
           @todo.id = 1
         end 
-        @todo.log_changes(:add, session[:user_id])
+        @todo.log_changes(:add, current_user.id)
         @todo.save
         
         # sauvegarde le document
@@ -119,7 +120,7 @@ class TodosController < ApplicationController
               .call(destination: path.join(filename + ".png"))
             end
 
-          @todo.log_changes(:document, session[:user_id])
+          @todo.log_changes(:document, current_user.id)
         end
 
         # si ajout + done coché en même temps
@@ -127,7 +128,7 @@ class TodosController < ApplicationController
           @todo.update_attributes(done:false)
           @todo.done = true 
           #logger.debug "DEBUG changes:#{@todo.changes}"
-          @todo.log_changes(:edit, session[:user_id]) 
+          @todo.log_changes(:edit, current_user.id) 
           @todo.save
         else
           # envoyer notification au participant à qui cette tâche est assignée
@@ -172,7 +173,7 @@ class TodosController < ApplicationController
             .convert("png")
             .call(destination: path.join(filename + ".png"))
         end
-        @todo.log_changes(:document, session[:user_id])
+        @todo.log_changes(:document, current_user.id)
     end  
 
     if @project.workflow? and @todo.done? # si workflow linéraire, vérifie que la todo peut être terminée
@@ -187,7 +188,7 @@ class TodosController < ApplicationController
       end
     end
 
-    @todo.log_changes(:edit, session[:user_id])
+    @todo.log_changes(:edit, current_user.id)
 
     respond_to do |format|
       if @todo.save(validate:false)
@@ -214,7 +215,7 @@ class TodosController < ApplicationController
   # DELETE /todos/1.json
   def destroy
     @todolist = @todo.todolist
-    @todo.log_changes(:delete, session[:user_id])
+    @todo.log_changes(:delete, current_user.id)
     File.delete(Rails.root.join('public', 'documents', @todo.docfilename)) if @todo.docfilename
     @todo.destroy
     respond_to do |format|
@@ -226,7 +227,7 @@ class TodosController < ApplicationController
   def close
     @todo = Todo.find(params[:id])
     @todo.done = true
-    @todo.log_changes(:edit, session[:user_id])
+    @todo.log_changes(:edit, current_user.id)
     @todo.save
     redirect_to @todo
   end
@@ -234,7 +235,7 @@ class TodosController < ApplicationController
   def reopen
     @todo = Todo.find(params[:id])
     @todo.done = false 
-    @todo.log_changes(:edit, session[:user_id])
+    @todo.log_changes(:edit, current_user.id)
     @todo.save
     redirect_to @todo
   end

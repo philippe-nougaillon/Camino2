@@ -60,7 +60,7 @@ class TodolistsController < ApplicationController
         else
           @todolist.id = 1
         end
-        @todolist.log_changes(:add, session[:user_id])
+        @todolist.log_changes(:add, current_user.id)
         @todolist.save
         format.html { redirect_to @todolist.project, notice: "'#{@todolist.name}' vient d'être ajouté au projet" }
         format.json { render action: 'show', status: :created, location: @todolist }
@@ -76,7 +76,7 @@ class TodolistsController < ApplicationController
   # PATCH/PUT /todolists/1.json
   def update
     @todolist.attributes = todolist_params
-    @todolist.log_changes(:edit, session[:user_id])
+    @todolist.log_changes(:edit, current_user.id)
 
     if @todolist.project.workflow? and @todolist.changes.include?('row') 
       logger.debug "DEBUG! #{@todolist.changes}"
@@ -99,7 +99,7 @@ class TodolistsController < ApplicationController
   # DELETE /todolists/1.json
   def destroy
     @project = @todolist.project
-    @todolist.log_changes(:delete, session[:user_id])
+    @todolist.log_changes(:delete, current_user.id)
     @todolist.destroy
     respond_to do |format|
       format.html { redirect_to @project }

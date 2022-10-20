@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   skip_before_action :authorize	
 
   def new
-    if session[:user_id]
+    if current_user.id
       redirect_to projects_path 
       return
     end
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   def create
   	user = User.find_by(username:params[:username])
   	if user and user.authenticate(params[:password]) 
-  		session[:user_id] = user.id
+  		current_user.id = user.id
       user.updated_at = DateTime.now
       user.save(validate: false)
       respond_to do |format|

@@ -4,13 +4,13 @@ class LogsController < ApplicationController
   # GET /logs
   # GET /logs.json
   def index
-    user = User.find(session[:user_id])
+    @user = current_user
 
     unless params[:project_id].blank?
       @project = Project.find(params[:project_id])
       @logs = @project.logs
     else
-      @logs = user.logs
+      @logs = @user.logs
     end
 
     unless params[:user].blank?

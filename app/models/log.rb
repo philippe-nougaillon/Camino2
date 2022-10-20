@@ -1,4 +1,4 @@
-class Log < ActiveRecord::Base
+class Log < ApplicationRecord
   belongs_to :project
   belongs_to :todolist
   belongs_to :user

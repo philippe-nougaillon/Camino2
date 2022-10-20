@@ -4,15 +4,15 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :save_as_template, :save_as_template_post, :invite, :send_invitation]
   before_action :tag_cloud
   
-  skip_before_action :authorize, only: :accepter
+  # skip_before_action :authorize, only: :accepter
 
   # GET /projects
   # GET /projects.json
   def index
-    user = User.find(session[:user_id])
-    @projects = user.projects
-    @logs = user.logs.except_comments.limit(5)
-    @comments = user.comments.limit(5)
+    @user = current_user
+    @projects = @user.projects
+    @logs = @user.logs.except_comments.limit(5)
+    @comments = @user.comments.limit(5)
     @tags = @projects.tag_counts_on(:tags)
 
     unless params[:search].blank?
@@ -48,8 +48,8 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
-    user = User.find(session[:user_id])
-    @account = user.account
+    @user = current_user
+    @account = @user.account
     @templates = @account.templates
     @participants = @account.users
     @tables = @account.tables
@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @account = User.find(session[:user_id]).account
+    @account = current_user.account
     @templates = @account.templates
     @participants = @account.users
     @tables = @account.tables
@@ -76,7 +76,7 @@ class ProjectsController < ApplicationController
       #logger.debug "DEBUG #{@project.inspect}"
     else  
       @project = Project.new(project_params)
-      @project.account_id = User.find(session[:user_id]).account_id
+      @project.account_id = current_user.account_id
     end  
 
     if @project.valid?
@@ -85,7 +85,7 @@ class ProjectsController < ApplicationController
         else
           @project.id = 1
         end
-        @project.log_changes(:add, session[:user_id])
+        @project.log_changes(:add, current_user.id)
         @project.save
         unless params[:template_id].blank? # ajoute les listes et tâches du modele
            to_except = ['id','done','duedate']
@@ -111,14 +111,14 @@ class ProjectsController < ApplicationController
               params[:participants].each do |user_id| 
                 @user = User.find(user_id)
                 @project.participants.create(user_id:user_id)
-                Log.create(project_id:@project.id, user_id:session[:user_id], action_id:0, description:"ajouté le participant '#{@user.username}'")
+                Log.create(project_id:@project.id, user_id:current_user.id, action_id:0, description:"ajouté le participant '#{@user.username}'")
                 if params[:welcome_message]
                   Notifier.welcome_existing_user(@project, @user).deliver_later
                 end
               end
           else
               # il faut au moins un participant (ici, le créateur du projet)
-              @project.participants.create(user_id:session[:user_id])
+              @project.participants.create(user_id:current_user.id)
           end
         end
         redirect_to @project, notice: "Le projet '#{@project.name}' vient d'être ajouté"
@@ -132,7 +132,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       @project.attributes = project_params
-      @project.log_changes(:edit, session[:user_id])
+      @project.log_changes(:edit, current_user.id)
       if @project.save(validates:false)
           if params[:participants]
             #logger.debug "DEBUG params_participants:#{params[:participants].inspect} class:#{params[:participants].class}"
@@ -142,7 +142,7 @@ class ProjectsController < ApplicationController
             diff = params[:participants] - participants
             diff.each do |participant_ajout_id|
               @project.participants.create(user_id:participant_ajout_id)
-              Log.create(project_id:@project.id, user_id:session[:user_id], action_id:1, 
+              Log.create(project_id:@project.id, user_id:current_user.id, action_id:1, 
                 description:"ajouté le participant <b>#{User.find(participant_ajout_id).name}</b> au projet <a href='/projects/#{@project.id}'>#{@project.name}</a>")
             end  
 
@@ -150,7 +150,7 @@ class ProjectsController < ApplicationController
             diff = participants - params[:participants] 
             diff.each do |participant_supprime_id|
               @project.participants.find_by(user_id:participant_supprime_id).destroy
-              Log.create(project_id:@project.id, user_id:session[:user_id], action_id:1, 
+              Log.create(project_id:@project.id, user_id:current_user.id, action_id:1, 
                 description:"enlevé le participant <b>#{User.find(participant_supprime_id).name}</b> au projet <a href='/projects/#{@project.id}'>#{@project.name}</a>")
             end  
        end
@@ -166,7 +166,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project.log_changes(:delete, session[:user_id])
+    @project.log_changes(:delete, current_user.id)
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url }
@@ -186,7 +186,7 @@ class ProjectsController < ApplicationController
         participants_js = @project.participants.to_json
         todolists_js = @project.todolists.to_json
         todos_js = @project.todos.to_json
-        account_id = User.find(session[:user_id]).account_id
+        account_id = current_user.account_id
         Template.create(account_id:account_id, name:params[:name], project:project_js, participants:participants_js, todolists:todolists_js, todos:todos_js)
         redirect_to @project, notice:"Modèle '#{params[:name]}' créé avec succès"
     else    
@@ -219,7 +219,7 @@ class ProjectsController < ApplicationController
         end  
         @project.participants.create(user_id:user.id, client:true)
       else
-        @user = User.find(session[:user_id])
+        @user = current_user
         Notifier.invite(@project, @user, params[:courriel]).deliver_later_now
         # ajoute à l'activité 
         Log.create(project_id:@project.id, user_id:@user.id, action_id:1, 
@@ -233,39 +233,39 @@ class ProjectsController < ApplicationController
     render action: 'invite'
   end
 
-  def accepter
-    mail_invite = params[:q] 
-    project = Project.find(params[:p]) 
-    user_qui_invite = User.find(params[:u])
+  # def accepter
+  #   mail_invite = params[:q] 
+  #   project = Project.find(params[:p]) 
+  #   user_qui_invite = User.find(params[:u])
 
-    unless User.find_by(email:mail_invite)
-      # username = partie avant le @ du mail
-      username = mail_invite.split('@').first
-      # créer un mot de passe
-      pass = random_password
-      # créer un user
-      user = User.create(name:username, username:username, email:mail_invite, password:pass, password_confirmation:pass,
-                          account_id:user_qui_invite.account_id)
-      # notifier par mail du mot de passe 
-      Notifier.welcome(user, pass, project).deliver_later_now
-      flash[:notice] = "Vos informations de connexion viennent d'être envoyées sur #{mail_invite} ..."
-    else
-      user = User.find_by(email:mail_invite)
-    end  
+  #   unless User.find_by(email:mail_invite)
+  #     # username = partie avant le @ du mail
+  #     username = mail_invite.split('@').first
+  #     # créer un mot de passe
+  #     pass = random_password
+  #     # créer un user
+  #     user = User.create(name:username, username:username, email:mail_invite, password:pass, password_confirmation:pass,
+  #                         account_id:user_qui_invite.account_id)
+  #     # notifier par mail du mot de passe 
+  #     Notifier.welcome(user, pass, project).deliver_later_now
+  #     flash[:notice] = "Vos informations de connexion viennent d'être envoyées sur #{mail_invite} ..."
+  #   else
+  #     user = User.find_by(email:mail_invite)
+  #   end  
 
-    # ajouter le user comme un participant au projet
-    unless project.participants.where(user_id:user.id).any? 
-      project.participants.create(user_id:user.id)
+  #   # ajouter le user comme un participant au projet
+  #   unless project.participants.where(user_id:user.id).any? 
+  #     project.participants.create(user_id:user.id)
 
-      # ajoute à l'activité 
-      Log.create(project_id:project.id, user_id:user_qui_invite.id, action_id:1, 
-                description:"ajouté le participant <b>#{username}</b> au projet '<a href='/projects/#{project.id}'>#{project.name}</a>'")
+  #     # ajoute à l'activité 
+  #     Log.create(project_id:project.id, user_id:user_qui_invite.id, action_id:1, 
+  #               description:"ajouté le participant <b>#{username}</b> au projet '<a href='/projects/#{project.id}'>#{project.name}</a>'")
     
-      flash[:notice] = "participant ajouté..."  
-    end  
+  #     flash[:notice] = "participant ajouté..."  
+  #   end  
 
-    redirect_to projects_path   
-  end
+  #   redirect_to projects_path   
+  # end
 
   def tag_cloud
     #@tags = @projects.tag_counts_on(:tags)

@@ -6,8 +6,8 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.json
   def index
-    user = User.find(session[:user_id])
-    @templates = user.account.templates
+    @user = current_user
+    @templates = @user.account.templates
   end
 
   # GET /templates/1

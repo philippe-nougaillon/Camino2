@@ -1,7 +1,5 @@
-require 'concerns/logmodule.rb'
-
-class Todolist < ActiveRecord::Base
-  	include LogModule
+class Todolist < ApplicationRecord
+  include LogModule
 
   	belongs_to :project
   	has_many :todos, dependent: :destroy

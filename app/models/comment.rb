@@ -1,6 +1,4 @@
-require 'concerns/logmodule.rb'
-
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
 	include LogModule
 
 	belongs_to :todo

@@ -6,12 +6,12 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    user = User.find(session[:user_id])
+    @user = current_user
     unless params[:project_id].blank?
       @project = Project.find(params[:project_id])
       @comments = @project.comments.order('created_at DESC')
     else
-      @comments = user.comments.order('created_at DESC')
+      @comments = @user.comments.order('created_at DESC')
     end
 
     unless params[:search].blank?
@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        @comment.log_changes(:comment, session[:user_id])
+        @comment.log_changes(:comment, current_user.id)
         format.json { render action: 'show', status: :created, location: @comment }
         format.html do |variant|
           variant.phone {redirect_to todo_path(@comment.todo), notice: 'Commentaire ajouté'} 

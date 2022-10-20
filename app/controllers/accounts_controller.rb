@@ -8,7 +8,7 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
-    if session[:user_id] == 1
+    if current_user.id == 1
       @accounts = Account.joins(:users).order("users.updated_at DESC")
     else
       redirect_to root_url
@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         user = @account.users.last
-        session[:user_id] = user.id 
+        current_user.id = user.id 
         Notifier.account_welcome(@account, user).deliver_later
 
         format.html { redirect_to projects_path, notice: 'Bienvenue...' }

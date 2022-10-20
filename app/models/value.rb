@@ -1,4 +1,4 @@
-class Value < ActiveRecord::Base
+class Value < ApplicationRecord
 	belongs_to :field
   	belongs_to :table
   	belongs_to :todo

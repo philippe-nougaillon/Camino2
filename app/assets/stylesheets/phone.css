@@ -1,0 +1,149 @@
+.mobile {
+  font-family: 'Oswald', sans-serif;
+  font-size: 37px;
+}
+.mobile img {
+  vertical-align: middle;
+}
+.mobile a {
+  text-decoration: none;
+  color: grey;
+}
+.mobile a:active {
+  text-decoration: none;
+  color: #005f5f;
+  border-bottom: 5px solid #005f5f;
+}
+.mobilenav ul {
+  list-style: none;
+  text-align: left;
+  padding: 3em 0;
+  margin: 0;
+  height: 50px;
+}
+.mobilenav li {
+  font-family: 'Oswald', sans-serif;
+  font-size: 60px;
+  display: inline;
+}
+.mobilenav a {
+  text-decoration: none;
+  color: grey;
+  padding: 20px 20px;
+}
+.mobilenav a.active {
+  color: #005f5f;
+  text-decoration: none;
+  border-bottom: 10px solid #005f5f;
+}
+.alizarin-flat-button-phone {
+  position: relative;
+  vertical-align: top;
+  border: 0;
+  width: 80%;
+  height: 150px;
+  padding: 0;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background: #19ab58;
+}
+.alizarin-flat-button-mobile-fullsize {
+  position: relative;
+  vertical-align: top;
+  border: 0;
+  width: 100%;
+  height: 150px;
+  padding: 0;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background: #19ab58;
+}
+.orange-button-mobile-fullsize {
+  display: inline-block;
+  vertical-align: top;
+  border: 0;
+  width: 96%;
+  margin: 5px 5px;
+  height: 100px;
+  padding: 15px 15px;
+  color: white;
+  text-align: center;
+  background: #ff9100;
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 55px;
+}
+.notice_box {
+  margin: 5px 5px;
+  color: #ff9100;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 55px;
+}
+.mobile-field {
+  margin-top: 30px;
+}
+.mobile_textfield {
+  font-weight: bold;
+  font-size: 60px;
+  border: 1px solid #ddd;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  width: 100%;
+}
+.mobile_textfield:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+.mobile_textarea {
+  font-weight: bold;
+  font-size: 50px;
+  width: 100%;
+  height: 350px;
+}
+.big-radiobutton {
+  width: 50px;
+  height: 50px;
+}
+.mini_avatar-phone {
+  border-radius: 40px;
+  width: 100px;
+  height: 100px;
+}
+.hidden {
+  display: none;
+}
+/* CALENDAR =============================================== */
+.phone-calendar tr:nth-child(odd) {
+  background: #f0f0f5;
+}
+table.phone-calendar {
+  table-layout: fixed;
+  width: 100%;
+}
+.phone-calendar-header {
+  font-size: 70px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.phone-calendar-day {
+  font-size: 40px;
+  height: 200px;
+  width: 14.28%;
+  border: 1px solid grey;
+  vertical-align: top;
+  padding-bottom: 10px;
+  overflow: hidden;
+}
