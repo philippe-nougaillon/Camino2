@@ -28,17 +28,10 @@
 
 # Installation
 
-Camino est une application <a href="http://rubyonrails.org/">Ruby On Rails 4</a>. 
+CaminoV2 est une application <a href="http://rubyonrails.org/">Ruby On Rails 7</a>. 
 
-Pour pouvoir executer l'application vous devez installer d'abord RoR 4 sur votre serveur pour ensuite copier les sources à partir de ce répertoire et lancer l'application en utilisant le processus classique:
+Pour pouvoir executer l'application vous devez installer d'abord RoR 7 sur votre serveur pour ensuite copier les sources à partir de ce répertoire et lancer l'application en utilisant le processus classique:
 
 * bundle install
-* rake db:setup
+* rails db:setup
 * rails s
-
-# Version en ligne
-
-Une version en ligne est disponible <a href="http://camino.philnoug.com">ici.</a>
-
-
-
