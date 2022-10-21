@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-	include LogModule
+	include LogConcern
 
 	belongs_to :todo
 	belongs_to :user

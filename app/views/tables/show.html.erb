@@ -45,7 +45,7 @@
 							<td style="color:lightgray;"><%= l(record.created_at, format: :compact) %></td>
 							<td style="color:lightgray;"><%= l(record.updated_at, format: :compact) %></td>
 							<td style="color:lightgray;">
-								<%# <%= image_tag(record.user.avatar.url(:thumb), alt:'', class:"mini_avatar") if record.user %>
+								<%# image_tag(record.user.avatar.url(:thumb), alt:'', class:"mini_avatar") if record.user %>
 								<%= record.user.username if record.user %></td>
 							<td><%= link_to image_tag("modif.png"), fill_url(@table.id, record_index:index) %></td>
 							<td><%= link_to "[X]", delete_record_url(@table.id, record_index:index), method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -67,7 +67,7 @@
 		<br>
 	<% end %>
 	<br>
-	<%= link_to "Ajouter un(e) #{@table.name}", fill_url(@table.id) %>
+	<%= link_to "Ajouter un(e) #{@table.name}", fill_url(@table.id), class:'btn btn-success' %>
 <% else %>
 	<% unless params[:attrs] %>
 		Cette table n'a pas encore d'attributs... 

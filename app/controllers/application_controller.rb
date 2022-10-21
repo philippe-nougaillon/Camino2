@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :detect_device_format
+  before_action :set_layout_variables
 
   protected
 
@@ -14,6 +15,7 @@ class ApplicationController < ActionController::Base
   def set_layout_variables
     @sitename ||= "Camino"
     @sitename.concat(" v2.0") 
+    @ctrl = params[:controller]
   end
 
   def detect_device_format

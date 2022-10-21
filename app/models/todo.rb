@@ -1,5 +1,5 @@
 class Todo < ApplicationRecord
-	include LogModule
+	include LogConcern
 
 	acts_as_taggable
 

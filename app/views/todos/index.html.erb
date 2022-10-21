@@ -1,9 +1,9 @@
-<h1>To-do</h1>
+<h1 class="text-2xl">To-do</h1>
 
 <% if @tags.any? %>
   Tags:
-  <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-    <%= link_to(tag.name, todos_path(tag:tag.name)) %>
+  <% tag_cloud(@tags, ['badge badge-lg', 'badge', 'badge badge-sm', 'badge badge-xs']) do |tag, css_class| %>
+    <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
   <% end %>
 <% end %>
 <br><br>

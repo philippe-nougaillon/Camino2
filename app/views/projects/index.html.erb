@@ -1,9 +1,13 @@
-<h1>Projets <%= link_to image_tag("new.png"), new_project_path, title:'Ajouter un projet' %></h1>
+<h1>Projets
+<%= link_to new_project_path, title:'Ajouter un projet' do %>
+  <div class="badge badge-outline rounded badge-lg">+</div>
+<% end %>
+</h1>
 
 <% if @tags.any? %>
   Tags:
-  <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-    <%= link_to(tag.name, projects_path(tag:tag.name), :class => css_class) %>
+  <% tag_cloud(@tags, ['badge badge-lg', 'badge', 'badge badge-sm', 'badge badge-xs']) do |tag, css_class| %>
+    <%= link_to(tag.name, projects_path(tag:tag.name), class: css_class) %>
   <% end %>
   <br><br>
 <% end %>
@@ -45,10 +49,12 @@
           </td>
           <td>
             <% project.participants.each do |participant| %>
-              <%# <%= image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar" %>
+              <%# image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar" %>
               <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
             <% end %>
-            <%= link_to image_tag("new.png", size:'15x15', title:'Inviter un nouveau participant'), invite_path(id:project.id) %>
+            <%= link_to invite_path(id:project.id), title:'Inviter un nouveau participant' do %>
+              <div class="badge badge-outline rounded badge-lg">+</div>
+            <% end %>
           </td>
           <td style="color:lightgrey"><%= "Il y a #{time_ago_in_words(project.last_update)}" if project.logs.any? %></td>
         </tr>
@@ -60,7 +66,13 @@
   <% unless params[:search].blank? %>
     <i>Aucun projet à afficher...</i>
   <% else %>
-    <i>Vous ne participez à aucun projet actuellement. Cliquez sur  <%= link_to image_tag("new.png"), new_project_path %> pour ajouter un projet.</i>
+    <i>
+      Vous ne participez à aucun projet actuellement. Cliquez sur  
+      <%= link_to new_project_path do %>
+        <div class="badge badge-outline rounded badge-lg">+</div>
+      <% end %>
+      pour ajouter un projet.
+    </i>
   <% end %>
   <br>
 <% end %>

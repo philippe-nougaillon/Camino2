@@ -1,19 +1,8 @@
 <% if user_signed_in? %>
-  <div class="logout">
-    <%= link_to image_tag("close.png", size:'20x20'), logout_path, method: :delete %>
-    <%= link_to "Se déconnecter", logout_path, method: :delete %>
-  </div>
-
-  <% unless current_user.account.logo_file_name.nil? %>
-    <%= link_to image_tag(current_user.account.logo.url(:thumb)), projects_path %>
-  <% else %>
-    <%= link_to image_tag("camino_wf_logo.png", width:70), projects_path %>
-  <% end %>
-
-  <div class="search">
+  <div class="float-right">
     <%= form_tag(@search_filter, url: 'index', method: :get) do %>
-      <%= text_field_tag :search, params[:search], :class => "searchfield" %>
-      <%= submit_tag  "", class: "searchbutton" %>
+      <%= text_field_tag :search, params[:search], class:"input input-sm", placeholder: "Rechercher" %>
+      <%= submit_tag  "", class: "" %>
     <% end %>
   </div>
   <div class="nav">

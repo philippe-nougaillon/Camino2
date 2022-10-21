@@ -1,5 +1,5 @@
 .calendar tr:nth-child(odd) {
-	background: #f0f0f5;
+	background: red;
 }
 
 
@@ -19,9 +19,6 @@ table.calendar { table-layout:fixed; width:100%; }
 	vertical-align:top;
 	padding-bottom:10px;
 	overflow: hidden;
-}
-
-#date {
 }
 
 .prev-month {

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module LogModule
+module LogConcern
   extend ActiveSupport::Concern
 
   def log_changes(action_id, user_id)
@@ -135,7 +135,7 @@ module LogModule
         end
       end    
     end
-  end  
+  end
 
 end
 

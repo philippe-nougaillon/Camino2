@@ -1,5 +1,5 @@
 class Todolist < ApplicationRecord
-  include LogModule
+  include LogConcern
 
   	belongs_to :project
   	has_many :todos, dependent: :destroy

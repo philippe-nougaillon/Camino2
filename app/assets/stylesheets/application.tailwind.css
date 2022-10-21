@@ -4,8 +4,12 @@
 
 
 @layer components {
+
+  h1{
+    @apply !text-3xl !font-bold
+  }
   h2{
-    @apply text-2xl font-bold
+    @apply !text-2xl !font-bold
   }
 
 

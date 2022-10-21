@@ -20,8 +20,5 @@
 		</div>
 	<% end %>
 	<%= yield %>
-	<% unless request.host == 'localhost' %>
-	   <%= render "layouts/ga" %>
-   <% end %>
 </body>
 </html>

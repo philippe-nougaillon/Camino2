@@ -1,5 +1,5 @@
 class Project < ApplicationRecord
-	include LogModule
+	include LogConcern
 	extend SimpleCalendar
 
 	acts_as_taggable
