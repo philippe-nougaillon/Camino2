@@ -13,7 +13,7 @@
 <% end %>
 
 <% if @projects.any? %>
-  <table class="table">
+  <table class="table table-normal">
     <thead>
       <tr>
         <th />
@@ -29,7 +29,7 @@
     <tbody>
       <% @projects.each do |project| %>
         <tr>
-          <td style="background-color:<%= project.color %>;padding-left: 7px;"></td>
+          <td style="background-color:<%= project.color %>;padding-left: 1px;"></td>
           <td>
             <%= link_to project.name, project, class: 'bold-title' %>
             <br>
@@ -81,7 +81,7 @@
 <% if @logs.any? %>
   <br>
   <hr class="style-two">
-  <h3>Activité</h3>
+  <h2>Activité</h2>
   <table id="logs">
     <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
   </table>

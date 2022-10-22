@@ -9,14 +9,14 @@
 <br><br>
 
 Afficher les opérations: 
-<%= link_to_unless params[:user],"A faire", todos_path(user:@user.id), title:"Affiche les opérations non terminées qui vous sont assignées" %> |
-<%= link_to_unless params[:undone],"En attente", todos_path(undone:true), title:"Affiche toutes opérations non terminées"  %> |
-<%= link_to_unless params[:notify], "A notifier", todos_path(notify:1), title:"Affiche les opérations non terminées et arrivées à échéance" %> |
-<%= link_to_if (params[:user] or params[:undone] or params[:notify]), "Toutes", todos_path %>
+<%= link_to_unless params[:user],"A faire", todos_path(user:@user.id), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
+<%= link_to_unless params[:undone],"En attente", todos_path(undone:true), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
+<%= link_to_unless params[:notify], "A notifier", todos_path(notify:1), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
+<%= link_to_if (params[:user] or params[:undone] or params[:notify]), "Toutes", todos_path, class: 'link' %>
 <br><br>
 
 <% if @todos.any? %>
-  <table class="table">
+  <table class="table table-normal">
     <thead>
       <tr style="color:lightgray;">
         <th>Fait?</th>

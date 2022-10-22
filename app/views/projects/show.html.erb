@@ -44,7 +44,7 @@
 <% end %>
 <br><br>
 
-<table class="table">
+<table class="table table-normal">
 	<thead>
 		<th><%= @project.workflow? ? 'Phases' : 'To-do' %></th>
 		<th>Tâches</th>
@@ -70,7 +70,7 @@
 <% if @logs.any? %>
 	<br>
 	<hr class="style-two">
-	<h3>Activité</h3>
+	<h2>Activité</h2>
 	<% if @logs.any? %> 
 		<table id="logs">
 			<%= render partial:'logs/log', collection: @logs, :day => 0 %>

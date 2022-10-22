@@ -36,7 +36,7 @@ class TablesController < ApplicationController
 
     respond_to do |format|
       format.html 
-      # format.xls { headers["Content-Disposition"] = "attachment; filename=\"#{@table.name}-#{l(DateTime.now, format: :compact)}\"" }
+      format.xls { headers["Content-Disposition"] = "attachment; filename=\"#{@table.name}-#{l(DateTime.now, format: :compact)}\"" }
     end 
   end
 
