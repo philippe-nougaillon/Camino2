@@ -65,8 +65,9 @@ class TablesController < ApplicationController
     @user = current_user
     data = params[:data]
     table = Table.find(params[:table_id])
-    record_index = data.first.first
+    record_index = data.keys.first
     values = data[record_index.to_s]
+
     unless params[:todo_id].blank?
       todo = Todo.find(params[:todo_id])
     else
@@ -77,6 +78,7 @@ class TablesController < ApplicationController
 
       # modification = si données existent déjà, on les supprime pour pouvoir ajouter les données modifiées 
       update = table.values.where(record_index:record_index).any?
+      
       if update 
         created_at_date = table.values.where(record_index:record_index).first.created_at
         table.values.where(record_index:record_index).destroy_all 
@@ -84,9 +86,17 @@ class TablesController < ApplicationController
 
       # ajout des données
       table.fields.each do |field|
-        @table.values.create(record_index:record_index, field_id:field.id, todo_id:todo.id, data:values[field.id.to_s], user_id:@user.id, created_at:created_at_date )
+        record = table.values.new(record_index: record_index, 
+                                  field_id: field.id, 
+                                  todo_id: todo.id, 
+                                  data: values[field.id.to_s], 
+                                  user_id: @user.id, 
+                                  created_at: created_at_date )
+        record.save
       end
-      table.update_attributes(record_index:record_index) if not update
+      
+      # incrémenter le nombre d'enregistrements
+      table.update(record_index:record_index) if not update
 
       flash[:notice] = "Enregistrement #{update ? "modifié" : "ajouté"}"
     else

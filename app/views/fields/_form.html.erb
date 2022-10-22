@@ -31,9 +31,9 @@
     <%= f.hidden_field :table_id %>
 
     <%= f.label :name, @field.new_record? ? "Ajouter un nouvel attribut" : "Nom de l'attribut" %><br>
-    <%= f.text_field :name %>
-    <%= f.select :datatype, options_for_select(Field.datatypes.keys.to_a, @field.datatype) %>
-    <%= f.text_field :items  %>
+    <%= f.text_field :name, class: 'input input-bordered' %>
+    <%= f.select :datatype, options_for_select(Field.datatypes.keys.to_a, @field.datatype), {}, class: 'input input-bordered' %>
+    <%= f.text_field :items, class: 'input input-bordered'  %>
     
     <%= f.submit @field.new_record? ? "Ajouter" : "Modifier", class:'btn btn-active btn-ghost' %>
   </div>

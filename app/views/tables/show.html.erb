@@ -71,7 +71,7 @@
 <% else %>
 	<% unless params[:attrs] %>
 		Cette table n'a pas encore d'attributs... 
-		<%= link_to "Ajouter des attributs", show_attrs_path(id:@table) %>
+		<%= link_to "Ajouter des attributs", show_attrs_path(id:@table), class: 'link' %>
 	<% end %>
 <% end %>
 <br><br>

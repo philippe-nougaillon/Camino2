@@ -88,7 +88,8 @@
       </div>
       <small><i>Pour associer ce projet à une table de données</i></small>
     <% else %>
-      <small><i>Pour associer ce projet à une table de données. Il n'y a pas de table actuellement. Voulez-vous ajouter une <%= link_to 'Nouvelle Table', new_table_path %> ?</i></small>
+      <small><i>Pour associer ce projet à une table de données. Il n'y a pas de table actuellement. Voulez-vous ajouter une 
+      <%= link_to 'Nouvelle Table', new_table_path, class: 'link' %> ?</i></small>
     <% end %>
   <% end %>
 

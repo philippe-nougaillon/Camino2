@@ -43,7 +43,7 @@
       </div>
 
       <% if @table %>
-        <%= link_to "Ajouter un(e) #{@table.name}", fill_url(@table.id, todo_id:@todo) %>
+        <%= link_to "Ajouter des données dans #{@table.name}", fill_url(@table.id, todo_id:@todo), class: 'link' %>
         <br>
       <% end %>
       <br>
