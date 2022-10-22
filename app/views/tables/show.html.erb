@@ -67,7 +67,7 @@
 		<br>
 	<% end %>
 	<br>
-	<%= link_to "Ajouter un(e) #{@table.name}", fill_url(@table.id), class:'btn btn-success' %>
+	<%= link_to "Ajouter un(e) #{@table.name}", fill_url(@table.id), class:'btn btn-active btn-ghost' %>
 <% else %>
 	<% unless params[:attrs] %>
 		Cette table n'a pas encore d'attributs... 

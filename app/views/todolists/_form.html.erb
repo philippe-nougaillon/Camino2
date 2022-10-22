@@ -31,6 +31,6 @@
       <%= f.date_field :duedate, size:5, value:(@todolist.duedate ? @todolist.duedate : nil) %>
     </div>
     <div class="actions">
-        <%= f.submit @todolist.new_record? ? "Ajouter" : "Valider", class: 'btn btn-success' %>
+        <%= f.submit @todolist.new_record? ? "Ajouter" : "Valider", class: 'btn btn-active btn-ghost' %>
     </div>
 <% end %>

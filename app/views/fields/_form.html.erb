@@ -35,6 +35,6 @@
     <%= f.select :datatype, options_for_select(Field.datatypes.keys.to_a, @field.datatype) %>
     <%= f.text_field :items  %>
     
-    <%= f.submit @field.new_record? ? "Ajouter" : "Modifier", class:'btn btn-success' %>
+    <%= f.submit @field.new_record? ? "Ajouter" : "Modifier", class:'btn btn-active btn-ghost' %>
   </div>
 <% end %>

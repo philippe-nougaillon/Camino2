@@ -174,7 +174,7 @@ hr.style-two {
   background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0));
 }
 /* #Alizarin Flat Button ==================================================*/
-.btn btn-success {
+.btn btn-active btn-ghost {
   position: relative;
   vertical-align: top;
   width: 160px;
@@ -188,7 +188,7 @@ hr.style-two {
   border: 0;
   cursor: pointer;
 }
-.btn btn-success:active {
+.btn btn-active btn-ghost:active {
   top: 1px;
   outline: none;
   -webkit-box-shadow: none;
