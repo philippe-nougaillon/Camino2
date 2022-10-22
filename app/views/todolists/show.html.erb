@@ -1,7 +1,9 @@
-<h2>
+<h2 class="mb-6">
 	<span style="background-color:<%= @todolist.project.color %>;padding-left: 7px;margin-right: 7px;"></span>
 	<%= link_to @todolist.project.name, @todolist.project %> : <%= @todolist.name %>
-	<%= link_to image_tag("modif.png"), edit_todolist_path(@todolist), title:'Modifier' %> 
+	<%= link_to edit_todolist_path(@todolist), title:'Modifier' do %>
+		  <span><%= image_tag("modif.png") %><span>
+	<% end %> 
 </h2>
 
 <% if @todolist.todos.any? %>
@@ -14,6 +16,7 @@
 				<th>Echéance</th>
 				<th>Document</th>
 				<th>Tags</th>
+				<th colspan="3"></th>
 			</tr>
 		</thead>
 		<%= render partial:'todos/todo', collection: @todolist.todos %>
@@ -29,7 +32,9 @@
 <% if @todolist.logs.any? %>
 	<br>
 	<hr class="style-two">
-	<h3>Activité</h3>
+	<h2 class="mt-6">
+		Activité
+	</h2>
 	<table id="logs">
 	  	<%= render partial:'logs/log', collection:@todolist.logs.limit(15) %>
 	</table>

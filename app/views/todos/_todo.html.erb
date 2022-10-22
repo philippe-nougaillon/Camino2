@@ -1,6 +1,6 @@
 <%= form_for(todo) do |f| %>
 <tr>
-	<td><%= f.check_box :done, :onclick => "this.form.commit.click();" %></td>
+	<td><%= f.check_box :done, :onclick => "this.form.commit.click();", class: 'checkbox checkbox-sm' %></td>
 	<td>
 		<% unless todo.done %>
 			<b><%= todo.name %></b>

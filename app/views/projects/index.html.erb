@@ -1,7 +1,8 @@
-<h1>Projets
-<%= link_to new_project_path, title:'Ajouter un projet' do %>
-  <div class="badge badge-outline rounded badge-lg">+</div>
-<% end %>
+<h1 class="mb-6">
+  Projets
+  <%= link_to new_project_path, title:'Ajouter un projet' do %>
+    <div class="badge badge-outline rounded badge-lg">+</div>
+  <% end %>
 </h1>
 
 <% if @tags.any? %>
@@ -81,7 +82,9 @@
 <% if @logs.any? %>
   <br>
   <hr class="style-two">
-  <h2>Activité</h2>
+  <h2 class="mt-6">
+    Activité
+  </h2>
   <table id="logs">
     <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
   </table>

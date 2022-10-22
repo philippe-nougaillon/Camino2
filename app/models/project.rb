@@ -15,8 +15,8 @@ class Project < ApplicationRecord
 	has_many :users, through: :participants
 	has_many :logs
 
-    validates :name, presence: true
-    validates :workflow, presence: true
+  validates :name, presence: true
+  validates :workflow, presence: true
 
 	def pct_avancee 
 		unless self.todos.count.zero?

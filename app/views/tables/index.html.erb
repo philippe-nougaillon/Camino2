@@ -1,4 +1,6 @@
-<h1>Tables</h1>
+<h1 class="mb-6">
+  Tables
+</h1>
 
 <% unless @tables.any? %>
   <i><small>Créez une table de données pour collecter des informations complémentaires aux projets. Ces données pourront être saisie à tout moment où lors de la clôture d'une opération.</small></i> 
@@ -10,11 +12,11 @@
     <thead>
       <tr>
         <th>Nom</th>
-        <th>Attributs</th>
         <th>Utilisée par les projets</th>
         <th>Nbr enregistrements</th>
         <th>Dernière mise à jour</th>
-        <th colspan="2"></th>
+        <th>Attributs</th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
@@ -28,10 +30,6 @@
       <% @tables.each do |table| %>
         <tr>
           <td><b><%= link_to table.name, table %></b></td>
-          <td>
-            <%= link_to table.fields.count, table_path(table, attrs:1), 
-                    title:"#{table.fields.any? ? "Modifier les" : "Ajouter des"} attributs: #{table.fields.pluck(:name).join(", ")}" %>
-          </td>
           <td>
               <% table.projects.order(:name).each do |p| %>
                 <% if p.color %>
@@ -49,7 +47,16 @@
           <td><%= table.size %></td>
           <td style="color:lightgray;"><%= "Il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>
           <td>
-              <%= link_to_if table.values.any?,image_tag('excel_logo.png', size:'25x25'), table_path(table, format:'xls'), title:'Export Excel' %>
+            <%= link_to table.fields.count, 
+                        table_path(table, attrs:1), 
+                        title:"#{table.fields.any? ? "Modifier les" : "Ajouter des"} attributs: #{table.fields.pluck(:name).join(", ")}",
+                        class: 'link' %>
+          </td>
+          <td>
+              <%= link_to_if table.values.any?, 
+                              image_tag('excel_logo.png', size:'25x25'), 
+                              table_path(table, format:'xls'), 
+                              title:'Export Excel' %>
           </td>
           <td><%= link_to image_tag("modif.png"), table_path(table, attrs:1), title:"Modifier les attributs de la table" %></td>
           <td><%= link_to '[X]', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -60,4 +67,4 @@
   <br>
 <% end %>
 
-<%= link_to 'Nouvelle Table', new_table_path, class:'btn btn-active btn-ghost' %>
+<%= link_to 'Créer une nouvelle Table', new_table_path, class:'btn btn-active btn-ghost' %>
