@@ -16,11 +16,11 @@
         <li><%= link_to "Documents", documents_index_path, class:(@ctrl == 'documents' ? 'active':'') %></li>
         <li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'active':'') %></li>
         <li><%= link_to truncate(current_user.username, length: 12), current_user, class:(@ctrl == 'users' ? 'active':'') %></li>
-        <li data-turbo="false">
+        <div class="float-right mt-2 mr-6" data-turbo="false">
           <%= button_to destroy_user_session_path, method: :delete, form_class:'w-full text-slate-400' do %>
             Déconnexion
           <% end %>
-        </li>
+        </div>
       </ul>
     </div>
   </nav>

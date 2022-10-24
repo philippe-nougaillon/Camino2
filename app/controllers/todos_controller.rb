@@ -125,7 +125,7 @@ class TodosController < ApplicationController
 
         # si ajout + done coché en même temps
         if todo_params[:done] == '1'
-          @todo.update_attributes(done:false)
+          @todo.update(done:false)
           @todo.done = true 
           #logger.debug "DEBUG changes:#{@todo.changes}"
           @todo.log_changes(:edit, current_user.id) 
@@ -197,7 +197,7 @@ class TodosController < ApplicationController
             # envoyer un mail pour prévenir d'une tâche à faire
             next_todo = @project.current_todolist.next_todo
             #logger.debug "DEBUG next_todo: #{next_todo.inspect}"
-            if next_todo.user 
+            if next_todo && next_todo.user 
               Notifier.next_todo(next_todo).deliver_later
             end
         end      

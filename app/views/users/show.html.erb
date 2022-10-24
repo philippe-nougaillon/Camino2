@@ -23,11 +23,11 @@
   <%= @user.account.hostname %>
 </p>
 
-<p>
-  <%= link_to "Modifier", edit_account_path(@user.account) %> | 
-  <%= link_to "Voir les participants", users_path %> |
-  <%= link_to "Voir les modèles", templates_path %> |
-  <%= link_to "Voir les documents", documents_index_path %>
+<p class="mt-4">
+  <%= link_to "Modifier", edit_account_path(@user.account), class:"link" %> | 
+  <%= link_to "Voir les participants", users_path, class:"link" %> |
+  <%= link_to "Voir les modèles", templates_path, class:"link" %> |
+  <%= link_to "Voir les documents", documents_index_path, class:"link" %>
 </p>
 <br>
 

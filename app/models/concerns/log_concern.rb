@@ -98,7 +98,7 @@ module LogConcern
     msg += " #{changes}" if action_id ==:edit and changes.any? # show changes 
 
 
-   logger.debug "DEBUG msg:#{msg}"
+    logger.debug "DEBUG msg:#{msg}"
 
 
     unless action.blank? and changes.any?
@@ -111,9 +111,9 @@ module LogConcern
           Log.create(project_id:self.project.id, todolist_id:self.todolist.id, user_id:user.id, description:msg, action_id:actions_values[action_id])
       end
 
-     logger.debug "DEBUG Log:#{Log.first.inspect}"
+      logger.debug "DEBUG Log:#{Log.first.inspect}"
 
-     if action_id != :add
+      if action_id != :add
         # notify all participants by sending update emails
         log = Log.first
         if log.project.participants.notification_subcribers.any?
@@ -133,7 +133,7 @@ module LogConcern
             Notifier.update_client(log, participant).deliver_later
           end 
         end
-      end    
+      end
     end
   end
 

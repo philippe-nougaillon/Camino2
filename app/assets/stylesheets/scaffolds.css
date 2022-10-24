@@ -83,7 +83,6 @@ h1 a, h3 a {
 .nav ul {
   list-style: none;
   background-color: #444;
-  text-align: center;
   padding: 0;
   margin: 0;
 }
@@ -92,6 +91,7 @@ h1 a, h3 a {
   line-height: 40px;
   height: 40px;
   border-bottom: 1px solid #888;
+  text-align: center;
 }
 .nav img {
   vertical-align: middle;
@@ -120,7 +120,7 @@ h1 a, h3 a {
 @media screen and (min-width: 600px) {
  /* Option 1 - Display Inline */
   .nav li {
-    width: 120px;
+    width: 100px;
     border-bottom: none;
     height: 40px;
     line-height: 40px;

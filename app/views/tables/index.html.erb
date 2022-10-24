@@ -29,7 +29,7 @@
 
       <tbody>
         <% @tables.each do |table| %>
-          <tr>
+          <tr class="hover">
             <td><b><%= link_to table.name, table %></b></td>
             <td>
                 <% table.projects.order(:name).each do |p| %>

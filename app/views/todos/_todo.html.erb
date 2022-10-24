@@ -1,11 +1,11 @@
 <%= form_for(todo) do |f| %>
-<tr>
+<tr class="hover">
 	<td><%= f.check_box :done, :onclick => "this.form.commit.click();", class: 'checkbox checkbox-sm' %></td>
 	<td>
 		<% unless todo.done %>
 			<b><%= todo.name %></b>
 		<% else %>
-			<strike><b><%= todo.name %></b></strike>
+			<del><b><%= todo.name %></b></del>
 		<% end %>
 	</td>
 	<td><%= todo.user.name if todo.user %></td>

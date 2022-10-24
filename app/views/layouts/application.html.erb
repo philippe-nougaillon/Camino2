@@ -14,10 +14,11 @@
   </head>
 
   <body>
-    <main class="mx-auto px-12 mt-8">
+    <main class="mx-auto px-2 lg:px-12 mt-8">
       <%= render partial: "partials/navbar" %>
       <%= yield %>
     </main>
     <%= render partial: "partials/notification" %>
+    <%= render partial: "partials/footer" unless user_signed_in? %>
   </body>
 </html>

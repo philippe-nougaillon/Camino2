@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
     @tags = @projects.tag_counts_on(:tags)
 
     unless params[:search].blank?
-      @projects = @projects.where("name like ? or description like ? or memo like ?", "%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%")
+      @projects = @projects.where("name ILIKE ? OR description ILIKE ? OR memo ILIKE ?", "%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%")
       @logs = @logs.where("logs.description like ?", "%#{params[:search]}%")
       @comments = @comments.where("comments.texte like ?", "%#{params[:search]}%")
     end 
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
     unless params[:tag].blank?
       @projects = @projects.tagged_with(params[:tag])
       @logs = @logs.where(project_id:@projects.pluck(:id))
-      @comments = user.comments.joins(:project).where("projects.id in(?)", @projects.pluck(:id))
+      @comments = @user.comments.joins(:project).where("projects.id in(?)", @projects.pluck(:id))
     end  
 
     @projects = @projects.uniq
@@ -215,7 +215,7 @@ class ProjectsController < ApplicationController
         unless user
           username = mail.split('@').first
           pass = random_password
-          user = User.create(name:username, username:username, email:mail, password:pass, password_confirmation:pass)
+          user = User.create(name:username, username:username, email:mail, password:pass, password_confirmation:pass, account: current_user.account)
         end  
         @project.participants.create(user_id:user.id, client:true)
       else
@@ -286,7 +286,7 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:name, :description, :participants, :duedate, :workflow, :memo, :tag_list, :color, :table_id)
     end
 
-    def random_password(size = 5)
+    def random_password(size = 8)
       chars = (('A'..'Z').to_a + ('0'..'9').to_a) - %w(i o 0 1 l 0)
       (1..size).collect{|a| chars[rand(chars.size)] }.join  
     end

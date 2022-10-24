@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Notifier < ApplicationMailer
-  default from: '"Camino" <camino@philnoug.com>'
+  default from: '"Camino" <camino2@philnoug.com>'
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:

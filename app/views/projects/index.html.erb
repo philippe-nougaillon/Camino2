@@ -30,7 +30,7 @@
 
       <tbody>
         <% @projects.each do |project| %>
-          <tr>
+          <tr class="hover">
             <td style="background-color:<%= project.color %>;padding-left: 1px;"></td>
             <td>
               <%= link_to project.name, project, class: 'bold-title' %>

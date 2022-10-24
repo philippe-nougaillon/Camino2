@@ -1,49 +1,49 @@
 <% unless params[:done] and todolist.done? %> 
-	<tr>
-		<td>
-			<% if todolist.project.workflow? %>
-					<i><%= todolist.row %>.</i>
-			<% end %>
-			<% if todolist.done? %>
-				<strike><%= link_to todolist.name, todolist, class: 'bold-title' %></strike>
-			<% else %>
-				<%= link_to todolist.name, todolist, class: 'bold-title', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
-			<% end %>
-		</td>
-		<td>
-			<% if params[:done] %>
-				<% todolist.todos.each do |todo| %>
-					<% unless todo.done %>
-						<%= link_to todo.name, edit_todo_path(todo) %>
-					<% end %>		
-				<% end %>
-			<% else %>
-				<small><%= todolist.todos.pluck(:name).join(", ") %></small>
-			<% end %>
-		</td>
-		<td>
-	        <% if todolist.todos.any? %>
-	           <%= raw todolist.bar_avancee %>
-	        <% end %>
-	    </td> 
-		<td style="color:lightgrey;">
-			<%= todolist.todos.done.count %>/<%= todolist.todos.count %>
-		</td>		
-		<td>
-			<%= l(todolist.duedate) if todolist.duedate %>
-		</td>
-		<td>
-			<%= l(todolist.todos.done.maximum(:updated_at).to_date) if todolist.todos.done.any? %>
-		</td>
-		<td>
-			<% if todolist.duedate and todolist.todos.done.any? %>
-				<% if todolist.duedate < todolist.todos.done.maximum(:updated_at) %>
-					En retard de 
-				<% else %>
-					En avance de
-				<% end %>
-				<%= distance_of_time_in_words(todolist.duedate, todolist.todos.done.maximum(:updated_at)) %>
-			<% end %>
-		</td>
-	</tr>
+  <tr class="hover">
+    <td>
+      <% if todolist.project.workflow? %>
+          <i><%= todolist.row %>.</i>
+      <% end %>
+      <% if todolist.done? %>
+        <del><%= link_to todolist.name, todolist, class: 'bold-title' %></del>
+      <% else %>
+        <%= link_to todolist.name, todolist, class: 'bold-title link', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
+      <% end %>
+    </td>
+    <td>
+      <% if params[:done] %>
+        <% todolist.todos.each do |todo| %>
+          <% unless todo.done %>
+            <%= link_to todo.name, edit_todo_path(todo) %>
+          <% end %>    
+        <% end %>
+      <% else %>
+        <small><%= todolist.todos.pluck(:name).join(", ") %></small>
+      <% end %>
+    </td>
+    <td>
+      <% if todolist.todos.any? %>
+          <%= raw todolist.bar_avancee %>
+      <% end %>
+      </td> 
+    <td style="color:lightgrey;">
+      <%= todolist.todos.done.count %>/<%= todolist.todos.count %>
+    </td>
+    <td>
+      <%= l(todolist.duedate) if todolist.duedate %>
+    </td>
+    <td>
+      <%= l(todolist.todos.done.maximum(:updated_at).to_date) if todolist.todos.done.any? %>
+    </td>
+    <td>
+      <% if todolist.duedate and todolist.todos.done.any? %>
+        <% if todolist.duedate < todolist.todos.done.maximum(:updated_at) %>
+          En retard de 
+        <% else %>
+          En avance de
+        <% end %>
+        <%= distance_of_time_in_words(todolist.duedate, todolist.todos.done.maximum(:updated_at)) %>
+      <% end %>
+    </td>
+  </tr>
 <% end %>
