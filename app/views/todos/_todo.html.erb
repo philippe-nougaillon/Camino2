@@ -1,6 +1,6 @@
 <%= form_for(todo) do |f| %>
 <tr class="hover">
-	<td><%= f.check_box :done, :onclick => "this.form.commit.click();", class: 'checkbox checkbox-sm' %></td>
+	<td><%= f.check_box :done, onclick: "this.form.submit();", class: 'checkbox checkbox-sm', 'data-turbo': false %></td>
 	<td>
 		<% unless todo.done %>
 			<b><%= todo.name %></b>
