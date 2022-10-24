@@ -1,22 +1,32 @@
 <div id="<%= dom_id user %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= user.name %>
-  </p>
+  <div id="connexion-container">
+    <div id="connexion" class="mb-6">
+      <div class="w-32 my-3 mx-auto mask mask-squircle">
+        <img src="https://placeimg.com/400/225/arch" alt="Shoes" class="rounded-xl" />
+      </div>
+      <h1 class="text-4xl font-bold text-center"><%= @user.name %> - <%= @user.username %></h1>
+      <hr class="my-4">
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Username:</strong>
-    <%= user.username %>
-  </p>
+      <div class="text-center">
+        <p>
+          <b>Email :</b>
+          <%= @user.email %>
+        </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Picturelink:</strong>
-    <%= user.picturelink %>
-  </p>
+        <p>
+          <strong>Créé le:</strong>
+          <%= l(@user.created_at) %>
+        </p>
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this user", user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this user', edit_user_path(user), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+        <hr class="my-4">
+
+        <div class="flex mt-6">
+          <hr class="my-3">
+          <%= link_to 'Modifier', edit_user_path(@user), class: "btn btn-sm mr-3" %>
+          <%= button_to '[X]', user_path(@user), method: :delete, data: { confirm: 'Confirmez-vous cette suppression ?' }, class: "btn btn-sm mr-3" %>
+          <%= link_to 'Retour', users_path, class: "btn btn-sm" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

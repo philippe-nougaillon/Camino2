@@ -3,7 +3,7 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
 
-  skip_before_action :authorize, except: [:edit, :update, :destroy, :index, :show]
+  # skip_before_action :authorize, except: [:edit, :update, :destroy, :index, :show]
 
   # GET /accounts
   # GET /accounts.json

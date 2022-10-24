@@ -1,28 +1,27 @@
 <% if user_signed_in? %>
-  <div class="float-right mt-0.5">
-    <%= form_tag(@search_filter, url: 'index', method: :get) do %>
-      <%= text_field_tag :search, params[:search], class:"input-sm", placeholder: "Rechercher" %>
-      <%= submit_tag  "", class: "" %>
-    <% end %>
-  </div>
-  <div class="nav">
-    <ul>
-      <li><%= link_to "Projets", projects_path, class:((@ctrl == 'projects' || @ctrl == 'todolists') ? 'active':'') %></li>
-      <li><%= link_to "Agenda", agenda_index_path, class:(@ctrl == 'agenda' ? 'active':'') %></li>
-      <li><%= link_to "To-do", todos_path(user:current_user.id), class:(@ctrl == 'todos' ? 'active':'') %></li>
-      <li><%= link_to "Activité", logs_path, class:(@ctrl == 'logs' ? 'active':'') %></li>
-      <li><%= link_to "Discussions", comments_path, class:(@ctrl == 'comments' ? 'active':'') %></li>
-      <li><%= link_to "Documents", documents_index_path, class:(@ctrl == 'documents' ? 'active':'') %></li>
-      <li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'active':'') %></li>
-      <li><%= link_to truncate(current_user.username, length: 12), current_user, class:(@ctrl == 'users' ? 'active':'') %></li>
-      <li data-turbo="false">
-        <%= button_to destroy_user_session_path, method: :delete, form_class:'w-full text-slate-400' do %>
-          Déconnexion
-        <% end %>
-      </li>
-    </ul>
-  </div>
-  <div id="notice_box"> 
-    <span class="notice"><%= notice %></span>
-  </div>
+  <nav class="mb-8">
+    <div class="float-right mt-0.5">
+      <%= form_tag(@search_filter, url: 'index', method: :get) do %>
+        <%= text_field_tag :search, params[:search], class:"input-sm", placeholder: "Rechercher" %>
+        <%= submit_tag  "", class: "" %>
+      <% end %>
+    </div>
+    <div class="nav">
+      <ul>
+        <li><%= link_to "Projets", projects_path, class:((@ctrl == 'projects' || @ctrl == 'todolists') ? 'active':'') %></li>
+        <li><%= link_to "Agenda", agenda_index_path, class:(@ctrl == 'agenda' ? 'active':'') %></li>
+        <li><%= link_to "To-do", todos_path(user:current_user.id), class:(@ctrl == 'todos' ? 'active':'') %></li>
+        <li><%= link_to "Activité", logs_path, class:(@ctrl == 'logs' ? 'active':'') %></li>
+        <li><%= link_to "Discussions", comments_path, class:(@ctrl == 'comments' ? 'active':'') %></li>
+        <li><%= link_to "Documents", documents_index_path, class:(@ctrl == 'documents' ? 'active':'') %></li>
+        <li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'active':'') %></li>
+        <li><%= link_to truncate(current_user.username, length: 12), current_user, class:(@ctrl == 'users' ? 'active':'') %></li>
+        <li data-turbo="false">
+          <%= button_to destroy_user_session_path, method: :delete, form_class:'w-full text-slate-400' do %>
+            Déconnexion
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
 <% end %>

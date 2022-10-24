@@ -6,10 +6,60 @@
 
     <%= render @user %>
 
-    <%= link_to 'Edit this user', edit_user_path(@user), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this user', user_path(@user), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to users', users_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>
+
+<h2>Espace de travail</h2>
+<p>
+  <strong>Nom: </strong>
+  <%= @user.account.name %>
+</p>
+<p>
+  <strong>Nom du site: </strong>
+  <%= @user.account.sitename %>
+</p>
+<p>
+  <strong>hostname: </strong>
+  <%= @user.account.hostname %>
+</p>
+
+<p>
+  <%= link_to "Modifier", edit_account_path(@user.account) %> | 
+  <%= link_to "Voir les participants", users_path %> |
+  <%= link_to "Voir les modèles", templates_path %> |
+  <%= link_to "Voir les documents", documents_index_path %>
+</p>
+<br>
+
+
+<hr class="style-two">
+<br>
+
+<% if @user.participants.any? %>
+  <h2>Vos abonnements</h2>
+  <table class="table">
+    <thead>
+      <tr style="text-align:left;color:lightgray;">
+        <th />
+      	<th>Nom du projet</th>
+      	<th>Recevoir les notification par mail ?</th>
+      	<th>Recevoir la Daily Newsletter?</th>
+      	<th>Recevoir la Weekly Newsletter?</th>
+      	<th />
+      </tr>
+    </thead>	
+    <%= render partial:'participants/participant', collection:@user.participants %>
+  </table>
+  <br>
+<% end %>
+
+<hr class="style-two">
+<br>
+
+<% if @user.logs.any? %>
+  <h2>Votre activité</h2>
+  <table id="logs">
+    <%= render partial:'logs/log', collection:@user.logs, :day => 0 %>
+  </table>
+  <br>
+<% end %>

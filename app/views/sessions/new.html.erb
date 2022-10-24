@@ -3,10 +3,6 @@
 	<%= link_to "Pas de compte ?", new_user_path %>
 </div>
 
-<div id="notice_box"> 
-	<span class="notice"><%= notice %></span>
-</div>
-
 <div id="welcome" >
 	<% if @host == "camino.philnoug.com" or @host == "dev.philnoug.com" or @account == nil or @host == "localhost"  %>
 		<%= image_tag("camino_wf_logo.png", width: 70) %>
