@@ -44,8 +44,18 @@
 
   <h2 class="my-4">Mobilité</h2>
   <p>Accédez à Camino depuis votre smartphone</p>
-  <p>Saisissez l'URL https://camino.philnoug.com dans le navigateur Web de votre téléphone.</p>
+  <p>Saisissez l'URL https://camino2.herokuapp.com dans le navigateur Web de votre téléphone.</p>
 
 </div>
 
 <%= link_to "Connexion", new_user_session_path, class:'btn btn-ghost btn-active my-12' %>
+
+<footer class="hero bg-base-200 text-center font-bold">
+    <ul class="list-unstyled">
+      <li class="text-muted">
+        Camino2 est un service proposé par 
+        <%= link_to 'Philnoug & Partners', 'https://philnoug.com', target: '_blank', class:'link' %>
+        - Siret : 384 396 719 00047 - APE : 5829C 
+      </li>
+    </ul>
+</footer>
