@@ -16,9 +16,9 @@
       <%= f.hidden_field :todolist_id %>
     </div>
     <div class="field">
-        <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox' %>
+        <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 sm:mb-0' %>
         <span style="margin-left:12px">
-          <%= f.text_field :name, size:40, class: 'input input-bordered' %>
+          <%= f.text_field :name, class: 'input input-bordered w-80 mb-4 sm:mb-0' %>
         </span>
         <%= f.label 'Assigné à :' %>
         <%= f.select :user_id, 

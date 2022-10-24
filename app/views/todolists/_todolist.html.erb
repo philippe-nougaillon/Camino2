@@ -1,6 +1,6 @@
 <% unless params[:done] and todolist.done? %> 
   <tr class="hover">
-    <td>
+    <th>
       <% if todolist.project.workflow? %>
           <i><%= todolist.row %>.</i>
       <% end %>

@@ -7,20 +7,24 @@
 </h2>
 
 <% if @todolist.todos.any? %>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Fait?</th>
-				<th>Intitulé</th>
-				<th>Assigné à</th>
-				<th>Echéance</th>
-				<th>Document</th>
-				<th>Tags</th>
-				<th colspan="3"></th>
-			</tr>
-		</thead>
-		<%= render partial:'todos/todo', collection: @todolist.todos %>
-	</table>
+	<div class="overflow-x-auto">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Fait?</th>
+					<th>Intitulé</th>
+					<th>Assigné à</th>
+					<th>Echéance</th>
+					<th>Document</th>
+					<th>Tags</th>
+					<th colspan="3"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render partial:'todos/todo', collection: @todolist.todos %>
+			</tbody>
+		</table>
+	</div>
 <% else %>
 	<small><i>Commencez cette liste en ajoutant, ci-dessous, une première chose à faire</i></small><br><br>
 <% end %>

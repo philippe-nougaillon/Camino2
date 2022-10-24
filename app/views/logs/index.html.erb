@@ -1,17 +1,7 @@
 <h1>Activité</h1>
 
-<table id="logs">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
 
-  <tbody>
-     <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
-  </tbody>
-</table>
 <% unless @logs.any? %>
   Aucune activité pour le moment... Pas encore de projets ? 
 <% end %>

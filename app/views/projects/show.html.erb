@@ -43,29 +43,32 @@
 <% end %>
 <br><br>
 
-<table class="table table-normal">
-	<thead>
-		<th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
-		<th>Tâches</th>
-		<th>Réalisation</th>
-		<th>Réalisées/Total</th>
-		<th>Echéance</th>
-		<th>Dernière réalisation le</th>
-		<th>Ecart</th>
-	</thead>
-	<tbody>
-		<%= render partial: 'todolists/todolist', collection: @todolists %>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan=7>
-				<%= link_to new_todolist_path(project_id: @project.id), title: 'Ajouter une liste/phase' do %>
-				  <div class="badge badge-outline rounded badge-lg">+</div>
-				<% end %>
-			</td>
-		</tr>
-	</tfoot>	
-</table>
+<div class="overflow-x-auto">
+	<table class="table table-normal">
+		<thead>
+			<th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
+			<th>Tâches</th>
+			<th>Réalisation</th>
+			<th>Réalisées/Total</th>
+			<th>Echéance</th>
+			<th>Dernière réalisation le</th>
+			<th>Ecart</th>
+		</thead>
+		<tbody>
+			<%= render partial: 'todolists/todolist', collection: @todolists %>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>
+					<%= link_to new_todolist_path(project_id: @project.id), title: 'Ajouter une liste/phase' do %>
+						<div class="badge badge-outline rounded badge-lg">+</div>
+					<% end %>
+				</th>
+				<td colspan=6></td>
+			</tr>
+		</tfoot>	
+	</table>
+</div>
 
 
 <% if @logs.any? %>
