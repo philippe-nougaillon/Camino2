@@ -75,3 +75,6 @@ gem "devise", "~> 4.8"
 gem "simple_calendar", "~> 2.4"
 
 gem "acts-as-taggable-on", "~> 9.0"
+
+# Exception Notifier Plugin for Rails
+gem 'exception_notification'
