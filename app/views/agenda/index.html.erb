@@ -1,8 +1,8 @@
 <br>
-<%= month_calendar day_names: "date.day_names", table: {class: "calendar"} do |date| %>
+<%= month_calendar day_names: "date.day_names" do |date| %>
 
   <div id="date">
-  	<%= date.day %>
+    <%= date.day %>
   </div>
 
   <% @projects.where(duedate:date).each do |project| %>

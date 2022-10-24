@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div style="border:1px dotted lightgray;">
+  <div class="pl-2" style="border:1px dotted lightgray;">
     <div class="field">
       <%= f.hidden_field :todolist_id %>
     </div>
@@ -22,9 +22,9 @@
         </span>
         <%= f.label 'Assigné à :' %>
         <%= f.select :user_id, 
-                      options_from_collection_for_select(@project.users, "id", "name", @todo.user_id), 
-                      include_blank: true, 
-                      class: 'select select-primary' %>
+                      options_from_collection_for_select(@project.users, "id", "name", @todo.user_id),
+                      {},
+                      { class: 'select select-bordered select-sm', include_blank: true } %>
         <%= f.label "notifier ?" %>
         <%= f.check_box :notify, class: 'checkbox' %>
     </div>
@@ -34,7 +34,7 @@
         <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered' %>
 
         <small>Cette échéance va s'ajouter au calendrier du participant assigné et un rappel lui sera envoyé à J-
-          <%= f.select :notifydays, options_for_select((1..10), @todo.notifydays.to_s)  %>
+          <%= f.select :notifydays, options_for_select((1..10), @todo.notifydays.to_s), {}, { class:'select select-xs select-bordered' } %>
         </small>
         <br><br>
 

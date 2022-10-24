@@ -14,55 +14,57 @@
 <% end %>
 
 <% if @projects.any? %>
-  <table class="table table-normal">
-    <thead>
-      <tr>
-        <th />
-        <th />
-        <th>Echéance</th>
-        <th>Progression</th>
-        <th>Phase en cours</th>
-        <th>Participants</th>
-        <th>Dernière mise à jour</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @projects.each do |project| %>
+  <div class="overflow-x-auto">
+    <table class="table table-normal">
+      <thead>
         <tr>
-          <td style="background-color:<%= project.color %>;padding-left: 1px;"></td>
-          <td>
-            <%= link_to project.name, project, class: 'bold-title' %>
-            <br>
-            <i><small><%= project.description %></small></i>
-          </td>
-          <td><%= l(project.duedate) if project.duedate %></td>
-          <td>
-            <% unless project.todos.count.zero? %>
-              <%= raw project.bar_avancee %>
-              <small>(<%= project.pct_avancee %>%)</small>
-            <% end %>
-          </td> 
-          <td>
-            <% if project.workflow? and project.current_todolist %>
-              <small><%= truncate(project.current_todolist.name, length: 15) %></small>  
-            <% end %>
-          </td>
-          <td>
-            <% project.participants.each do |participant| %>
-              <%# image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar" %>
-              <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
-            <% end %>
-            <%= link_to invite_path(id:project.id), title:'Inviter un nouveau participant' do %>
-              <div class="badge badge-outline rounded badge-lg">+</div>
-            <% end %>
-          </td>
-          <td style="color:lightgrey"><%= "Il y a #{time_ago_in_words(project.last_update)}" if project.logs.any? %></td>
+          <th />
+          <th />
+          <th>Echéance</th>
+          <th>Progression</th>
+          <th>Phase en cours</th>
+          <th>Participants</th>
+          <th>Dernière mise à jour</th>
         </tr>
-        <tr />  
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @projects.each do |project| %>
+          <tr>
+            <td style="background-color:<%= project.color %>;padding-left: 1px;"></td>
+            <td>
+              <%= link_to project.name, project, class: 'bold-title' %>
+              <br>
+              <i><small><%= truncate(project.description, length: 100) %></small></i>
+            </td>
+            <td><%= l(project.duedate) if project.duedate %></td>
+            <td>
+              <% unless project.todos.count.zero? %>
+                <%= raw project.bar_avancee %>
+                <small>(<%= project.pct_avancee %>%)</small>
+              <% end %>
+            </td> 
+            <td>
+              <% if project.workflow? and project.current_todolist %>
+                <small><%= truncate(project.current_todolist.name, length: 15) %></small>  
+              <% end %>
+            </td>
+            <td>
+              <% project.participants.each do |participant| %>
+                <%# image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar" %>
+                <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
+              <% end %>
+              <%= link_to invite_path(id:project.id), title:'Inviter un nouveau participant' do %>
+                <div class="badge badge-outline rounded badge-lg">+</div>
+              <% end %>
+            </td>
+            <td style="color:lightgrey"><%= "Il y a #{time_ago_in_words(project.last_update)}" if project.logs.any? %></td>
+          </tr>
+          <tr />  
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
   <% unless params[:search].blank? %>
     <i>Aucun projet à afficher...</i>

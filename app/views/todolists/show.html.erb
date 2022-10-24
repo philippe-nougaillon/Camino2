@@ -1,9 +1,9 @@
-<h2 class="mb-6">
-	<span style="background-color:<%= @todolist.project.color %>;padding-left: 7px;margin-right: 7px;"></span>
-	<%= link_to @todolist.project.name, @todolist.project %> : <%= @todolist.name %>
-	<%= link_to edit_todolist_path(@todolist), title:'Modifier' do %>
-		  <span><%= image_tag("modif.png") %><span>
-	<% end %> 
+<h2 class="flex items-center mb-6">
+	<span class="pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
+		<%= link_to @todolist.project.name, @todolist.project, class:'link' %>
+		: <%= @todolist.name %>
+	</span>
+	<%= link_to image_tag("modif.png"), edit_todolist_path(@todolist), title:'Modifier', class: 'ml-3' %> 
 </h2>
 
 <% if @todolist.todos.any? %>
@@ -25,9 +25,7 @@
 	<small><i>Commencez cette liste en ajoutant, ci-dessous, une première chose à faire</i></small><br><br>
 <% end %>
 
-<div style="margin-left:6px">
-	<%= render partial:'todos/form' %>
-</div>
+<%= render partial:'todos/form' %>
 
 <% if @todolist.logs.any? %>
 	<br>

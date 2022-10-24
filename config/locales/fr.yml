@@ -228,3 +228,7 @@ fr:
           one: "Impossible d'enregistrer : 1 erreur"
           other: "Impossible d'enregistrer : %{count} erreurs"
       body: "Veuillez vérifier les champs suivants : "
+  simple_calendar:
+    previous: "<<"
+    next: ">>"
+    week: Semaine

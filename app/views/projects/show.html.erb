@@ -1,7 +1,6 @@
-<h2>
-	<span style="background-color:<%= @project.color %>;padding-left: 7px;margin-right: 7px;"></span>
-	<%= @project.name %>
-	<%= link_to image_tag("modif.png"), edit_project_path(@project), title:'Modifier' %> 
+<h2 class="flex items-center">
+	<span class="pl-2" style="border-left: 7px solid <%= @project.color %>"><%= @project.name %></span>
+	<%= link_to image_tag("modif.png"), edit_project_path(@project), title:'Modifier', class: 'ml-3' %> 
 </h2>
 
 <% unless @project.description.blank? %>
@@ -46,7 +45,7 @@
 
 <table class="table table-normal">
 	<thead>
-		<th><%= @project.workflow? ? 'Phases' : 'To-do' %></th>
+		<th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
 		<th>Tâches</th>
 		<th>Réalisation</th>
 		<th>Réalisées/Total</th>

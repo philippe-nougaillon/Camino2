@@ -55,5 +55,7 @@ Rails.application.routes.draw do
 
   delete 'tables/:id/delete_record' => 'tables#delete_record', as: :delete_record
 
-  root 'projects#index'
+  get 'welcome', to: 'pages#welcome', as: :welcome
+
+  root 'pages#welcome'
 end

@@ -14,7 +14,7 @@
 
 
   #connexion{
-    @apply p-8 border-2 rounded-xl mt-12
+    @apply p-8 border-2 rounded-xl mt-12 max-w-fit
   }
   .field{
     @apply mb-4

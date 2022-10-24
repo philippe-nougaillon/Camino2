@@ -5,7 +5,7 @@
 	<tr>
 		<% @project.participants.each do |participant| %>
 			<td>
-				<%= image_tag(participant.user.avatar.url(:thumb), size:'25x25', alt:'') %>
+				<%# image_tag(participant.user.avatar.url(:thumb), size:'25x25', alt:'') %>
 				<%= participant.user.name %>
 				<%= "(Client)" if participant.client %>
 			</td>
