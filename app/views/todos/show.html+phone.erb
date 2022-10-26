@@ -43,7 +43,7 @@
   <% if @todo.comments.any? %>
     <% @todo.comments.each do | comment | %>
       <small>
-        <%= image_tag(comment.user.avatar.url(:medium), alt:'', class:"mini_avatar-phone") %>
+        <%# image_tag(comment.user.avatar.url(:medium), alt:'', class:"mini_avatar-phone") %>
         <%= comment.user.name %>,
         <small><%= "il y a #{time_ago_in_words(comment.created_at)}" %></small><br>
       </small>

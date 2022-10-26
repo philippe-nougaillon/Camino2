@@ -2,9 +2,6 @@
 	background: red;
 }
 
-
-table.calendar { table-layout:fixed; width:100%; }
-
 .calendar-header {
 	font-size:30px;
 	font-weight:bold;
@@ -18,7 +15,6 @@ table.calendar { table-layout:fixed; width:100%; }
 	border:1px solid grey;
 	vertical-align:top;
 	padding-bottom:10px;
-	overflow: hidden;
 }
 
 .prev-month {

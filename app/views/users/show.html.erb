@@ -37,19 +37,21 @@
 
 <% if @user.participants.any? %>
   <h2>Vos abonnements</h2>
-  <table class="table">
-    <thead>
-      <tr style="text-align:left;color:lightgray;">
-        <th />
-      	<th>Nom du projet</th>
-      	<th>Recevoir les notification par mail ?</th>
-      	<th>Recevoir la Daily Newsletter?</th>
-      	<th>Recevoir la Weekly Newsletter?</th>
-      	<th />
-      </tr>
-    </thead>	
-    <%= render partial:'participants/participant', collection:@user.participants %>
-  </table>
+  <div class="overflow-x-auto">
+    <table class="table">
+      <thead>
+        <tr style="text-align:left;color:lightgray;">
+          <th />
+          <th>Nom du projet</th>
+          <th>Recevoir les notification par mail ?</th>
+          <th>Recevoir la Daily Newsletter?</th>
+          <th>Recevoir la Weekly Newsletter?</th>
+          <th />
+        </tr>
+      </thead>	
+      <%= render partial:'participants/participant', collection:@user.participants %>
+    </table>
+  </div>
   <br>
 <% end %>
 

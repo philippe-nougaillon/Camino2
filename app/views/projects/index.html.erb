@@ -106,7 +106,7 @@
     <%= render partial:'comments/commentfull', collection:@comments, as: :comment, comment_day:0, user_id:0  %>
   </table>
   <br>
-  <% if @comments.count >= 5 %>  
+  <% if @comments.count >= 5 %>
     <small><i>Liste des 5 derniers commentaires. <%= link_to "Afficher tout", comments_path %></i></small>
     <br>
   <% end %>

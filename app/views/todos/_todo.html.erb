@@ -1,6 +1,7 @@
-<%= form_for(todo) do |f| %>
 <tr class="hover">
-	<td><%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-sm' %></td>
+	<%= form_for(todo) do |f| %>
+		<td><%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-sm' %></td>
+	<% end %>
 	<td>
 		<% unless todo.done %>
 			<b><%= todo.name %></b>
@@ -22,10 +23,6 @@
 	</td>
 	<td><%= link_to image_tag("modif.png"), edit_todo_path(todo), title:'Modifier' %></td>
 	<td>
-		<%= link_to '[X]', todo, method: :delete, data: { confirm: 'Etes vous certain(e) de vouloir supprimer cette tâche ?' } %>
+	<%= button_to '[X]', todo_path(todo), method: :delete, data: { confirm: 'Etes vous certain(e) de vouloir supprimer cette tâche ?' } %>
 	</td>
-	<div style="display:none">
-		<%= submit_tag %>
-	</div>
 </tr>
-<% end %>

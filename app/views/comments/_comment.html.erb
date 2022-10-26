@@ -1,12 +1,13 @@
 <tr>
   <td>
-    <%= image_tag(comment.user.avatar.url(:thumb), size:'25x25', alt:'', class:"mini_avatar") %><br>
+    <%# image_tag(comment.user.avatar.url(:thumb), size:'25x25', alt:'', class:"mini_avatar") %>
+    <br>
     <%= comment.user.name %>
     <div style="color:lightgrey">
       <%= "il y a #{time_ago_in_words(comment.created_at)}" %>
     </div>
   </td>
-  <td style="width:510px">
+  <td>
     "<b><%= comment.texte %></b>"
   </td>
 </tr>

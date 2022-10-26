@@ -14,33 +14,23 @@
   <%= f.hidden_field :todo_id %>
   <%= f.hidden_field :user_id %>
 
-  <table>
-    <tr>
-      <td style="vertical-align:top;">
-        <%# <%= image_tag(@user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
-        <br>  
-        <%= @user.name %>
-          <div style="color:lightgrey;vertical-align:top;">
-            <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
-          </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.text_area :texte, size:'65x3' %>
-        </div>
-      </td>
-      <td>
-          <small>
-            Visible par:   
-            <%= f.radio_button :audience, 1, checked:true %> l'Equipe
-            <%= f.radio_button :audience, 2, checked:false %> le Client
-            <%= f.radio_button :audience, 0, checked:false %> Tous
-          </small>
-          <br><br>
-          <div class="actions">
-            <%= f.submit 'Publier'%>
-          </div>
-      </td>    
-    </tr>
-  </table>
+  <div class="flex flex-wrap gap-4 items-center mb-4">
+    <div>
+      <%# image_tag(@user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
+      <br>
+      <%= @user.name %>
+      <div style="color:lightgrey;vertical-align:top;">
+        <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
+      </div>
+    </div>
+
+    <%= f.text_field :texte, class:"input input-bordered w-full lg:w-1/3" %>
+    <p>
+      Visible par:
+      <%= f.radio_button :audience, 1, checked:true %> l'Equipe
+      <%= f.radio_button :audience, 2, checked:false %> le Client
+      <%= f.radio_button :audience, 0, checked:false %> Tous
+    </p>
+    <%= f.submit 'Publier', class:'btn btn-active btn-ghost' %>
+  </div>
 <% end %>

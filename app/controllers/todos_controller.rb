@@ -139,7 +139,7 @@ class TodosController < ApplicationController
         format.html { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être ajoutée" }
         format.json { render action: 'show', status: :created, location: @todo }
       else
-        format.html { redirect_to @todo.todolist, notice: "Aucun changement n'a été enregistré" }
+        format.html { redirect_to @todo.todolist, alert: "Aucun changement n'a été enregistré" }
         format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
     end
@@ -219,7 +219,7 @@ class TodosController < ApplicationController
     File.delete(Rails.root.join('public', 'documents', @todo.docfilename)) if @todo.docfilename
     @todo.destroy
     respond_to do |format|
-      format.html { redirect_to @todolist }
+      format.html { redirect_to @todolist, notice: "To-do supprimée avec succès" }
       format.json { head :no_content }
     end
   end

@@ -18,7 +18,7 @@
     <div class="field">
         <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 sm:mb-0' %>
         <span style="margin-left:12px">
-          <%= f.text_field :name, class: 'input input-bordered w-80 mb-4 sm:mb-0' %>
+          <%= f.text_field :name, class: 'input input-bordered w-80 mb-4 sm:mb-0', required: true %>
         </span>
         <%= f.label 'Assigné à :' %>
         <%= f.select :user_id, 
@@ -31,15 +31,15 @@
     <div style="margin-left:40px">
       <div class="field">
         <%= f.label 'Echéance :' %>
-        <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered' %>
+        <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered mt-4' %>
 
-        <small>Cette échéance va s'ajouter au calendrier du participant assigné et un rappel lui sera envoyé à J-
+        <small class="block mt-4 sm:mt-0">Cette échéance va s'ajouter au calendrier du participant assigné et un rappel lui sera envoyé à J-
           <%= f.select :notifydays, options_for_select((1..10), @todo.notifydays.to_s), {}, { class:'select select-xs select-bordered' } %>
         </small>
         <br><br>
 
         <%= f.label "Document :" %>
-        <%= f.file_field :doc %>
+        <%= f.file_field :doc, class:"mb-4 sm:mb-0" %>
 
         <%= f.label 'Tags :' %>
         <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered' %>
