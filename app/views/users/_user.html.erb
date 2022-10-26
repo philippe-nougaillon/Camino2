@@ -24,7 +24,7 @@
           <hr class="my-3">
           <%= link_to 'Modifier', edit_user_path(@user), class: "btn btn-sm mr-3" %>
           <%= button_to '[X]', user_path(@user), method: :delete, data: { confirm: 'Confirmez-vous cette suppression ?' }, class: "btn btn-sm mr-3" %>
-          <%= link_to 'Retour', users_path, class: "btn btn-sm" %>
+          <%= link_to 'Retour', current_user, class: "btn btn-sm" %>
         </div>
       </div>
     </div>
