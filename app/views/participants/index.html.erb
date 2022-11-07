@@ -18,7 +18,7 @@
         <td><%= participant.user %></td>
         <td><%= link_to 'Show', participant %></td>
         <td><%= link_to 'Edit', edit_participant_path(participant) %></td>
-        <td><%= link_to 'Destroy', participant, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
+        <td><%= button_to 'Destroy', participant, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
       </tr>
     <% end %>
   </tbody>

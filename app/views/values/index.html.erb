@@ -18,7 +18,7 @@
         <td><%= value.data %></td>
         <td><%= link_to 'Show', value %></td>
         <td><%= link_to 'Edit', edit_value_path(value) %></td>
-        <td><%= link_to 'Destroy', value, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
+        <td><%= button_to 'Destroy', value, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
       </tr>
     <% end %>
   </tbody>

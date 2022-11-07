@@ -60,7 +60,7 @@
                                 title:'Export Excel' %>
             </td>
             <td><%= link_to image_tag("modif.png"), table_path(table, attrs:1), title:"Modifier les attributs de la table" %></td>
-            <td><%= link_to '[X]', table, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
+            <td><%= button_to '[X]', table, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
           </tr>
         <% end %>
       </tbody>
