@@ -21,7 +21,7 @@
         <td><%= th["description"] %></td>
         <td><%= l(template.created_at) %></td>
         <td><%= link_to 'Voir', template %></td>
-        <td><%= link_to '[X]', template, method: :delete, data: { confirm: 'Certain(e) ?' } %></td>
+        <td><%= link_to '[X]', template, method: :delete, form: { data: {'turbo-confirm': 'Certain(e) ?' } } %></td>
       </tr>
     <% end %>
   </tbody>

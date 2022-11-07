@@ -84,7 +84,7 @@
 		<br>
 		<% if @logs.count > 5 %> 	
 			<small>
-				<i>Liste des 5 derniers changements <%= link_to "Afficher tout", logs_path(project_id:@project.id) %></i>
+				<i>Liste des 5 derniers changements <%= link_to "Afficher tout", logs_path(project_id:@project.id), class:"link" %></i>
 			</small>
 			<br>
 		<% end %>

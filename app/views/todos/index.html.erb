@@ -1,14 +1,14 @@
 <h1 class="text-2xl">To-do</h1>
 
 <% if @tags.any? %>
-  Tags:
+  Tags :
   <% tag_cloud(@tags, ['badge badge-lg', 'badge badge-md', 'badge', 'badge badge-sm']) do |tag, css_class| %>
     <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
   <% end %>
 <% end %>
-<br><br>
+<br>
 
-Afficher les opérations: 
+Afficher les opérations : 
 <%= link_to_unless params[:user],"A faire", todos_path(user:@user.id), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
 <%= link_to_unless params[:undone],"En attente", todos_path(undone:true), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
 <%= link_to_unless params[:notify], "A notifier", todos_path(notify:1), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |

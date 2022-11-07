@@ -7,7 +7,7 @@
 <%= render 'form' %>
 
 <br>
-<%= button_to "[X] Supprimer cette liste et son contenu", @todolist, method: :delete, form: { data: { confirm: 'Etes-vous bien certain(e) ?' }}  %>
+<%= button_to "[X] Supprimer cette liste et son contenu", @todolist, method: :delete, form: { data: {'turbo-confirm': 'Etes-vous bien certain(e) ?' } }  %>
 <br><br>
 
 <%= link_to 'Retour', @todolist, class:'link' %>

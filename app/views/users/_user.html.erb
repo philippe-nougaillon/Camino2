@@ -23,7 +23,7 @@
         <div class="flex mt-6">
           <hr class="my-3">
           <%= link_to 'Modifier', edit_user_path(@user), class: "btn btn-sm mr-3" %>
-          <%= link_to 'Retour', current_user, class: "btn btn-sm" %>
+          <%= button_to 'DÉCONNEXION', destroy_user_session_path, method: :delete, form_class:'btn btn-sm btn-error' %>
         </div>
       </div>
     </div>
