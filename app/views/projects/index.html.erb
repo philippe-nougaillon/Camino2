@@ -101,7 +101,7 @@
 
 <% if @comments.any? %>
   <hr class="style-two">
-  <h3>Discussions</h3>
+  <h2>Discussions</h2>
   <table id="logs">
     <%= render partial:'comments/commentfull', collection:@comments, as: :comment, comment_day:0, user_id:0  %>
   </table>

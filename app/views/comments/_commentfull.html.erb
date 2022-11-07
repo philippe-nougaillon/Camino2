@@ -12,8 +12,9 @@
       <% @comment_day = comment.created_at.day %>
       <% month_name = I18n.t("date.month_names")[comment.created_at.month] %>
       <tr style="margin-top:50px;"></tr>
-      <td  style="width:100px;">
+      <td>
         <b><%= "#{@comment_day} #{month_name}" %></b>
+        <br>
         <%= "Aujourd'hui" if comment.created_at.to_date == Date.today %>
       </td>
   <% else %>
