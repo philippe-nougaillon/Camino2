@@ -46,7 +46,7 @@
                 <% end %>
             </td>
             <td><%= table.size %></td>
-            <td style="color:lightgray;"><%= "Il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>
+            <td><%= "Il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>
             <td>
               <%= link_to table.fields.count, 
                           table_path(table, attrs:1), 

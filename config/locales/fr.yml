@@ -79,7 +79,7 @@ fr:
   time:
     formats:
       default: "%d %B %Y %H:%M:%S"
-      compact: "%d%m%y-%H:%M"
+      compact: "%d/%m/%y-%H:%M"
       short: "%d %b %H:%M"
       long: "%A %d %B %Y %H:%M"
       heure: "%H:%M"

@@ -31,7 +31,7 @@
 						<% count += 1 %> 
 						<% record = @values.records_at(index).first %>
 						<tr>
-							<td style="color:lightgray;"><%= index %></td>
+							<td><%= index %></td>
 							<% @table.fields.each do | field | %>
 								<td>
 									<%= field.values.records_at(index).first.data if field.values.records_at(index).first %>
@@ -43,9 +43,9 @@
 									<%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
 								<% end %>
 							</td>
-							<td style="color:lightgray;"><%= l(record.created_at, format: :compact) %></td>
-							<td style="color:lightgray;"><%= l(record.updated_at, format: :compact) %></td>
-							<td style="color:lightgray;">
+							<td><%= l(record.created_at, format: :compact) %></td>
+							<td><%= l(record.updated_at, format: :compact) %></td>
+							<td>
 								<%# image_tag(record.user.avatar.url(:thumb), alt:'', class:"mini_avatar") if record.user %>
 								<%= record.user.username if record.user %></td>
 							<td><%= link_to image_tag("modif.png"), fill_url(@table.id, record_index:index) %></td>
