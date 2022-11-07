@@ -1,6 +1,8 @@
 class Comment < ApplicationRecord
 	include LogConcern
 
+	audited
+
 	belongs_to :todo
 	belongs_to :user
 

@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+  audited
 
   has_many :projects
   has_many :templates

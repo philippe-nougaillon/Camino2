@@ -1,4 +1,5 @@
 class Field < ApplicationRecord
+	audited
 	belongs_to :table
 	has_many :values
 

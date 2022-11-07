@@ -78,3 +78,6 @@ gem "acts-as-taggable-on", "~> 9.0"
 
 # Exception Notifier Plugin for Rails
 gem 'exception_notification'
+
+# Audited (formerly acts_as_audited) is an ORM extension that logs all changes to your Rails models.
+gem "audited", "~> 5.0"

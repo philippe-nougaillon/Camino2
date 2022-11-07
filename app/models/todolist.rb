@@ -1,6 +1,8 @@
 class Todolist < ApplicationRecord
   include LogConcern
 
+	audited
+
   	belongs_to :project
   	has_many :todos, dependent: :destroy
 	has_many :logs

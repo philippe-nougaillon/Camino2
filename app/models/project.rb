@@ -2,6 +2,8 @@ class Project < ApplicationRecord
 	include LogConcern
 	extend SimpleCalendar
 
+	audited
+
 	acts_as_taggable
   	
   	#has_calendar :attribute => :created_at	

@@ -1,6 +1,8 @@
 class Todo < ApplicationRecord
 	include LogConcern
 
+	audited
+
 	acts_as_taggable
 
 	belongs_to :todolist

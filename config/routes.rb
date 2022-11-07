@@ -57,5 +57,7 @@ Rails.application.routes.draw do
 
   get 'about', to: 'pages#about', as: :about
 
+  get 'audits/index'
+
   root 'projects#index'
 end

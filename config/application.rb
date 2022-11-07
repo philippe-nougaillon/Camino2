@@ -36,5 +36,7 @@ module CaminoV2
 
     config.time_zone = "Paris"
     config.i18n.default_locale = :fr
+
+    config.active_record.use_yaml_unsafe_load = true
   end
 end
