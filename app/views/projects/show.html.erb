@@ -9,20 +9,20 @@
 </div>
 
 <% unless @project.pct_avancee.zero? %>
-    Avancée: <%= raw @project.bar_avancee %>
+    Avancée : <%= raw @project.bar_avancee %>
     <small>(<%= @project.pct_avancee %>%)</small>
 <% end %>
 
 <% if @project.workflow? and @project.current_todolist %>
-	| Phase en cours: <%= @project.current_todolist.name %>
+	| Phase en cours : <%= @project.current_todolist.name %>
 <% end %>
 
 <% if @project.duedate %>
-	| Echéance: <b><%= l(@project.duedate) %></b>
+	| Echéance : <b><%= l(@project.duedate) %></b>
 <% end %>
 
 <% if @project.tag_list.any? %>
-	| Tags: <%= @project.tag_list_on(:tags) %>
+	| Tags : <%= @project.tag_list_on(:tags) %>
 <% end %>
 
 <% if @project.todolists.any? %>
@@ -41,7 +41,7 @@
 <% unless @project.memo.blank? %>
 	&nbsp;&nbsp;<i><%= @project.memo %></i>
 <% end %>
-<br><br>
+<br>
 
 <div class="overflow-x-auto">
 	<table class="table table-normal">
