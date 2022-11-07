@@ -82,7 +82,7 @@
 
   <% unless @project.new_record? %>
     <h2>Table de données</h2>
-    <% unless @tables.any? %>
+    <% if @tables.any? %>
       <div> 
         <%= f.select :table_id, options_from_collection_for_select(@tables, "id", "name", @project.table_id), include_blank: true %>
       </div>

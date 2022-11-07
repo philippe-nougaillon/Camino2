@@ -4,14 +4,15 @@
     <%= date.day %>
   </div>
   <% @projects.where(duedate:date).each do |project| %>
-      <span style="background-color:<%= project.color %>;padding-left:5px;margin-right:2px;"></span>
-      <%= link_to project.name, project %>
-      <br>
+      <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
+        <%= link_to project.name.upcase, project, class: 'font-bold' %>
+      </div>
   <% end %>
 
   <% @todos.undone.where(duedate:date).each do |todo| %>
-      <span style="background-color:<%= todo.project.color %>;padding-left:5px;margin-right:2px;"></span>
-      <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+      <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
+        <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+      </div>
   <% end %>
 
 <% end %>
