@@ -1,12 +1,12 @@
-<h2 class="flex items-center">
-	<span class="pl-2" style="border-left: 7px solid <%= @project.color %>"><%= @project.name %></span>
-	<%= link_to image_tag("modif.png"), edit_project_path(@project), title:'Modifier', class: 'ml-3' %> 
-</h2>
-
-<% unless @project.description.blank? %>
-	<i><%= @project.description %></i>
-	<br /><br />
-<% end %>
+<div class="mb-8 pl-2" style="border-left: 7px solid <%= @project.color %>">
+	<div class="flex items-center">
+		<h2><%= @project.name %></h2>
+		<%= link_to image_tag("modif.png"), edit_project_path(@project), title:'Modifier', class: 'ml-3' %> 
+	</div>
+	<% unless @project.description.blank? %>
+		<i><%= @project.description %></i>
+	<% end %>
+</div>
 
 <% unless @project.pct_avancee.zero? %>
     Avancée: <%= raw @project.bar_avancee %>

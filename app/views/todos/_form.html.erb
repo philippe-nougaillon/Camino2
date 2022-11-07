@@ -11,21 +11,25 @@
     </div>
   <% end %>
 
-  <div class="pl-2" style="border:1px dotted lightgray;">
+  <div class="px-2" style="border:1px dotted lightgray;">
     <div class="field">
       <%= f.hidden_field :todolist_id %>
     </div>
     <div class="field">
-        <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 sm:mb-0' %>
-        <span style="margin-left:12px">
-          <%= f.text_field :name, class: 'input input-bordered w-80 mb-4 sm:mb-0', required: true %>
-        </span>
-        <%= f.label 'Assigné à :' %>
+        <%= f.label 'Fait ?' %>
+        <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4' %>
+
+        <br>
+        <%= f.label :name, 'Intitulé :' %>
+        <%= f.text_field :name, class: 'input input-bordered w-full mb-4', required: true %>
+
+        <%= f.label :user_id, 'Assigné à :' %>
         <%= f.select :user_id, 
                       options_from_collection_for_select(@project.users, "id", "name", @todo.user_id),
                       {},
                       { class: 'select select-bordered select-sm', include_blank: true } %>
-        <%= f.label "notifier ?" %>
+
+        <%= f.label :notify, "notifier ?" %>
         <%= f.check_box :notify, class: 'checkbox' %>
     </div>
     <div style="margin-left:40px">
