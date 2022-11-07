@@ -33,7 +33,7 @@ Afficher les opérations:
       <tbody>
         <% @todos.each do |todo| %>
           <tr class="hover">
-            <td><%= image_tag("yes.png") if todo.done %></td>
+            <th><%= image_tag("yes.png") if todo.done %></th>
             <td>
               <%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document'), '/documents/' + todo.docfilename, { target:'_blank' }) if todo.docfilename %>
             </td>
