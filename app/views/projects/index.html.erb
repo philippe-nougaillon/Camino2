@@ -69,13 +69,13 @@
   <% unless params[:search].blank? %>
     <i>Aucun projet à afficher...</i>
   <% else %>
-    <i>
+    <p>
       Vous ne participez à aucun projet actuellement. Cliquez sur  
       <%= link_to new_project_path do %>
-        <div class="badge badge-outline rounded badge-lg">+</div>
+        <span class="badge badge-outline rounded badge-lg">+</span>
       <% end %>
       pour ajouter un projet.
-    </i>
+    </p>
   <% end %>
   <br>
 <% end %>

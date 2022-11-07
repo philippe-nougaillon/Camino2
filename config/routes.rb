@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users
+  resources :users, except: [:destroy]
   
   get "sitemap" => "sitemap#show", format: :xml, as: :sitemap
 
