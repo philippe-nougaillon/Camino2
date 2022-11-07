@@ -11,28 +11,24 @@
     </div>
   <% end %>
 
-  <div class="px-2" style="border:1px dotted lightgray;">
+  <div class="p-2 shadow">
     <div class="field">
       <%= f.hidden_field :todolist_id %>
     </div>
     <div class="field">
-        <%= f.label 'Fait ?' %>
-        <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4' %>
+      <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 mr-10' %>
+      <%= f.text_field :name, class: 'input input-bordered w-96 mb-4', required: true %>
 
-        <br>
-        <%= f.label :name, 'Intitulé :' %>
-        <%= f.text_field :name, class: 'input input-bordered w-full mb-4', required: true %>
+      <%= f.label :user_id, 'Assigné à :' %>
+      <%= f.select :user_id, 
+                    options_from_collection_for_select(@project.users, "id", "name", @todo.user_id),
+                    {},
+                    { class: 'select select-bordered select-sm', include_blank: true } %>
 
-        <%= f.label :user_id, 'Assigné à :' %>
-        <%= f.select :user_id, 
-                      options_from_collection_for_select(@project.users, "id", "name", @todo.user_id),
-                      {},
-                      { class: 'select select-bordered select-sm', include_blank: true } %>
-
-        <%= f.label :notify, "notifier ?" %>
-        <%= f.check_box :notify, class: 'checkbox' %>
+      <%= f.label :notify, "notifier ?" %>
+      <%= f.check_box :notify, class: 'checkbox' %>
     </div>
-    <div style="margin-left:40px">
+    <div class="ml-16">
       <div class="field">
         <%= f.label 'Echéance :' %>
         <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered mt-4' %>
@@ -40,13 +36,13 @@
         <small class="block mt-4 sm:mt-0">Cette échéance va s'ajouter au calendrier du participant assigné et un rappel lui sera envoyé à J-
           <%= f.select :notifydays, options_for_select((1..10), @todo.notifydays.to_s), {}, { class:'select select-xs select-bordered' } %>
         </small>
-        <br><br>
+        <br>
 
         <%= f.label "Document :" %>
         <%= f.file_field :doc, class:"mb-4 sm:mb-0" %>
 
         <%= f.label 'Tags :' %>
-        <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered' %>
+        <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered input-sm' %>
       </div>
 
       <% if @table %>
@@ -59,6 +55,6 @@
         <%= f.submit @todo.new_record? ? "Ajouter" : "Enregistrer", class: 'btn btn-active btn-ghost' %> 
       </div>
     </div>
-</div>
+  </div>
 
 <% end %>
