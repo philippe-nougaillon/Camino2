@@ -29,7 +29,7 @@ class TodosController < ApplicationController
     end
     
     unless params[:search].blank?
-      @todos = @todos.joins(:project, :todolist, :user).where("todos.name like ? OR todolists.name like ? OR projects.name like ?", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      @todos = @todos.joins(:project, :todolist, :user).where("todos.name ILIKE ? OR todolists.name ILIKE ? OR projects.name ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
 
     unless params[:tag].blank?

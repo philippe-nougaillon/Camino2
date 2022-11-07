@@ -29,7 +29,7 @@ class TablesController < ApplicationController
   # GET /tables/1.json
   def show
     unless params[:search].blank?
-      @values = @table.values.where("data like ?", "%#{params[:search].strip}%")      
+      @values = @table.values.where("data ILIKE ?", "%#{params[:search].strip}%")      
     else
       @values = @table.values
     end

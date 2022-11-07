@@ -2,7 +2,7 @@
 
 <% if @tags.any? %>
   Tags:
-  <% tag_cloud(@tags, ['badge badge-lg', 'badge', 'badge badge-sm', 'badge badge-xs']) do |tag, css_class| %>
+  <% tag_cloud(@tags, ['badge badge-lg', 'badge badge-md', 'badge', 'badge badge-sm']) do |tag, css_class| %>
     <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
   <% end %>
 <% end %>

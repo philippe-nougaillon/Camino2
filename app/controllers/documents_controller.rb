@@ -7,8 +7,8 @@ class DocumentsController < ApplicationController
   	@documents = @user.account.todos.where("docname is not null").order("updated_at DESC").limit(9)
 
 	  unless params[:search].blank?
-      @documents = @documents.where("docname like ?", "%#{params[:search]}%")
-      @logs = @logs.where("logs.description like ?", "%#{params[:search]}%")
+      @documents = @documents.where("docname ILIKE ?", "%#{params[:search]}%")
+      @logs = @logs.where("logs.description ILIKE ?", "%#{params[:search]}%")
     end
   end
 

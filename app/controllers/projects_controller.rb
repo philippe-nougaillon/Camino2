@@ -17,8 +17,8 @@ class ProjectsController < ApplicationController
 
     unless params[:search].blank?
       @projects = @projects.where("name ILIKE ? OR description ILIKE ? OR memo ILIKE ?", "%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%")
-      @logs = @logs.where("logs.description like ?", "%#{params[:search]}%")
-      @comments = @comments.where("comments.texte like ?", "%#{params[:search]}%")
+      @logs = @logs.where("logs.description ILIKE ?", "%#{params[:search]}%")
+      @comments = @comments.where("comments.texte ILIKE ?", "%#{params[:search]}%")
     end 
 
     unless params[:tag].blank?

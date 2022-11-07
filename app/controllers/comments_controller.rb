@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
     end
 
     unless params[:search].blank?
-      @comments = @comments.where("comments.texte like ?", "%#{params[:search]}%")
+      @comments = @comments.where("comments.texte ILIKE ?", "%#{params[:search]}%")
     end
 
   end

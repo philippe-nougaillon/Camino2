@@ -22,7 +22,7 @@ class LogsController < ApplicationController
     end
 
     unless params[:search].blank?
-      @logs = @logs.where("logs.description like ?", "%#{params[:search]}%")
+      @logs = @logs.where("logs.description ILIKE ?", "%#{params[:search]}%")
     end
 
   end

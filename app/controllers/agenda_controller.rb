@@ -15,7 +15,7 @@ class AgendaController < ApplicationController
     @projects = @user.projects.where("duedate is not null")
     @todos = @user.todos.where("duedate is not null")
     unless params[:search].blank?
-    	@projects = @projects.where("name like ?", "%#{ params[:search]}%")
+    	@projects = @projects.where("name ILIKE ?", "%#{ params[:search]}%")
     end
     respond_to do |format|
       format.html.none
