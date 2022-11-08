@@ -1,45 +1,37 @@
-# encoding: utf-8
-
 class SessionsController < ApplicationController
-  
-  # skip_before_action :authorize	
+  # skip_before_action :authorize
 
   def new
     if current_user.id
-      redirect_to projects_path 
+      redirect_to projects_path
       return
     end
 
-    if Account.where(hostname:request.host).any?
-      @account = Account.find_by(hostname:request.host)
-    else
-      @account = nil
-    end  
+    @account = (Account.find_by(hostname: request.host) if Account.where(hostname: request.host).any?)
 
     respond_to do |format|
-        format.html.phone 
-        format.html.none 
+      format.html.phone
+      format.html.none
     end
   end
 
   def create
-  	user = User.find_by(username:params[:username])
-  	if user and user.authenticate(params[:password]) 
-  		current_user.id = user.id
+    user = User.find_by(username: params[:username])
+    if user and user.authenticate(params[:password])
+      current_user.id = user.id
       user.updated_at = DateTime.now
       user.save(validate: false)
       respond_to do |format|
         format.html.none { redirect_to projects_path }
-        format.html.phone { redirect_to todos_path(user:user) } 
+        format.html.phone { redirect_to todos_path(user:) }
       end
-  	else
-  		redirect_to login_url, notice: "Utilisateur ou mot de passe incorrect"
-  	end
+    else
+      redirect_to login_url, notice: 'Utilisateur ou mot de passe incorrect'
+    end
   end
 
   def destroy
-  	session[:user_id] = nil
-  	redirect_to projects_path, notice: "Vous avez été déconnecté(e)..."
+    session[:user_id] = nil
+    redirect_to projects_path, notice: 'Vous avez été déconnecté(e)...'
   end
-
 end

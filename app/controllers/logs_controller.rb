@@ -1,36 +1,30 @@
 class LogsController < ApplicationController
-  before_action :set_log, only: [:show, :edit, :update, :destroy]
+  before_action :set_log, only: %i[show edit update destroy]
 
   # GET /logs
   # GET /logs.json
   def index
     @user = current_user
 
-    unless params[:project_id].blank?
+    if params[:project_id].blank?
+      @logs = @user.logs
+    else
       @project = Project.find(params[:project_id])
       @logs = @project.logs
-    else
-      @logs = @user.logs
     end
 
-    unless params[:user].blank?
-      @logs = @logs.where(user_id:params[:user])
-    end  
+    @logs = @logs.where(user_id: params[:user]) unless params[:user].blank?
 
-    if params[:limit].blank?
-      @logs = @logs.limit(100)
-    end
+    @logs = @logs.limit(100) if params[:limit].blank?
 
-    unless params[:search].blank?
-      @logs = @logs.where("logs.description ILIKE ?", "%#{params[:search]}%")
-    end
+    return if params[:search].blank?
 
+    @logs = @logs.where('logs.description ILIKE ?', "%#{params[:search]}%")
   end
 
   # GET /logs/1
   # GET /logs/1.json
-  def show
-  end
+  def show; end
 
   # GET /logs/new
   def new
@@ -38,8 +32,7 @@ class LogsController < ApplicationController
   end
 
   # GET /logs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /logs
   # POST /logs.json
@@ -82,13 +75,14 @@ class LogsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_log
-      @log = Log.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def log_params
-      params.require(:log).permit(:project_id, :todolist_id, :user_id, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_log
+    @log = Log.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def log_params
+    params.require(:log).permit(:project_id, :todolist_id, :user_id, :description)
+  end
 end

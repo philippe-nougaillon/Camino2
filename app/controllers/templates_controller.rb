@@ -1,7 +1,5 @@
-# encoding: utf-8
-
 class TemplatesController < ApplicationController
-  before_action :set_template, only: [:show, :edit, :update, :destroy]
+  before_action :set_template, only: %i[show edit update destroy]
 
   # GET /templates
   # GET /templates.json
@@ -12,8 +10,7 @@ class TemplatesController < ApplicationController
 
   # GET /templates/1
   # GET /templates/1.json
-  def show
-  end
+  def show; end
 
   # GET /templates/new
   def new
@@ -21,8 +18,7 @@ class TemplatesController < ApplicationController
   end
 
   # GET /templates/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /templates
   # POST /templates.json
@@ -65,13 +61,14 @@ class TemplatesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_template
-      @template = Template.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def template_params
-      params.require(:template).permit(:name, :project, :participants, :todolists, :todos)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_template
+    @template = Template.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def template_params
+    params.require(:template).permit(:name, :project, :participants, :todolists, :todos)
+  end
 end

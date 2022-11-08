@@ -24,15 +24,13 @@ module AuditsHelper
         rescue StandardError => e
           pretty_changes << "error: '#{e.message}'"
         end
+      elsif audit.action == 'update'
+        unless c.last.first.blank? && c.last.last.blank?
+          pretty_changes << "'#{key}' modifié de '#{c.last.first}' à '#{c.last.last}'"
+        end
       else
-        if audit.action == 'update'
-          unless c.last.first.blank? && c.last.last.blank?    
-            pretty_changes << "'#{key}' modifié de '#{c.last.first}' à '#{c.last.last}'"
-          end
-        else 
-          unless c.last.blank?
-            pretty_changes << "'#{key}' #{audit.action == 'create' ? 'initialisé à' : 'était'} '#{c.last}'"
-          end
+        unless c.last.blank?
+          pretty_changes << "'#{key}' #{audit.action == 'create' ? 'initialisé à' : 'était'} '#{c.last}'"
         end
       end
     end

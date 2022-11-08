@@ -1,7 +1,5 @@
-# encoding: utf-8
-
 class TodolistsController < ApplicationController
-  before_action :set_todolist, only: [:show, :edit, :update, :destroy]
+  before_action :set_todolist, only: %i[show edit update destroy]
 
   # GET /todolists
   # GET /todolists.json
@@ -25,19 +23,14 @@ class TodolistsController < ApplicationController
 
   # GET /todolists/1/edit
   def edit
-    if @todolist.project.workflow?
-      # liste des indices avec nom de la todolist 
-      @rows = []
-      @todolists = @todolist.project.todolists.order(:row)
-      (1..@todolists.count).each do |i|
-        if @todolists.find_by(row:i)
-            @rows << @todolists.find_by(row:i)
-        else
-            @rows << Todolist.new(row:i)
-        end  
-      end
-    end 
-     
+    return unless @todolist.project.workflow?
+
+    # liste des indices avec nom de la todolist
+    @rows = []
+    @todolists = @todolist.project.todolists.order(:row)
+    (1..@todolists.count).each do |i|
+      @rows << (@todolists.find_by(row: i) || Todolist.new(row: i))
+    end
   end
 
   # POST /todolists
@@ -46,26 +39,26 @@ class TodolistsController < ApplicationController
     @todolist = Todolist.new(todolist_params)
 
     if @todolist.project.workflow? # l'indice de la nouvelle liste est le maxi de toutes les listes +1
-      if @todolist.project.todolists.any?
-        @todolist.row = @todolist.project.todolists.maximum(:row) + 1
-      else
-        @todolist.row = 1
-      end
-    end  
+      @todolist.row = if @todolist.project.todolists.any?
+                        @todolist.project.todolists.maximum(:row) + 1
+                      else
+                        1
+                      end
+    end
 
     respond_to do |format|
       if @todolist.valid?
-        if Todolist.any?
-          @todolist.id = Todolist.maximum(:id) + 1
-        else
-          @todolist.id = 1
-        end
+        @todolist.id = if Todolist.any?
+                         Todolist.maximum(:id) + 1
+                       else
+                         1
+                       end
         @todolist.log_changes(:add, current_user.id)
         @todolist.save
         format.html { redirect_to @todolist.project, notice: "'#{@todolist.name}' vient d'être ajouté au projet" }
         format.json { render action: 'show', status: :created, location: @todolist }
       else
-        flash[:notice] = "Il manque un titre à cette liste..."
+        flash[:notice] = 'Il manque un titre à cette liste...'
         format.html { redirect_to project_path(@todolist.project) }
         format.json { render json: @todolist.errors, status: :unprocessable_entity }
       end
@@ -78,14 +71,14 @@ class TodolistsController < ApplicationController
     @todolist.attributes = todolist_params
     @todolist.log_changes(:edit, current_user.id)
 
-    if @todolist.project.workflow? and @todolist.changes.include?('row') 
+    if @todolist.project.workflow? and @todolist.changes.include?('row')
       logger.debug "DEBUG! #{@todolist.changes}"
       row = @todolist.changes[:row]
-      @todolist.project.todolists.find_by(row:row.last).update_attributes(row:row.first)
-    end  
+      @todolist.project.todolists.find_by(row: row.last).update_attributes(row: row.first)
+    end
 
     respond_to do |format|
-      if @todolist.save(validates:false)
+      if @todolist.save(validates: false)
         format.html { redirect_to @todolist.project, notice: "'#{@todolist.name}' vient d'être modifié" }
         format.json { head :no_content }
       else
@@ -108,13 +101,14 @@ class TodolistsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_todolist
-      @todolist = Todolist.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def todolist_params
-      params.require(:todolist).permit(:project_id, :name, :row, :duedate)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_todolist
+    @todolist = Todolist.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def todolist_params
+    params.require(:todolist).permit(:project_id, :name, :row, :duedate)
+  end
 end

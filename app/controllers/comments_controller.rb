@@ -1,29 +1,25 @@
-# encoding: utf-8
-
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: %i[show edit update destroy]
 
   # GET /comments
   # GET /comments.json
   def index
     @user = current_user
-    unless params[:project_id].blank?
+    if params[:project_id].blank?
+      @comments = @user.comments.order('created_at DESC')
+    else
       @project = Project.find(params[:project_id])
       @comments = @project.comments.order('created_at DESC')
-    else
-      @comments = @user.comments.order('created_at DESC')
     end
 
-    unless params[:search].blank?
-      @comments = @comments.where("comments.texte ILIKE ?", "%#{params[:search]}%")
-    end
+    return if params[:search].blank?
 
+    @comments = @comments.where('comments.texte ILIKE ?', "%#{params[:search]}%")
   end
 
   # GET /comments/1
   # GET /comments/1.json
-  def show
-  end
+  def show; end
 
   # GET /comments/new
   def new
@@ -31,8 +27,7 @@ class CommentsController < ApplicationController
   end
 
   # GET /comments/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /comments
   # POST /comments.json
@@ -44,7 +39,7 @@ class CommentsController < ApplicationController
         @comment.log_changes(:comment, current_user.id)
         format.json { render action: 'show', status: :created, location: @comment }
         format.html do |variant|
-          variant.phone {redirect_to todo_path(@comment.todo), notice: 'Commentaire ajouté'} 
+          variant.phone { redirect_to todo_path(@comment.todo), notice: 'Commentaire ajouté' }
           variant.none { redirect_to edit_todo_path(@comment.todo), notice: 'Commentaire ajouté' }
         end
       else
@@ -79,13 +74,14 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def comment_params
-      params.require(:comment).permit(:todo_id, :user_id, :texte, :audience)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def comment_params
+    params.require(:comment).permit(:todo_id, :user_id, :texte, :audience)
+  end
 end

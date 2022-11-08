@@ -1,51 +1,47 @@
-# encoding: utf-8
-
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :set_todo, only: %i[show edit update destroy]
 
   layout :checkifmobile
 
   def checkifmobile
-    if request.variant and request.variant.include?(:phone) 
-      return 'phone'  
-    else
-      return 'application'
-    end
+    return 'phone' if request.variant and request.variant.include?(:phone)
+
+    'application'
   end
 
   # GET /todos
   # GET /todos.json
   def index
     @user = current_user
-    @todos = Todo.joins(:todolist).where("todolists.project_id in (?)", @user.projects.pluck(:id)).order("todos.duedate")
+    @todos = Todo.joins(:todolist).where('todolists.project_id in (?)',
+                                         @user.projects.pluck(:id)).order('todos.duedate')
     @tags = @todos.tag_counts_on(:tags)
-    
-    unless params[:user].blank?
-      @todos = @user.todos.undone.order("duedate")
+
+    @todos = @user.todos.undone.order('duedate') unless params[:user].blank?
+
+    unless params[:undone].blank?
+      @todos = Todo.joins(:todolist).where('todolists.project_id in (?)',
+                                           @user.projects.pluck(:id)).undone.order('todos.duedate')
     end
 
-    unless params[:undone].blank? 
-      @todos = Todo.joins(:todolist).where("todolists.project_id in (?)", @user.projects.pluck(:id)).undone.order("todos.duedate")
-    end
-    
     unless params[:search].blank?
-      @todos = @todos.joins(:project, :todolist, :user).where("todos.name ILIKE ? OR todolists.name ILIKE ? OR projects.name ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      @todos = @todos.joins(:project, :todolist, :user).where(
+        'todos.name ILIKE ? OR todolists.name ILIKE ? OR projects.name ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"
+      )
     end
 
-    unless params[:tag].blank?
-      @todos = @todos.tagged_with(params[:tag])
-    end
+    @todos = @todos.tagged_with(params[:tag]) unless params[:tag].blank?
 
     unless params[:notify].blank?
-      @todos = @todos.where.not(duedate:nil).select{|todo| (Date.today + todo.notifydays.days) == todo.duedate }
+      @todos = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
     end
 
     respond_to do |format|
       format.html do |variant|
-        variant.phone 
-        variant.none 
+        variant.phone
+        variant.none
       end
-    end 
+    end
   end
 
   # GET /todos/1
@@ -57,7 +53,7 @@ class TodosController < ApplicationController
     @table = Table.find(@todo.project.table_id) if @todo.project.table_id
 
     respond_to do |format|
-      format.html.phone 
+      format.html.phone
       format.html.none
     end
   end
@@ -71,9 +67,9 @@ class TodosController < ApplicationController
   def edit
     @project = @todo.project
     @user = current_user
-    
+
     @comment = Comment.new
-    # TODO Améliorer le code
+    # TODO: Améliorer le code
     @comment.todo_id = @todo.id
     @comment.user_id = @user.id
 
@@ -87,14 +83,14 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.valid?
-        if Todo.any?
-          @todo.id = Todo.maximum(:id) + 1
-        else
-          @todo.id = 1
-        end 
+        @todo.id = if Todo.any?
+                     Todo.maximum(:id) + 1
+                   else
+                     1
+                   end
         @todo.log_changes(:add, current_user.id)
         @todo.save
-        
+
         # sauvegarde le document
         if params[:todo][:doc]
           uploaded_io = params[:todo][:doc]
@@ -110,31 +106,29 @@ class TodosController < ApplicationController
 
           # création d'un aperçu pour les fichiers PDF
           if File.extname(@todo.docname) == '.pdf'
-            require "image_processing/mini_magick"
+            require 'image_processing/mini_magick'
 
             processed = ImageProcessing::MiniMagick
-              .source(path.join(filename))
-              .loader(page: 0)
-              .resize_to_limit(330, 370)
-              .convert("png")
-              .call(destination: path.join(filename + ".png"))
-            end
+                        .source(path.join(filename))
+                        .loader(page: 0)
+                        .resize_to_limit(330, 370)
+                        .convert('png')
+                        .call(destination: path.join(filename + '.png'))
+          end
 
           @todo.log_changes(:document, current_user.id)
         end
 
         # si ajout + done coché en même temps
         if todo_params[:done] == '1'
-          @todo.update(done:false)
-          @todo.done = true 
-          #logger.debug "DEBUG changes:#{@todo.changes}"
-          @todo.log_changes(:edit, current_user.id) 
+          @todo.update(done: false)
+          @todo.done = true
+          # logger.debug "DEBUG changes:#{@todo.changes}"
+          @todo.log_changes(:edit, current_user.id)
           @todo.save
-        else
+        elsif @todo.notify and @todo.user
           # envoyer notification au participant à qui cette tâche est assignée
-          if @todo.notify and @todo.user
-            Notifier.todo(@todo).deliver_later
-          end  
+          Notifier.todo(@todo).deliver_later
         end
         format.html { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être ajoutée" }
         format.json { render action: 'show', status: :created, location: @todo }
@@ -152,55 +146,52 @@ class TodosController < ApplicationController
     @project = @todo.project
 
     if params[:todo][:doc]
-        uploaded_io = params[:todo][:doc]
-        filename = Digest::SHA1.hexdigest('ElCaminoRealProject' + @todo.id.to_s) + File.extname(uploaded_io.original_filename)
-        path = Rails.root.join('public', 'documents')
-        File.open(path.join(uploaded_io.original_filename), 'wb') do |file|
-          file.write(uploaded_io.read)
-          @todo.docfilename = filename
-          @todo.docname = uploaded_io.original_filename
-        end
-        File.rename(path.join(uploaded_io.original_filename), path.join(filename))
-        
-        # création d'un aperçu pour les fichiers PDF
-        if File.extname(@todo.docname) == '.pdf'
-          require "image_processing/mini_magick"
+      uploaded_io = params[:todo][:doc]
+      filename = Digest::SHA1.hexdigest('ElCaminoRealProject' + @todo.id.to_s) + File.extname(uploaded_io.original_filename)
+      path = Rails.root.join('public', 'documents')
+      File.open(path.join(uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+        @todo.docfilename = filename
+        @todo.docname = uploaded_io.original_filename
+      end
+      File.rename(path.join(uploaded_io.original_filename), path.join(filename))
 
-          processed = ImageProcessing::MiniMagick
-            .source(path.join(filename))
-            .loader(page: 0)
-            .resize_to_limit(330, 370)
-            .convert("png")
-            .call(destination: path.join(filename + ".png"))
-        end
-        @todo.log_changes(:document, current_user.id)
-    end  
+      # création d'un aperçu pour les fichiers PDF
+      if File.extname(@todo.docname) == '.pdf'
+        require 'image_processing/mini_magick'
+
+        processed = ImageProcessing::MiniMagick
+                    .source(path.join(filename))
+                    .loader(page: 0)
+                    .resize_to_limit(330, 370)
+                    .convert('png')
+                    .call(destination: path.join(filename + '.png'))
+      end
+      @todo.log_changes(:document, current_user.id)
+    end
 
     if @project.workflow? and @todo.done? # si workflow linéraire, vérifie que la todo peut être terminée
       row = @todo.todolist.row
-      
+
       # il n'y a pas de liste avant celle-là et liste précédente terminée ?
-      unless @project.todolists.minimum(:row) == row 
-        unless @project.todolists.find_by(row: row - 1).done?
-          redirect_to @todo.todolist, notice: "Cette tâche ne peut pas être terminée pour l'instant (Workflow: linéaire)..."
-          return
-        end
+      if !(@project.todolists.minimum(:row) == row) && !@project.todolists.find_by(row: row - 1).done?
+        redirect_to @todo.todolist,
+                    notice: "Cette tâche ne peut pas être terminée pour l'instant (Workflow: linéaire)..."
+        return
       end
     end
 
     @todo.log_changes(:edit, current_user.id)
 
     respond_to do |format|
-      if @todo.save(validate:false)
+      if @todo.save(validate: false)
 
-        if @project.workflow? and @todo.done? 
-            # envoyer un mail pour prévenir d'une tâche à faire
-            next_todo = @project.current_todolist.next_todo
-            #logger.debug "DEBUG next_todo: #{next_todo.inspect}"
-            if next_todo && next_todo.user 
-              Notifier.next_todo(next_todo).deliver_later
-            end
-        end      
+        if @project.workflow? and @todo.done?
+          # envoyer un mail pour prévenir d'une tâche à faire
+          next_todo = @project.current_todolist.next_todo
+          # logger.debug "DEBUG next_todo: #{next_todo.inspect}"
+          Notifier.next_todo(next_todo).deliver_later if next_todo && next_todo.user
+        end
 
         format.html { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être modifée" }
         format.json { head :no_content }
@@ -219,7 +210,7 @@ class TodosController < ApplicationController
     File.delete(Rails.root.join('public', 'documents', @todo.docfilename)) if @todo.docfilename
     @todo.destroy
     respond_to do |format|
-      format.html { redirect_to @todolist, notice: "To-do supprimée avec succès" }
+      format.html { redirect_to @todolist, notice: 'To-do supprimée avec succès' }
       format.json { head :no_content }
     end
   end
@@ -234,7 +225,7 @@ class TodosController < ApplicationController
 
   def reopen
     @todo = Todo.find(params[:id])
-    @todo.done = false 
+    @todo.done = false
     @todo.log_changes(:edit, current_user.id)
     @todo.save
     redirect_to @todo
@@ -245,13 +236,15 @@ class TodosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_todo
-      @todo = Todo.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def todo_params
-      params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :docfilename, :docname, :tag_list, :notifydays)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_todo
+    @todo = Todo.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def todo_params
+    params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :docfilename, :docname,
+                                 :tag_list, :notifydays)
+  end
 end
