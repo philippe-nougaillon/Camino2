@@ -1,8 +1,8 @@
 <div class="simple-calendar mb-6">
-  <h2>
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
+  <h2 class="flex items-center gap-4 mb-4">
+    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "btn btn-outline" %>
     <%= t('date.month_names')[start_date.month].humanize %> <%= start_date.year %>
-    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "btn btn-outline" %>
   </h2>
 
   <div class="overflow-x-auto">
@@ -10,7 +10,7 @@
       <thead>
         <tr>
           <% date_range.slice(0, 7).each do |day| %>
-            <th class="text-lg"><%= t('date.abbr_day_names')[day.wday] %></th>
+            <th class="text-lg"><%= t('date.day_names')[day.wday].humanize %></th>
           <% end %>
         </tr>
       </thead>
