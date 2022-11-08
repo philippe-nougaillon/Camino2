@@ -43,6 +43,9 @@ class ProjectsController < ApplicationController
                  else
                    @project.todolists.order(:name)
                  end
+    unless params[:search].blank?
+      @todolists = @todolists.where('name ILIKE ?', "%#{params[:search]}%")
+    end
   end
 
   # GET /projects/new
