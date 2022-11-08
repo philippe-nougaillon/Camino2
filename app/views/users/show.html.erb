@@ -50,7 +50,11 @@
           <th />
         </tr>
       </thead>	
-      <%= render partial:'participants/participant', collection:@user.participants %>
+      <tbody>
+        <%= render partial:'participants/participant', collection:@user.participants %>
+      <tfoot>
+        <tr><th colspan=6></th></tr>
+      </tfoot>
     </table>
   </div>
   <br>

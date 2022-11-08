@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @user = current_user
-    @participants = @user.account.participants.group(:user_id)
+    participants_id = @user.account.participants.pluck(:user_id).uniq
+    @users = User.where(id: participants_id)
   end
 
   # GET /users/1 or /users/1.json

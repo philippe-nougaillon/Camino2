@@ -220,7 +220,7 @@ class ProjectsController < ApplicationController
         @project.participants.create(user_id:user.id, client:true)
       else
         @user = current_user
-        Notifier.invite(@project, @user, params[:courriel]).deliver_later_now
+        #Notifier.invite(@project, @user, params[:courriel]).deliver_later_now
         # ajoute à l'activité 
         Log.create(project_id:@project.id, user_id:@user.id, action_id:1, 
                   description:"invité le participant <b>#{params[:courriel]}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")

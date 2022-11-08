@@ -52,7 +52,7 @@
             <td>
               <% project.participants.each do |participant| %>
                 <%# image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar" %>
-                <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
+                <%= "| #{participant.user.name} #{participant.client ? "(Client)":""}" %>
               <% end %>
               <%= link_to invite_path(id:project.id), title:'Inviter un nouveau participant' do %>
                 <div class="badge badge-outline rounded badge-lg">+</div>
