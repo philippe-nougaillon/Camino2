@@ -65,6 +65,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # Preview mail in the browser instead of sending.
+  gem "letter_opener", group: :development
 end
 
 gem 'rspec-rails', '~> 6.0'
