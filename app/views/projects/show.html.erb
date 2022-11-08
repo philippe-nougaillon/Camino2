@@ -77,17 +77,15 @@
 	<h2 class="mt-6">
 		Activité
 	</h2>
-	<% if @logs.any? %> 
-		<table id="logs">
-			<%= render partial:'logs/log', collection: @logs, :day => 0 %>
-		</table>
+	<table id="logs">
+		<%= render partial:'logs/log', collection: @logs, :day => 0 %>
+	</table>
+	<br>
+	<% if @logs.count > 5 %>
+		<small>
+			<i>Liste des 5 derniers changements <%= link_to "Afficher tout", logs_path(project_id:@project.id), class:"link" %></i>
+		</small>
 		<br>
-		<% if @logs.count > 5 %> 	
-			<small>
-				<i>Liste des 5 derniers changements <%= link_to "Afficher tout", logs_path(project_id:@project.id), class:"link" %></i>
-			</small>
-			<br>
-		<% end %>
 	<% end %>
 <% end %>
 

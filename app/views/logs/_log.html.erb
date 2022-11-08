@@ -1,32 +1,32 @@
 
+<% if @day != log.created_at.day %>
+	<% @user_id = 0 %>
+	<% @day = log.created_at.day %>
+	<% month_name = I18n.t("date.month_names")[log.created_at.month] %>
+	<h3 class="mt-8">
+		<b><%= "#{@day} #{month_name}" %></b>
+		<%= "(Aujourd'hui)" if log.created_at.to_date == Date.today %>
+	</h3>
+<% end %>
+
 <div class="flex flex-row gap-8 mb-1">
-  <% if @day != log.created_at.day %>
-    <% @user_id = 0 %>
-      <% @day = log.created_at.day %>
-      <% month_name = I18n.t("date.month_names")[log.created_at.month] %>
-      <h3 class="mt-8">
-        <b><%= "#{@day} #{month_name}" %></b>
-        <%= "(Aujourd'hui)" if log.created_at.to_date == Date.today %>
-      </h3>
-  <% else %>
-		<p style="color:lightgrey">
-			<%= log.created_at.strftime("%H:%M") %>
-		</p>
+	<p style="color:lightgrey">
+		<%= log.created_at.strftime("%H:%M") %>
+	</p>
+	<p>
+		<% if @user_id != log.user_id %>
+			<% @user_id = log.user_id %>
+			<%# image_tag(log.user.avatar.url(:thumb), size:'30x30', alt:'', class:"mini_avatar") %>
+		<% end %>
+	</p>
+	<span class="pl-2" style="border-left: 7px solid <%= log.project.color if log.project %>">
 		<p>
-			<% if @user_id != log.user_id %>
-				<% @user_id = log.user_id %>
-					<%# image_tag(log.user.avatar.url(:thumb), size:'30x30', alt:'', class:"mini_avatar") %>
-				<% end %>
+			<% if log.user_id == current_user.id %>
+				<b>Vous</b> avez  
+			<% else %>
+				<b><%= log.user.name %></b> a
+			<% end %>
+			<%= raw log.description  %>  
 		</p>
-		<span class="pl-2" style="border-left: 7px solid <%= log.project.color if log.project %>">
-			<p>
-				<% if log.user_id == current_user.id %>
-					<b>Vous</b> avez  
-				<% else %>
-					<b><%= log.user.name %></b> a
-				<% end %>
-				<%= raw log.description  %>  
-			</p>
-		</span>
-	<% end %>
+	</span>
 </div>
