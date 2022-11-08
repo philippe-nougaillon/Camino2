@@ -1,9 +1,9 @@
 class Participant < ApplicationRecord
-	audited
+  audited
 
-	belongs_to :project
-	belongs_to :user	
+  belongs_to :project
+  belongs_to :user  
 
-	scope :notification_subcribers, -> {where(want_notification:true)} 
+  scope :notification_subcribers, -> {where(want_notification:true)} 
 
 end

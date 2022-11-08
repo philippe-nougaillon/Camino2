@@ -1,6 +1,6 @@
 class Template < ApplicationRecord
-	audited
+  audited
 
-	belongs_to :account
+  belongs_to :account
 
 end

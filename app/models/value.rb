@@ -1,11 +1,11 @@
 class Value < ApplicationRecord
-	audited
+  audited
 
-	belongs_to :field
-  	belongs_to :table
-  	belongs_to :todo
-  	belongs_to :user
+  belongs_to :field
+    belongs_to :table
+    belongs_to :todo
+    belongs_to :user
 
-  	scope :records_at, ->(i) { where(record_index:i) }
+    scope :records_at, ->(i) { where(record_index:i) }
 
 end

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-  	<h3>Hello !</h3>
-  	<p>
+    <h3>Hello !</h3>
+    <p>
       <%= raw "Une nouvelle tâche <b>'#{@todo.name}'</a> vous a été assignée." %>
-  	</p>
-  	<p>
-  		<% if @todo.todolist %>
-	  		Ouvrir le projet <%= link_to "#{@todo.project.name}:#{@todo.todolist.name}", @todo.todolist %>
-  		<% else %>
-	  		Ouvrir le projet <%= link_to @todo.project.name, @todo.project %>
-  		<% end %>
-  	</p>
+    </p>
+    <p>
+      <% if @todo.todolist %>
+        Ouvrir le projet <%= link_to "#{@todo.project.name}:#{@todo.todolist.name}", @todo.todolist %>
+      <% else %>
+        Ouvrir le projet <%= link_to @todo.project.name, @todo.project %>
+      <% end %>
+    </p>
   </body>
 </html>

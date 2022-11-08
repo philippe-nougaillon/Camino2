@@ -1,32 +1,32 @@
 .calendar tr:nth-child(odd) {
-	background: red;
+  background: red;
 }
 
 .calendar-header {
-	font-size:30px;
-	font-weight:bold;
-	color:#005f5f;
-	margin-bottom:15px;
+  font-size:30px;
+  font-weight:bold;
+  color:#005f5f;
+  margin-bottom:15px;
 }
 
 .day { 
-	height:100px; 
-	width:14.28%; 
-	border:1px solid lightgrey;
-	vertical-align:top;
-	padding-bottom:10px;
+  height:100px;
+  width:14.28%;
+  border:1px solid lightgrey;
+  vertical-align:top;
+  padding-bottom:10px;
 }
 
 .prev-month {
-	background: lightgrey;
-	border: 1px solid grey;
+  background: lightgrey;
+  border: 1px solid grey;
 }
 
 .next-month {
-	background: lightgrey;
-	border: 1px solid grey;
+  background: lightgrey;
+  border: 1px solid grey;
 }
 
 .today {
-	background-color: lightyellow;
+  background-color: lightyellow;
 }

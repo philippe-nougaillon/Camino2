@@ -8,13 +8,13 @@
     <%= hidden_field_tag :todo_id, @todo.id %>
   <% end %>
 
-	<% @table.fields.each do |field| %>
+  <% @table.fields.each do |field| %>
       <% field_name = "[data][#{@record_index}][#{field.id}]" %> 
       <% value = field.values.find_by(record_index:@record_index) %> 
       <% field_value = value.data if value %>
 
-  		<div class="field">
-    			<%= label_tag field.name %><br>
+      <div class="field">
+          <%= label_tag field.name %><br>
 
           <% if field.datatype == "texte" %>  
             <%= text_field_tag field_name, field_value %>
@@ -36,8 +36,8 @@
             <%= select_tag field_name, options_for_select(field.items.split(","), field_value), include_blank: true %>
 
           <% end %>
-  		</div>
-	<% end %>  
+      </div>
+  <% end %>  
   <br>
 
   <div class="actions">

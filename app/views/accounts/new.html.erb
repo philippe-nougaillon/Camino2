@@ -1,33 +1,33 @@
 <br>
 <div>
-	<h2><%= image_tag "logo3.png", size:'40x40' %> Création de compte</h2>
-	<br>
+  <h2><%= image_tag "logo3.png", size:'40x40' %> Création de compte</h2>
+  <br>
 
-	<%= form_for(@account) do |f| %>
-		<% if @account.errors.any? %>
-		    <div id="error_explanation">
-		      <h2><%= t('errors.messages.not_saved', count: @account.errors.count) %></h2>
+  <%= form_for(@account) do |f| %>
+    <% if @account.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= t('errors.messages.not_saved', count: @account.errors.count) %></h2>
 
-		      <ul>
-		      <% @account.errors.full_messages.each do |message| %>
-		        <li><%= message %></li>
-		      <% end %>
-		      </ul>
-		    </div>
-		<% end %>
+          <ul>
+          <% @account.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+    <% end %>
 
 
-	    <div class="field">
-        	<%= users_form.label :email, 'Courriel' %><br>
-        	<%= users_form.text_field :email %><br>
-        	<small><i>Indiquez l'adresse de messagerie qui recevra les notifications</i></small>
-      	</div>  
+      <div class="field">
+          <%= users_form.label :email, 'Courriel' %><br>
+          <%= users_form.text_field :email %><br>
+          <small><i>Indiquez l'adresse de messagerie qui recevra les notifications</i></small>
+        </div>  
 
-	  	<div class="actions">
-	    	<%= f.submit (@account.new_record? ? 'Créer le compte' : 'Enregistrer'), class: 'btn btn-active btn-ghost' %>
-	  	</div>
-  	<% end %>
+      <div class="actions">
+        <%= f.submit (@account.new_record? ? 'Créer le compte' : 'Enregistrer'), class: 'btn btn-active btn-ghost' %>
+      </div>
+    <% end %>
 
-	<%= link_to 'Retour', accounts_path %>
+  <%= link_to 'Retour', accounts_path %>
 
 </div>

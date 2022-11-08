@@ -11,7 +11,7 @@ class Account < ApplicationRecord
   has_many :todolists, through: :projects
   has_many :todos, through: :todolists
 
-  accepts_nested_attributes_for :users	
+  accepts_nested_attributes_for :users
 
   validates :name, presence: true, uniqueness: true
 

@@ -1,33 +1,33 @@
 class Todo < ApplicationRecord
-	include LogConcern
+  include LogConcern
 
-	audited
+  audited
 
-	acts_as_taggable
+  acts_as_taggable
 
-	belongs_to :todolist
-	belongs_to :user
+  belongs_to :todolist
+  belongs_to :user
 
-	has_one :project, through: :todolist 	
+  has_one :project, through: :todolist   
 
-	has_many :comments
-	has_many :values
+  has_many :comments
+  has_many :values
 
-	validates :name, presence: true
+  validates :name, presence: true
 
-	scope :done, -> {where(done:true)} 
-	scope :undone, -> {where(done:false)} 
+  scope :done, -> {where(done:true)} 
+  scope :undone, -> {where(done:false)} 
 
-	def preview_name
-		if File.extname(self.docname) == ".pdf"
-			"/documents/#{self.docfilename}.png"
-		else
-			"/documents/#{self.docfilename}"
-		end
-	end
+  def preview_name
+    if File.extname(self.docname) == ".pdf"
+      "/documents/#{self.docfilename}.png"
+    else
+      "/documents/#{self.docfilename}"
+    end
+  end
 
-	def fullname
-		"#{self.project.name}:#{self.todolist.name}:#{self.name}"
-	end	
+  def fullname
+    "#{self.project.name}:#{self.todolist.name}:#{self.name}"
+  end  
 
 end

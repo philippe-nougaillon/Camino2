@@ -1,10 +1,10 @@
 <h2>
-	<span style="background-color:<%= @todo.project.color %>;padding-left:5px;margin-right:5px;"></span>
-	<%= link_to @todo.project.name, @todo.project %> : <%= link_to @todo.todolist.name, @todo.todolist %>
+  <span style="background-color:<%= @todo.project.color %>;padding-left:5px;margin-right:5px;"></span>
+  <%= link_to @todo.project.name, @todo.project %> : <%= link_to @todo.todolist.name, @todo.todolist %>
 </h2>
 
 <h3>
-	Modification de '<%= truncate(@todo.name, length:70, separator:' ') %>'
+  Modification de '<%= truncate(@todo.name, length:70, separator:' ') %>'
 </h3>
 
 <%= render 'form' %>
@@ -12,12 +12,12 @@
 <br>
 <h3>Commentaires</h3>
 <% if @todo.comments.any? %>
-	<table>
-		<%= render partial:'comments/comment', collection:@todo.comments %>
-	</table>
+  <table>
+    <%= render partial:'comments/comment', collection:@todo.comments %>
+  </table>
 <% else %>
-	<small><i>Il n'y a pas encore de commentaires. Utilisez la case ci-dessous pour en publier un.</i></small>
-	<br><br>
+  <small><i>Il n'y a pas encore de commentaires. Utilisez la case ci-dessous pour en publier un.</i></small>
+  <br><br>
 <% end %>
 
 <div class="ml-2.5">

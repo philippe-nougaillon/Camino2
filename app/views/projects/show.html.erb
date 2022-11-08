@@ -1,11 +1,11 @@
 <div class="mb-8 pl-2" style="border-left: 7px solid <%= @project.color %>">
-	<div class="flex items-center">
-		<h2><%= @project.name %></h2>
-		<%= link_to image_tag("modif.png"), edit_project_path(@project), title:'Modifier', class: 'ml-3' %> 
-	</div>
-	<% unless @project.description.blank? %>
-		<i><%= @project.description %></i>
-	<% end %>
+  <div class="flex items-center">
+    <h2><%= @project.name %></h2>
+    <%= link_to image_tag("modif.png"), edit_project_path(@project), title:'Modifier', class: 'ml-3' %> 
+  </div>
+  <% unless @project.description.blank? %>
+    <i><%= @project.description %></i>
+  <% end %>
 </div>
 
 <% unless @project.pct_avancee.zero? %>
@@ -14,93 +14,93 @@
 <% end %>
 
 <% if @project.workflow? and @project.current_todolist %>
-	| Phase en cours : <%= @project.current_todolist.name %>
+  | Phase en cours : <%= @project.current_todolist.name %>
 <% end %>
 
 <% if @project.duedate %>
-	| Echéance : <b><%= l(@project.duedate) %></b>
+  | Echéance : <b><%= l(@project.duedate) %></b>
 <% end %>
 
 <% if @project.tag_list.any? %>
-	| Tags : <%= @project.tag_list_on(:tags) %>
+  | Tags : <%= @project.tag_list_on(:tags) %>
 <% end %>
 
 <% if @project.todolists.any? %>
-	<% if @project.todos.any? %>
-		| Afficher tâches :
-		<%= link_to_if params[:done], "Toutes", project_path(@project), class: 'link' %> /
-		<%= link_to_unless params[:done], "Reste à faire", project_path(@project, done:false), class: 'link' %>
-		<br>
-	<% end %>
+  <% if @project.todos.any? %>
+    | Afficher tâches :
+    <%= link_to_if params[:done], "Toutes", project_path(@project), class: 'link' %> /
+    <%= link_to_unless params[:done], "Reste à faire", project_path(@project, done:false), class: 'link' %>
+    <br>
+  <% end %>
 <% else %>
-	<br><small><i>Il n'y a aucune liste pour l'instant. Cliquez sur + pour saisir le nom de votre première liste.<br>
-	Ces listes de choses à faire ou phases séquentielles servent à découper un projet en tranches. (ex: Début/Milieu/Fin ou Prospection/Evaluation/Devis/Commande/Livraison/Facture).</i></small>
+  <br><small><i>Il n'y a aucune liste pour l'instant. Cliquez sur + pour saisir le nom de votre première liste.<br>
+  Ces listes de choses à faire ou phases séquentielles servent à découper un projet en tranches. (ex: Début/Milieu/Fin ou Prospection/Evaluation/Devis/Commande/Livraison/Facture).</i></small>
 <% end %>
 
 
 <% unless @project.memo.blank? %>
-	&nbsp;&nbsp;<i><%= @project.memo %></i>
+  &nbsp;&nbsp;<i><%= @project.memo %></i>
 <% end %>
 <br>
 
 <div class="overflow-x-auto">
-	<table class="table table-normal">
-		<thead>
-			<th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
-			<th>Tâches</th>
-			<th>Réalisation</th>
-			<th>Réalisées/Total</th>
-			<th>Echéance</th>
-			<th>Dernière réalisation le</th>
-			<th>Ecart</th>
-		</thead>
-		<tbody>
-			<%= render partial: 'todolists/todolist', collection: @todolists %>
-		</tbody>
-		<tfoot>
-			<tr>
-				<th>
-					<%= link_to new_todolist_path(project_id: @project.id), title: 'Ajouter une liste/phase' do %>
-						<div class="badge badge-outline rounded badge-lg">+</div>
-					<% end %>
-				</th>
-				<td colspan=6></td>
-			</tr>
-		</tfoot>	
-	</table>
+  <table class="table table-normal">
+    <thead>
+      <th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
+      <th>Tâches</th>
+      <th>Réalisation</th>
+      <th>Réalisées/Total</th>
+      <th>Echéance</th>
+      <th>Dernière réalisation le</th>
+      <th>Ecart</th>
+    </thead>
+    <tbody>
+      <%= render partial: 'todolists/todolist', collection: @todolists %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>
+          <%= link_to new_todolist_path(project_id: @project.id), title: 'Ajouter une liste/phase' do %>
+            <div class="badge badge-outline rounded badge-lg">+</div>
+          <% end %>
+        </th>
+        <td colspan=6></td>
+      </tr>
+    </tfoot>  
+  </table>
 </div>
 
 
 <% if @logs.any? %>
-	<br>
-	<hr class="style-two">
-	<h2 class="mt-4">
-		Activité
-	</h2>
-	<table id="logs">
-		<%= render partial:'logs/log', collection: @logs, :day => 0 %>
-	</table>
-	<br>
-	<% if @logs.count > 5 %>
-		<small>
-			<i>Liste des 5 derniers changements <%= link_to "Afficher tout", logs_path(project_id:@project.id), class:"link" %></i>
-		</small>
-		<br>
-	<% end %>
+  <br>
+  <hr class="style-two">
+  <h2 class="mt-4">
+    Activité
+  </h2>
+  <table id="logs">
+    <%= render partial:'logs/log', collection: @logs, :day => 0 %>
+  </table>
+  <br>
+  <% if @logs.count > 5 %>
+    <small>
+      <i>Liste des 5 derniers changements <%= link_to "Afficher tout", logs_path(project_id:@project.id), class:"link" %></i>
+    </small>
+    <br>
+  <% end %>
 <% end %>
 
 <% if @comments.any? %>
-	<br>
-	<hr class="style-two">
-	<h2 class="mt-4">
-		Discussions
-	</h2>
-	<table id="logs">
-		<%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0  %>
-	</table>
-	<br>
-	<% if @project.comments.count > 5 %> 	
-		<small><i>Liste des 5 derniers commentaires <%= link_to "Afficher tout", comments_path(project_id:@project.id) %></i></small>
-		<br>
-	<% end %>
+  <br>
+  <hr class="style-two">
+  <h2 class="mt-4">
+    Discussions
+  </h2>
+  <table id="logs">
+    <%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0  %>
+  </table>
+  <br>
+  <% if @project.comments.count > 5 %>   
+    <small><i>Liste des 5 derniers commentaires <%= link_to "Afficher tout", comments_path(project_id:@project.id) %></i></small>
+    <br>
+  <% end %>
 <% end %>
