@@ -218,7 +218,7 @@ class ProjectsController < ApplicationController
     # on l'ajoute comme participant au projet en lecture seule
     else
       @user = current_user
-      # Notifier.invite(@project, @user, params[:courriel]).deliver_later_now
+      Notifier.invite(@project, @user, params[:courriel]).deliver_later
       # ajoute à l'activité
       Log.create(project_id: @project.id, user_id: @user.id, action_id: 1,
                  description: "invité le participant <b>#{params[:courriel]}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")
