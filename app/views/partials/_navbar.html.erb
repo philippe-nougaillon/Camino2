@@ -1,22 +1,25 @@
 <% if user_signed_in? %>
-  <nav class="mb-8">
-    <div class="float-right mt-0.5">
+  <div class="navbar flex !items-start !pl-0 mb-8">
+    <div class="navbar-start ">
+      <div class="dropdown lg:!hidden">
+        <label tabindex="0" class="btn btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        </label>
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          <%= render partial: 'partials/navbar_items' %>
+        </ul>
+      </div>
+      <div class="hidden lg:!flex">
+        <ul class="menu menu-horizontal p-0">
+          <%= render partial: 'partials/navbar_items' %>
+        </ul>
+      </div>
+    </div>
+    <div class="navbar-end !self-center">
       <%= form_tag(@search_filter, url: 'index', method: :get) do %>
-        <%= text_field_tag :search, params[:search], class:"input-sm bg-slate-100 w-60", placeholder: "Entrez un terme à rechercher" %>
+        <%= text_field_tag :search, params[:search], class:"input-sm bg-slate-100 w-60 mt-2 lg:mt-0", placeholder: "Entrez un terme à rechercher" %>
         <%= submit_tag  "", class: "" %>
       <% end %>
     </div>
-    <div class="nav">
-      <ul>
-        <li><%= link_to "Projets", projects_path, class:((@ctrl == 'projects' || @ctrl == 'todolists') ? 'active':'') %></li>
-        <li><%= link_to "Agenda", agenda_index_path, class:(@ctrl == 'agenda' ? 'active':'') %></li>
-        <li><%= link_to "To-do", todos_path(user:current_user.id), class:(@ctrl == 'todos' ? 'active':'') %></li>
-        <li><%= link_to "Activité", logs_path, class:(@ctrl == 'logs' ? 'active':'') %></li>
-        <li><%= link_to "Discussions", comments_path, class:(@ctrl == 'comments' ? 'active':'') %></li>
-        <li><%= link_to "Documents", documents_index_path, class:(@ctrl == 'documents' ? 'active':'') %></li>
-        <li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'active':'') %></li>
-        <li><%= link_to truncate(current_user.username, length: 12), current_user, class:(@ctrl == 'users' ? 'active':'') %></li>
-      </ul>
-    </div>
-  </nav>
+  </div>
 <% end %>
