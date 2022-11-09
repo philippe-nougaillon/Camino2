@@ -20,7 +20,7 @@
 
         <hr class="my-4">
 
-        <div class="flex mt-6">
+        <div class="flex justify-center mt-6">
           <hr class="my-3">
           <%= link_to 'Modifier', edit_user_path(@user), class: "btn btn-sm mr-3" %>
           <%= button_to 'DÉCONNEXION', destroy_user_session_path, method: :delete, form_class:'btn btn-sm btn-error', 'data-turbo': false %>

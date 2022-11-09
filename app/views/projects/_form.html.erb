@@ -1,4 +1,4 @@
-<div class="flex flex-column w-96">
+<div class="flex flex-column lg:w-1/3">
   <%= form_for(@project) do |f| %>
     <% if @project.errors.any? %>
       <div id="error_explanation">
@@ -33,6 +33,7 @@
     <div class="field">
       <%= f.label "Echéance" %><br>
       <%= f.date_field :duedate, size:5, value: (@project.duedate ? @project.duedate : nil), class: 'input input-bordered' %>
+      <br>
       <small><i>Cette date va s'ajouter au calendrier des participants</i></small>
     </div> 
 
@@ -65,26 +66,28 @@
                     class: 'select select-bordered' %>
 
     <br>
-    <small><i>
-      Pour inviter un nouveau participant, utilisez le lien 
-      <div class="badge badge-outline rounded badge-lg">+</div>
-      dans la liste des projets
-    </i></small>
+    <small>
+      <i>Pour inviter un nouveau participant, utilisez le lien </i>
+      <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+      <i>dans la liste des projets</i>
+    </small>
     <% if @participants.count > 1 %>
       <small><i>Utilisez 'Ctrl' ou 'Maj' pour une sélection multiple</i></small>
     <% end %>
 
     <br>
     <div class="mt-4">
-      <%= check_box_tag "welcome_message" %>
+      <%= check_box_tag "welcome_message", {}, {}, class: 'checkbox' %>
       Envoyer un message de bienvenue aux participants ?
     </div>
 
     <% unless @project.new_record? %>
-      <h2>Table de données</h2>
+      <h2 class="mt-4">
+        Table de données
+      </h2>
       <% if @tables.any? %>
         <div> 
-          <%= f.select :table_id, options_from_collection_for_select(@tables, "id", "name", @project.table_id), include_blank: true %>
+          <%= f.select :table_id, options_from_collection_for_select(@tables, "id", "name", @project.table_id), { include_blank: true}, {class: 'select select-bordered select-sm'} %>
         </div>
         <small><i>Pour associer ce projet à une table de données</i></small>
       <% else %>
@@ -93,9 +96,7 @@
       <% end %>
     <% end %>
 
-
-    <br><br>
-    <div class="actions">
+    <div class="actions mt-8">
       <%= f.submit "Enregistrer", class: 'btn btn-active btn-ghost' %>
     </div>
   <% end %>

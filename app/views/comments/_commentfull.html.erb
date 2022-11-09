@@ -26,8 +26,7 @@
       <%# image_tag(comment.user.avatar.url(:thumb), size:'30x30', alt:'', class:"mini_avatar") %>
     <% end %>
   </td>
-  <td><span style="background-color:<%= comment.project.color %>;padding-left:5px;margin-right:5px;"></span></td>
-  <td>
+  <td class="pl-2" style="border-left: 7px solid <%= comment.project.color %>">
     <% if comment.user_id == current_user.id %>
       <b>Vous</b> avez commenté
     <% else %>
