@@ -18,7 +18,7 @@
   <td>
     <% if @user_id != log.user_id %>
       <% @user_id = log.user_id %>
-        <%# image_tag(log.user.avatar.url(:thumb), size:'30x30', alt:'', class:"mini_avatar") %>
+        <%= image_tag(log.user.avatar, size:'30x30', alt:'', class:"mini_avatar") if log.user.avatar.attached? %>
       <% end %>
   </td>
   <td><span style="background-color:<%= log.project.color %>;padding-left:5px;margin-right:5px;"></span></td>

@@ -14,7 +14,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%# image_tag user.avatar.url(:medium), class:"avatar" %></td>
+        <td><%= image_tag user.avatar, class:"avatar" if user.avatar.attached? %></td>
         <td style="width:100px;font-weight:bold;"><%= link_to simple_format(user.name), logs_path(user:user.id) %></td>
         <td style="width:120px;"><%= user.username %></td>
         <td><%= user.email %></td>
