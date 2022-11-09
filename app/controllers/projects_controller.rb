@@ -200,6 +200,7 @@ class ProjectsController < ApplicationController
 
   def send_invitation
     @project = Project.find(params[:id])
+
     if params[:courriel].blank?
       flash[:notice] = 'Veuillez entrer une adresse, svp...'
     elsif params[:client]
@@ -218,11 +219,17 @@ class ProjectsController < ApplicationController
     # on l'ajoute comme participant au projet en lecture seule
     else
       @user = current_user
-      Notifier.invite(@project, @user, params[:courriel]).deliver_later
-      # ajoute à l'activité
-      Log.create(project_id: @project.id, user_id: @user.id, action_id: 1,
-                 description: "invité le participant <b>#{params[:courriel]}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")
-      flash[:notice] = 'Invitation envoyée...'
+      participant = @project.participants.new(user_id: User.find_by(email: params[:courriel]).id, client: false)
+      if participant.valid?
+        participant.save
+        Notifier.invite(@project, @user, params[:courriel]).deliver_later
+        # ajoute à l'activité
+        Log.create(project_id: @project.id, user_id: @user.id, action_id: 1,
+                  description: "invité le participant <b>#{params[:courriel]}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")
+        redirect_to project_path, notice: 'Invitation envoyée...'
+      else
+        flash[:alert] = 'Participant déjà ajouté...'
+      end
 
     end
     render action: 'invite'

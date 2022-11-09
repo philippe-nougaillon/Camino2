@@ -23,7 +23,7 @@ Veuillez saisir ci-dessous son adresse email afin de lui envoyer une invitation
 <%= form_tag do %>
   <%= hidden_field_tag 'id', params[:id] %>
   <%= label_tag "Courriel:" %>   
-  <%= email_field_tag :courriel, {}, class:"input input-bordered" %>
+  <%= email_field_tag :courriel, {}, class:"input input-bordered", required: true %>
   <%= submit_tag "Envoyer", class:"btn btn-ghost btn-active" %><br>
   <div class="mt-4">
     <%= check_box_tag :client, {}, {}, class:"checkbox" %>
