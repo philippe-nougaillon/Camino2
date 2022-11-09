@@ -4,5 +4,7 @@
 <li><%= link_to "Activité", logs_path, class:(@ctrl == 'logs' ? 'link underline-offset-8':'') %></li>
 <li><%= link_to "Discussions", comments_path, class:(@ctrl == 'comments' ? 'link underline-offset-8':'') %></li>
 <li><%= link_to "Documents", documents_index_path, class:(@ctrl == 'documents' ? 'link underline-offset-8':'') %></li>
-<li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'link underline-offset-8':'') %></li>
+<% if current_user == current_user.account.users.first %>
+  <li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'link underline-offset-8':'') %></li>
+<% end %>
 <li><%= link_to truncate(current_user.username, length: 12), current_user, class:(@ctrl == 'users' ? 'link underline-offset-8':'') %></li>

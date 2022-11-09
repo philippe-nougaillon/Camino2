@@ -8,8 +8,6 @@
     Vous avez été invité par <b><%= @user.name %></b> à participer au projet <b>'<%= @project.name %>'</b>. <br><br>
     Cliquez sur le lien ci-dessous pour accepter l'invitation.<br><br>
 
-    <%= link_to "Accepter l'invitation", accepter_url(q:@mail_invite, p:@project.id, u:@user.id) %>
-
     </p>
   </body>
 </html>
