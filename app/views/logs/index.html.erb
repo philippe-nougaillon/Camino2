@@ -1,6 +1,6 @@
-<h1>Activité</h1>
+<h1 class="mb-6">Activité</h1>
 
-  <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
+<%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
 
 <% unless @logs.any? %>
   Aucune activité pour le moment... Pas encore de projets ? 
