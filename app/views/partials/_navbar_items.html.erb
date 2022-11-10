@@ -7,4 +7,3 @@
 <% if current_user == current_user.account.users.first %>
   <li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'link underline-offset-8':'') %></li>
 <% end %>
-<li><%= link_to truncate(current_user.username, length: 12), current_user, class:(@ctrl == 'users' ? 'link underline-offset-8':'') %></li>

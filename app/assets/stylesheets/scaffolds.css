@@ -195,7 +195,7 @@ hr.style-two {
   box-shadow: none;
 }
 /* AVATAR ===================================================*/
-.avatar {
+.camino-avatar {
   border: 1px solid white;
   height: 90px;
   width: 90px;
@@ -203,10 +203,10 @@ hr.style-two {
   border-radius: 45px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
 }
-.avatar {
+.camino-avatar {
   background: rgba(0, 0, 0, 0.2);
 }
-.avatar img {
+.camino-avatar img {
   border-radius: 40px;
   width: 80px;
   height: 80px;
