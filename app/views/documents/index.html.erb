@@ -15,13 +15,13 @@
     <% @documents.each do |doc| %>
       <tr>
         <td>
-          <%= doc.filename.base %>
+          <%= link_to doc.filename.base, doc, target: "_blank" %>
         </td>
         <td>
           <%= doc.content_type %>
         </td>
         <td>
-          <%= link_to "#{doc.record.todolist.project.name}:#{doc.record.todolist.name}:#{doc.record.name}",doc.record %>
+          <%= link_to "#{doc.record.todolist.project.name}:#{doc.record.todolist.name}:#{doc.record.name}", doc.record.todolist %>
         </td>
         <td>
           <%= time_ago_in_words doc.created_at %>
