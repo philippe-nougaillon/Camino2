@@ -33,8 +33,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @todolist = Todolist.new
-    @todolist.project_id = @project.id
     @logs = @project.logs.except_comments.limit(5)
     @comments = @project.comments.limit(5)
     @documents = @project.todos.where('docname is not null')
@@ -44,7 +42,9 @@ class ProjectsController < ApplicationController
                    @project.todolists.order(:name)
                  end
     unless params[:search].blank?
-      @todolists = @todolists.where('name ILIKE ?', "%#{params[:search]}%")
+      @todolists = @todolists.joins(:todos)
+                              .where('todolists.name ILIKE :search OR todos.name ILIKE :search', {search: "%#{params[:search]}%"})
+                              .uniq
     end
   end
 
@@ -219,14 +219,14 @@ class ProjectsController < ApplicationController
     # on l'ajoute comme participant au projet en lecture seule
     else
       @user = current_user
-      participant = @project.participants.new(user_id: User.find_by(email: params[:courriel]).id, client: false)
+      participant = @project.participants.new(user: User.find_by(email: params[:courriel]), client: false)
       if participant.valid?
         participant.save
         Notifier.invite(@project, @user, params[:courriel]).deliver_later
         # ajoute à l'activité
         Log.create(project_id: @project.id, user_id: @user.id, action_id: 1,
                   description: "invité le participant <b>#{params[:courriel]}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")
-        redirect_to project_path, notice: 'Invitation envoyée...'
+        redirect_to projects_index_path, notice: 'Invitation envoyée...'
       else
         flash[:alert] = 'Participant déjà ajouté...'
       end
@@ -235,39 +235,39 @@ class ProjectsController < ApplicationController
     render action: 'invite'
   end
 
-  # def accepter
-  #   mail_invite = params[:q]
-  #   project = Project.find(params[:p])
-  #   user_qui_invite = User.find(params[:u])
+  def accepter
+    mail_invite = params[:q]
+    project = Project.find(params[:p])
+    user_qui_invite = User.find(params[:u])
 
-  #   unless User.find_by(email:mail_invite)
-  #     # username = partie avant le @ du mail
-  #     username = mail_invite.split('@').first
-  #     # créer un mot de passe
-  #     pass = random_password
-  #     # créer un user
-  #     user = User.create(name:username, username:username, email:mail_invite, password:pass, password_confirmation:pass,
-  #                         account_id:user_qui_invite.account_id)
-  #     # notifier par mail du mot de passe
-  #     Notifier.welcome(user, pass, project).deliver_later_now
-  #     flash[:notice] = "Vos informations de connexion viennent d'être envoyées sur #{mail_invite} ..."
-  #   else
-  #     user = User.find_by(email:mail_invite)
-  #   end
+    unless User.find_by(email:mail_invite)
+      # username = partie avant le @ du mail
+      username = mail_invite.split('@').first
+      # créer un mot de passe
+      pass = random_password
+      # créer un user
+      user = User.create(name:username, username:username, email:mail_invite, password:pass, password_confirmation:pass,
+                          account_id:user_qui_invite.account_id)
+      # notifier par mail du mot de passe
+      Notifier.welcome(user, pass, project).deliver_later_now
+      flash[:notice] = "Vos informations de connexion viennent d'être envoyées sur #{mail_invite} ..."
+    else
+      user = User.find_by(email:mail_invite)
+    end
 
-  #   # ajouter le user comme un participant au projet
-  #   unless project.participants.where(user_id:user.id).any?
-  #     project.participants.create(user_id:user.id)
+    # ajouter le user comme un participant au projet
+    unless project.participants.where(user_id:user.id).any?
+      project.participants.create(user_id:user.id)
 
-  #     # ajoute à l'activité
-  #     Log.create(project_id:project.id, user_id:user_qui_invite.id, action_id:1,
-  #               description:"ajouté le participant <b>#{username}</b> au projet '<a href='/projects/#{project.id}'>#{project.name}</a>'")
+      # ajoute à l'activité
+      Log.create(project_id:project.id, user_id:user_qui_invite.id, action_id:1,
+                description:"ajouté le participant <b>#{username}</b> au projet '<a href='/projects/#{project.id}'>#{project.name}</a>'")
 
-  #     flash[:notice] = "participant ajouté..."
-  #   end
+      flash[:notice] = "participant ajouté..."
+    end
 
-  #   redirect_to projects_path
-  # end
+    redirect_to projects_path
+  end
 
   def tag_cloud
     # @tags = @projects.tag_counts_on(:tags)

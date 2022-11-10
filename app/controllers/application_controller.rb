@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def set_layout_variables
     @sitename ||= 'Camino'
-    @sitename.concat(' v2.0')
+    @sitename.concat(' v2.2')
     @ctrl = params[:controller]
   end
 
