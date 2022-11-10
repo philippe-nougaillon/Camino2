@@ -143,7 +143,7 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
-    # @todo.attributes = todo_params
+    @todo.attributes = todo_params
     @project = @todo.project
 
     if @project.workflow? and @todo.done? # si workflow linéraire, vérifie que la todo peut être terminée
