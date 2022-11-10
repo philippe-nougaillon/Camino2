@@ -39,7 +39,7 @@
         <br>
 
         <%= f.label :document, "Document :" %>
-        <%= f.file_field :document, class:"mb-4 sm:mb-0" %>
+        <%= f.file_field :document, class:"mb-4 sm:mb-0", accept: "application/pdf" %>
 
         <%= f.label 'Tags :' %>
         <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered input-sm' %>
