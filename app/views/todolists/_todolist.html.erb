@@ -9,7 +9,7 @@
       <% else %>
         <%= link_to todolist.name, todolist, class: 'bold-title link', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
       <% end %>
-    </td>
+    </th>
     <td>
       <% if params[:done] %>
         <% todolist.todos.each do |todo| %>
@@ -18,7 +18,7 @@
           <% end %>    
         <% end %>
       <% else %>
-        <small><%= todolist.todos.pluck(:name).join(", ") %></small>
+        <small><%= truncate(todolist.todos.pluck(:name).join(", "), length: 100) %></small>
       <% end %>
     </td>
     <td>
