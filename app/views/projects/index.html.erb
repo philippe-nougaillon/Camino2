@@ -51,8 +51,9 @@
             </td>
             <td>
               <% project.participants.each do |participant| %>
-                <%= image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar" if participant.user.avatar.attached? %>
-                <%= "| #{participant.user.name} #{participant.client ? "(Client)":""}" %>
+                <%= image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar inline" if participant.user.avatar.attached? %>
+                <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
+                <br>
               <% end %>
               <%= link_to invite_path(id:project.id), title:'Inviter un nouveau participant' do %>
                 <div class="badge badge-outline rounded badge-lg pb-0.5 shadow !text-slate-100">+</div>

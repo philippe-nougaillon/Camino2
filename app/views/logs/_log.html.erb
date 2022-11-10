@@ -9,16 +9,16 @@
 <% end %>
 
 <div class="flex flex-row gap-8 mb-1">
-  <p style="color:lightgrey">
+  <p style="color:lightgrey; width:45px;">
     <%= log.created_at.strftime("%H:%M") %>
   </p>
-  <p>
+  <p style="width: 40px;">
     <% if @user_id != log.user_id %>
       <% @user_id = log.user_id %>
-      <%= image_tag(log.user.avatar, size:'30x30', alt:'', class:"mini_avatar") if log.user.avatar.attached? %>
+      <%= image_tag(log.user.avatar, size:'40x40', alt:'') if log.user.avatar.attached? %>
     <% end %>
   </p>
-  <p class="pl-2" style="border-left: 7px solid <%= log.project.color if log.project %>">
+  <p class="pl-2 text-justify" style="border-left: 7px solid <%= log.project.color if log.project %>">
     <% if log.user_id == current_user.id %>
       <b>Vous</b> avez  
     <% else %>

@@ -43,9 +43,7 @@
   <h2 class="mt-6">
     Activité
   </h2>
-  <table id="logs">
-      <%= render partial:'logs/log', collection:@todolist.logs.limit(15) %>
-  </table>
+  <%= render partial:'logs/log', collection:@todolist.logs.limit(15) %>
   <br>
   <% if @todolist.logs.count > 15 %>   
     <small><i>Liste des 15 derniers changements.

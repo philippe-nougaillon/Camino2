@@ -18,7 +18,6 @@ class User < ApplicationRecord
   has_many :comments, through: :projects
   has_many :todos 
 
-  validates :password, length: { minimum: 5 }
   validates :username, presence: true, uniqueness: true
   validates :name, presence: true
 end

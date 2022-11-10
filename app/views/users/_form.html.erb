@@ -12,31 +12,22 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :name %>
+    <%= form.label :name, 'Nom' %>
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :username %>
+    <%= form.label :username, 'Pseudo' %>
     <%= form.text_field :username, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :password, 'Mot de passe' %>
-    <%= form.password_field :password, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :avatar %>
+    <br>
     <%= form.file_field :avatar %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :picturelink %>
-    <%= form.text_field :picturelink, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer", 'data-turbo': false %>
+    <%= form.submit class: "rounded-lg py-3 px-5 border border-black inline-block font-medium cursor-pointer", 'data-turbo': false %>
   </div>
 <% end %>
