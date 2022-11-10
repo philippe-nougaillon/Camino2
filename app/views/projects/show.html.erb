@@ -29,7 +29,7 @@
   <% if @project.todos.any? %>
     | Afficher tâches :
     <%= link_to_if params[:done], "Toutes", project_path(@project), class: 'link' %> /
-    <%= link_to_unless params[:done], "Reste à faire", project_path(@project, done:false), class: 'link' %>
+    <%= link_to_unless params[:done], "Reste à faire", project_path(@project, done:false, search: params[:search]), class: 'link' %>
     <br>
   <% end %>
 <% else %>

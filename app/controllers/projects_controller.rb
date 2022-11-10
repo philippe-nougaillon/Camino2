@@ -35,17 +35,23 @@ class ProjectsController < ApplicationController
   def show
     @logs = @project.logs.except_comments.limit(5)
     @comments = @project.comments.limit(5)
-    @documents = @project.todos.where('docname is not null')
     @todolists = if @project.workflow == 1
                    @project.todolists.order(:row)
                  else
                    @project.todolists.order(:name)
                  end
+
     unless params[:search].blank?
       @todolists = @todolists.joins(:todos)
                               .where('todolists.name ILIKE :search OR todos.name ILIKE :search', {search: "%#{params[:search]}%"})
-                              .uniq
+                              
     end
+
+    unless params[:done].blank?
+      @todolists = @todolists.joins(:todos).where('todos.done IS FALSE')
+    end
+
+    @todolists = @todolists.uniq
   end
 
   # GET /projects/new
