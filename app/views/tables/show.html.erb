@@ -1,13 +1,10 @@
-<h1 class="flex items-center">
-  <%= @table.name %>
+<h1 class="flex items-center mb-6">
+  <%= @table.name.humanize %>
   <%= link_to image_tag("modif.png"), show_attrs_path(id:@table), title:"Modifier les attributs" %>
 </h1>
 
 <% if @table.fields.any? %>
   <% if @table.values.any? %>
-    <span style="text-align:right;display:block;">
-      <%= link_to image_tag('excel_logo.png', size:'25x25'), url_for(params.permit.merge(format:'xls')), title:'Export Excel' %>
-    </span>
 
     <table class="table table-normal">
       <thead>
@@ -46,7 +43,7 @@
               <td><%= l(record.created_at, format: :compact) %></td>
               <td><%= l(record.updated_at, format: :compact) %></td>
               <td>
-                <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar") if record.user.avatar.attached? %>
+                <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
                 <%= record.user.username if record.user %></td>
               <td><%= link_to image_tag("modif.png"), fill_url(@table.id, record_index:index) %></td>
               <td><%= button_to "[X]", delete_record_url(@table.id, record_index:index), method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
@@ -65,7 +62,7 @@
       </tfoot>
     </table>
     <%= count %> <%= @table.name %><%= @table.size > 1 ? "s":"" %> sur <%= @table.size %> au total
-    <br>
+    | <%= link_to "Exporter vers Excel", url_for(params.permit.merge(format:'xls')) %>
   <% else %>
     Il n'y a aucune valeur à afficher. Pour afficher de nouvelles données, modifiez une tâche et utilisez le lien "Ajouter des données...".
   <% end %>
