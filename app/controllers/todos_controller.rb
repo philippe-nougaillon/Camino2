@@ -92,32 +92,33 @@ class TodosController < ApplicationController
         @todo.save
 
         # sauvegarde le document
-        if params[:todo][:doc]
-          uploaded_io = params[:todo][:doc]
-          filename = Digest::SHA1.hexdigest('ElCaminoRealProject' + @todo.id.to_s) + File.extname(uploaded_io.original_filename)
-          path = Rails.root.join('public', 'documents')
-          File.open(path.join(uploaded_io.original_filename), 'wb') do |file|
-            file.write(uploaded_io.read)
-            @todo.docfilename = filename
-            @todo.docname = uploaded_io.original_filename
-            @todo.save
-          end
-          File.rename(path.join(uploaded_io.original_filename), path.join(filename))
+        # if params[:todo][:doc]
+        #   uploaded_io = params[:todo][:doc]
+        #   filename = Digest::SHA1.hexdigest('ElCaminoRealProject' + @todo.id.to_s) + File.extname(uploaded_io.original_filename)
+        #   path = Rails.root.join('public', 'documents')
+        #   File.open(path.join(uploaded_io.original_filename), 'wb') do |file|
+        #     file.write(uploaded_io.read)
+        #     @todo.docfilename = filename
+        #     @todo.docname = uploaded_io.original_filename
+        #     @todo.save
+        #   end
+        #   File.rename(path.join(uploaded_io.original_filename), path.join(filename))
 
-          # création d'un aperçu pour les fichiers PDF
-          if File.extname(@todo.docname) == '.pdf'
-            require 'image_processing/mini_magick'
+        #   # création d'un aperçu pour les fichiers PDF
+        #   if File.extname(@todo.docname) == '.pdf'
+        #     require 'image_processing/mini_magick'
 
-            processed = ImageProcessing::MiniMagick
-                        .source(path.join(filename))
-                        .loader(page: 0)
-                        .resize_to_limit(330, 370)
-                        .convert('png')
-                        .call(destination: path.join(filename + '.png'))
-          end
+        #     processed = ImageProcessing::MiniMagick
+        #                 .source(path.join(filename))
+        #                 .loader(page: 0)
+        #                 .resize_to_limit(330, 370)
+        #                 .convert('png')
+        #                 .call(destination: path.join(filename + '.png'))
+        #   end
 
-          @todo.log_changes(:document, current_user.id)
-        end
+        #   @todo.log_changes(:document, current_user.id)
+        # end
+
 
         # si ajout + done coché en même temps
         if todo_params[:done] == '1'
@@ -142,33 +143,8 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
-    @todo.attributes = todo_params
+    # @todo.attributes = todo_params
     @project = @todo.project
-
-    if params[:todo][:doc]
-      uploaded_io = params[:todo][:doc]
-      filename = Digest::SHA1.hexdigest('ElCaminoRealProject' + @todo.id.to_s) + File.extname(uploaded_io.original_filename)
-      path = Rails.root.join('public', 'documents')
-      File.open(path.join(uploaded_io.original_filename), 'wb') do |file|
-        file.write(uploaded_io.read)
-        @todo.docfilename = filename
-        @todo.docname = uploaded_io.original_filename
-      end
-      File.rename(path.join(uploaded_io.original_filename), path.join(filename))
-
-      # création d'un aperçu pour les fichiers PDF
-      if File.extname(@todo.docname) == '.pdf'
-        require 'image_processing/mini_magick'
-
-        processed = ImageProcessing::MiniMagick
-                    .source(path.join(filename))
-                    .loader(page: 0)
-                    .resize_to_limit(330, 370)
-                    .convert('png')
-                    .call(destination: path.join(filename + '.png'))
-      end
-      @todo.log_changes(:document, current_user.id)
-    end
 
     if @project.workflow? and @todo.done? # si workflow linéraire, vérifie que la todo peut être terminée
       row = @todo.todolist.row
@@ -244,7 +220,6 @@ class TodosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def todo_params
-    params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :docfilename, :docname,
-                                 :tag_list, :notifydays)
+    params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :document, :tag_list, :notifydays)
   end
 end

@@ -1,15 +1,40 @@
 <h1>Documents</h1>
 
-<div id="gallery">
-  <ul id="grid">
+<table class="table table-zebra">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Type</th>
+      <th>Projet</th>
+      <th>MÀJ</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
     <% @documents.each do |doc| %>
-     <li>
-      <%= link_to(image_tag(doc.preview_name, width:'100px', alt:'Image manquante !', title:doc.project.name), "/documents/#{doc.docfilename}",:target => "_blank") %>
-      <%= link_to doc.docname, "/documents/#{doc.docfilename}", :target => "_blank" %>
-     </li>
+      <tr>
+        <td>
+          <%= doc.filename.base %>
+        </td>
+        <td>
+          <%= doc.content_type %>
+        </td>
+        <td>
+          <%= link_to "#{doc.record.todolist.project.name}:#{doc.record.todolist.name}:#{doc.record.name}",doc.record %>
+        </td>
+        <td>
+          <%= time_ago_in_words doc.created_at %>
+        </td>
+      </tr>
     <% end %>
-  </ul>
-</div>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+  </tfoot>
+</table>
 
 <div style="display:block;clear: both;">
   <br>

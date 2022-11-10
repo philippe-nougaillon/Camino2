@@ -3,7 +3,10 @@ class DocumentsController < ApplicationController
     @user = current_user
     @projects = @user.projects
     @logs = @user.logs.documents.limit(50)
-    @documents = @user.account.todos.where('docname is not null').order('updated_at DESC').limit(9)
+    todos_id = @user.account.todos.pluck(:id)
+    @documents = ActiveStorage::Attachment.where(record_type: "Todo")
+                                          .where(record_id: todos_id)
+                                          .order('created_at DESC')
 
     return if params[:search].blank?
 

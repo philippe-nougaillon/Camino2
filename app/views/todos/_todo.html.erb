@@ -14,7 +14,9 @@
   <td><%= todo.user.name if todo.user %></td>
   <td><%= l(todo.duedate) if todo.duedate %></td>
   <td>
-    <%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document'), '/documents/' + todo.docfilename, { target:'_blank' }) if todo.docfilename %>
+    <% if todo.document.attached? %>
+      <%= link_to todo.document.filename, todo.document, target: "_blank" %>
+    <% end %>
   </td>
   <td>
     <% if todo.tags.any? %>

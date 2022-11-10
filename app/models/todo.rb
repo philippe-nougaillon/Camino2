@@ -8,7 +8,9 @@ class Todo < ApplicationRecord
   belongs_to :todolist
   belongs_to :user
 
-  has_one :project, through: :todolist   
+  has_one :project, through: :todolist
+
+  has_one_attached :document
 
   has_many :comments
   has_many :values
