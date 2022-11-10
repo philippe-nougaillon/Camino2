@@ -85,3 +85,5 @@ gem 'exception_notification'
 gem 'audited', '~> 5.0'
 
 gem 'rubocop', '~> 1.38'
+
+gem "aws-sdk-s3", require: false
