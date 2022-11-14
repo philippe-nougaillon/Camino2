@@ -202,6 +202,7 @@ hr.style-two {
   display: block;
   border-radius: 45px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+  object-fit: cover;
 }
 .camino-avatar {
   background: rgba(0, 0, 0, 0.2);
@@ -217,6 +218,7 @@ hr.style-two {
   border-radius: 15px;
   width: 25px;
   height: 25px;
+  object-fit: cover;
 }
 .css1 {
   font-size: 0.6em;

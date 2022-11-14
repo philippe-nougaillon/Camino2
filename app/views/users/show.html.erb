@@ -62,8 +62,6 @@
 
 <% if @user.logs.any? %>
   <h2>Votre activité</h2>
-  <table id="logs">
-    <%= render partial:'logs/log', collection:@user.logs, :day => 0 %>
-  </table>
+  <%= render partial:'logs/log', collection:@user.logs, :day => 0 %>
   <br>
 <% end %>

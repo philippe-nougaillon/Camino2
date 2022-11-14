@@ -2,7 +2,7 @@
   <% @user_id = 0 %>
   <% @day = log.created_at.day %>
   <% month_name = I18n.t("date.month_names")[log.created_at.month] %>
-  <h3 class="mt-8">
+  <h3 class="mt-8 mb-4">
     <b><%= "#{@day} #{month_name}" %></b>
     <%= "(Aujourd'hui)" if log.created_at.to_date == Date.today %>
   </h3>
@@ -12,10 +12,10 @@
   <p style="color:lightgrey; width:45px;">
     <%= log.created_at.strftime("%H:%M") %>
   </p>
-  <p style="width: 40px;">
+  <p style="width: 25px;">
     <% if @user_id != log.user_id %>
       <% @user_id = log.user_id %>
-      <%= image_tag(log.user.avatar, size:'40x40', alt:'') if log.user.avatar.attached? %>
+      <%= image_tag(log.user.avatar, alt:'', class:'mini_avatar') if log.user.avatar.attached? %>
     <% end %>
   </p>
   <p class="pl-2 text-justify" style="border-left: 7px solid <%= log.project.color if log.project %>">
