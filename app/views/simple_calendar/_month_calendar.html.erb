@@ -1,16 +1,22 @@
-<div class="simple-calendar mb-6">
+<div class="simple-calendar">
   <h2 class="flex items-center gap-4 mb-4">
     <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "btn btn-outline" %>
     <%= t('date.month_names')[start_date.month].humanize %> <%= start_date.year %>
     <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "btn btn-outline" %>
   </h2>
 
+  <%= form_tag agenda_index_path, method: :get, class:'mb-4' do %>
+    Vue :
+    <%= radio_button_tag :calendar_type, 'month_calendar', params[:calendar_type] == 'month_calendar', { onchange: "this.form.submit();", class: 'radio' } %> Mois
+    <%= radio_button_tag :calendar_type, 'week_calendar', params[:calendar_type] == 'week_calendar', { onchange: "this.form.submit();", class: 'radio' } %> Semaine
+  <% end %>
+
   <div class="overflow-x-auto">
-    <table class="w-full">
+    <table class="camino-table w-full">
       <thead>
         <tr>
           <% date_range.slice(0, 7).each do |day| %>
-            <th class="text-lg"><%= t('date.day_names')[day.wday].humanize %></th>
+            <th class="text-lg"><%= t('date.day_names')[day.wday] %></th>
           <% end %>
         </tr>
       </thead>

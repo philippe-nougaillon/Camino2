@@ -97,3 +97,43 @@ table {
 .table-bordered thead:last-child tr:last-child th:last-child, .table-bordered tbody:last-child tr:last-child td:last-child {
     border-radius: 0 0 0.470588235em 0;
 }
+
+.camino-table thead:first-child tr th, .table thead:first-child tr td {
+    border-top: 0;
+}
+
+.camino-table th:first-child {
+    z-index: 11;
+    position: sticky;
+    left: 0;
+}
+
+.camino-table th {
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.camino-table th, .table td {
+    padding: 0.470588235em;
+    text-align: left;
+    border-top: 0.071428571em solid #b8b8b8;
+}
+
+:where(.camino-table :first-child) :where(:first-child) :where(th,td):first-child {
+    border-top-left-radius: 0.5rem;
+}
+
+.camino-table :where(thead,tfoot) :where(th,td) {
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--b2,var(--b1))/var(--tw-bg-opacity));
+    text-transform: uppercase;
+    font-size: .75rem;
+    font-weight: 700;
+    line-height: 1rem;
+}
+
+.camino-table :where(th,td) {
+    white-space: nowrap;
+    /* vertical-align: middle; */
+    padding: .5rem;
+}

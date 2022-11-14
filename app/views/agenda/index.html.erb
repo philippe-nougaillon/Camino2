@@ -1,23 +1,45 @@
-<%= month_calendar day_names: "date.day_names" do |date| %>
 
-  <div id="date">
-    <%= date.day %>
-  </div>
-  <% @projects.where(duedate:date).each do |project| %>
-      <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
-        <%= link_to project.name.upcase, project, class: 'font-bold' %>
-      </div>
+<% if params[:calendar_type] == 'month_calendar' %>
+  <%= month_calendar do |date| %>
+
+    <div id="date">
+      <%= date.day %>
+    </div>
+    <% @projects.where(duedate:date).each do |project| %>
+        <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
+          <%= link_to project.name.upcase, project, class: 'font-bold' %>
+        </div>
+    <% end %>
+
+    <% @todos.undone.where(duedate:date).each do |todo| %>
+        <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
+          <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+        </div>
+    <% end %>
+
   <% end %>
+<% else %>
+  <%= week_calendar do |date| %>
 
-  <% @todos.undone.where(duedate:date).each do |todo| %>
-      <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
-        <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
-      </div>
+    <div id="date">
+      <%= l date %>
+    </div>
+    <% @projects.where(duedate:date).each do |project| %>
+        <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
+          <%= link_to project.name.upcase, project, class: 'font-bold' %>
+        </div>
+    <% end %>
+
+    <% @todos.undone.where(duedate:date).each do |todo| %>
+        <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
+          <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+        </div>
+    <% end %>
+
   <% end %>
-
 <% end %>
 
-<h2 class="mb-6">Échéances à venir</h2>
+<h2 class="my-6">Échéances à venir</h2>
 <div class="flex flex-col mb-6">
   <% @projects.where("duedate >= ?", Date.today()).each do |project| %>
     <div>
