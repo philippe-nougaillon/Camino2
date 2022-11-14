@@ -1,10 +1,12 @@
-<h2 class="flex items-center mb-6">
-  <span class="pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
-    <%= link_to @todolist.project.name, @todolist.project, class:'link' %>
-    : <%= @todolist.name %>
-  </span>
-  <%= link_to "Modifier" , edit_todolist_path(@todolist), class: 'ml-3' %> 
-</h2>
+<div class="flex items-center mb-6 ">
+  <h2>
+    <span class="pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
+      <%= link_to @todolist.project.name, @todolist.project, class:'link' %>
+      : <%= @todolist.name %>
+    </span>
+  </h2>
+  <%= link_to "Modifier" , edit_todolist_path(@todolist), class: 'ml-3 text-slate-300' %> 
+</div>
 
 <% if @todolist.todos.any? %>
   <div class="overflow-x-auto">
