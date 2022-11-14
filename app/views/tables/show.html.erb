@@ -1,6 +1,6 @@
 <h1 class="flex items-center mb-6">
   <%= @table.name.humanize %>
-  <%= link_to image_tag("modif.png"), show_attrs_path(id:@table), title:"Modifier les attributs" %>
+  <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les attributs" %>
 </h1>
 
 <% if @table.fields.any? %>
@@ -46,7 +46,7 @@
               <td>
                 <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
                 <%= record.user.username if record.user %></td>
-              <td><%= link_to image_tag("modif.png"), fill_url(@table.id, record_index:index) %></td>
+              <td><%= link_to "Modifier", fill_url(@table.id, record_index:index) %></td>
               <td><%= button_to "[X]", delete_record_url(@table.id, record_index:index), method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
             </tr>
           <% end %>
