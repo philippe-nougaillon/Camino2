@@ -1,17 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
-  resources :users, except: [:destroy]
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
+
   
   get "sitemap" => "sitemap#show", format: :xml, as: :sitemap
-
-  get 'users/:id/login' => 'users#login'
 
   get 'invite' => 'projects#invite' 
   post 'invite' => 'projects#send_invitation' 
   get 'accepter' => 'projects#accepter' 
-
-  get 'forgot_password' => 'users#forgot_password' 
-  post 'forgot_password' => 'users#forgot_password' 
 
   post 'todos/:id/close' => 'todos#close'
   post 'todos/:id/reopen' => 'todos#reopen'
@@ -32,13 +27,6 @@ Rails.application.routes.draw do
 
   get "/images/close",  to: redirect("images/close.png") 
 
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-    get 'logout' => :destroy
-  end
-
   resources :accounts
   resources :comments
   resources :templates
@@ -46,9 +34,9 @@ Rails.application.routes.draw do
   resources :todolists
   resources :participants
   resources :todos
-  resources :users
   resources :projects
   resources :tables
+  resources :users
   resources :values
   resources :fields
 

@@ -1,16 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :detect_device_format
   before_action :set_layout_variables
 
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) do |u|
-      u.permit(:name, :username, :email, :password, :password_confirmation)
-    end
-  end
 
   private
 
