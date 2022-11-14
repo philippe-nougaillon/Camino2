@@ -36,8 +36,9 @@
               <% end %>
               <td>
                 <% if record.todo %>
-                  <span style="background-color:<%= record.todo.project.color %>;padding-left:3px;margin-right:3px;color:lightgray;"></span>
-                  <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
+                  <span class="pl-1 ml-2" style="border-left: .3rem solid <%= record.todo.project.color %>">
+                    <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
+                  </span>
                 <% end %>
               </td>
               <td><%= l(record.created_at, format: :compact) %></td>

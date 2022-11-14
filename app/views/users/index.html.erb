@@ -20,12 +20,13 @@
         <td><%= user.email %></td>
         <td>
           <% user.projects.order(:name).each do |project| %>
-            <span style="background-color:<%= project.color %>;padding-left:5px;margin-left:5px;margin-right:5px;"> </span>
-            <% if project.participants.where(user_id:current_user.id).any? %>
-              <%= link_to project.name, project_path(project) %>
-            <% else %>
-              <%= project.name %>
-            <% end %>
+            <span class="pl-1" style="border-left: .3rem solid <%= project.color %>">
+              <% if project.participants.where(user_id:current_user.id).any? %>
+                <%= link_to project.name, project_path(project) %>
+              <% else %>
+                <%= project.name %>
+              <% end %>
+            </span>
           <% end %>
         </td>
       </tr>

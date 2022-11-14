@@ -33,16 +33,13 @@
             <td><b><%= link_to table.name, table %></b></td>
             <td>
                 <% table.projects.order(:name).each do |p| %>
-                  <% if p.color %>
-                    <span style="background-color:<%= p.color %>;padding-left:5px;margin-left:5px;margin-right:5px;"> </span>
-                  <% else %>
-                    |
-                  <% end %>
-                  <% if p.participants.where(user_id:current_user.id).any? %>
-                    <%= link_to p.name, project_path(p) %>
-                  <% else %>
-                    <%= p.name %>
-                  <% end %>
+                  <span class="pl-1 ml-2" style="border-left: .3rem solid <%= p.color %>">
+                    <% if p.participants.where(user_id:current_user.id).any? %>
+                        <%= link_to p.name, project_path(p) %>
+                    <% else %>
+                      <%= p.name %>
+                    <% end %>
+                  </span>
                 <% end %>
             </td>
             <td><%= table.size %></td>
