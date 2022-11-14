@@ -25,17 +25,19 @@
   | Tags : <%= @project.tag_list_on(:tags) %>
 <% end %>
 
-<% if @project.todolists.any? %>
-  <% if @project.todos.any? %>
-    | Afficher tâches :
-    <%= link_to_if params[:done], "Toutes", project_path(@project), class: 'link' %> /
-    <%= link_to_unless params[:done], "Reste à faire", project_path(@project, done:false, search: params[:search]), class: 'link' %>
-    <br>
+<div class="mt-2">
+  <% if @project.todolists.any? %>
+    <% if @project.todos.any? %>
+      Afficher :
+      <%= link_to_if params[:done], "Tout", project_path(@project), class: 'link' %> /
+      <%= link_to_unless params[:done], "Reste à faire", project_path(@project, done:false, search: params[:search]), class: 'link' %>
+      <br>
+    <% end %>
+  <% else %>
+    <small><i>Il n'y a aucune liste pour l'instant. Cliquez sur + pour saisir le nom de votre première liste.<br>
+    Ces listes de choses à faire ou phases séquentielles servent à découper un projet en tranches. (ex: Début/Milieu/Fin ou Prospection/Evaluation/Devis/Commande/Livraison/Facture).</i></small>
   <% end %>
-<% else %>
-  <br><small><i>Il n'y a aucune liste pour l'instant. Cliquez sur + pour saisir le nom de votre première liste.<br>
-  Ces listes de choses à faire ou phases séquentielles servent à découper un projet en tranches. (ex: Début/Milieu/Fin ou Prospection/Evaluation/Devis/Commande/Livraison/Facture).</i></small>
-<% end %>
+</div>
 
 
 <% unless @project.memo.blank? %>
@@ -47,7 +49,7 @@
   <table class="table table-normal">
     <thead>
       <th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
-      <th>Tâches</th>
+      <th>Tâches <%= params[:done] ? "(à faire)" : "(toutes)" %></th>
       <th>Réalisation</th>
       <th>Réalisées/Total</th>
       <th>Echéance</th>
