@@ -114,6 +114,9 @@ GEM
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    icalendar (2.8.0)
+      ice_cube (~> 0.16)
+    ice_cube (0.16.4)
     importmap-rails (1.1.5)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -278,6 +281,7 @@ DEPENDENCIES
   debug
   devise (~> 4.8)
   exception_notification
+  icalendar
   importmap-rails
   jbuilder
   letter_opener

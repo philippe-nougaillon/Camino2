@@ -39,6 +39,8 @@
   <% end %>
 <% end %>
 
+
+
 <h2 class="my-6">Échéances à venir</h2>
 <div class="flex flex-col mb-6">
   <% @projects.where("duedate >= ?", Date.today()).each do |project| %>
@@ -50,3 +52,5 @@
     </div>
   <% end %>
 </div>
+
+<%= link_to "Exporter au format iCalendar", url_for(params.permit!.merge(format: :ics)), class: 'link' %>

@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   get 'documents/index'
 
   get "agenda/index"
+  get "agenda/export_icalendar"
+
   get 'admin' => "admin/index"
 
   get "show_attrs" => "tables#show_attrs" 
