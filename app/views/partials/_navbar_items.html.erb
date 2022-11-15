@@ -6,5 +6,5 @@
 <li><%= link_to "Documents", documents_index_path, class:(@ctrl == 'documents' ? 'link underline-offset-8':'') %></li>
 <% if current_user == current_user.account.users.first %>
   <li><%= link_to "Tables", tables_path, class:(@ctrl == 'tables' ? 'link underline-offset-8':'') %></li>
-  <li><%= link_to "Tableau de bord", dashboard_path, class:(@ctrl == 'pages' ? 'link underline-offset-8':'') %></li>
+  <li data-turbo="false"><%= link_to "Tableau de bord", dashboard_path, class:(@ctrl == 'pages' ? 'link underline-offset-8':'') %></li>
 <% end %>

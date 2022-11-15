@@ -1,4 +1,4 @@
-<div class="w-full text-center mt-24">
+<div class="w-full text-center my-24">
   <div class="stats shadow text-left">
     <div class="stat">
       <div class="stat-title">Projets</div>
@@ -27,3 +27,35 @@
     
   </div>
 </div>
+
+<canvas class="mb-12" id="chartLine"></canvas>
+
+
+<!-- Required chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chart line -->
+<script>
+  const data = {
+    labels: <%= @results.keys.to_json.html_safe %>,
+    datasets: [
+      {
+        label: "Tâches réalisées",
+        backgroundColor: "hsl(252, 82.9%, 67.8%)",
+        borderColor: "hsl(252, 82.9%, 67.8%)",
+        data: <%= @results.values.to_json.html_safe %>,
+      },
+    ],
+  };
+
+  const configLineChart = {
+    type: "line",
+    data,
+    options: {},
+  };
+
+  var chartLine = new Chart(
+    document.getElementById("chartLine"),
+    configLineChart
+  );
+</script>
