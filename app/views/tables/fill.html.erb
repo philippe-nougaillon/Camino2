@@ -1,4 +1,4 @@
-<h3><%= @table.name %></h3>
+<h1 class="mb-6"><%= @table.name.humanize %></h1>
 
 <%= form_tag do %>
 
@@ -33,8 +33,8 @@
             <%= radio_button_tag field_name, 'Non', (field_value == 'Non') %> Non
 
           <% elsif field.datatype == "liste" %>
-            <%= select_tag field_name, options_for_select(field.items.split(","), field_value), include_blank: true %>
-
+            <%= select_tag field_name, options_for_select(field.items.split(","), field_value), include_blank: true, class: 'select select-bordered w-48' %>
+          
           <% end %>
       </div>
   <% end %>  

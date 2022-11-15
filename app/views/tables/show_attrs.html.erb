@@ -1,12 +1,25 @@
-<h1>
-  <%= @table.name %>
-  <%= link_to "Modifier", edit_table_path(@table), title:"Renommer cette table" %>
-</h1>
+<div class="flex items-center mb-6">
+  <h1>
+    <%= @table.name.humanize %>
+  </h1>
+  <%= link_to "Modifier", edit_table_path(@table), title:"Renommer cette table", class: 'ml-3 text-slate-300' %>
+</div>
 
 <h2>Attributs</h2>
 <% if @table.fields.any? %>
   <table class="table">
-    <%= render partial: 'fields/field', collection: @table.fields %>
+    <thead>
+      <th>Nom</th>
+      <th>Type</th>
+      <th>Contenu</th>
+      <th colspan=2></th>
+    <thead>
+    <tbody>
+      <%= render partial: 'fields/field', collection: @table.fields %>
+    </tbody>
+    <tfoot>
+      <th colspan=5></th>
+    </tfoot>
   </table>
   <br>
 <% end %>
@@ -19,5 +32,5 @@
   <%= render partial:'fields/form' %>
 <% end %>
 <br>
-<%= link_to "Saisir dans le formulaire '#{@table.name}'", fill_url(@table.id), class: 'link' %> | 
+<%= link_to "Voir le formulaire '#{@table.name.humanize}'", fill_url(@table.id), class: 'link' %> | 
 <%= link_to "Retour", @table, class:'link' %> 

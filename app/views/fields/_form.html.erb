@@ -1,19 +1,3 @@
-<script>
-  $(document).ready(function(){
-    $("#field_items").css('display','none')
-    if($('#field_datatype').val()== "liste"){
-          $("#field_items").css('display','inline')
-    }
-    $('#field_datatype').change(function(){
-      if($('#field_datatype').val()== "liste"){
-          $("#field_items").css('display','inline')
-       } else {
-          $("#field_items").css('display','none')
-       }
-    })
-  });
-</script>
-
 <%= form_for(@field) do |f| %>
   <% if @field.errors.any? %>
     <div id="error_explanation">
@@ -27,13 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field" data-controller="field">
     <%= f.hidden_field :table_id %>
 
     <%= f.label :name, @field.new_record? ? "Ajouter un nouvel attribut" : "Nom de l'attribut" %><br>
     <%= f.text_field :name, class: 'input input-bordered' %>
-    <%= f.select :datatype, options_for_select(Field.datatypes.keys.to_a, @field.datatype), {}, class: 'input input-bordered' %>
-    <%= f.text_field :items, class: 'input input-bordered'  %>
+    <div class="inline" data-action="change->field#toggle">
+      <%= f.select :datatype, options_for_select(Field.datatypes.keys.to_a, @field.datatype), {}, class: 'input input-bordered', 'data-field-target': "selector" %>
+    </div>
+    <div class="hidden" data-field-target="items">
+      <%= f.text_field :items, class: 'input input-bordered' %>
+    </div>
     
     <%= f.submit @field.new_record? ? "Ajouter" : "Modifier", class:'btn btn-active btn-ghost' %>
   </div>
