@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+
+.camino-footer:before{
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 3px #346abf solid;
+  transition: all .8s;
+}
+.camino-footer:before {
+  top: -3px;
+  left: -3px;
+  border-width: 3px 0 0 3px;
+}
+.camino-footer:hover.camino-footer:before, .camino-footer:hover.camino-footer:after {
+  width: calc( 100% + 3px );
+  height: calc( 100% + 3px );
+}
