@@ -3,20 +3,20 @@
     <div class="stat">
       <div class="stat-title">Projets</div>
       <div class="stat-value"><%= @projects.count %></div>
-      <div class="stat-desc">Jan 1st - Feb 1st</div>
+      <div class="stat-desc"><%= l @projects_start %> - <%= l @projects_end %></div>
     </div>
     
     <div class="stat">
       <div class="stat-title">Tâches</div>
       <div class="stat-value"><%= @todos.count %></div>
-      <div class="stat-desc">↗︎ 400 (22%)</div>
+      <div class="stat-desc text-red-500"><%= @todos_overdue %> tâches en retard</div>
     </div>
     
     <div class="stat">
       <div class="stat-figure text-secondary">
         <div class="avatar online">
           <div class="w-16 rounded-full">
-            <img src="https://placeimg.com/128/128/people" />
+            <%= image_tag @last_commit_picture %>
           </div>
         </div>
       </div>
