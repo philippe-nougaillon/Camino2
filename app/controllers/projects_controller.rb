@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project,
                 only: %i[show edit update destroy save_as_template save_as_template_post invite send_invitation]
   before_action :tag_cloud
+  before_action :user_authorized?, except: %i[ show edit update destroy ]
 
   # skip_before_action :authorize, only: :accepter
 
@@ -33,6 +34,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    authorize @project
+
     @logs = @project.logs.except_comments.limit(5)
     @comments = @project.comments.limit(5)
     @todolists = if @project.workflow == 1
@@ -66,6 +69,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    authorize @project
+
     @account = current_user.account
     @templates = @account.templates
     @participants = @account.users
@@ -136,6 +141,8 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    authorize @project
+
     respond_to do |format|
       @project.attributes = project_params
       @project.log_changes(:edit, current_user.id)
@@ -172,6 +179,8 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    authorize @project
+
     @project.log_changes(:delete, current_user.id)
     @project.destroy
     respond_to do |format|
@@ -297,5 +306,9 @@ class ProjectsController < ApplicationController
   def random_password(size = 8)
     chars = (('A'..'Z').to_a + ('0'..'9').to_a) - %w[i o 0 1 l 0]
     (1..size).collect { |_a| chars[rand(chars.size)] }.join
+  end
+
+  def user_authorized?
+    authorize Project
   end
 end

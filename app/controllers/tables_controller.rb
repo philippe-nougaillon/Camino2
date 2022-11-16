@@ -1,5 +1,6 @@
 class TablesController < ApplicationController
   before_action :set_table, only: %i[show show_attrs fill fill_do edit update destroy delete_record]
+  before_action :user_authorized?
 
   layout :checkifmobile
 
@@ -12,13 +13,12 @@ class TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
-    @user = current_user
     # test si l'utilisateur est le propriétaire du compte
-    if @user != @user.account.users.first
+    if current_user != current_user.account.users.first
       redirect_to root_path, notice: "Désolé mais vous n'êtes pas autorisé à afficher les tables..."
       return
     end
-    @tables = @user.account.tables
+    @tables = current_user.account.tables
   end
 
   # GET /tables/1
@@ -176,5 +176,9 @@ class TablesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def table_params
     params.require(:table).permit(:name, :record_index)
+  end
+
+  def user_authorized?
+    authorize Table
   end
 end

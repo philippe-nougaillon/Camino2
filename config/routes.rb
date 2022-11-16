@@ -21,17 +21,15 @@ Rails.application.routes.draw do
   get "agenda/index"
   get "agenda/export_icalendar"
 
-  get 'admin' => "admin/index"
-
   get "show_attrs" => "tables#show_attrs" 
 
   get "/images/close",  to: redirect("images/close.png") 
 
-  resources :accounts
+  resources :accounts, only: %i[ edit update ]
   resources :comments
   resources :templates
   resources :logs
-  resources :todolists
+  resources :todolists, except: :index
   resources :participants
   resources :todos
   resources :projects

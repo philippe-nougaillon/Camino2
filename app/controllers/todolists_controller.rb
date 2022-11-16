@@ -1,15 +1,12 @@
 class TodolistsController < ApplicationController
   before_action :set_todolist, only: %i[show edit update destroy]
-
-  # GET /todolists
-  # GET /todolists.json
-  def index
-    @todolists = Todolist.all
-  end
+  before_action :user_authorized?, except: %i[ show new edit update destroy ]
 
   # GET /todolists/1
   # GET /todolists/1.json
   def show
+    authorize @todolist
+
     @todo = Todo.new
     @todo.todolist_id = @todolist.id
     @project = @todolist.project
@@ -19,10 +16,14 @@ class TodolistsController < ApplicationController
   def new
     @todolist = Todolist.new
     @todolist.project_id = params[:project_id]
+
+    authorize @todolist
   end
 
   # GET /todolists/1/edit
   def edit
+    authorize @todolist
+
     return unless @todolist.project.workflow?
 
     # liste des indices avec nom de la todolist
@@ -68,6 +69,8 @@ class TodolistsController < ApplicationController
   # PATCH/PUT /todolists/1
   # PATCH/PUT /todolists/1.json
   def update
+    authorize @todolist
+
     @todolist.attributes = todolist_params
     @todolist.log_changes(:edit, current_user.id)
 
@@ -91,6 +94,8 @@ class TodolistsController < ApplicationController
   # DELETE /todolists/1
   # DELETE /todolists/1.json
   def destroy
+    authorize @todolist
+
     @project = @todolist.project
     @todolist.log_changes(:delete, current_user.id)
     @todolist.destroy
@@ -110,5 +115,9 @@ class TodolistsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def todolist_params
     params.require(:todolist).permit(:project_id, :name, :row, :duedate)
+  end
+
+  def user_authorized?
+    authorize Todolist
   end
 end

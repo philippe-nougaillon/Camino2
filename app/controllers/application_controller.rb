@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
   before_action :authenticate_user!
   # before_action :detect_device_format
   before_action :set_layout_variables
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
 
   private
@@ -29,5 +33,14 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_resource)
     projects_path
+  end
+
+  def user_not_authorized
+    flash[:alert] = "Vous n'êtes pas autorisé à effectuer cette action."
+    if user_signed_in?
+      redirect_to(request.referrer || root_path)
+    else
+      redirect_back(fallback_location: new_user_session_path)
+    end
   end
 end

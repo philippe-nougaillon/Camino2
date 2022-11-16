@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:about]
+  before_action :user_authorized?
   def about; end
 
   def dashboard
@@ -13,5 +14,11 @@ class PagesController < ApplicationController
     @last_commit_picture = current_user.account.todos.done.order(:updated_at).last.user.avatar
 
     @results = current_user.account.todos.done.group("DATE(todos.updated_at)").count(:id)
+  end
+
+  private
+
+  def user_authorized?
+    authorize :pages
   end
 end

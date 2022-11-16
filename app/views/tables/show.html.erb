@@ -49,7 +49,7 @@
                 <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
                 <%= record.user.username if record.user %></td>
               <td><%= link_to "Modifier", fill_url(@table.id, record_index:index) %></td>
-              <td><%= button_to "[X]", delete_record_url(@table.id, record_index:index), method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
+              <td><%= button_to "[Xzef]", delete_record_url(@table.id, record_index:index), method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
             </tr>
           <% end %>
         <% end %>

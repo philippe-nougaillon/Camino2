@@ -90,3 +90,6 @@ gem "aws-sdk-s3", require: false
 
 # iCal
 gem 'icalendar'
+
+# Minimal authorization through OO design and pure Ruby classes
+gem "pundit", "~> 2.2"

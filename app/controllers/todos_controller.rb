@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: %i[show edit update destroy]
+  before_action :user_authorized?, except: %i[ show edit update destroy ]
 
   layout :checkifmobile
 
@@ -12,28 +13,35 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @user = current_user
-    @todos = Todo.joins(:todolist).where('todolists.project_id in (?)',
-                                         @user.projects.pluck(:id)).order('todos.duedate')
+    params[:filter] ||= "all"
+
+    if current_user.admin?
+      @todos = Todo.joins(:todolist)
+                    .where('todolists.project_id in (?)',current_user.projects.pluck(:id))
+    else 
+      @todos = current_user.todos
+    end
+    @todos = @todos.order('duedate')
+
+    @todos = @todos.tagged_with(params[:tag]) unless params[:tag].blank?
     @tags = @todos.tag_counts_on(:tags)
 
-    @todos = @user.todos.undone.order('duedate') unless params[:user].blank?
+    case params[:filter]
+    when "todo"
+      @todos = @todos.undone
 
-    unless params[:undone].blank?
+    when "pending"
       @todos = Todo.joins(:todolist).where('todolists.project_id in (?)',
-                                           @user.projects.pluck(:id)).undone.order('todos.duedate')
+                                    current_user.projects.pluck(:id)).undone
+
+    when "notify"
+      @todos = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
     end
 
     unless params[:search].blank?
       @todos = @todos.joins(:project, :todolist, :user).where(
         'todos.name ILIKE ? OR todolists.name ILIKE ? OR projects.name ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"
       )
-    end
-
-    @todos = @todos.tagged_with(params[:tag]) unless params[:tag].blank?
-
-    unless params[:notify].blank?
-      @todos = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
     end
 
     respond_to do |format|
@@ -47,6 +55,8 @@ class TodosController < ApplicationController
   # GET /todos/1
   # GET /todos/1.json
   def show
+    authorize @todo
+
     @comment = Comment.new
     @comment.todo_id = @todo.id
     @comment.user_id = @user.id
@@ -65,6 +75,8 @@ class TodosController < ApplicationController
 
   # GET /todos/1/edit
   def edit
+    authorize @todo
+
     @project = @todo.project
     @user = current_user
 
@@ -143,6 +155,8 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
+    authorize @todo
+
     @todo.attributes = todo_params
     @project = @todo.project
 
@@ -181,6 +195,8 @@ class TodosController < ApplicationController
   # DELETE /todos/1
   # DELETE /todos/1.json
   def destroy
+    authorize @todo
+
     @todolist = @todo.todolist
     @todo.log_changes(:delete, current_user.id)
     File.delete(Rails.root.join('public', 'documents', @todo.docfilename)) if @todo.docfilename
@@ -221,5 +237,9 @@ class TodosController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def todo_params
     params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :document, :tag_list, :notifydays)
+  end
+
+  def user_authorized?
+    authorize Todo
   end
 end

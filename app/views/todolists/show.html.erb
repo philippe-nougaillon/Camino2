@@ -37,7 +37,9 @@
   <small><i>Commencez cette liste en ajoutant, ci-dessous, une première chose à faire</i></small><br><br>
 <% end %>
 
-<%= render partial:'todos/form' %>
+<% if current_user.admin? %>
+  <%= render partial:'todos/form' %>
+<% end %>
 
 <% if @todolist.logs.any? %>
   <br>

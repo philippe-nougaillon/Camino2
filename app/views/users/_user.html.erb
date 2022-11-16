@@ -11,7 +11,11 @@
 
       <div class="text-center">
         <p>
-          <b>Email :</b>
+          <strong>Rôle :</strong>
+          <%= @user.role.humanize %>
+        </p>
+        <p>
+          <strong>Email :</strong>
           <%= @user.email %>
         </p>
 
