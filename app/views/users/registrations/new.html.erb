@@ -7,17 +7,17 @@
       <%= render "users/shared/error_messages", resource: resource %>
 
       <div class="field">
-        <%= label_tag :account %><br />
+        <%= label_tag :account, 'Entreprise' %><br />
         <%= text_field_tag :account, {}, { class:"input input-bordered w-full" } %>
       </div>
 
       <div class="field">
-        <%= f.label :name %><br />
+        <%= f.label :name, 'Votre nom' %><br />
         <%= f.text_field :name, class:"input input-bordered w-full" %>
       </div>
 
       <div class="field">
-        <%= f.label :username %><br />
+        <%= f.label :username, 'Nom d\'utilisateur' %><br />
         <%= f.text_field :username, class:"input input-bordered w-full" %>
       </div>
 
@@ -40,7 +40,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "S'inscrire", class:"btn btn-primary btn-outline w-full mb-3" %>
+        <%= f.submit "S'inscrire", class:"btn btn-outline w-full mb-3" %>
       </div>
     <% end %>
 
