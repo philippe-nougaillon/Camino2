@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   get 'projects/:id/save_as_template' => 'projects#save_as_template'
   post 'projects/:id/save_as_template' => 'projects#save_as_template_post'
 
-  get 'projects/:id/archive' => 'projects#archive'
-
   get 'documents/index'
 
   get "agenda/index"
@@ -30,13 +28,13 @@ Rails.application.routes.draw do
   resources :templates
   resources :logs
   resources :todolists, except: :index
-  resources :participants
+  resources :participants, only: %i[ edit update ]
   resources :todos
   resources :projects
   resources :tables
   resources :users
   resources :values
-  resources :fields
+  resources :fields, only: %i[ edit update create destroy ]
 
   get 'tables/:id/fill' => 'tables#fill', as: :fill
   post 'tables/:id/fill' => 'tables#fill_do', as: :fill_do

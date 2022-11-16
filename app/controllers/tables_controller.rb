@@ -1,6 +1,6 @@
 class TablesController < ApplicationController
   before_action :set_table, only: %i[show show_attrs fill fill_do edit update destroy delete_record]
-  before_action :user_authorized?
+  before_action :user_authorized?, except: %i[ index ]
 
   layout :checkifmobile
 
@@ -13,6 +13,7 @@ class TablesController < ApplicationController
   # GET /tables
   # GET /tables.json
   def index
+    authorize Table
     # test si l'utilisateur est le propriétaire du compte
     if current_user != current_user.account.users.first
       redirect_to root_path, notice: "Désolé mais vous n'êtes pas autorisé à afficher les tables..."
@@ -39,6 +40,8 @@ class TablesController < ApplicationController
   end
 
   def show_attrs
+    authorize @table
+
     @field = Field.new(table_id: @table.id)
   end
 
@@ -179,6 +182,6 @@ class TablesController < ApplicationController
   end
 
   def user_authorized?
-    authorize Table
+    authorize @table
   end
 end

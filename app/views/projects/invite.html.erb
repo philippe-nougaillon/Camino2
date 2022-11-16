@@ -1,12 +1,12 @@
-<h2 class="flex items-center mb-6">
+<h1 class="flex items-center mb-6">
   <span class="pl-2" style="border-left: 7px solid <%= @project.color %>"><%= @project.name %></span>
-</h2>
+</h1>
 <h2>Participants actuels</h2>
 <table>
   <tr>
     <% @project.participants.each do |participant| %>
       <td>
-        <%= image_tag(participant.user.avatar, size:'25x25', alt:'') if participant.user.avatar.attached? %>
+        <%= image_tag(participant.user.avatar, size:'25x25', alt:'', class:'mini_avatar inline') if participant.user.avatar.attached? %>
         <%= participant.user.name %>
         <%= "(Client)" if participant.client %>
       </td>
@@ -14,8 +14,7 @@
   </tr>
 </table>
 
-<br>
-<h2>Inviter un nouveau participant à rejoindre le projet '<%= @project.name %>'</h2>
+<h2 class="mt-12">Inviter un nouveau participant à rejoindre le projet '<%= @project.name %>'</h2>
 
 Veuillez saisir ci-dessous son adresse email afin de lui envoyer une invitation
 <br><br>

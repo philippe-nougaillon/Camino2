@@ -21,7 +21,7 @@ class TodosController < ApplicationController
     else 
       @todos = current_user.todos
     end
-    @todos = @todos.order('duedate')
+    @todos = @todos.order('todos.duedate')
 
     @todos = @todos.tagged_with(params[:tag]) unless params[:tag].blank?
     @tags = @todos.tag_counts_on(:tags)
@@ -221,10 +221,6 @@ class TodosController < ApplicationController
     @todo.log_changes(:edit, current_user.id)
     @todo.save
     redirect_to @todo
-  end
-
-  def tag_cloud
-    @tags = Todo.tag_counts_on(:tags)
   end
 
   private

@@ -32,4 +32,12 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     edit?
   end
+
+  def invite?
+    user.admin? && record.users.include?(user)
+  end
+
+  def send_invitation?
+    invite?
+  end
 end

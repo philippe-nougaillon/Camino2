@@ -5,11 +5,13 @@ export default class extends Controller {
 
   connect() {
     // console.log("Hello, Stimulus!", this.element)
+    this.toggle();
   }
 
   toggle() {
     const selector = this.selectorTarget
     const items = this.itemsTarget
+    console.log(selector.value);
 
     if (selector.value == "liste") {
       items.classList.remove("hidden");

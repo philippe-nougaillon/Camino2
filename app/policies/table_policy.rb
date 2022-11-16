@@ -10,11 +10,11 @@ class TablePolicy < ApplicationPolicy
   end
 
   def show?
-    index?
+    index? && record.account.users.include?(user)
   end
 
   def new?
-    index?
+    show?
   end
 
   def create?
@@ -22,7 +22,7 @@ class TablePolicy < ApplicationPolicy
   end
 
   def edit?
-    index?
+    show?
   end
 
   def update?
@@ -30,11 +30,11 @@ class TablePolicy < ApplicationPolicy
   end
 
   def destroy?
-    index?
+    show?
   end
 
   def fill?
-    index?
+    show?
   end
 
   def fill_do?
@@ -42,6 +42,6 @@ class TablePolicy < ApplicationPolicy
   end
 
   def show_attrs?
-    index?
+    show?
   end
 end

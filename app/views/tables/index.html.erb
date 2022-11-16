@@ -56,7 +56,7 @@
                                 table_path(table, format:'xls'), 
                                 title:'Export Excel' %>
             </td>
-            <td><%= link_to "Modifier", table_path(table, attrs:1), title:"Modifier les attributs de la table" %></td>
+            <td><%= link_to "Modifier", show_attrs_path(id: table), title:"Modifier les attributs de la table" %></td>
             <td><%= button_to '[X]', table, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
           </tr>
         <% end %>

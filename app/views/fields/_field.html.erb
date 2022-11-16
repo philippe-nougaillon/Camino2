@@ -1,6 +1,6 @@
 <tr>
     <td><%= field.name %></td>
-    <td><%= field.datatype %></td>
+    <td><%= field.datatype.humanize %></td>
     <td><%= field.items %></td>
     <td><%= link_to image_tag('modif.png'), edit_field_path(field) %></td>
     <td><%= button_to '[X]', field, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>

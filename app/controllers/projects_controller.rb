@@ -1,8 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project,
                 only: %i[show edit update destroy save_as_template save_as_template_post invite send_invitation]
-  before_action :tag_cloud
-  before_action :user_authorized?, except: %i[ show edit update destroy ]
+  before_action :user_authorized?, except: %i[ show edit update destroy invite send_invitation ]
 
   # skip_before_action :authorize, only: :accepter
 
@@ -211,9 +210,13 @@ class ProjectsController < ApplicationController
 
   def new_from_template; end
 
-  def invite; end
+  def invite
+    authorize @project
+  end
 
   def send_invitation
+    authorize @project
+
     @project = Project.find(params[:id])
 
     if params[:courriel].blank?
@@ -283,12 +286,6 @@ class ProjectsController < ApplicationController
 
     redirect_to projects_path
   end
-
-  def tag_cloud
-    # @tags = @projects.tag_counts_on(:tags)
-  end
-
-  def archive; end
 
   private
 
