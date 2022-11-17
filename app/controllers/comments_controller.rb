@@ -34,18 +34,11 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
 
-    respond_to do |format|
-      if @comment.save
-        @comment.log_changes(:comment, current_user.id)
-        format.json { render action: 'show', status: :created, location: @comment }
-        format.html do |variant|
-          variant.phone { redirect_to todo_path(@comment.todo), notice: 'Commentaire ajouté' }
-          variant.none { redirect_to edit_todo_path(@comment.todo), notice: 'Commentaire ajouté' }
-        end
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      @comment.log_changes(:comment, current_user.id)
+      redirect_to edit_todo_path(@comment.todo), notice: 'Commentaire ajouté'
+    else
+      render action: 'new'
     end
   end
 

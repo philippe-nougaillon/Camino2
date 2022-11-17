@@ -1,6 +1,8 @@
 class Comment < ApplicationRecord
   include LogConcern
 
+  after_create_commit { broadcast_prepend_to :comments }
+
   audited
 
   belongs_to :todo
