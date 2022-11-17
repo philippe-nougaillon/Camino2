@@ -1,12 +1,9 @@
-<h2>
-  <span class="pl-1" style="border-left: .3rem solid <%= @todo.project.color %>">
+<div class="mb-8 pl-2" style="border-left: 7px solid <%= @todo.project.color %>">
+  <h2>
     <%= link_to @todo.project.name, @todo.project %> : <%= link_to @todo.todolist.name, @todo.todolist %>
-  </span>
-</h2>
-
-<h3>
-  Modification de '<%= truncate(@todo.name, length:70, separator:' ') %>'
-</h3>
+  </h2>
+  <i>Modification de '<%= truncate(@todo.name, length:70, separator:' ') %>'</i>
+</div>
 
 <%= render 'form' %>
 

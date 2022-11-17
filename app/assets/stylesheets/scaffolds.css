@@ -28,7 +28,7 @@ a {
 }
 a:hover {
   color: green;
-  background-color: #fff;
+  background-color: inherit;
 }
 div.field, div.actions {
   margin-bottom: 10px;

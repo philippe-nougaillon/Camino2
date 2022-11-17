@@ -56,7 +56,7 @@
                 <br>
               <% end %>
               <%= link_to invite_path(id:project.id), title:'Inviter un nouveau participant' do %>
-                <div class="badge badge-outline rounded badge-lg pb-0.5 shadow !text-slate-100">+</div>
+                <div class="badge badge-outline rounded badge-lg mt-2 pb-0.5 shadow !text-slate-100">+</div>
               <% end %>
             </td>
             <td style="color:lightgrey"><%= "Il y a #{time_ago_in_words(project.last_update)}" if project.logs.any? %></td>
