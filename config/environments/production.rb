@@ -102,4 +102,7 @@ Rails.application.configure do
   ActionMailer::Base.delivery_method = :smtp
 
   config.action_mailer.default_url_options = { host: 'camino2.herokuapp.com', protocol: 'https' }
+
+
+  config.action_controller.default_url_options = { host: 'camino2.herokuapp.com', protocol: 'https' }
 end
