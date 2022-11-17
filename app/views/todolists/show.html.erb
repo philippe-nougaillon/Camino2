@@ -37,7 +37,7 @@
   <small><i>Commencez cette liste en ajoutant, ci-dessous, une première chose à faire</i></small><br><br>
 <% end %>
 
-<% if current_user.admin? %>
+<% if policy(Todo).new? %>
   <%= render partial:'todos/form' %>
 <% end %>
 
