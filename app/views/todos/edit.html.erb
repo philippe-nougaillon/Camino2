@@ -15,11 +15,6 @@
 
 <%= render partial:'comments/form' %>
 
-<% if @todo.comments.any? %>
-  <%= turbo_frame_tag :comments do %>
-    <%= render partial:'comments/comment', collection:@todo.comments %>
-  <% end %>
-<% else %>
-  <small><i>Il n'y a pas encore de commentaires. Utilisez la case ci-dessous pour en publier un.</i></small>
-  <br><br>
+<%= turbo_frame_tag :comments do %>
+  <%= render partial:'comments/comment', collection:@todo.comments %>
 <% end %>
