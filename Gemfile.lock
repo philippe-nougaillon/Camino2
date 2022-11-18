@@ -239,6 +239,8 @@ GEM
     ruby-progressbar (1.11.0)
     simple_calendar (2.4.3)
       rails (>= 3.0)
+    sitemap_generator (6.3.0)
+      builder (~> 3.0)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -298,6 +300,7 @@ DEPENDENCIES
   rspec-rails (~> 6.0)
   rubocop (~> 1.38)
   simple_calendar (~> 2.4)
+  sitemap_generator (~> 6.3)
   sprockets-rails
   stimulus-rails
   tailwindcss-rails
