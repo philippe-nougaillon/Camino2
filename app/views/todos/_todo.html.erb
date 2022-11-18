@@ -26,9 +26,8 @@
     <% end %>
   </td>
   <td>
-    <%= link_to "Modifier", edit_todo_path(todo) %>
-  </td>
-  <td>
-  <%= button_to '[X]', todo_path(todo), method: :delete, form: { data: {'turbo-confirm': 'Etes vous certain(e) de vouloir supprimer cette tâche ?' } } %>
+    <% if policy(todo).destroy? %>
+      <%= button_to '[X]', todo_path(todo), method: :delete, form: { data: {'turbo-confirm': 'Etes vous certain(e) de vouloir supprimer cette tâche ?' } } %>
+    <% end %>
   </td>
 </tr>

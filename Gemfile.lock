@@ -110,6 +110,8 @@ GEM
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)
       activesupport (>= 5.2, < 8)
+    friendly_id (5.5.0)
+      activerecord (>= 4.0.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -283,6 +285,7 @@ DEPENDENCIES
   debug
   devise (~> 4.8)
   exception_notification
+  friendly_id (~> 5.5)
   icalendar
   importmap-rails
   jbuilder

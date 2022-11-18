@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_16_082909) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_17_155248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -136,7 +136,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_082909) do
     t.text "memo"
     t.string "color"
     t.integer "table_id"
+    t.string "slug"
     t.index ["account_id"], name: "index_projects_on_account_id"
+    t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
   create_table "tables", id: :serial, force: :cascade do |t|
@@ -191,7 +193,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_082909) do
     t.datetime "updated_at"
     t.integer "row"
     t.date "duedate"
+    t.string "slug"
     t.index ["project_id"], name: "index_todolists_on_project_id"
+    t.index ["slug"], name: "index_todolists_on_slug", unique: true
   end
 
   create_table "todos", id: :serial, force: :cascade do |t|
@@ -206,6 +210,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_082909) do
     t.string "docfilename"
     t.string "docname"
     t.integer "notifydays", default: 1
+    t.string "slug"
+    t.index ["slug"], name: "index_todos_on_slug", unique: true
     t.index ["todolist_id"], name: "index_todos_on_todolist_id"
     t.index ["user_id"], name: "index_todos_on_user_id"
   end
@@ -227,9 +233,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_082909) do
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer "role", default: 0, null: false
+    t.string "slug"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
   create_table "values", id: :serial, force: :cascade do |t|

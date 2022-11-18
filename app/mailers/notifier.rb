@@ -13,7 +13,7 @@ class Notifier < ApplicationMailer
     @greeting = "Bienvenue"
     @user = user
     @password = pass
-    @project = Project.find(project.id)
+    @project = Project.friendly.find(project.id)
 
     mail(to:user.email, bcc:"philippe.nougaillon@gmail.com")
   end

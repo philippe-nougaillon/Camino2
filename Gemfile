@@ -93,3 +93,6 @@ gem 'icalendar'
 
 # Minimal authorization through OO design and pure Ruby classes
 gem "pundit", "~> 2.2"
+
+# Create pretty URL’s and work with human-friendly strings as if they were numeric ids for ActiveRecord models.
+gem "friendly_id", "~> 5.5"

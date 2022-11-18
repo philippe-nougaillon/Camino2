@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   audited
 
+  extend FriendlyId
+  friendly_id :slug_id, use: :slugged
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
@@ -28,5 +31,11 @@ class User < ApplicationRecord
 
   def same_account(user)
     self.account == user.account
+  end
+
+  private
+
+  def slug_id
+    [SecureRandom.uuid]
   end
 end

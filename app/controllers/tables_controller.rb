@@ -66,7 +66,7 @@ class TablesController < ApplicationController
     todo = if params[:todo_id].blank?
              Todo.new
            else
-             Todo.find(params[:todo_id])
+             Todo.find_by(slug: params[:id])
            end
 
     if values.values.select { |v| v.present? }.any? # test si tous les champs sont renseignés

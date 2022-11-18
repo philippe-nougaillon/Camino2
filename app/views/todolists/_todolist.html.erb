@@ -1,7 +1,7 @@
 <tr class="hover">
   <th>
     <% if todolist.project.workflow? %>
-        <i><%= todolist.row %>.</i>
+      <i><%= todolist.row %>.</i>
     <% end %>
     <% if todolist.done? %>
       <del><%= link_to todolist.name, todolist, class: 'bold-title' %></del>

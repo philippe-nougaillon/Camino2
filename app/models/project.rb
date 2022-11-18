@@ -4,6 +4,9 @@ class Project < ApplicationRecord
 
   audited
 
+  extend FriendlyId
+  friendly_id :slug_id, use: :slugged
+
   acts_as_taggable
     
     #has_calendar :attribute => :created_at  
@@ -48,5 +51,10 @@ class Project < ApplicationRecord
     lists = self.todolists.order(:row).select{|l| !l.done? }
     return lists.first
   end
-    
+
+  private
+
+  def slug_id
+    [SecureRandom.uuid]
+  end
 end

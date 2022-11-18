@@ -3,6 +3,9 @@ class Todo < ApplicationRecord
 
   audited
 
+  extend FriendlyId
+  friendly_id :slug_id, use: :slugged
+
   acts_as_taggable
 
   belongs_to :todolist
@@ -30,6 +33,12 @@ class Todo < ApplicationRecord
 
   def fullname
     "#{self.project.name}:#{self.todolist.name}:#{self.name}"
-  end  
+  end
+
+  private
+
+  def slug_id
+    [SecureRandom.uuid]
+  end
 
 end

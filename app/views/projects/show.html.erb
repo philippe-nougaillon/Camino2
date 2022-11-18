@@ -62,7 +62,7 @@
     <tfoot>
       <tr>
         <th>
-          <%= link_to new_todolist_path(project_id: @project.id), title: 'Ajouter une liste/phase' do %>
+          <%= link_to new_todolist_path(id: @project.slug), title: 'Ajouter une liste/phase' do %>
             <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
           <% end %>
         </th>

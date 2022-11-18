@@ -9,11 +9,11 @@ class LogsController < ApplicationController
     if params[:project_id].blank?
       @logs = @user.logs
     else
-      @project = Project.find(params[:project_id])
+      @project = Project.friendly.find(params[:project_id])
       @logs = @project.logs
     end
 
-    @logs = @logs.where(user_id: params[:user]) unless params[:user].blank?
+      @logs = @logs.where(user: User.find_by(slug: params[:id])) unless params[:id].blank?
 
     @logs = @logs.limit(100) if params[:limit].blank?
 

@@ -1,12 +1,10 @@
 class TodolistsController < ApplicationController
   before_action :set_todolist, only: %i[show edit update destroy]
-  before_action :user_authorized?, except: %i[ show new edit update destroy ]
+  before_action :user_authorized?, except: %i[ new create ]
 
   # GET /todolists/1
   # GET /todolists/1.json
   def show
-    authorize @todolist
-
     @todo = Todo.new
     @todo.todolist_id = @todolist.id
     @project = @todolist.project
@@ -15,15 +13,13 @@ class TodolistsController < ApplicationController
   # GET /todolists/new
   def new
     @todolist = Todolist.new
-    @todolist.project_id = params[:project_id]
+    @todolist.project = Project.find_by(slug: params[:id])
 
     authorize @todolist
   end
 
   # GET /todolists/1/edit
   def edit
-    authorize @todolist
-
     return unless @todolist.project.workflow?
 
     # liste des indices avec nom de la todolist
@@ -38,6 +34,8 @@ class TodolistsController < ApplicationController
   # POST /todolists.json
   def create
     @todolist = Todolist.new(todolist_params)
+
+    authorize @todolist
 
     if @todolist.project.workflow? # l'indice de la nouvelle liste est le maxi de toutes les listes +1
       @todolist.row = if @todolist.project.todolists.any?
@@ -69,8 +67,6 @@ class TodolistsController < ApplicationController
   # PATCH/PUT /todolists/1
   # PATCH/PUT /todolists/1.json
   def update
-    authorize @todolist
-
     @todolist.attributes = todolist_params
     @todolist.log_changes(:edit, current_user.id)
 
@@ -94,7 +90,6 @@ class TodolistsController < ApplicationController
   # DELETE /todolists/1
   # DELETE /todolists/1.json
   def destroy
-    authorize @todolist
 
     @project = @todolist.project
     @todolist.log_changes(:delete, current_user.id)
@@ -109,7 +104,7 @@ class TodolistsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_todolist
-    @todolist = Todolist.find(params[:id])
+    @todolist = Todolist.find_by(slug: params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -118,6 +113,6 @@ class TodolistsController < ApplicationController
   end
 
   def user_authorized?
-    authorize Todolist
+    authorize @todolist
   end
 end

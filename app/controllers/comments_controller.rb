@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     if params[:project_id].blank?
       @comments = @user.comments.order('created_at DESC')
     else
-      @project = Project.find(params[:project_id])
+      @project = Project.friendly.find(params[:project_id])
       @comments = @project.comments.order('created_at DESC')
     end
 

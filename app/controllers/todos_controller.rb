@@ -208,7 +208,7 @@ class TodosController < ApplicationController
   end
 
   def close
-    @todo = Todo.find(params[:id])
+    @todo = Todo.friendly.find(params[:id])
     @todo.done = true
     @todo.log_changes(:edit, current_user.id)
     @todo.save
@@ -216,7 +216,7 @@ class TodosController < ApplicationController
   end
 
   def reopen
-    @todo = Todo.find(params[:id])
+    @todo = Todo.friendly.find(params[:id])
     @todo.done = false
     @todo.log_changes(:edit, current_user.id)
     @todo.save
@@ -227,7 +227,7 @@ class TodosController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_todo
-    @todo = Todo.find(params[:id])
+    @todo = Todo.find_by(slug: params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -217,7 +217,7 @@ class ProjectsController < ApplicationController
   def send_invitation
     authorize @project
 
-    @project = Project.find(params[:id])
+    @project = Project.friendly.find(params[:id])
 
     if params[:courriel].blank?
       flash[:notice] = 'Veuillez entrer une adresse, svp...'
@@ -255,7 +255,7 @@ class ProjectsController < ApplicationController
 
   def accepter
     mail_invite = params[:q]
-    project = Project.find(params[:p])
+    project = Project.friendly.find(params[:p])
     user_qui_invite = User.find(params[:u])
 
     unless User.find_by(email:mail_invite)
@@ -291,7 +291,7 @@ class ProjectsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_project
-    @project = Project.find(params[:id])
+    @project = Project.find_by(slug: params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
