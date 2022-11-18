@@ -1,5 +1,5 @@
 <div class="simple-calendar">
-  <h2 class="flex items-center gap-4 mb-4">
+  <h2 class="flex justify-between items-center gap-4 mb-4">
     <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "btn btn-outline" %>
     <%= t('date.month_names')[start_date.month].humanize %> <%= start_date.year %>
     <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "btn btn-outline" %>

@@ -11,10 +11,8 @@
   </th>
   <td>
     <% if params[:done] %>
-      <% todolist.todos.each do |todo| %>
-        <% unless todo.done %>
-          <%= link_to todo.name, edit_todo_path(todo), class:'link' %>
-        <% end %>    
+      <% todolist.todos.undone.each_with_index do |todo, index| %>
+        <%= link_to truncate(todo.name.humanize, length: 45), edit_todo_path(todo), class:'link mr-2' %>
       <% end %>
     <% else %>
       <small><%= truncate(todolist.todos.pluck(:name).join(", "), length: 100) %></small>
@@ -22,12 +20,10 @@
   </td>
   <td>
     <% if todolist.todos.any? %>
-        <%= raw todolist.bar_avancee %>
+      <progress class="progress progress-success !w-24" value=<%= todolist.pct_avancee %> max="100"></progress>
+      (<%= todolist.todos.done.count %>/<%= todolist.todos.count %>)
     <% end %>
     </td> 
-  <td>
-    <%= todolist.todos.done.count %>/<%= todolist.todos.count %>
-  </td>
   <td>
     <%= l(todolist.duedate) if todolist.duedate %>
   </td>
@@ -37,7 +33,7 @@
   <td>
     <% if todolist.duedate and todolist.todos.done.any? %>
       <% if todolist.duedate < todolist.todos.done.maximum(:updated_at) %>
-        En retard de 
+        En retard de
       <% else %>
         En avance de
       <% end %>

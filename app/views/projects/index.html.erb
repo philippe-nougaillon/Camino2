@@ -20,11 +20,11 @@
         <tr>
           <th />
           <th />
-          <th>Echéance</th>
+          <th>Échéance</th>
           <th>Progression</th>
           <th>Phase en cours</th>
           <th>Participants</th>
-          <th>Dernière mise à jour</th>
+          <th>MÀJ</th>
         </tr>
       </thead>
 
@@ -40,8 +40,7 @@
             <td><%= l(project.duedate) if project.duedate %></td>
             <td>
               <% unless project.todos.count.zero? %>
-                <%= raw project.bar_avancee %>
-                <small>(<%= project.pct_avancee %>%)</small>
+                <progress class="progress progress-success w-56" value=<%= project.pct_avancee %> max="100"></progress>
               <% end %>
             </td> 
             <td>

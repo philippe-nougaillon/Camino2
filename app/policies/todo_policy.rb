@@ -26,10 +26,10 @@ class TodoPolicy < ApplicationPolicy
   end
 
   def update?
-    (show? && user.admin?) || record.audits.first.user == user
+    (show? && user.admin?) || record.user == user
   end
 
   def destroy?
-    edit?
+    update?
   end
 end

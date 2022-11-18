@@ -5,6 +5,10 @@ class PagesPolicy < ApplicationPolicy
     end
   end
 
+  def about?
+    true
+  end
+
   def dashboard?
     user.admin?
   end

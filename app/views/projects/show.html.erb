@@ -9,8 +9,8 @@
 </div>
 
 <% unless @project.pct_avancee.zero? %>
-    Avancée : <%= raw @project.bar_avancee %>
-    <small>(<%= @project.pct_avancee %>%)</small>
+  Avancée : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
+  <small>(<%= @project.pct_avancee %>%)</small>
 <% end %>
 
 <% if @project.workflow? and @project.current_todolist %>
@@ -51,10 +51,9 @@
       <th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
       <th>Tâches <%= params[:done] ? "(à faire)" : "(toutes)" %></th>
       <th>Réalisation</th>
-      <th>Réalisées/Total</th>
       <th>Echéance</th>
-      <th>Dernière réalisation le</th>
-      <th>Ecart</th>
+      <th>MÀJ</th>
+      <th>Écart</th>
     </thead>
     <tbody>
       <%= render partial: 'todolists/todolist', collection: @todolists %>
@@ -62,8 +61,10 @@
     <tfoot>
       <tr>
         <th>
-          <%= link_to new_todolist_path(id: @project.slug), title: 'Ajouter une liste/phase' do %>
-            <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+          <% if current_user.admin? %>
+            <%= link_to new_todolist_path(id: @project.slug), title: 'Ajouter une liste/phase' do %>
+              <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+            <% end %>
           <% end %>
         </th>
         <td colspan=6></td>
