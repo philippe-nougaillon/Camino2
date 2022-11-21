@@ -19,9 +19,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #     render 'new'
     #   end
     # end
-    # redirect_to root_path, notice: "Votre compte a bien été créé"
-    params[:user][:account_id] = Account.create(name: params[:account]).id
+    account = Account.create(name: params[:account])
+    params[:user][:account_id] = account.id
     super
+    if account.users.any?
+      account.users.first.update(role: "admin")
+      flash[:notice] = "Votre compte a bien été créé"
+    end
   end
 
   # GET /resource/edit

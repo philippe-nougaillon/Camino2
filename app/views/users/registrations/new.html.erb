@@ -8,22 +8,22 @@
 
       <div class="field">
         <%= label_tag :account, 'Entreprise' %><br />
-        <%= text_field_tag :account, {}, { class:"input input-bordered w-full" } %>
+        <%= text_field_tag :account, {}, { class:"input input-bordered w-full", required: true } %>
       </div>
 
       <div class="field">
         <%= f.label :name, 'Votre nom' %><br />
-        <%= f.text_field :name, class:"input input-bordered w-full" %>
+        <%= f.text_field :name, class:"input input-bordered w-full", required: true %>
       </div>
 
       <div class="field">
         <%= f.label :username, 'Nom d\'utilisateur' %><br />
-        <%= f.text_field :username, class:"input input-bordered w-full" %>
+        <%= f.text_field :username, class:"input input-bordered w-full", required: true %>
       </div>
 
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full" %>
+        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full", required: true %>
       </div>
 
       <div class="field">
@@ -31,12 +31,12 @@
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> charactères minimum)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password", class:"input input-bordered w-full" %>
+        <%= f.password_field :password, autocomplete: "new-password", class:"input input-bordered w-full", required: true %>
       </div>
 
       <div class="field">
         <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"input input-bordered w-full" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"input input-bordered w-full", required: true %>
       </div>
 
       <div class="actions">
