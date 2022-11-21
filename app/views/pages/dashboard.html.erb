@@ -3,26 +3,30 @@
     <div class="stat">
       <div class="stat-title">Projets</div>
       <div class="stat-value"><%= @projects.count %></div>
-      <div class="stat-desc"><%= l @projects_start %> - <%= l @projects_end %></div>
+      <div class="stat-desc"><%= l @projects_start || Date.today %> - <%= l @projects_end || Date.today %></div>
     </div>
     
     <div class="stat">
       <div class="stat-title">Tâches</div>
-      <div class="stat-value"><%= @todos.count %></div>
-      <div class="stat-desc text-primary"><%= @todos.count - @todos.done.count %> tâches restantes</div>
+      <% if @todos %>
+        <div class="stat-value"><%= @todos.count %></div>
+        <div class="stat-desc text-primary"><%= @todos.count - @todos.done.count %> tâches restantes</div>
+      <% end %>
     </div>
     
     <div class="stat">
-      <div class="stat-figure text-secondary">
-        <div class="avatar online">
-          <div class="w-16 rounded-full">
-            <%= image_tag @last_commit_picture %>
+      <% if @todos %>
+        <div class="stat-figure text-secondary">
+          <div class="avatar online">
+            <div class="w-16 rounded-full">
+              <%= image_tag @last_commit_picture %>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="stat-value"><%= (@todos.done.count * 100) / @todos.count %>%</div>
-      <div class="stat-title">Réalisées</div>
-      <div class="stat-desc text-red-500"><%= @todos_overdue %> tâches en retard</div>
+        <div class="stat-value"><%= (@todos.done.count * 100) / @todos.count %>%</div>
+        <div class="stat-title">Réalisées</div>
+        <div class="stat-desc text-red-500"><%= @todos_overdue %> tâches en retard</div>
+      <% end %>
     </div>
     
   </div>

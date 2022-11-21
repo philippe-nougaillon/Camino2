@@ -4,7 +4,10 @@ class PagesController < ApplicationController
   def about; end
 
   def dashboard
+    @results = Hash.new
     @projects = current_user.projects
+    return unless @projects.any?
+
     @todos = current_user.account.todos
     @projects = @projects.where('name ILIKE ?', "%#{params[:search]}%") unless params[:search].blank?
 
