@@ -26,10 +26,7 @@ label {
 a {
   color: #000;
 }
-a:hover {
-  color: green;
-  background-color: inherit;
-}
+
 div.field, div.actions {
   margin-bottom: 10px;
 }

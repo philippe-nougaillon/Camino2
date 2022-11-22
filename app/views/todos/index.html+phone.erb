@@ -34,10 +34,7 @@
 <br>
 
 <% if @todos.any? %>
-  <div class="border-t border-r border-l border-slate-300">
-    <%= render partial: 'todo_phone', collection:@todos, as: :todo %>
-  </div>
-
+  <%= render partial: 'todo_phone', collection:@todos, as: :todo %>
 <% else %>
   Rien à afficher...
 <% end %>
