@@ -34,6 +34,9 @@ class TodosController < ApplicationController
       @todos = Todo.joins(:todolist).where('todolists.project_id in (?)',
                                     current_user.projects.pluck(:id)).undone
 
+    when "done"
+      @todos = @todos.done
+
     when "notify"
       @todos = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
     end

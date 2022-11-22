@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
   before_action :authenticate_user!
-  # before_action :detect_device_format
+  before_action :detect_device_format
   before_action :set_layout_variables
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
