@@ -18,10 +18,10 @@
   <% end %>
 </div>
 
-<div class="flex justify-around">
-  <%= link_to "À faire", todos_path(filter: "todo"), title:"Affiche les opérations non terminées qui vous sont assignées", class: "btn btn-ghost btn-sm !capitalize !font-normal #{params[:filter] == 'todo' ? 'btn-active': ''}" %>
-  <%= link_to "Terminées", todos_path(filter: "done"), title:"Affiche toutes opérations non terminées", class: 'btn btn-ghost btn-sm !capitalize !font-normal' %>
-  <%= link_to "Toutes", todos_path, class: 'btn btn-ghost btn-sm !capitalize !font-normal' %>
+<div class="btn-group w-full px-2 mb-6">
+  <%= link_to "À faire", todos_path(filter: "todo"), class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'todo' ? 'btn-active' : '' }" %>
+  <%= link_to "Terminées", todos_path(filter: "done"), class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'done' ? 'btn-active' : '' }" %>
+  <%= link_to "Toutes", todos_path, class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'all' ? 'btn-active' : '' }" %>
 </div>
 
 <% if @tags.any? %>
