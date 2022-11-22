@@ -32,7 +32,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    projects_path
+    if current_user.admin?
+      projects_path
+    else
+      todos_path(filter: "todo")
+    end
   end
 
   def user_not_authorized
