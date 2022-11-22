@@ -186,7 +186,10 @@ class TodosController < ApplicationController
           Notifier.next_todo(next_todo).deliver_later if next_todo && next_todo.user
         end
 
-        format.html { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être modifée" }
+        format.html do |variant|
+          variant.phone { redirect_to todos_path(filter: "todo"), notice: "La tâche '#{@todo.name}' vient d'être modifée" } 
+          variant.none { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être modifée" }
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -1,11 +1,11 @@
-<div class="flex items-center px-2 my-1">
+<div class="flex items-center pl-4 pr-2 my-1">
   <% if policy(todo).update? %>
     <%= form_for todo do |f| %>
-      <%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox', 'data-turbo': false %>
+      <%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-lg', 'data-turbo': false %>
     <% end %>
   <% end %>
   <%= link_to edit_todo_path(todo) do %>
-    <div class="card w-96 shadow-sm ml-4">
+    <div class="card shadow-sm ml-4">
       <div class="card-body">
         <strong><i class="text-slate-300"><%= todo.project.name %>:<%= todo.todolist.name %></i></strong>
         <strong><%= todo.name.humanize %></strong>
