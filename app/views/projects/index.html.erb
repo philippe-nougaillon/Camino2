@@ -54,7 +54,7 @@
                 <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
                 <br>
               <% end %>
-              <%= link_to invite_path(id:project.id), title:'Inviter un nouveau participant' do %>
+              <%= link_to invite_path(id:project.slug), title:'Inviter un nouveau participant' do %>
                 <div class="badge badge-outline rounded badge-lg mt-2 pb-0.5 shadow !text-slate-100">+</div>
               <% end %>
             </td>
