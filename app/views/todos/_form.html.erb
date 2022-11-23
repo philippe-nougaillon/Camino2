@@ -12,19 +12,25 @@
   <% end %>
 
   <div class="p-2 shadow">
-      <%= f.hidden_field :todolist_id %>
-      <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 mr-10' %>
-      <%= f.text_field :name, class: 'input input-bordered lg:w-96 mb-4', required: true %>
+    <%= f.hidden_field :todolist_id %>
+    <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 mr-10' %>
+    <%= f.text_field :name, class: 'input input-bordered lg:w-96 mb-4', required: true %>
 
-      <%= f.label :user_id, 'Assigné à :' %>
-      <%= f.select :user_id, 
-                    options_from_collection_for_select(@project.users.order(:name), "id", "name", @todo.user_id),
-                    { include_blank: true },
-                    { class: 'select select-bordered select-sm', required: true } %>
+    <div class="inline-flex flex-wrap items-center gap-4">
+      <div>
+        <%= f.label :user_id, 'Assigné à :', class:'inline-block' %>
+        <%= f.select :user_id, 
+                      options_from_collection_for_select(@project.users.order(:name), "id", "name", @todo.user_id),
+                      { include_blank: true },
+                      { class: 'select select-bordered select-sm', required: true } %>
+      </div>
 
-      <%= f.label :notify, "Notifier ?" %>
-      <%= f.check_box :notify, class: 'checkbox' %>
-    <div class="ml-16">
+      <div>
+        <%= f.label :notify, "Notifier ?" %>
+        <%= f.check_box :notify, class: 'checkbox' %>
+      </div>
+    </div>
+    <div class="sm:ml-16">
       <%= f.label 'Echéance :' %>
       <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered mt-4' %>
 
@@ -33,11 +39,17 @@
       </small>
       <br>
 
-      <%= f.label :document, "Document :" %>
-      <%= f.file_field :document, class:"mb-4 sm:mb-0", accept: "application/pdf" %>
+      <div class="flex flex-wrap items-center gap-4">
+        <div>
+          <%= f.label :document, "Document :" %>
+          <%= f.file_field :document, class:"mb-4 sm:mb-0", accept: "application/pdf" %>
+        </div>
 
-      <%= f.label 'Tags :' %>
-      <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered input-sm' %>
+        <div>
+          <%= f.label 'Tags :' %>
+          <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered input-sm' %>
+        </div>
+      </div>
 
       <% if @table %>
         <%= link_to "Ajouter des données dans #{@table.name}", fill_url(@table.id, todo_id:@todo), class: 'link' %>

@@ -8,17 +8,17 @@
   </h3>
 <% end %>
 
-<div class="flex flex-row gap-8 mb-1">
+<div class="flex flex-row gap-4 lg:gap-8 mb-1">
   <p style="color:lightgrey; width:45px;">
     <%= log.created_at.strftime("%H:%M") %>
   </p>
-  <p style="width: 25px;">
+  <p style="width: 45px;">
     <% if @user_id != log.user_id %>
       <% @user_id = log.user_id %>
       <%= image_tag(log.user.avatar, alt:'', class:'mini_avatar') if log.user.avatar.attached? %>
     <% end %>
   </p>
-  <p class="pl-2 text-justify" style="border-left: 7px solid <%= log.project.color if log.project %>">
+  <p class="pl-2" style="border-left: 7px solid <%= log.project.color if log.project %>">
     <% if log.user_id == current_user.id %>
       <b>Vous</b> avez  
     <% else %>
