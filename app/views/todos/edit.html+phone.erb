@@ -1,0 +1,85 @@
+<div class="flex items-center justify-between mt-4 px-2">
+  <div class="pl-2" style="border-left: 7px solid <%= @todo.project.color %>">
+    <h1><%= truncate(@todo.project.name, length:20) %></h1>
+    <h2><%= truncate(@todo.todolist.name, length:20) %></h2>
+  </div>
+  <%= link_to current_user do %>
+    <label tabindex="0" class="avatar online placeholder cursor-pointer ml-3">
+    <% if current_user.avatar.attached? %>
+      <div class="w-10 rounded-full !bg-slate-500">
+        <%= image_tag(current_user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
+      </div>
+    <% else %>
+      <div class="bg-primary-focus text-neutral-content rounded-full w-8">
+        <span><%= current_user.username.first.humanize %></span>
+      </div>
+    <% end %>
+    </label>
+  <% end %>
+</div>
+
+<div class="pl-4 pr-2">
+  <% if policy(@todo).update? %>
+    <%= form_for @todo do |f| %>
+      <div class="flex items-center">
+        <%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-lg', 'data-turbo': false %>
+        <div class="card shadow-sm ml-4">
+          <div class="card-body">
+            <strong><%= @todo.name.humanize %></strong>
+            <% @todo.tags.each do |tag| %>
+              <p class="text-slate-300 badge badge-outline badge-xs"><%= tag.name %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%# table / document commentaire %>
+
+<div class="px-2">
+  <h2 class="my-4">Commentaires</h2>
+  <%= turbo_stream_from :comments %>
+
+
+
+
+  <%= form_for(@comment) do |f| %>
+    <% if @comment.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+        <ul>
+        <% @comment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.hidden_field :todo_id %>
+    <%= f.hidden_field :user_id %>
+
+    <div class="flex flex-wrap items-center mb-4">
+
+      <%= f.text_area :texte, class:"textarea textarea-bordered w-full mb-4" %>
+      <div class="mb-4 w-full">
+        <h3 class="text-lg font-bold text-center">Visible par</h3>
+        <div class="flex justify-around">
+          <div><%= f.radio_button :audience, 1, checked:true, class:'radio' %> l'Equipe</div>
+          <div><%= f.radio_button :audience, 2, checked:false, class:'radio' %> le Client</div>
+          <div><%= f.radio_button :audience, 0, checked:false, class:'radio' %> Tous</div>
+        </div>
+      </div>
+      <%= f.submit 'Publier', class:'btn btn-active btn-ghost btn-block' %>
+    </div>
+  <% end %>
+
+
+
+
+  <%= turbo_frame_tag :comments do %>
+    <%= render partial:'comments/comment', collection: @todo.comments %>
+  <% end %>
+</div>
