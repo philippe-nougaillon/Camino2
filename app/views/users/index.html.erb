@@ -15,8 +15,8 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= image_tag user.avatar, class:"camino-avatar" if user.avatar.attached? %></td>
-        <td style="width:100px;font-weight:bold;"><%= link_to simple_format(user.name), logs_path(id: user.slug) %></td>
-        <td style="width:120px;"><%= user.username %></td>
+        <td class="font-bold"><%= link_to simple_format(user.name), logs_path(id: user.slug) %></td>
+        <td><%= user.username %></td>
         <td><%= user.email %></td>
         <td>
           <% user.projects.order(:name).each do |project| %>
@@ -27,6 +27,7 @@
                 <%= project.name %>
               <% end %>
             </span>
+            <br>
           <% end %>
         </td>
       </tr>
@@ -37,4 +38,4 @@
   </tfoot>
 </table>
 
-<br>
+<%= link_to 'Ajouter', new_user_path, class:'btn btn-outline' %>

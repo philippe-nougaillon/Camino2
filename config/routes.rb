@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
+  resources :users
   devise_for :users, :controllers => { registrations: 'users/registrations' }
 
   
   get "sitemap" => "sitemap#show", format: :xml, as: :sitemap
 
   get 'invite' => 'projects#invite' 
-  post 'invite' => 'projects#send_invitation' 
+  post 'invite' => 'projects#invite_do' 
   get 'accepter' => 'projects#accepter' 
 
   post 'todos/:id/close' => 'todos#close'
@@ -32,7 +33,6 @@ Rails.application.routes.draw do
   resources :todos
   resources :projects
   resources :tables
-  resources :users
   resources :values
   resources :fields, only: %i[ edit update create destroy ]
 

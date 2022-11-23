@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project,
-                only: %i[show edit update destroy save_as_template save_as_template_post invite send_invitation]
-  before_action :user_authorized?, except: %i[ show edit update destroy invite send_invitation ]
+                only: %i[show edit update destroy save_as_template save_as_template_post invite ]
+  before_action :user_authorized?, except: %i[ show edit update destroy invite invite_do ]
 
   # skip_before_action :authorize, only: :accepter
 
@@ -212,45 +212,57 @@ class ProjectsController < ApplicationController
 
   def invite
     authorize @project
+
+    @users = current_user.account.users
+                          .where.not(id: current_user.id )
+                          .where.not(id: @project.participants.pluck(:user_id) )
   end
 
-  def send_invitation
+  # Ajout 
+  def invite_do
+    @project = Project.find_by(slug: params[:id])
     authorize @project
 
-    @project = Project.friendly.find(params[:id])
+    participant = @project.participants.create(user: User.find(params[:user_id]), client: false)
 
-    if params[:courriel].blank?
-      flash[:notice] = 'Veuillez entrer une adresse, svp...'
-    elsif params[:client]
-      mail = params[:courriel]
-      user = User.find_by(email: mail)
-      unless user
-        username = mail.split('@').first
-        pass = random_password
-        user = User.create(name: username, username:, email: mail, password: pass, password_confirmation: pass,
-                           account: current_user.account)
-      end
-      @project.participants.create(user_id: user.id, client: true)
+    Log.create(project_id: @project.id, user_id: current_user.id, action_id: 1,
+              description: "invité le participant <b>#{participant.user.name}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")
 
-    # chercher le client dans user
-    # si n'existe pas, on le crée
-    # on l'ajoute comme participant au projet en lecture seule
-    else
-      @user = current_user
-      participant = @project.participants.new(user: User.find_by(email: params[:courriel]), client: false)
-      if participant.valid?
-        participant.save
-        Notifier.invite(@project, @user, params[:courriel]).deliver_later
-        # ajoute à l'activité
-        Log.create(project_id: @project.id, user_id: @user.id, action_id: 1,
-                  description: "invité le participant <b>#{params[:courriel]}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")
-        redirect_to projects_index_path, notice: 'Invitation envoyée...'
-      else
-        flash[:alert] = 'Participant déjà ajouté...'
-      end
+    redirect_to invite_path(id:@project.slug), notice: "Participant ajouté"
+    
+    # if params[:courriel].blank?
+    #   redirect_to invite_path(id:@project.slug), alert: 'Veuillez entrer une adresse'
+    # elsif params[:client]
+    #   mail = params[:courriel]
+    #   user = User.find_by(email: mail)
+    #   if user
+    #     redirect_to invite_path(id:@project.slug), alert: 'Participant déjà ajouté'
+    #   else
+    #     participant = @project.participants.new(user: User.find_by(email: params[:courriel]), client: false)
+    #     username = mail.split('@').first
+    #     pass = random_password
+    #     user = User.create(name: username, username:, email: mail, password: pass, password_confirmation: pass,
+    #                        account: current_user.account)
+    #   end
+    #   @project.participants.create(user_id: user.id, client: true)
+    #   redirect_to projects_path, notice: 'Invitation envoyée au client'
 
-    end
-    render action: 'invite'
+    # # chercher le client dans user
+    # # si n'existe pas, on le crée
+    # # on l'ajoute comme participant au projet en lecture seule
+    # else
+    #   participant = @project.participants.new(user: User.find_by(email: params[:courriel]), client: false)
+    #   if participant.valid?
+    #     participant.save
+    #     Notifier.invite(@project, current_user, params[:courriel]).deliver_later
+    #     # ajoute à l'activité
+    #     Log.create(project_id: @project.id, user_id: current_user.id, action_id: 1,
+    #               description: "invité le participant <b>#{params[:courriel]}</b> au projet '<a href='/projects/#{@project.id}'>#{@project.name}</a>'")
+    #     redirect_to projects_path, notice: 'Invitation envoyée'
+    #   else
+    #     redirect_to invite_path(id:@project.slug), alert: 'Participant déjà ajouté'
+    #   end
+    # end
   end
 
   def accepter

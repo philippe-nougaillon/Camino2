@@ -2,31 +2,32 @@
   <span class="pl-2" style="border-left: 7px solid <%= @project.color %>"><%= @project.name %></span>
 </h1>
 <h2>Participants actuels</h2>
-<table>
-  <tr>
-    <% @project.participants.each do |participant| %>
-      <td>
-        <%= image_tag(participant.user.avatar, size:'25x25', alt:'', class:'mini_avatar inline') if participant.user.avatar.attached? %>
-        <%= participant.user.name %>
-        <%= "(Client)" if participant.client %>
-      </td>
-    <% end %>
-  </tr>
-</table>
+<div class="overflow-x-auto">
+  <table>
+    <tr>
+      <% @project.participants.each do |participant| %>
+        <td>
+          <%= image_tag(participant.user.avatar, alt:'', class:'camino-avatar inline') if participant.user.avatar.attached? %>
+        </td>
+        <td>
+          <%= participant.user.name %>
+        </td>
+        <td>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+</div>
 
-<h2 class="mt-12">Inviter un nouveau participant à rejoindre le projet '<%= @project.name %>'</h2>
-
-Veuillez saisir ci-dessous son adresse email afin de lui envoyer une invitation
-<br><br>
+<h2 class="mt-12 mb-4">Ajouter un participant au projet '<%= @project.name.humanize %>'</h2>
 
 <%= form_tag do %>
-  <%= hidden_field_tag 'id', params[:id] %>
-  <%= label_tag "Courriel:" %>   
-  <%= email_field_tag :courriel, {}, class:"input input-bordered", required: true %>
-  <%= submit_tag "Envoyer", class:"btn btn-ghost btn-active" %><br>
-  <div class="mt-4">
-    <%= check_box_tag :client, {}, {}, class:"checkbox" %>
-    <%= label_tag :client, "C'est mon client" %>
-    <small><i>(Il ne pourra pas se connecter à Camino mais sera notifié dès qu'une tâche est terminée)</i></small></p>
-  </div>
+  <%= hidden_field_tag :id, @project.slug %>
+  <%= select_tag :user_id, 
+                  options_from_collection_for_select(@users, "id", "name" ),
+                  include_blank: true,
+                  class: 'select select-bordered' %>
+  <%= submit_tag "Ajouter", class:"btn btn-ghost btn-active mb-6" %>
 <% end %>
+
+<%= link_to 'Voir tous les participants', users_path, class: 'link' %>

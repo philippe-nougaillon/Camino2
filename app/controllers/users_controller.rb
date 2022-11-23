@@ -27,16 +27,15 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
+    @user.account = current_user.account
 
     respond_to do |format|
       if @user.save
-        @account = Account.create(name: @user.username)
-        @account.users << @user
 
-        # notifier par mail le nouveau mot de passe
-        Notifier.account_welcome_with_password(@account, @user, pass).deliver_later
+        # # notifier par mail le nouveau mot de passe
+        # Notifier.account_welcome_with_password(@account, @user, pass).deliver_later
 
-        format.html { redirect_to user_url(@user), notice: 'Utilisateur créé avec succès.' }
+        format.html { redirect_to users_path, notice: 'Utilisateur créé avec succès.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }

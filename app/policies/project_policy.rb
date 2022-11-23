@@ -37,7 +37,7 @@ class ProjectPolicy < ApplicationPolicy
     user.admin? && record.users.include?(user)
   end
 
-  def send_invitation?
+  def invite_do?
     invite?
   end
 end
