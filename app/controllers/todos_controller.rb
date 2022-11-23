@@ -2,14 +2,6 @@ class TodosController < ApplicationController
   before_action :set_todo, only: %i[show edit update destroy]
   before_action :user_authorized?, except: %i[ show edit update destroy ]
 
-  layout :checkifmobile
-
-  def checkifmobile
-    return 'phone' if request.variant and request.variant.include?(:phone)
-
-    'application'
-  end
-
   # GET /todos
   # GET /todos.json
   def index

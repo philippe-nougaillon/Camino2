@@ -2,14 +2,6 @@ class TablesController < ApplicationController
   before_action :set_table, only: %i[show show_attrs fill fill_do edit update destroy delete_record]
   before_action :user_authorized?, except: %i[ index ]
 
-  layout :checkifmobile
-
-  def checkifmobile
-    return 'phone' if request.variant and request.variant.include?(:phone)
-
-    'application'
-  end
-
   # GET /tables
   # GET /tables.json
   def index
@@ -48,12 +40,7 @@ class TablesController < ApplicationController
   def fill
     @record_index = params[:record_index] || @table.record_index + 1
 
-    @todo = Todo.find(params[:todo_id]) if params[:todo_id]
-
-    respond_to do |format|
-      format.html.phone
-      format.html.none
-    end
+    @todo = Todo.find_by(slug: params[:todo_id]) if params[:todo_id]
   end
 
   def fill_do

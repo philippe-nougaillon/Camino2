@@ -52,7 +52,7 @@
       </div>
 
       <% if @table %>
-        <%= link_to "Ajouter des données dans #{@table.name}", fill_url(@table.id, todo_id:@todo), class: 'link' %>
+        <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.id, todo_id:@todo.slug), class: 'link' %>
         <br>
       <% end %>
       <br>

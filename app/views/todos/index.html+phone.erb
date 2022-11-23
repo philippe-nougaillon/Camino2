@@ -1,21 +1,6 @@
-<div class="flex items-center justify-between mt-4 mb-8 px-2">
-  <div class="flex flex-col">
-    <h1 class="text-slate-800">Hello <%= current_user.username %></h1>
-    <h2 class="text-slate-300 !text-base !font-normal"><%= current_user.todos.undone.count %> tâches restantes</h2>
-  </div>
-  <%= link_to current_user do %>
-    <label tabindex="0" class="avatar online placeholder cursor-pointer ml-3">
-    <% if current_user.avatar.attached? %>
-      <div class="w-10 rounded-full !bg-slate-500">
-        <%= image_tag(current_user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
-      </div>
-    <% else %>
-      <div class="bg-primary-focus text-neutral-content rounded-full w-8">
-        <span><%= current_user.username.first.humanize %></span>
-      </div>
-    <% end %>
-    </label>
-  <% end %>
+<div class="flex flex-col mt-4 mb-8 px-2">
+  <h1 class="text-slate-800">Hello <%= current_user.username %></h1>
+  <h2 class="text-slate-300 !text-base !font-normal"><%= current_user.todos.undone.count %> tâches restantes</h2>
 </div>
 
 <div class="btn-group w-full px-2 mb-6">

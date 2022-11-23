@@ -1,11 +1,4 @@
 class AgendaController < ApplicationController
-  layout :checkifmobile
-
-  def checkifmobile
-    return 'phone' if request.variant and request.variant.include?(:phone)
-
-    'application'
-  end
 
   def index
     params[:calendar_type] ||= "month_calendar"

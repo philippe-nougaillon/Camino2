@@ -36,7 +36,12 @@ class CommentsController < ApplicationController
 
     if @comment.save
       @comment.log_changes(:comment, current_user.id)
-      redirect_to edit_todo_path(@comment.todo), notice: 'Commentaire ajouté'
+      respond_to do |format|
+        format.html do |variant|
+          variant.phone { redirect_to edit_todo_path(@comment.todo) }
+          variant.none { redirect_to edit_todo_path(@comment.todo), notice: 'Commentaire ajouté' }
+        end
+      end
     else
       render action: 'new'
     end
