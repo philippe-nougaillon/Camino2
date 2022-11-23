@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  resources :users
   devise_for :users, :controllers => { registrations: 'users/registrations' }
+  scope "/admin" do
+    resources :users
+  end
 
-  
   get "sitemap" => "sitemap#show", format: :xml, as: :sitemap
 
   get 'invite' => 'projects#invite' 
