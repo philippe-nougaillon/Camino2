@@ -180,7 +180,7 @@ class ProjectsController < ApplicationController
   def destroy
     authorize @project
 
-    @project.log_changes(:delete, current_user.id)
+    # @project.log_changes(:delete, current_user.id)
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url }

@@ -1,11 +1,10 @@
-<h1>Modification projet</h1>
+<h1 class="mb-4">Modification projet</h1>
 
 <%= render 'form' %>
 
-<%= link_to "Enregistrer ce projet comme modèle", 'save_as_template' %> |
-<%= link_to "Archiver ce projet", 'archive' %> |
-<%= link_to 'Retour aux projets', @project %>
+<%= link_to "Enregistrer ce projet comme modèle", 'save_as_template', class:'link' %> |
+<%= link_to 'Annuler', @project, class:'link' %>
 <%= button_to "Supprimer ce projet",
               @project, method: :delete,
-              form: { data: {'turbo-confirm': 'Certain(e) de vouloir supprimer définitivement ce projet ?' } },
+              form: { data: {'turbo-confirm': "--- ATTENTION ! ---\n\n Vous êtes sur le point de supprimer définitivement ce projet ! Cette action est IRRÉVERSSIBLE !" } },
               class:"mb-6" %>
