@@ -49,11 +49,17 @@
               <% end %>
             </td>
             <td>
-              <% project.participants.each do |participant| %>
-                <%= image_tag url_for(participant.user.avatar), size:'15x15', alt:'', title:"#{participant.user.name} #{participant.client ? "(Client)":""}", class:"mini_avatar inline" if participant.user.avatar.attached? %>
-                <%= "#{participant.user.name} #{participant.client ? "(Client)":""}" %>
-                <br>
-              <% end %>
+            <%= link_to users_path(project_id: project.slug) do %>
+              <div class="avatar-group -space-x-6">
+                <% User.where(id: project.todos.group(:user_id).count.keys).limit(5).reverse.each do |user| %>
+                  <div class="avatar">
+                    <div class="w-8">
+                      <%= image_tag url_for(user.avatar), size:'15x15', alt:'', title: user.name, class:"mini_avatar inline" if user.avatar.attached? %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
               <%= link_to invite_path(id:project.slug), title:'Inviter un nouveau participant' do %>
                 <div class="badge badge-outline rounded badge-lg mt-2 pb-0.5 shadow !text-slate-100">+</div>
               <% end %>

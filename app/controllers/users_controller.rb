@@ -4,9 +4,11 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @user = current_user
-    participants_id = @user.account.participants.pluck(:user_id).uniq
-    @users = User.where(id: participants_id)
+    unless params[:project_id].blank?
+      @users = Project.find_by(slug: params[:project_id]).users
+    else
+      @users = User.where(id: current_user.account.participants.pluck(:user_id).uniq)
+    end
   end
 
   # GET /users/1 or /users/1.json
