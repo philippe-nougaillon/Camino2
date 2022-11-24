@@ -98,3 +98,5 @@ gem "pundit", "~> 2.2"
 gem "friendly_id", "~> 5.5"
 
 gem "sitemap_generator", "~> 6.3"
+
+gem "recaptcha", "~> 5.12"
