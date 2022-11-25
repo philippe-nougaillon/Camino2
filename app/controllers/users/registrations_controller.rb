@@ -19,7 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #     render 'new'
     #   end
     # end
-    if verify_recaptcha
+    #if verify_recaptcha
       account = Account.create(name: params[:account])
       params[:user][:account_id] = account.id
       super
@@ -27,9 +27,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         account.users.first.update(role: "admin")
         flash[:notice] = "Votre compte a bien été créé"
       end
-    else
-      render 'new'
-    end
+    #else
+    #  render 'new'
+    #end
   end
 
   # GET /resource/edit
