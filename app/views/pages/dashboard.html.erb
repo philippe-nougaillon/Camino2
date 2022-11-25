@@ -16,13 +16,15 @@
     
     <div class="stat">
       <% if @todos %>
-        <div class="stat-figure text-secondary">
-          <div class="avatar online">
-            <div class="w-16 rounded-full">
-              <%= image_tag @last_commit_picture %>
+        <% if @last_commit_picture %>
+          <div class="stat-figure text-secondary">
+            <div class="avatar">
+              <div class="w-16 rounded-full">
+                <%= image_tag @last_commit_picture %>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
         <div class="stat-value"><%= (@todos.done.count * 100) / @todos.count %>%</div>
         <div class="stat-title">Réalisées</div>
         <div class="stat-desc text-red-500"><%= @todos_overdue %> tâches en retard</div>

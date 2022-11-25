@@ -14,7 +14,9 @@ class PagesController < ApplicationController
     @projects_start = current_user.account.projects.minimum(:created_at).to_date
     @projects_end = current_user.account.projects.maximum(:duedate)
     @todos_overdue = current_user.account.todos.undone.where("todos.duedate < ?", Date.today).count
-    @last_commit_picture = current_user.account.todos.done.order(:updated_at).last.user.avatar
+
+    last_commit = current_user.account.todos.done.order(:updated_at).last
+    @last_commit_picture = last_commit.user.avatar if last_commit && last_commit.user.avatar.attached?
 
     @results = current_user.account.todos.done.group("DATE(todos.updated_at)").count(:id)
   end
