@@ -25,7 +25,11 @@
             </div>
           </div>
         <% end %>
-        <div class="stat-value"><%= (@todos.done.count * 100) / @todos.count %>%</div>
+        <div class="stat-value">
+          <% unless @todos.count.zero? %>
+            <%= (@todos.done.count * 100) / @todos.count %>%
+          <% end %>
+        </div>
         <div class="stat-title">Réalisées</div>
         <div class="stat-desc text-red-500"><%= @todos_overdue %> tâches en retard</div>
       <% end %>
