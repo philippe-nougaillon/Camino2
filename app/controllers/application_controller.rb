@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :detect_device_format
   before_action :set_layout_variables
+  before_action :prepare_exception_notifier
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
 
   private
 
@@ -47,4 +47,11 @@ class ApplicationController < ActionController::Base
       redirect_back(fallback_location: new_user_session_path)
     end
   end
+
+  def prepare_exception_notifier
+    request.env["exception_notifier.exception_data"] = {
+      current_user: current_user
+    }
+  end
+
 end
