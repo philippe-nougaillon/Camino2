@@ -1,6 +1,6 @@
 class TablesController < ApplicationController
   before_action :set_table, only: %i[show show_attrs fill fill_do edit update destroy delete_record]
-  before_action :user_authorized?, except: %i[ index ]
+  before_action :user_authorized?, except: %i[ index new create ] 
 
   # GET /tables
   # GET /tables.json
