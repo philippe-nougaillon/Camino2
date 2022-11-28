@@ -72,24 +72,24 @@ module LogConcern
 
     quoi = case self.class.name
       when 'Project' then 
-        "le projet <a href='/projects/#{self.id}'>'#{self.name}'</a>"
+        "le projet <a href='/projects/#{self.slug}'>'#{self.name}'</a>"
       when 'Todolist' then
         unless action_id == :delete
-          "<a href='todolists/#{self.id}'>'#{self.name}'</a> #{action_id==:add ? 'au' : 'du'} projet <a href='/projects/#{self.project.id}'>'#{self.project.name}'</a>"
+          "<a href='todolists/#{self.slug}'>'#{self.name}'</a> #{action_id==:add ? 'au' : 'du'} projet <a href='/projects/#{self.project.slug}'>'#{self.project.name}'</a>"
         else
-          "<b>'#{self.name}'</b> du projet <a href='/projects/#{self.project.id}'>'#{self.project.name}'</a>"
+          "<b>'#{self.name}'</b> du projet <a href='/projects/#{self.project.slug}'>'#{self.project.name}'</a>"
         end
       when 'Todo' then 
         case action_id
         when :delete
-          "<a href='/todos/#{self.id}/edit'>'#{self.name}'</a> du projet <a href='/todolists/#{self.todolist.id}'>'#{self.project.name}:#{self.todolist.name}'</a>"
+          "<a href='/todos/#{self.id}/edit'>'#{self.name}'</a> du projet <a href='/todolists/#{self.todolist.slug}'>'#{self.project.name}:#{self.todolist.name}'</a>"
         when :document
-          "<a href='/documents/#{self.docfilename}'>'#{self.docname}'</a> à <a href='/todos/#{self.id}/edit'>'#{self.name}'</a> du projet <a href='/todolists/#{self.todolist.id}'>'#{self.project.name}:#{self.todolist.name}</a>'"
+          "<a href='/documents/#{self.docfilename}'>'#{self.docname}'</a> à <a href='/todos/#{self.slug}/edit'>'#{self.name}'</a> du projet <a href='/todolists/#{self.todolist.slug}'>'#{self.project.name}:#{self.todolist.name}</a>'"
         else
-          "<b>'#{self.name}'</b> #{action_id==:add ? 'au' : 'du'} projet <a href='/todolists/#{self.todolist.id}'>'#{self.project.name}:#{self.todolist.name}'</a>"
+          "<b>'#{self.name}'</b> #{action_id==:add ? 'au' : 'du'} projet <a href='/todolists/#{self.todolist.slug}'>'#{self.project.name}:#{self.todolist.name}'</a>"
         end
       when 'Comment' then 
-        "'<b>#{self.texte}</b>' sur <a href='/todos/#{self.todo.id}/edit'>'#{self.todo.name}'</a> #{action_id==:add ? 'au' : 'du'} projet <a href='/todolists/#{self.todolist.id}'>'#{self.project.name}:#{self.todolist.name}'</a>"
+        "'<b>#{self.texte}</b>' sur <a href='/todos/#{self.todo.slug}/edit'>'#{self.todo.name}'</a> #{action_id==:add ? 'au' : 'du'} projet <a href='/todolists/#{self.todolist.slug}'>'#{self.project.name}:#{self.todolist.name}'</a>"
     end
 
     user = User.find(user_id)
