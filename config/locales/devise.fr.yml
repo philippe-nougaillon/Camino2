@@ -25,6 +25,12 @@ fr:
         unconfirmed_email: Email non confirmé
         unlock_token: Clé de déverrouillage
         updated_at: Date de mise à jour
+    errors:
+      models:
+        user:
+          attributes:
+            account:
+              required: (Entreprise) existe déjà !
     models:
       user: Utilisateur
   devise:
