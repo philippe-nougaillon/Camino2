@@ -1,105 +1,116 @@
-<div class="flex flex-column lg:w-1/3">
-  <%= form_for(@project) do |f| %>
-    <% if @project.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
 
-        <ul>
-        <% @project.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <% if @templates.any? %>
-      <div class="field">
-        <%= f.label 'modèle' %><br>
-        <%= select_tag :template_id, options_from_collection_for_select(@templates, "id", "name"), include_blank: true %>
-        <small><i>Créez votre nouveau projet à partir d'un modèle de projet existant</i></small>
-      </div>
-    <% end %>  
-
-    <div class="field">
-      <%= f.label 'nom' %><br>
-      <%= f.text_field :name, class: 'input input-bordered w-full' %>
-    </div>
-
-    <div class="field">
-      <%= f.label :description %><br>
-      <%= f.text_field :description, class: 'input input-bordered w-full' %>
-    </div>
-
-    <div class="field">
-      <%= f.label "Echéance" %><br>
-      <%= f.date_field :duedate, size:5, value: (@project.duedate ? @project.duedate : nil), class: 'input input-bordered' %>
-      <br>
-      <small><i>Cette date va s'ajouter au calendrier des participants</i></small>
-    </div> 
-
-    <div>
-      <%= f.label 'tags' %><br>
-      <%= f.text_field :tag_list, value: @project.tag_list.join(", "), class: 'input input-bordered input-sm w-full' %>
-      <small><i>Séparés d'une virgule</i></small>
-    </div>
-
-    <div class="field">
-      <%= f.label 'Couleur' %><br>
-      <%= f.color_field :color, size:'5', class: 'colorpicker' %>
-      <small><i>Pour repérer rapidement les informations liées à ce projet</i></small>
-    </div>
-
-    <div class="field">
-      <%= f.label "Mémo" %><br>
-      <%= f.text_area :memo, size:'40x5', class: 'input input-bordered' %>
-    </div>
-
-    <h2>Déroulement</h2>
-    <%= f.radio_button :workflow, 0, class: 'radio', title: "Les tâches peuvent être terminées dans n'importe quel ordre" %> Libre
-    <%= f.radio_button :workflow, 1, class: 'radio', title: "Les tâches d'une liste doivent être terminées avant de pouvoir passer à la suivante" %> Linéaire
-    <br><br>
-
-    <% if @project.new_record? %>
-      <h2>Participants</h2>
-      <%= select_tag :participants, 
-                      options_from_collection_for_select(@participants, "id", "name", @project.participants.pluck(:user_id).to_a ), 
-                      multiple: true,
-                      class: 'select select-bordered' %>
-
-      <br>
-      <small>
-        <i>Pour inviter un nouveau participant, utilisez le lien </i>
-        <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
-        <i>dans la liste des projets</i>
-      </small>
-      <% if @participants.count > 1 %>
-        <small><i>Utilisez 'Ctrl' ou 'Maj' pour une sélection multiple</i></small>
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
       <% end %>
-
-      <br>
-      <div class="mt-4">
-        <%= check_box_tag "welcome_message", {}, {}, class: 'checkbox' %>
-        Envoyer un message de bienvenue aux participants ?
-      </div>
-    <% end %>
-
-    <% unless @project.new_record? %>
-      <h2 class="mt-4">
-        Table de données
-      </h2>
-      <% if @tables.any? %>
-        <div> 
-          <%= f.select :table_id, options_from_collection_for_select(@tables, "id", "name", @project.table_id), { include_blank: true}, {class: 'select select-bordered select-sm'} %>
-        </div>
-        <small><i>Pour associer ce projet à une table de données</i></small>
-      <% else %>
-        <small><i>Pour associer ce projet à une table de données. Il n'y a pas de table actuellement. Voulez-vous ajouter une 
-        <%= link_to 'Nouvelle Table', new_table_path, class: 'link' %> ?</i></small>
-      <% end %>
-    <% end %>
-
-    <div class="actions mt-8">
-      <%= f.submit "Enregistrer", class: 'btn btn-active btn-ghost' %>
+      </ul>
     </div>
   <% end %>
-</div>
+
+  <div class="flex gap-16">
+    <div class="flex-1">
+      <% if @templates.any? %>
+        <div class="field">
+          <%= f.label 'modèle' %><br>
+          <%= select_tag :template_id, options_from_collection_for_select(@templates, "id", "name"), include_blank: true %>
+          <small><i>Créez votre nouveau projet à partir d'un modèle de projet existant</i></small>
+        </div>
+      <% end %>  
+
+      <div class="field">
+        <%= f.label :name, 'Nom *' %><br>
+        <%= f.text_field :name, class: 'input input-bordered w-full', required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_field :description, class: 'input input-bordered w-full' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :duedate, "Echéance" %><br>
+        <%= f.date_field :duedate, size:5, value: (@project.duedate ? @project.duedate : nil), class: 'input input-bordered' %>
+        <br>
+        <small><i>Cette date va s'ajouter au calendrier des participants</i></small>
+      </div> 
+
+      <div>
+        <%= f.label :tag_list, 'Tags' %><br>
+        <%= f.text_field :tag_list, value: @project.tag_list.join(", "), class: 'input input-bordered input-sm w-full' %>
+        <small><i>Pour regrouper vos projets par thème (séparés d'une virgule, ex: Urgent, Travaux, Voirie)</i></small>
+      </div>
+
+      <div class="actions mt-8">
+        <%= f.submit "Enregistrer", class: 'btn btn-active btn-ghost' %>
+      </div>
+
+      <small>* : Champs obligatoires</small>
+    </div>
+
+    <div class="flex-1">
+      <div class="field">
+        <%= f.label :color, 'Couleur' %><br>
+        <%= f.color_field :color, size:'5', class: 'colorpicker' %>
+        <small><i>Pour repérer rapidement les informations liées à ce projet</i></small>
+      </div>
+
+      <div class="field">
+        <%= f.label :memo, "Mémo" %><br>
+        <%= f.text_area :memo, class: 'textarea textarea-bordered w-full' %>
+      </div>
+
+      <h2 class="inline">Déroulement</h2>
+      <div class="pl-2 tooltip tooltip-accent tooltip-right mb-3" data-tip="Libre : les tâches peuvent être terminées dans n'importe quel ordre. Linéaire : les tâches d'une liste doivent être terminées avant de pouvoir passer à la suivante.">
+        <p class="btn btn-sm btn-outline btn-accent">?</p>
+      </div>
+      <br>
+      <%= f.radio_button :workflow, 0, class: 'radio' %> Libre
+      <%= f.radio_button :workflow, 1, class: 'radio ml-8' %> Linéaire
+      <br><br>
+
+      <% if @project.new_record? && @participants.count > 1  %>
+        <h2>Participants</h2>
+        <%= select_tag :participants, 
+                        options_from_collection_for_select(@participants, "id", "name", @project.participants.pluck(:user_id).to_a ), 
+                        multiple: true,
+                        class: 'select select-bordered' %>
+
+        <br>
+        <small>
+          <i>Pour inviter un nouveau participant, utilisez le lien </i>
+          <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+          <i>dans la liste des projets</i>
+        </small>
+        <% if @participants.count > 1 %>
+          <small><i>Utilisez 'Ctrl' ou 'Maj' pour une sélection multiple</i></small>
+        <% end %>
+
+        <br>
+        <div class="mt-4">
+          <%= check_box_tag "welcome_message", {}, {}, class: 'checkbox' %>
+          Envoyer un message de bienvenue aux participants ?
+        </div>
+      <% end %>
+
+      <% unless @project.new_record? %>
+        <h2 class="mt-4">
+          Table de données
+        </h2>
+        <% if @tables.any? %>
+          <div> 
+            <%= f.select :table_id, options_from_collection_for_select(@tables, "id", "name", @project.table_id), { include_blank: true}, {class: 'select select-bordered select-sm'} %>
+          </div>
+          <small><i>Pour associer ce projet à une table de données</i></small>
+        <% else %>
+          <small><i>Pour associer ce projet à une table de données. Il n'y a pas de table actuellement. Voulez-vous ajouter une 
+          <%= link_to 'Nouvelle Table', new_table_path, class: 'link' %> ?</i></small>
+        <% end %>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>

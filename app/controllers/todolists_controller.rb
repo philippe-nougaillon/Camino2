@@ -14,6 +14,7 @@ class TodolistsController < ApplicationController
   def new
     @todolist = Todolist.new
     @todolist.project = Project.find_by(slug: params[:id])
+    @placeholder = "Todo List ##{@todolist.project.todolists.count + 1}"
 
     authorize @todolist
   end

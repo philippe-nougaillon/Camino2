@@ -15,12 +15,11 @@
     <%= render partial: "partials/gtag" %>
   </head>
 
-  <body>
-    <main class="mx-auto px-2 lg:px-12 lg:mt-8">
-      <%= render partial: "partials/navbar" %>
+  <body class="bg-gray-50 min-h-screen">
+    <%= render partial: "partials/navbar" %>
+    <main class="mx-auto px-2 lg:px-12">
       <%= yield %>
     </main>
     <%= render partial: "partials/notification" %>
-    <%= render partial: "partials/footer" unless user_signed_in? %>
   </body>
 </html>

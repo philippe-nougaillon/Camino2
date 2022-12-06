@@ -1,44 +1,47 @@
+
 <% if user_signed_in? %>
-  <div class="navbar sticky top-0 z-50 bg-white flex !items-start !pl-0 mb-8">
-    <div class="navbar-start ">
-      <div class="dropdown lg:!hidden">
-        <label tabindex="0" class="btn btn-ghost">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-        </label>
-        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-          <%= render partial: 'partials/navbar_items' %>
-        </ul>
+  <div class="mx-auto px-2 lg:px-12 bg-white shadow-sm">
+    <div class="navbar sticky top-0 z-50 flex !items-start !pl-0 mb-8">
+      <div class="navbar-start ">
+        <div class="dropdown lg:!hidden">
+          <label tabindex="0" class="btn btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+          </label>
+          <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <%= render partial: 'partials/navbar_items' %>
+          </ul>
+        </div>
+        <div class="hidden lg:!flex">
+          <ul class="menu menu-horizontal p-0">
+            <%= render partial: 'partials/navbar_items' %>
+          </ul>
+        </div>
       </div>
-      <div class="hidden lg:!flex">
-        <ul class="menu menu-horizontal p-0">
-          <%= render partial: 'partials/navbar_items' %>
-        </ul>
-      </div>
-    </div>
-    <div class="navbar-end !self-center">
-      <div class="form-control">
-        <%= form_tag(@search_filter, url: 'index', method: :get) do %>
-          <div class="input-group">
-            <%= text_field_tag :search, params[:search], class: "input input-bordered input-xs" %>
-            <button class="btn btn-square btn-xs">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-            </button>
-          </div>
+      <div class="navbar-end !self-center">
+        <div class="form-control">
+          <%= form_tag(@search_filter, url: 'index', method: :get) do %>
+            <div class="input-group">
+              <%= text_field_tag :search, params[:search], class: "input input-bordered input-xs" %>
+              <button class="btn btn-square btn-xs">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+              </button>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to current_user do %>
+          <label tabindex="0" class="avatar online placeholder cursor-pointer ml-3">
+            <% if current_user.avatar.attached? %>
+              <div class="w-10 rounded-full !bg-slate-500">
+                <%= image_tag(current_user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
+              </div>
+            <% else %>
+              <div class="bg-primary-focus text-neutral-content rounded-full w-8">
+                <span><%= current_user.username.first.humanize %></span>
+              </div>
+            <% end %>
+          </label>
         <% end %>
       </div>
-      <%= link_to current_user do %>
-        <label tabindex="0" class="avatar online placeholder cursor-pointer ml-3">
-        <% if current_user.avatar.attached? %>
-          <div class="w-10 rounded-full !bg-slate-500">
-            <%= image_tag(current_user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
-          </div>
-        <% else %>
-          <div class="bg-primary-focus text-neutral-content rounded-full w-8">
-            <span><%= current_user.username.first.humanize %></span>
-          </div>
-        <% end %>
-        </label>
-      <% end %>
     </div>
   </div>
 <% end %>

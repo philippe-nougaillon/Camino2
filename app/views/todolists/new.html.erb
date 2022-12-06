@@ -1,5 +1,10 @@
-<h2>
-  <%= link_to @todolist.project.name, @todolist.project %>
-</h2>
+<div class="mb-8 pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
+  <div class="flex items-center">
+    <h2><%= @todolist.project.name %></h2>
+  </div>
+  <% unless @todolist.project.description.blank? %>
+    <i><%= @todolist.project.description %></i>
+  <% end %>
+</div>
 
 <%= render 'form' %>

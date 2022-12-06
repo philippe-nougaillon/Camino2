@@ -49,17 +49,23 @@
               <% end %>
             </td>
             <td>
-            <%= link_to users_path(project_id: project.slug) do %>
-              <div class="avatar-group -space-x-6">
-                <% User.where(id: project.todos.group(:user_id).count.keys).limit(5).reverse.each do |user| %>
-                  <div class="avatar">
-                    <div class="w-8">
-                      <%= image_tag url_for(user.avatar), size:'15x15', alt:'', title: user.name, class:"mini_avatar inline" if user.avatar.attached? %>
+              <%= link_to users_path(project_id: project.slug) do %>
+                <div class="avatar-group -space-x-6">
+                  <% User.where(id: project.todos.group(:user_id).count.keys).limit(5).reverse.each do |user| %>
+                    <div class="avatar placeholder">
+                      <% if user.avatar.attached? %>
+                        <div class="w-8 rounded-full !bg-slate-500">
+                          <%= image_tag(user.avatar, size:'15x15', alt:'', class:"mini_avatar inline") %>
+                        </div>
+                      <% else %>
+                        <div class="bg-primary-focus text-neutral-content rounded-full w-8">
+                          <span><%= user.username.first.humanize %></span>
+                        </div>
+                      <% end %>
                     </div>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
+                  <% end %>
+                </div>
+              <% end %>
               <%= link_to invite_path(id:project.slug), title:'Inviter un nouveau participant' do %>
                 <div class="badge badge-outline rounded badge-lg mt-2 pb-0.5 shadow !text-slate-100">+</div>
               <% end %>
@@ -76,11 +82,13 @@
     <i>Aucun projet à afficher...</i>
   <% else %>
     <p>
-      Vous ne participez à aucun projet actuellement. Cliquez sur  
+      Vous ne participez à aucun projet actuellement.
+      <br>
+      Cliquez sur
       <%= link_to new_project_path do %>
         <span class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</span>
       <% end %>
-      pour ajouter un projet.
+      pour créer un nouveau projet.
     </p>
   <% end %>
   <br>
