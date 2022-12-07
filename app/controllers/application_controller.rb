@@ -31,13 +31,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(_resource)
-    if current_user.admin?
-      projects_path
-    else
-      todos_path(filter: "todo")
-    end
-  end
+  # def after_sign_in_path_for(_resource)
+  #   if current_user.admin?
+  #     projects_path
+  #   else
+  #     todos_path(filter: "todo")
+  #   end
+  # end
 
   def user_not_authorized
     flash[:alert] = "Vous n'êtes pas autorisé à effectuer cette action."

@@ -3,7 +3,12 @@
 </h1>
 
 <% unless @tables.any? %>
-  <i><small>Créez une table de données pour collecter des informations complémentaires aux projets. Ces données pourront être saisie à tout moment où lors de la clôture d'une opération.</small></i> 
+  <i>
+    <small>
+      Créez une table de données pour collecter des informations complémentaires aux projets.
+      Ces données pourront être saisie à tout moment où lors de la clôture d'une opération.
+    </small>
+  </i> 
   <br><br>
 <% end %>
 
@@ -23,24 +28,27 @@
 
       <tfoot>
         <tr>
-          <td /><td /><td /><td /><td /><td /><td /><td />
+          <td colspan="8"></td>
         </tr>
       </tfoot>
 
       <tbody>
         <% @tables.each do |table| %>
           <tr class="hover">
-            <td><b><%= link_to table.name, table %></b></td>
+            <td><strong><%= link_to table.name.humanize, table %></strong></td>
             <td>
-                <% table.projects.order(:name).each do |p| %>
-                  <span class="pl-1 ml-2" style="border-left: .3rem solid <%= p.color %>">
-                    <% if p.participants.where(user_id:current_user.id).any? %>
-                        <%= link_to p.name, project_path(p) %>
-                    <% else %>
-                      <%= p.name %>
-                    <% end %>
-                  </span>
-                <% end %>
+              <% table.projects.order(:name).each do |p| %>
+                <span class="pl-1 ml-2" style="border-left: .3rem solid <%= p.color %>">
+                  <% if p.participants.where(user_id:current_user.id).any? %>
+                    <%= link_to p.name, project_path(p) %>
+                  <% else %>
+                    <%= p.name %>
+                  <% end %>
+                </span>
+              <% end %>
+              <%= link_to link_path(id: table.id), title:'Lier cette table à un projet' do %>
+                <div class="badge badge-accent badge-outline rounded badge-lg ml-4 pb-0.5 shadow">+</div>
+              <% end %>
             </td>
             <td><%= table.size %></td>
             <td><%= "Il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>

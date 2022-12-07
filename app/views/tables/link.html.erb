@@ -1,0 +1,25 @@
+<h1 class="mb-2">Table : <%= @table.name.humanize %></h1>
+<p class="text-lg">
+  Lier cette table à un projet va permettre de collecter des informations complémentaires lors de la clôture d'une tâche.
+</p> 
+
+<%= form_tag do %>
+
+  <%= hidden_field_tag :table_id, @table.id %>
+  <h2 class="mt-12 mb-4">Choisir un projet</h2>
+  <%= select_tag :project_id, 
+                  options_from_collection_for_select(@projects, "id", "name" ),
+                  include_blank: true,
+                  class: 'select select-bordered',
+                  required: true %>
+
+  <div class="actions">
+    <%= submit_tag "Lier cette table", class: 'btn btn-active btn-ghost mt-8' %>
+  </div>
+
+  <%= link_to 'Retour', tables_path %>
+
+<% end %>
+
+
+

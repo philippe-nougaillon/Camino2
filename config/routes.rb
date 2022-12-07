@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
   get 'tables/:id/fill' => 'tables#fill', as: :fill
   post 'tables/:id/fill' => 'tables#fill_do', as: :fill_do
+  get 'tables/:id/link' => 'tables#link', as: :link
+  post 'tables/:id/link' => 'tables#link_do', as: :link_do
 
   delete 'tables/:id/delete_record' => 'tables#delete_record', as: :delete_record
 

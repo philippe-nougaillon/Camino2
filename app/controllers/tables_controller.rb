@@ -1,5 +1,5 @@
 class TablesController < ApplicationController
-  before_action :set_table, only: %i[show show_attrs fill fill_do edit update destroy delete_record]
+  before_action :set_table, only: %i[show show_attrs fill fill_do edit update destroy delete_record link link_do]
   before_action :user_authorized?, except: %i[ index new create ] 
 
   # GET /tables
@@ -154,6 +154,15 @@ class TablesController < ApplicationController
       format.html { redirect_to tables_url, notice: 'Table supprimée.' }
       format.json { head :no_content }
     end
+  end
+
+  def link
+    @projects = current_user.account.projects.where(table_id: nil)
+  end
+
+  def link_do
+    @table.projects << Project.find(params[:project_id])
+    redirect_to tables_path, notice: 'Projet ajouté'
   end
 
   private

@@ -44,4 +44,12 @@ class TablePolicy < ApplicationPolicy
   def show_attrs?
     show?
   end
+
+  def link?
+    show?
+  end
+
+  def link_do?
+    link?
+  end
 end
