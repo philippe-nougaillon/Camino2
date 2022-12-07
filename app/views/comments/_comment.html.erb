@@ -1,9 +1,11 @@
 <div class="flex items-center gap-8 mt-4">
-  <div>
+  <div class="flex items-center gap-2">
     <%= image_tag(comment.user.avatar, size:'25x25', class:"mini_avatar") if comment.user.avatar.attached? %>
-    <%= comment.user.name %>
-    <div style="color:lightgrey">
-      <%= "il y a #{time_ago_in_words(comment.created_at)}" %>
+    <div>
+      <%= comment.user.name %>
+      <div style="color:lightgrey">
+        <%= "il y a #{time_ago_in_words(comment.created_at)}" %>
+      </div>
     </div>
   </div>
   <div>

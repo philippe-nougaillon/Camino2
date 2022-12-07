@@ -15,11 +15,13 @@
   <%= f.hidden_field :user_id %>
 
   <div class="flex flex-wrap gap-4 items-center mb-4">
-    <div>
+    <div class="flex items-center gap-2">
       <%= image_tag(@user.avatar, size:'25x25', alt:'', class:"mini_avatar") if @user.avatar.attached? %>
-      <%= @user.name %>
-      <div style="color:lightgrey;vertical-align:top;">
-        <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
+      <div>
+        <%= @user.name %>
+        <div style="color:lightgrey;vertical-align:top;">
+          <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
+        </div>
       </div>
     </div>
 
