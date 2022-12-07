@@ -72,30 +72,6 @@
       <%= f.radio_button :workflow, 1, class: 'radio ml-8' %> Linéaire
       <br><br>
 
-      <% if @project.new_record? && @participants.count > 1  %>
-        <h2>Participants</h2>
-        <%= select_tag :participants, 
-                        options_from_collection_for_select(@participants, "id", "name", @project.participants.pluck(:user_id).to_a ), 
-                        multiple: true,
-                        class: 'select select-bordered' %>
-
-        <br>
-        <small>
-          <i>Pour inviter un nouveau participant, utilisez le lien </i>
-          <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
-          <i>dans la liste des projets</i>
-        </small>
-        <% if @participants.count > 1 %>
-          <small><i>Utilisez 'Ctrl' ou 'Maj' pour une sélection multiple</i></small>
-        <% end %>
-
-        <br>
-        <div class="mt-4">
-          <%= check_box_tag "welcome_message", {}, {}, class: 'checkbox' %>
-          Envoyer un message de bienvenue aux participants ?
-        </div>
-      <% end %>
-
       <% unless @project.new_record? %>
         <h2 class="mt-4">
           Table de données

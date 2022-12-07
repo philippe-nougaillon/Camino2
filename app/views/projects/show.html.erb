@@ -45,7 +45,7 @@
         <br><br>
         Cliquez sur 
         <%= link_to new_todolist_path(id: @project.slug), title: 'Ajouter une Todo List/Phase' do %>
-          <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+          <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
         <% end %> 
         pour saisir le nom de votre première liste.
       </i>
@@ -77,7 +77,7 @@
         <th>
           <% if current_user.admin? %>
             <%= link_to new_todolist_path(id: @project.slug), title: 'Ajouter une Todo List/Phase' do %>
-              <div class="badge badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+              <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
             <% end %>
           <% end %>
         </th>
