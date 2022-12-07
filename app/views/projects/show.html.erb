@@ -28,10 +28,11 @@
 <div class="mt-2">
   <% if @project.todolists.any? %>
     <% if @project.todos.any? %>
-      Afficher :
-      <%= link_to_if params[:done], "Tout", project_path(@project), class: 'link' %> /
-      <%= link_to_unless params[:done], "Reste à faire", project_path(@project, done:false, search: params[:search]), class: 'link' %>
-      <br>
+      <%= form_tag project_path, method: :get, class:'mb-2' do %>
+        Afficher :
+        <%= radio_button_tag :show_only_undone, "no", params[:show_only_undone] == "no", { onchange: "this.form.submit();", class: 'radio radio-sm' } %> Tout
+        <%= radio_button_tag :show_only_undone, "yes", params[:show_only_undone] == "yes", { onchange: "this.form.submit();", class: 'radio radio-sm' } %> Reste à faire
+      <% end %>
     <% end %>
   <% else %>
     <small>

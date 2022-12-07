@@ -35,6 +35,7 @@ class ProjectsController < ApplicationController
   def show
     authorize @project
 
+    session[:show_only_undone] ||= "no"
     @logs = @project.logs.except_comments.limit(5)
     @comments = @project.comments.limit(5)
     @todolists = if @project.workflow == 1
@@ -46,12 +47,15 @@ class ProjectsController < ApplicationController
     unless params[:search].blank?
       @todolists = @todolists.joins(:todos)
                               .where('todolists.name ILIKE :search OR todos.name ILIKE :search', {search: "%#{params[:search]}%"})
-                              
     end
 
-    unless params[:done].blank?
+    params[:show_only_undone] ||= session[:show_only_undone]
+
+    if params[:show_only_undone] == "yes"
       @todolists = @todolists.joins(:todos).where('todos.done IS FALSE')
     end
+
+    session[:show_only_undone] = params[:show_only_undone]
 
     @todolists = @todolists.uniq
   end

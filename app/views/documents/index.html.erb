@@ -17,7 +17,7 @@
       <% @documents.each do |doc| %>
         <tr>
           <td>
-            <%= link_to doc.filename.base, doc, target: "_blank" %>
+            <%= link_to doc.filename.base, doc, class:'link', target: "_blank" %>
           </td>
           <td>
             <%= doc.content_type %>

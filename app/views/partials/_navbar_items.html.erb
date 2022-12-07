@@ -1,6 +1,6 @@
 <li><%= link_to "Projets", projects_path, class:((@ctrl == 'projects' || @ctrl == 'todolists') ? 'link underline-offset-8 text-lg':'text-lg') %></li>
-<li><%= link_to "Agenda", agenda_index_path, class:(@ctrl == 'agenda' ? 'link underline-offset-8 text-lg':'text-lg') %></li>
 <li><%= link_to "To-do", todos_path(filter: "todo"), class:(@ctrl == 'todos' ? 'link underline-offset-8 text-lg':'text-lg') %></li>
+<li><%= link_to "Agenda", agenda_index_path, class:(@ctrl == 'agenda' ? 'link underline-offset-8 text-lg':'text-lg') %></li>
 <li><%= link_to "Activité", logs_path, class:(@ctrl == 'logs' ? 'link underline-offset-8 text-lg':'text-lg') %></li>
 <li><%= link_to "Discussions", comments_path, class:(@ctrl == 'comments' ? 'link underline-offset-8 text-lg':'text-lg') %></li>
 <li><%= link_to "Documents", documents_index_path, class:(@ctrl == 'documents' ? 'link underline-offset-8 text-lg':'text-lg') %></li>
