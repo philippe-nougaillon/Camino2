@@ -32,5 +32,5 @@
   <%= render partial:'fields/form' %>
 <% end %>
 <br>
-<%= link_to "Voir le formulaire '#{@table.name.humanize}'", fill_url(@table.id), class: 'link' %> | 
+<%= link_to "Voir/Tester le formulaire '#{@table.name.humanize}'", fill_url(@table.slug), class: 'link' %> | 
 <%= link_to "Retour", @table, class:'link' %> 

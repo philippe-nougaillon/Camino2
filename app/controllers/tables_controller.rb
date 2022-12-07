@@ -46,14 +46,14 @@ class TablesController < ApplicationController
   def fill_do
     @user = current_user
     data = params[:data]
-    table = Table.find(params[:table_id])
+    table = Table.find_by(slug: params[:table_id])
     record_index = data.keys.first
     values = data[record_index.to_s]
 
     todo = if params[:todo_id].blank?
              Todo.new
            else
-             Todo.find_by(slug: params[:id])
+             Todo.find_by(slug: params[:todo_id])
            end
 
     if values.values.select { |v| v.present? }.any? # test si tous les champs sont renseignés
@@ -82,14 +82,14 @@ class TablesController < ApplicationController
 
       flash[:notice] = "Enregistrement #{update ? 'modifié' : 'ajouté'}"
     else
-      flash[:notice] = "L'enregistrement n'a pas été ajouté"
+      flash[:alert] = "L'enregistrement n'a pas été ajouté"
     end
 
     respond_to do |format|
       format.html.phone { redirect_to todo }
       format.html.none  do
         if params[:todo_id].blank?
-          redirect_to table
+          redirect_to table, notice: "Test OK. Vous pourrez ajouter des données à chaque tâche terminée"
         else
           redirect_to edit_todo_path(todo)
         end
@@ -169,7 +169,7 @@ class TablesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_table
-    @table = Table.find(params[:id])
+    @table = Table.find_by(slug: params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

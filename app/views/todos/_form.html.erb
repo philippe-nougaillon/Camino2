@@ -53,7 +53,7 @@
 
       <% if @table %>
         <div class="my-4">
-          <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.id, todo_id:@todo.slug), class: 'link' %>
+          <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
         </div>
       <% end %>
 

@@ -1,5 +1,9 @@
 class Table < ApplicationRecord
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   audited
+
 
   belongs_to :account
 
@@ -11,5 +15,11 @@ class Table < ApplicationRecord
 
   def size
     self.values.group(:record_index).count.size
+  end
+
+  private
+
+  def slug_candidates
+    [SecureRandom.uuid]
   end
 end

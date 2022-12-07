@@ -2,10 +2,10 @@
 
 <%= form_tag do %>
 
-  <%= hidden_field_tag :table_id, @table.id %>
+  <%= hidden_field_tag :table_id, @table.slug %>
 
   <% if @todo %>
-    <%= hidden_field_tag :todo_id, @todo.id %>
+    <%= hidden_field_tag :todo_id, @todo.slug %>
   <% end %>
 
   <% @table.fields.each do |field| %>
@@ -22,11 +22,11 @@
           <% elsif field.datatype == "nombre" %>
             <%= number_field_tag field_name, field_value %>
 
-          <% elsif field.datatype == "euros" %>  
+          <% elsif field.datatype == "euros" %>
             <%= number_field_tag field_name, field_value, step: 'any' %> €
 
           <% elsif field.datatype == "date" %>
-            <%= text_field_tag field_name, field_value, class:"datepicker", size:6 %>
+            <%= text_field_tag field_name, field_value, type: "date" %>
 
           <% elsif field.datatype == "oui_non?" %>
             <%= radio_button_tag field_name, 'Oui', (field_value == 'Oui') %> Oui
