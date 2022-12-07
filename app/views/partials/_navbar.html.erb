@@ -3,9 +3,6 @@
   <div class="mx-auto px-2 lg:px-4 bg-white shadow-sm">
     <div class="navbar sticky top-0 z-50 flex !items-start !pl-0 mb-8">
       <div class="navbar-start">
-        <p class="font-bold text-xl whitespace-nowrap mr-4">
-          <%= truncate(current_user.account.name, length: 20) %>
-        </p>
         <div class="dropdown lg:!hidden">
           <label tabindex="0" class="btn btn-ghost">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
@@ -15,6 +12,9 @@
           </ul>
         </div>
         <div class="hidden lg:!flex">
+          <p class="font-bold text-xl whitespace-nowrap mr-4 place-self-center">
+            <%= truncate(current_user.account.name, length: 20) %>
+          </p>
           <ul class="menu menu-horizontal p-0">
             <%= render partial: 'partials/navbar_items' %>
           </ul>

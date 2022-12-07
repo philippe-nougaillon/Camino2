@@ -21,7 +21,7 @@
         <%= image_tag(log.user.avatar, size:'30x30', alt:'', class:"mini_avatar") if log.user.avatar.attached? %>
       <% end %>
   </td>
-  <td><span style="background-color:<%= log.project.color %>;padding-left:5px;margin-right:5px;"></span></td>
+  <td><span class="pl-1 ml-2" style="border-left: .3rem solid <%= log.project.color %>"></span></td>
   <td>
       <% if log.user_id == current_user.id %>
         <b>Vous</b> avez  

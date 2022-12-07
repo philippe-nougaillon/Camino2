@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post 'projects/:id/save_as_template' => 'projects#save_as_template_post'
 
   get 'documents/index'
+  delete 'documents/purge'
 
   get "agenda/index"
   get "agenda/export_icalendar"
