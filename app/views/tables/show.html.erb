@@ -2,7 +2,7 @@
   <h1>
     <%= @table.name.humanize %>
   </h1>
-  <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les attributs", class:'ml-3 text-slate-300' %>
+  <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les colonnes", class:'ml-3 text-slate-300' %>
 </div>
 
 <% if @table.fields.any? %>
@@ -15,11 +15,10 @@
           <% @table.fields.each do | field | %>
             <th><%= field.name %></th>
           <% end %>
-          <th>Opération</th>
-          <th>Créé le</th>
-          <th>Modifié le</th>
-          <th>Par</th>
-          <th colspan="3"></th>
+          <th><small>Ajoutée</small></th>
+          <th><small>Par</small></th>
+          <th><small>Dans</small></th>
+          <th colspan="1"></th>
         </tr>
       </thead>
       <tbody>
@@ -30,24 +29,33 @@
             <% count += 1 %> 
             <% record = @values.records_at(index).first %>
             <tr>
-              <td><%= index %></td>
+              <td class="font-bold">
+                <%= index %>
+              </td>
               <% @table.fields.each do | field | %>
-                <td>
+                <td class="font-bold">
                   <%= field.values.records_at(index).first.data if field.values.records_at(index).first %>
                 </td>
               <% end %>
               <td>
-                <% if record.todo %>
-                  <span class="pl-1 ml-2" style="border-left: .3rem solid <%= record.todo.project.color %>">
-                    <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
-                  </span>
-                <% end %>
+                <small> 
+                  il y a <%= time_ago_in_words record.created_at %>
+                </small>
               </td>
-              <td><%= l(record.created_at, format: :compact) %></td>
-              <td><%= l(record.updated_at, format: :compact) %></td>
               <td>
                 <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
-                <%= record.user.username if record.user %></td>
+                <small><%= record.user.username if record.user %></small>
+              </td>
+              <td>
+                <% if record.todo %>
+                  <small>
+                    <span class="pl-1" style="border-left: .3rem solid <%= record.todo.project.color %>">
+                      <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
+                    </span>
+                  </small>
+                <% end %>
+              </td>
+
               <%
 =begin%>
  <td><%= link_to "Modifier", fill_url(@table.slug, record_index:index) %></td> 
@@ -64,20 +72,20 @@
           <% @table.fields.count.times do %>
             <td />
           <% end %>
-          <td /><td /><td /><td /><td /><td />
+          <td /><td /><td /><td />
         </tr>
       </tfoot>
     </table>
     <%= count %> <%= @table.name %><%= @table.size > 1 ? "s":"" %> sur <%= @table.size %> au total
-    | <%= link_to "Exporter vers Excel", url_for(params.permit.merge(format:'xls')) %>
+    | <%= link_to "Exporter vers Excel", url_for(params.permit.merge(format:'xls')), class: 'link' %>
   <% else %>
     Il n'y a aucune valeur à afficher. Pour afficher de nouvelles données, modifiez une tâche et utilisez le lien "Ajouter des données...".
   <% end %>
   <br>
 <% else %>
   <% unless params[:attrs] %>
-    Cette table n'a pas encore d'attributs... 
-    <%= link_to "Ajouter des attributs", show_attrs_path(id:@table), class: 'link' %>
+    Cette table n'a pas encore de colonnes... 
+    <%= link_to "Ajouter des colonnes", show_attrs_path(id:@table), class: 'link' %>
   <% end %>
 <% end %>
 <br><br>

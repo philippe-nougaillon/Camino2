@@ -4,10 +4,9 @@
 
 <% unless @tables.any? %>
   <i>
-    <small>
-      Créez une table de données pour collecter des informations complémentaires aux projets.
-      Ces données pourront être saisie à tout moment où lors de la clôture d'une opération.
-    </small>
+    Créez une table (base de données) pour collecter des informations complémentaires aux projets.
+    <br>
+    Ces données pourront être ajoutées lors de la clôture d'une opération.
   </i> 
   <br><br>
 <% end %>
@@ -18,10 +17,10 @@
       <thead>
         <tr>
           <td>Nom</td>
+          <th>Colonnes</th>
           <th>Utilisée par les projets</th>
           <th>Nbr enregistrements</th>
           <th>Dernière mise à jour</th>
-          <th>Attributs</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -35,7 +34,18 @@
       <tbody>
         <% @tables.each do |table| %>
           <tr class="hover">
-            <td><strong><%= link_to table.name.humanize, table %></strong></td>
+            <td>
+              <strong>
+                <%= link_to table.name.humanize, table, class: 'link' %>
+              </strong>
+            </td>
+            <td>
+              <%= table.fields.pluck(:name).join(', ') %>
+              <%= link_to "(#{table.fields.count})", 
+                          table_path(table, attrs:1), 
+                          title:"#{table.fields.any? ? "Modifier les" : "Ajouter des"} colonnes: #{table.fields.pluck(:name).join(", ")}",
+                          class: 'link' %>
+            </td>
             <td>
               <% table.projects.order(:name).each do |p| %>
                 <span class="pl-1 ml-2" style="border-left: .3rem solid <%= p.color %>">
@@ -52,19 +62,14 @@
             </td>
             <td><%= table.size %></td>
             <td><%= "Il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>
-            <td>
-              <%= link_to table.fields.count, 
-                          table_path(table, attrs:1), 
-                          title:"#{table.fields.any? ? "Modifier les" : "Ajouter des"} attributs: #{table.fields.pluck(:name).join(", ")}",
-                          class: 'link' %>
-            </td>
+            
             <td>
                 <%= link_to_if table.values.any?, 
                                 image_tag('excel_logo.png', size:'25x25'), 
                                 table_path(table, format:'xls'), 
                                 title:'Export Excel' %>
             </td>
-            <td><%= link_to "Modifier", show_attrs_path(id: table), title:"Modifier les attributs de la table" %></td>
+            <td><%= link_to "Modifier", show_attrs_path(id: table), title:"Modifier les colonnes de la table" %></td>
             <td><%= button_to '[X]', table, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
           </tr>
         <% end %>

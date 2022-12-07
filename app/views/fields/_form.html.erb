@@ -14,7 +14,7 @@
   <div class="field" data-controller="field">
     <%= f.hidden_field :table_id %>
 
-    <%= f.label :name, @field.new_record? ? "Ajouter un nouvel attribut" : "Nom de l'attribut" %><br>
+    <%= f.label :name, @field.new_record? ? "Ajouter une nouvelle colonne" : "Nom de la colonne" %><br>
     <%= f.text_field :name, class: 'input input-bordered' %>
     <div class="inline" data-action="change->field#toggle">
       <%= f.select :datatype, options_for_select(Field.datatypes.keys.to_a, @field.datatype), {}, class: 'input input-bordered', 'data-field-target': "selector" %>
