@@ -55,7 +55,7 @@ class TodolistsController < ApplicationController
                        end
         @todolist.log_changes(:add, current_user.id)
         @todolist.save
-        format.html { redirect_to @todolist.project, notice: "'#{@todolist.name}' vient d'être ajouté au projet" }
+        format.html { redirect_to @todolist, notice: "'#{@todolist.name}' vient d'être ajouté au projet" }
         format.json { render action: 'show', status: :created, location: @todolist }
       else
         flash[:notice] = 'Il manque un titre à cette liste...'
