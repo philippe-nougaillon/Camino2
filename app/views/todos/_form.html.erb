@@ -52,10 +52,10 @@
       </div>
 
       <% if @table %>
-        <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.id, todo_id:@todo.slug), class: 'link' %>
-        <br>
+        <div class="my-4">
+          <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.id, todo_id:@todo.slug), class: 'link' %>
+        </div>
       <% end %>
-      <br>
 
       <div class="mt-4">
         <%= f.submit @todo.new_record? ? "Ajouter" : "Enregistrer", class: 'btn btn-active btn-ghost' %> 

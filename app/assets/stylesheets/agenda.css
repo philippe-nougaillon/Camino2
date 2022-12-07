@@ -17,15 +17,15 @@
 }
 
 .prev-month {
-  background: lightgrey;
-  border: 1px solid grey;
+  background: WhiteSmoke;
+  border: 1px solid lightgrey;
 }
 
 .next-month {
-  background: lightgrey;
-  border: 1px solid grey;
+  background: WhiteSmoke;
+  border: 1px solid lightgrey;
 }
 
-.today {
-  background-color: lightyellow;
+.prev-month #date, .next-month #date {
+  color: lightgrey
 }

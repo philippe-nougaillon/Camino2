@@ -4,7 +4,7 @@
   <table class="table table-zebra">
     <thead>
       <tr>
-        <th>Nom</th>
+        <td>Nom</td>
         <th>Type</th>
         <th>Projet</th>
         <th>MÀJ</th>
@@ -16,9 +16,9 @@
 
       <% @documents.each do |doc| %>
         <tr>
-          <th>
+          <td>
             <%= link_to doc.filename.base, doc, target: "_blank" %>
-          </th>
+          </td>
           <td>
             <%= doc.content_type %>
           </td>

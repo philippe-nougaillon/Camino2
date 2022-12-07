@@ -10,7 +10,7 @@
       <div class="stat-title">Tâches</div>
       <% if @todos %>
         <div class="stat-value"><%= @todos.count %></div>
-        <div class="stat-desc text-primary"><%= @todos.count - @todos.done.count %> tâches restantes</div>
+        <div class="stat-desc text-primary"><%= @todos.count - @todos.done.count %> tâche.s restantes</div>
       <% end %>
     </div>
     
@@ -31,7 +31,7 @@
           <% end %>
         </div>
         <div class="stat-title">Réalisées</div>
-        <div class="stat-desc text-red-500"><%= @todos_overdue %> tâches en retard</div>
+        <div class="stat-desc text-red-500"><%= @todos_overdue %> tâche.s en retard</div>
       <% end %>
     </div>
     

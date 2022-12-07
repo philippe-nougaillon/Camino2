@@ -2,19 +2,19 @@
 <% if params[:calendar_type] == 'month_calendar' %>
   <%= month_calendar do |date| %>
 
-    <div id="date">
+    <p id="date" class="<%= date == Date.today ? 'badge badge-info' : '' %>">
       <%= date.day %>
-    </div>
+    </p>
     <% @projects.where(duedate:date).each do |project| %>
-        <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
-          <%= link_to project.name.upcase, project, class: 'font-bold' %>
-        </div>
+      <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
+        <%= link_to project.name.upcase, project, class: 'font-bold' %>
+      </div>
     <% end %>
 
     <% @todos.undone.where(duedate:date).each do |todo| %>
-        <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
-          <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
-        </div>
+      <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
+        <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+      </div>
     <% end %>
 
   <% end %>
