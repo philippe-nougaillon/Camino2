@@ -13,30 +13,24 @@
 
 <% if @tables.any? %>
   <div class="overflow-x-auto">
-    <table class="table table-zebra">
+    <table class="table table-zebra table-normal">
       <thead>
         <tr>
           <td>Nom</td>
           <th>Colonnes</th>
           <th>Utilisée par les projets</th>
-          <th>Nbr enregistrements</th>
-          <th>Dernière mise à jour</th>
+          <th>Lignes</th>
+          <th>MÀJ</th>
           <th colspan="3"></th>
         </tr>
       </thead>
-
-      <tfoot>
-        <tr>
-          <td colspan="8"></td>
-        </tr>
-      </tfoot>
 
       <tbody>
         <% @tables.each do |table| %>
           <tr class="hover">
             <td>
               <strong>
-                <%= link_to table.name.humanize, table, class: 'link' %>
+                <%= link_to table.name.humanize, table, class: 'link text-lg' %>
               </strong>
             </td>
             <td>
@@ -48,7 +42,7 @@
             </td>
             <td>
               <% table.projects.order(:name).each do |p| %>
-                <span class="pl-1 ml-2" style="border-left: .3rem solid <%= p.color %>">
+                <span class="pl-1 mr-2" style="border-left: .3rem solid <%= p.color %>">
                   <% if p.participants.where(user_id:current_user.id).any? %>
                     <%= link_to p.name, project_path(p) %>
                   <% else %>
@@ -57,7 +51,7 @@
                 </span>
               <% end %>
               <%= link_to link_path(id: table.slug), title:'Lier cette table à un projet' do %>
-                <div class="badge badge-accent badge-outline rounded badge-lg ml-4 pb-0.5 shadow">+</div>
+                <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
               <% end %>
             </td>
             <td><%= table.size %></td>
@@ -74,9 +68,15 @@
           </tr>
         <% end %>
       </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="8"></td>
+        </tr>
+      </tfoot>
+
     </table>
   </div>
-  <br>
 <% end %>
 
 <%= link_to 'Créer une nouvelle Table', new_table_path, class:'btn btn-active btn-ghost' %>

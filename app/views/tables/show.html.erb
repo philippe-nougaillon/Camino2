@@ -8,76 +8,80 @@
 <% if @table.fields.any? %>
   <% if @table.values.any? %>
 
-    <table class="table table-normal">
-      <thead>
-        <tr>
-          <th>#</th>
-          <% @table.fields.each do | field | %>
-            <th><%= field.name %></th>
-          <% end %>
-          <th><small>Ajoutée</small></th>
-          <th><small>Par</small></th>
-          <th><small>Dans</small></th>
-          <th colspan="1"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% count = 0 %>  
-        <% @table.record_index.times do | i | %>
-          <% index = i + 1 %>  
-          <% if @values.records_at(index).any? %>
-            <% count += 1 %> 
-            <% record = @values.records_at(index).first %>
-            <tr>
-              <td class="font-bold">
-                <%= index %>
-              </td>
-              <% @table.fields.each do | field | %>
+    <div class="overflow-x-auto">
+      <table class="table table-zebra table-normal">
+        <thead>
+          <tr>
+            <th>#</th>
+            <% @table.fields.each do | field | %>
+              <th><%= field.name %></th>
+            <% end %>
+            <th><small>Ajoutée</small></th>
+            <th><small>Par</small></th>
+            <th><small>Dans</small></th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% count = 0 %>  
+          <% @table.record_index.times do | i | %>
+            <% index = i + 1 %>  
+            <% if @values.records_at(index).any? %>
+              <% count += 1 %> 
+              <% record = @values.records_at(index).first %>
+              <tr class="hover">
                 <td class="font-bold">
-                  <%= field.values.records_at(index).first.data if field.values.records_at(index).first %>
+                  <%= index %>
                 </td>
-              <% end %>
-              <td>
-                <small> 
-                  il y a <%= time_ago_in_words record.created_at %>
-                </small>
-              </td>
-              <td>
-                <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
-                <small><%= record.user.username if record.user %></small>
-              </td>
-              <td>
-                <% if record.todo %>
-                  <small>
-                    <span class="pl-1" style="border-left: .3rem solid <%= record.todo.project.color %>">
-                      <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
-                    </span>
-                  </small>
+                <% @table.fields.each do | field | %>
+                  <td class="font-bold">
+                    <%= field.values.records_at(index).first.data if field.values.records_at(index).first %>
+                  </td>
                 <% end %>
-              </td>
+                <td>
+                  <small> 
+                    il y a <%= time_ago_in_words record.created_at %>
+                  </small>
+                </td>
+                <td>
+                  <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
+                  <small><%= record.user.username if record.user %></small>
+                </td>
+                <td>
+                  <% if record.todo %>
+                    <small>
+                      <span class="pl-1" style="border-left: .3rem solid <%= record.todo.project.color %>">
+                        <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
+                      </span>
+                    </small>
+                  <% end %>
+                </td>
 
-              <%
+      <%
 =begin%>
- <td><%= link_to "Modifier", fill_url(@table.slug, record_index:index) %></td> 
+<td><%= link_to "Modifier", fill_url(@table.slug, record_index:index) %></td> 
 <%
 =end%>
-              <td><%= button_to "[X]", delete_record_url(@table.slug, record_index:index), method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
-            </tr>
+                <td><%= button_to "[X]", delete_record_url(@table.slug, record_index:index), method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td />
-          <% @table.fields.count.times do %>
+        </tbody>
+        <tfoot>
+          <tr>
             <td />
-          <% end %>
-          <td /><td /><td /><td />
-        </tr>
-      </tfoot>
-    </table>
-    <%= count %> <%= @table.name %><%= @table.size > 1 ? "s":"" %> sur <%= @table.size %> au total
-    | <%= link_to "Exporter vers Excel", url_for(params.permit.merge(format:'xls')), class: 'link' %>
+            <% @table.fields.count.times do %>
+              <td />
+            <% end %>
+            <td /><td /><td /><td />
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p>
+      <%= "#{count} enregistrement#{@table.size > 1 ? 's':''} sur #{@table.size} au total" %>
+    </p>
+    <%= link_to "Exporter vers Excel", url_for(params.permit.merge(format:'xls')), class: 'link' %>
   <% else %>
     Il n'y a aucune valeur à afficher. Pour afficher de nouvelles données, modifiez une tâche et utilisez le lien "Ajouter des données...".
   <% end %>

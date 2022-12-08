@@ -26,10 +26,10 @@ class FieldsController < ApplicationController
 
     respond_to do |format|
       if @field.save
-        format.html { redirect_to show_attrs_path(id: @field.table), notice: 'Attribut ajouté' }
+        format.html { redirect_to show_attrs_path(id: @field.table), notice: 'Colonne ajoutée' }
         format.json { render :show, status: :created, location: @field }
       else
-        format.html { redirect_to show_attrs_path(id: @field.table), notice: 'Veuillez donner un nom à cet attribut' }
+        format.html { redirect_to show_attrs_path(id: @field.table), notice: 'Veuillez donner un nom à cette colonne' }
         format.json { render json: @field.errors, status: :unprocessable_entity }
       end
     end
@@ -40,7 +40,7 @@ class FieldsController < ApplicationController
   def update
     respond_to do |format|
       if @field.update(field_params)
-        format.html { redirect_to show_attrs_path(id: @field.table), notice: 'Attribut modifié.' }
+        format.html { redirect_to show_attrs_path(id: @field.table), notice: 'Colonne modifiée.' }
         format.json { render :show, status: :ok, location: @field }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class FieldsController < ApplicationController
     @table.values.where(field_id: @field.id).destroy_all
     @field.destroy
     respond_to do |format|
-      format.html { redirect_to table_path(@table, attrs: 1), notice: 'Attribut supprimé.' }
+      format.html { redirect_to table_path(@table, attrs: 1), notice: 'Colonne supprimée.' }
       format.json { head :no_content }
     end
   end
