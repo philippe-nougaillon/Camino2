@@ -102,3 +102,5 @@ gem "sitemap_generator", "~> 6.3"
 gem "recaptcha", "~> 5.12"
 
 gem "mailgun-ruby", "~> 1.2"
+
+gem "sucker_punch", "~> 3.1"
