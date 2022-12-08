@@ -102,7 +102,7 @@ Rails.application.configure do
   ActionMailer::Base.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     :api_key => ENV['MAILGUN_API_KEY'],
-    domain: 'camino2.herokuapp.com',
+    domain: 'sandbox94ec4826b1d5440ebc2df754718b7043.mailgun.org',
     # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
   }
 
