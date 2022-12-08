@@ -19,14 +19,6 @@
                           onchange: "this.form.submit()" %>
       </div>
       <div class="mr-4">
-        <%= label_tag :user_id, "Utilisateur", class: "label" %>
-        <%= f.select :user_id, 
-                      options_from_collection_for_select(@users, 'id', 'email', params[:user_id]),
-                      { include_blank: true, label: "Utilisateur" },
-                      class: 'input select-sm select-bordered w-full max-w-xs',
-                      onchange: "this.form.submit()" %>
-      </div>
-      <div class="mr-4">
         <%= label_tag :type, "Type", class: "label" %>
         <%= f.select :type, 
                     options_for_select(@types, params[:type]),

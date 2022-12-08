@@ -24,12 +24,8 @@
   <%= link_to "Modifier", edit_account_path(@user.account), class:"link" %> | 
   <%= link_to "Voir les participants", users_path, class:"link" %> |
   <%= link_to "Voir les modèles", templates_path, class:"link" %> |
-  <%= link_to "Voir les documents", documents_index_path, class:"link" %>
-  <%
-=begin%>
- <%= link_to "Voir l'audit trail", audits_index_path, class:"link" %> 
-<%
-=end%>
+  <%= link_to "Voir les documents", documents_index_path, class:"link" %> |
+  <%= link_to "Voir l'audit trail", audits_index_path, class:"link" %> 
 </p>
 <br>
 
