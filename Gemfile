@@ -100,3 +100,5 @@ gem "friendly_id", "~> 5.5"
 gem "sitemap_generator", "~> 6.3"
 
 gem "recaptcha", "~> 5.12"
+
+gem "mailgun-ruby", "~> 1.2"
