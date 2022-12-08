@@ -17,12 +17,12 @@
         <td>
           <div class="avatar placeholder">
             <% if user.avatar.attached? %>
-              <div class="w-24 rounded-full !bg-slate-500">
+              <div class="w-16 rounded-full !bg-slate-500">
                 <%= image_tag user.avatar, class:"camino-avatar" %>
               </div>
             <% else %>
-                <div class="bg-primary-focus text-neutral-content rounded-full w-24">
-                  <span class="text-5xl"><%= user.username.first.humanize %></span>
+                <div class="bg-primary-focus text-neutral-content rounded-full w-16">
+                  <span class="text-4xl"><%= user.username.first.humanize %></span>
                 </div>
               </div>
             <% end %>
