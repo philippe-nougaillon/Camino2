@@ -9,6 +9,15 @@ class Notifier < ApplicationMailer
   #   en.notifier.welcome.subject
   #
 
+  def new_account_notification
+    @account = params[:account]
+    mail(to:"philippe.nougaillon@gmail.com, p-edacquet@hotmail.fr").tap do |message|
+      message.mailgun_options = {
+        "tag" => [@account.slug, "new_account"]
+      }
+    end
+  end
+
   def welcome(user, pass, project)
     @greeting = "Bienvenue"
     @user = user

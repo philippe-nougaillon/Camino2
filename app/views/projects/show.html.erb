@@ -9,20 +9,28 @@
 </div>
 
 <% unless @project.pct_avancee.zero? %>
-  Avancée : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
-  <small>(<%= @project.pct_avancee %>%)</small>
+  <p>
+    Avancée : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
+    <small>(<%= @project.pct_avancee %>%)</small>
+  </p>
 <% end %>
 
 <% if @project.workflow? and @project.current_todolist %>
-  | Phase en cours : <%= @project.current_todolist.name %>
+  <p>
+    Phase en cours : <%= @project.current_todolist.name %>
+  </p>
 <% end %>
 
 <% if @project.duedate %>
-  | Echéance : <b><%= l(@project.duedate) %></b>
+  <p>
+    Echéance : <strong><%= l(@project.duedate) %></strong>
+  </p>
 <% end %>
 
 <% if @project.tag_list.any? %>
-  | Tags : <%= @project.tag_list_on(:tags) %>
+  <p>
+    Tags : <%= @project.tag_list_on(:tags) %>
+  </p>
 <% end %>
 
 <div class="mt-2">

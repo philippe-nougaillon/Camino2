@@ -91,18 +91,21 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  ActionMailer::Base.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT'],
-    :address        => ENV['MAILGUN_SMTP_SERVER'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'camino2.herokuapp.com',
-    :authentication => :plain,
+  # ActionMailer::Base.smtp_settings = {
+  #   :port           => ENV['MAILGUN_SMTP_PORT'],
+  #   :address        => ENV['MAILGUN_SMTP_SERVER'],
+  #   :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+  #   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+  #   :domain         => 'camino2.herokuapp.com',
+  #   :authentication => :plain,
+  # }
+  ActionMailer::Base.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    :api_key => ENV['MAILGUN_API_KEY'],
+    domain: 'camino2.herokuapp.com',
+    # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
   }
-  ActionMailer::Base.delivery_method = :smtp
 
   config.action_mailer.default_url_options = { host: 'camino2.herokuapp.com', protocol: 'https' }
-
-
   config.action_controller.default_url_options = { host: 'camino2.herokuapp.com', protocol: 'https' }
 end
