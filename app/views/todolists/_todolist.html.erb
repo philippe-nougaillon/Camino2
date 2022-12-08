@@ -10,7 +10,7 @@
     <% end %>
   </th>
   <td>
-    <% if params[:done] %>
+    <% if params[:show_only_undone] == "yes" %>
       <% todolist.todos.undone.each_with_index do |todo, index| %>
         <%= link_to truncate(todo.name.humanize, length: 45), edit_todo_path(todo), class:'link mr-2' %>
       <% end %>

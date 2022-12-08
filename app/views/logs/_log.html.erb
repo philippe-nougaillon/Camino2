@@ -20,11 +20,11 @@
       <%= log.created_at.strftime("%H:%M") %>
     </p>
   </div>
-  <p class="my-auto pl-2" style="border-left: 7px solid <%= log.project.color if log.project %>">
+  <p class="break-words my-auto pl-2" style="word-break: break-word; border-left: 7px solid <%= log.project.color if log.project %>">
     <% if log.user_id == current_user.id %>
-      <b>Vous</b> avez  
+      <strong>Vous</strong> avez
     <% else %>
-      <b><%= log.user.name %></b> a
+      <strong><%= log.user.name %></strong> a
     <% end %>
     <%= raw log.description  %>  
   </p>

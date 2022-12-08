@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about', as: :about
   get 'dashboard', to: 'pages#dashboard', as: :dashboard
 
-  get 'audits/index'
+  # get 'audits/index'
 
   root 'projects#index'
 end
