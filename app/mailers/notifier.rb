@@ -13,7 +13,7 @@ class Notifier < ApplicationMailer
     @account = params[:account]
     mail(to:"philippe.nougaillon@gmail.com, p-edacquet@hotmail.fr").tap do |message|
       message.mailgun_options = {
-        "tag" => [@account.slug, "new_account"]
+        "tag" => [@account.name, "new_account"]
       }
     end
   end
