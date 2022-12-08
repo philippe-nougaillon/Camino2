@@ -4,10 +4,10 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    unless params[:project_id].blank?
-      @users = Project.find_by(slug: params[:project_id]).users
+    if params[:project_id].blank?
+      @users = User.where(id: current_user.account.users)
     else
-      @users = User.where(id: current_user.account.participants.pluck(:user_id).uniq)
+      @users = Project.find_by(slug: params[:project_id]).users
     end
   end
 
@@ -34,8 +34,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
 
-        # # notifier par mail le nouveau mot de passe
-        # Notifier.account_welcome_with_password(@account, @user, pass).deliver_later
+        # notifier par mail le nouveau mot de passe
+        Notifier.account_welcome_with_password(@account, @user, pass).deliver_later
 
         format.html { redirect_to users_path, notice: 'Utilisateur créé avec succès.' }
         format.json { render :show, status: :created, location: @user }

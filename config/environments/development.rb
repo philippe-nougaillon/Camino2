@@ -69,7 +69,6 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.action_controller.default_url_options = { host: '127.0.0.1', port: 3000 }
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # config.action_mailer.delivery_method = :letter_opener
   # config.action_mailer.perform_deliveries = true
@@ -77,8 +76,10 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     :api_key => ENV['MAILGUN_API_KEY'],
-    domain: 'mydomain.com',
+    :domain => ENV['MAILGUN_DOMAIN']
     # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
   }
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000, protocol: 'http' }
 
 end
