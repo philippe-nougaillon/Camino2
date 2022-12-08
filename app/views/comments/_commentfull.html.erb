@@ -5,20 +5,20 @@
   <tr>
     <td /><td /><td />
   </tr>
-<% end %>    
+<% end %>
 <tr>
   <% if @comment_day != comment.created_at.day %>
-      <% @user_id = 0 %>
-      <% @comment_day = comment.created_at.day %>
-      <% month_name = I18n.t("date.month_names")[comment.created_at.month] %>
-      <tr style="margin-top:50px;"></tr>
-      <td>
-        <b><%= "#{@comment_day} #{month_name}" %></b>
-        <br>
-        <%= "Aujourd'hui" if comment.created_at.to_date == Date.today %>
-      </td>
+    <% @user_id = 0 %>
+    <% @comment_day = comment.created_at.day %>
+    <% month_name = I18n.t("date.month_names")[comment.created_at.month] %>
+    <tr style="margin-top:50px;"></tr>
+    <td>
+      <b><%= "#{@comment_day} #{month_name}" %></b>
+      <br>
+      <%= "Aujourd'hui" if comment.created_at.to_date == Date.today %>
+    </td>
   <% else %>
-      <td /> 
+    <td></td>
   <% end %>
   <td style="width: 80px">
     <% if @user_id != comment.user_id %>
@@ -27,13 +27,15 @@
     <% end %>
   </td>
   <td class="pl-2" style="border-left: 7px solid <%= comment.project.color %>">
-    <% if comment.user_id == current_user.id %>
-      <b>Vous</b> avez commenté
-    <% else %>
-      <b><%= comment.user.name %></b> a commenté
-    <% end %>
-    <b>'<%= "#{comment.texte}" %>'</b>
-    au sujet de <%= link_to "#{comment.project.name}:#{comment.todolist.name}:#{comment.todo.name}", edit_todo_path(comment.todo) %>
+    <p class="break-words" style="word-break: break-word">
+      <% if comment.user_id == current_user.id %>
+        <strong>Vous</strong> avez commenté
+      <% else %>
+        <strong><%= comment.user.name %></strong> a commenté
+      <% end %>
+      <strong>'<%= "#{comment.texte}" %>'</strong>
+      au sujet de <%= link_to "#{comment.project.name}:#{comment.todolist.name}:#{comment.todo.name}", edit_todo_path(comment.todo) %>
+    </p>
   </td>
   <td>
     <div style="color:lightgrey">
