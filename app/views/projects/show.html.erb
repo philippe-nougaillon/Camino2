@@ -63,7 +63,7 @@
   <table class="table table-normal">
     <thead>
       <th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
-      <th>Tâches <%= params[:done] ? "(à faire)" : "(toutes)" %></th>
+      <th>Tâches <%= params[:show_only_undone] == "yes" ? "(à faire)" : "(toutes)" %></th>
       <th>Réalisation</th>
       <th>Echéance</th>
       <th>MÀJ</th>
