@@ -1,15 +1,19 @@
+<h1 class="flex items-center mb-6">
+  <span class="pl-2" style="border-left: 7px solid <%= @project.color %>"><%= @project.name %></span>
+</h1>
+
+<h2>Enregistrer ce projet comme modèle</h2>
 
 
-<h3>Enregistrer comme modèle</h3>
-
-<b>Projet</b><br>
-<%= @project.name %> 
-<br><br>
-
+<p class="mb-4 italic">
+  Permet la création rapide de nouveaux projets à partir de ce modèle de projet
+</i>
 
 <%= form_tag do %>
-  Nom du nouveau modèle<br>
-  <%= text_field_tag "name" %>
+  <%= label_tag :name, "Nom du nouveau modèle" %>
+  <br>
+  <%= text_field_tag :name, {}, { class:'input input-bordered' } %>
 
-  <%= submit_tag "Enregistrer" %>
+  <br>
+  <%= submit_tag "Enregistrer", class: 'btn btn-active btn-ghost mt-8' %>
 <% end %>

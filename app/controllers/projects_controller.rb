@@ -89,7 +89,7 @@ class ProjectsController < ApplicationController
     else
       @template = Template.find(params[:template_id])
       project_js = JSON.parse(@template.project)
-      @project = Project.new(project_js.except('duedate'))
+      @project = Project.new(project_js.except('duedate','slug'))
       # remplace le nom du modele par celui du nouveau projet
       @project.name = project_params[:name] if project_params[:name]
       @project.description = project_params[:description] if project_params[:description]
@@ -105,33 +105,24 @@ class ProjectsController < ApplicationController
       @project.log_changes(:add, current_user.id)
       @project.save
       if params[:template_id].blank?
-        if params[:participants]
-          params[:participants].each do |user_id|
-            @user = User.find(user_id)
-            @project.participants.create(user_id:)
-            Log.create(project_id: @project.id, user_id: current_user.id, action_id: 0,
-                       description: "ajouté le participant '#{@user.username}'")
-            # Notifier.welcome_existing_user(@project, @user).deliver_now if params[:welcome_message]
-          end
-        else
-          # il faut au moins un participant (ici, le créateur du projet)
-          @project.participants.create(user_id: current_user.id)
-        end
+        @project.participants.create(user_id: current_user.id)
       else # ajoute les listes et tâches du modele
-        to_except = %w[id done duedate]
         JSON.parse(@template.participants).each do |p|
-          @project.participants.create(p.except('id'))
+          @project.participants.create(p.except('id','slug'))
         end
 
         todolist_js = JSON.parse(@template.todolists)
         todo_js = JSON.parse(@template.todos)
+        raise
 
         todolist_js.each do |todolist|
           list_id = todolist['id']
-          @todolist = @project.todolists.create(todolist.except(*to_except))
+          t = @project.todolists.new(todolist.dup)
+          t.duedate = nil
+          t.save
           todo_js.each do |todo|
             todolist_id = todo['todolist_id']
-            @todolist.todos.create(todo.except(*to_except)) if todolist_id == list_id
+            t.todos.create(todo.except('id','done','duedate','slug')) if todolist_id == list_id
           end
         end
       end
