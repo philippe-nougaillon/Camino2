@@ -70,7 +70,7 @@
 <div class="overflow-x-auto">
   <table class="table table-normal">
     <thead>
-      <th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
+      <td><%= @project.workflow? ? 'Phases' : 'Todo List' %></td>
       <th>Tâches <%= params[:show_only_undone] == "yes" ? "(à faire)" : "(toutes)" %></th>
       <th>Réalisation</th>
       <th>Echéance</th>
