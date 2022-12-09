@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       super
       if account.users.any?
         account.users.first.update(role: "admin")
-        Notifier.with(account: account).new_account_notification.deliver_now
+        # Notifier.with(account: account).new_account_notification.deliver_now
         flash[:notice] = "Votre compte a bien été créé"
       end
     #else

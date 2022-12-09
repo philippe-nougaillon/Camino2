@@ -111,7 +111,7 @@ class ProjectsController < ApplicationController
             @project.participants.create(user_id:)
             Log.create(project_id: @project.id, user_id: current_user.id, action_id: 0,
                        description: "ajouté le participant '#{@user.username}'")
-            Notifier.welcome_existing_user(@project, @user).deliver_now if params[:welcome_message]
+            # Notifier.welcome_existing_user(@project, @user).deliver_now if params[:welcome_message]
           end
         else
           # il faut au moins un participant (ici, le créateur du projet)
@@ -283,7 +283,7 @@ class ProjectsController < ApplicationController
       user = User.create(name:username, username:username, email:mail_invite, password:pass, password_confirmation:pass,
                           account_id:user_qui_invite.account_id)
       # notifier par mail du mot de passe
-      Notifier.welcome(user, pass, project).deliver_now
+      # Notifier.welcome(user, pass, project).deliver_now
       flash[:notice] = "Vos informations de connexion viennent d'être envoyées sur #{mail_invite} ..."
     else
       user = User.find_by(email:mail_invite)
