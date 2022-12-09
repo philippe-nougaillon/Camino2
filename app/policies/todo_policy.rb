@@ -32,4 +32,9 @@ class TodoPolicy < ApplicationPolicy
   def destroy?
     update?
   end
+
+  # /documents/purge
+  def purge?
+    (user.admin? && user.same_account(record.user)) || record.user == user
+  end
 end
