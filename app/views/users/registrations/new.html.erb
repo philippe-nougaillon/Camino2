@@ -8,7 +8,7 @@
 
       <div class="field">
         <%= label_tag :account, 'Entreprise' %><br />
-        <%= text_field_tag :account, {}, { class:"input input-bordered w-full", required: true } %>
+        <%= text_field_tag :account, params[:account], { class:"input input-bordered w-full", required: true } %>
       </div>
 
       <div class="field">
@@ -23,7 +23,7 @@
 
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full", required: true %>
+        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full text-black", required: true %>
       </div>
 
       <div class="field">
