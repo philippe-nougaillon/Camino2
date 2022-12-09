@@ -17,7 +17,7 @@
               <p class="text-slate-300 badge badge-outline badge-xs"><%= tag.name %></p>
             <% end %>
             <% if @table %>
-              <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.id, todo_id:@todo.slug), class: 'link' %>
+              <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
             <% end %>
           </div>
         </div>
