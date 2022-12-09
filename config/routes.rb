@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   resources :todos
   resources :projects
   resources :tables
-  resources :values
   resources :fields, only: %i[ edit update create destroy ]
 
   get 'tables/:id/fill' => 'tables#fill', as: :fill
