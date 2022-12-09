@@ -1,10 +1,11 @@
 class Todo < ApplicationRecord
   include LogConcern
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   audited
 
-  extend FriendlyId
-  friendly_id :slug_id, use: :slugged
 
   acts_as_taggable
 
@@ -37,7 +38,7 @@ class Todo < ApplicationRecord
 
   private
 
-  def slug_id
+  def slug_candidates
     [SecureRandom.uuid]
   end
 

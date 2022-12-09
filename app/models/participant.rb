@@ -1,8 +1,9 @@
 class Participant < ApplicationRecord
-  audited
-
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
+
+  audited
+
 
   belongs_to :project
   belongs_to :user
