@@ -1,4 +1,7 @@
 class Account < ApplicationRecord
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   audited
 
   has_many :projects
@@ -18,4 +21,9 @@ class Account < ApplicationRecord
   # has_attached_file :logo, :styles => { :thumb => "60x60>" }, :default_url => "new_logo.png"
   # validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
   
+  private
+
+  def slug_candidates
+    [SecureRandom.uuid]
+  end
 end

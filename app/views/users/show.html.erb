@@ -27,13 +27,11 @@
   <%= link_to "Voir les documents", documents_index_path, class:"link" %> |
   <%= link_to "Voir l'audit trail", audits_index_path, class:"link" %> 
 </p>
-<br>
 
-
-<hr class="style-two">
-<br>
 
 <% if @user.participants.any? %>
+  <hr class="style-two my-8">
+
   <h2>Vos abonnements</h2>
   <div class="overflow-x-auto">
     <table class="table">
@@ -57,10 +55,9 @@
   <br>
 <% end %>
 
-<hr class="style-two">
-<br>
-
 <% if @user.logs.any? %>
+  <hr class="style-two mb-8">
+
   <h2>Votre activité</h2>
   <%= render partial:'logs/log', collection:@user.logs, :day => 0 %>
   <br>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_095644) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_102503) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_095644) do
     t.datetime "logo_updated_at"
     t.string "sitename"
     t.string "hostname"
+    t.string "slug"
+    t.index ["slug"], name: "index_accounts_on_slug", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
