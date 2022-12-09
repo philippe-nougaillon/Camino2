@@ -54,15 +54,13 @@ class Notifier < ApplicationMailer
     end
   end
 
-  def account_welcome_with_password(account, user, password)
+  def account_welcome_with_password(user)
     @greeting = "Bienvenue"
     @user = user
-    @account = account
-    @password = password
 
-    mail(to:user.email, subject:"[Camino] Votre espace de projet '#{@account.name}' a été créé", bcc:"philippe.nougaillon@gmail.com").tap do |message|
+    mail(to:user.email, subject:"[Camino] Votre espace de projet '#{user.account.name}' a été créé", bcc:"philippe.nougaillon@gmail.com").tap do |message|
       message.mailgun_options = {
-        "tag" => [@account.name, "account_welcome_with_password"]
+        "tag" => [@user.account.name, "account_welcome_with_password"]
       }
     end
   end
