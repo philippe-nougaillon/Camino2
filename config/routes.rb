@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get "/images/close",  to: redirect("images/close.png") 
 
   resources :accounts, only: %i[ edit update ]
-  resources :comments
+  resources :comments, only: %i[ index create ]
   resources :templates
   resources :logs
   resources :todolists, except: :index
