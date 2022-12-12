@@ -274,7 +274,7 @@ class ProjectsController < ApplicationController
       user = User.create(name:username, username:username, email:mail_invite, password:pass, password_confirmation:pass,
                           account_id:user_qui_invite.account_id)
       # notifier par mail du mot de passe
-      # Notifier.welcome(user, pass, project).deliver_now
+      Notifier.welcome(user, pass, project).deliver_now
       flash[:notice] = "Vos informations de connexion viennent d'être envoyées sur #{mail_invite} ..."
     else
       user = User.find_by(email:mail_invite)
