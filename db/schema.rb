@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_102503) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_133741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -225,6 +225,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_102503) do
     t.string "docname"
     t.integer "notifydays", default: 1
     t.string "slug"
+    t.decimal "charge_est", precision: 7, scale: 2, default: "0.0"
+    t.decimal "charge_reelle", precision: 7, scale: 2, default: "0.0"
     t.index ["slug"], name: "index_todos_on_slug", unique: true
     t.index ["todolist_id"], name: "index_todos_on_todolist_id"
     t.index ["user_id"], name: "index_todos_on_user_id"

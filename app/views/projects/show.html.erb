@@ -18,7 +18,11 @@
 <% end %>
 
 <% if @project.duedate %>
-  | Echéance : <strong><%= l(@project.duedate) %></strong>
+  | Échéance : <strong><%= l(@project.duedate) %></strong>
+<% end %>
+
+<% if @project.todos %>
+  | Charge estimée : <strong><%= @project.todos.sum(:charge_est) %></strong> jours
 <% end %>
 
 <% if @project.tag_list.any? %>
@@ -66,6 +70,8 @@
       <th>Tâches <%= params[:show_only_undone] == "yes" ? "(à faire)" : "(toutes)" %></th>
       <th>Réalisation</th>
       <th>Echéance</th>
+      <th>Charge est.</th>
+      <th>Réelle</th>
       <th>MÀJ</th>
       <th>Écart</th>
     </thead>
@@ -81,7 +87,7 @@
             <% end %>
           <% end %>
         </th>
-        <td colspan=6></td>
+        <td colspan=7></td>
       </tr>
     </tfoot>  
   </table>

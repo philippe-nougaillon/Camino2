@@ -15,6 +15,8 @@
   </td>
   <td><%= todo.user.name if todo.user %></td>
   <td><%= l(todo.duedate) if todo.duedate %></td>
+  <td><p class="text-right"><%= number_with_precision(todo.charge_est, precision: 2) %> j</p></td>
+  <td><p class="text-right"><%= number_with_precision(todo.charge_reelle, precision: 2) %> j</p></td>
   <td>
     <% if todo.document.attached? %>
       <%= link_to todo.document.filename, todo.document, target: "_blank" %>
