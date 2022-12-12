@@ -36,6 +36,10 @@ class Todo < ApplicationRecord
     "#{self.project.name}:#{self.todolist.name}:#{self.name}"
   end
 
+  def project_todolist_name
+    "#{self.project.name}:#{self.todolist.name}"
+  end
+
   private
 
   def slug_candidates

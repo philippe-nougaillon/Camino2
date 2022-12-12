@@ -15,6 +15,8 @@
     <%= radio_button_tag :calendar_type, 'week_calendar', params[:calendar_type] == 'week_calendar', { onchange: "this.form.submit();", class: 'radio radio-sm' } %> Semaine
   <% end %>
 
+  <%= render partial:'simple_calendar/search' %>
+
   <div class="overflow-x-auto">
     <table class="camino-table w-full">
       <thead>

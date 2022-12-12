@@ -13,7 +13,14 @@
 
     <% @todos.undone.where(duedate:date).each do |todo| %>
       <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
-        <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+        <%= link_to edit_todo_path(todo) do %>
+          <% if params[:project].blank? %>
+            <%= todo.project.name %>:
+          <% end %>
+          <%= todo.todolist.name %>:<%= todo.name %>
+          <br>
+          <%= todo.user.username %>
+        <% end %>
       </div>
     <% end %>
 
@@ -25,14 +32,21 @@
       <%= l date %>
     </div>
     <% @projects.where(duedate:date).each do |project| %>
-        <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
-          <%= link_to project.name.upcase, project, class: 'font-bold' %>
-        </div>
+      <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
+        <%= link_to project.name.upcase, project, class: 'font-bold' %>
+      </div>
     <% end %>
 
     <% @todos.undone.where(duedate:date).each do |todo| %>
         <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
-          <%= link_to "#{todo.project.name}:#{todo.todolist.name}: #{todo.name}", edit_todo_path(todo) %>
+          <%= link_to edit_todo_path(todo) do %>
+            <% if params[:project].blank? %>
+              <%= todo.project.name %>:
+            <% end %>
+            <%= todo.todolist.name %>:<%= todo.name %>
+            <br>
+            <%= todo.user.username %>
+          <% end %>
         </div>
     <% end %>
 

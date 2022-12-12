@@ -30,8 +30,11 @@
 
 CaminoV2 est une application <a href="http://rubyonrails.org/">Ruby On Rails 7</a>. 
 
-Pour pouvoir executer l'application vous devez installer d'abord RoR 7 sur votre serveur pour ensuite copier les sources à partir de ce répertoire et lancer l'application en utilisant le processus classique:
+Pour pouvoir executer l'application vous devez installer d'abord Ruby On Rails 7 sur votre serveur Linux en suivant ce tutoriel :<a href="https://gorails.com/setup/ubuntu/22.04">gorails.com/setup/ubuntu</a>.
+Ensuite, pour copier les sources à partir de ce répertoire et lancer l'application en utilisant le processus classique, lancer les commandes suivantes :
 
+* git clone https://github.com/philippe-nougaillon/Camino2.git
+* cd Camino2
 * bundle install
 * rails db:setup
 * rails s

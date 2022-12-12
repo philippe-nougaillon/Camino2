@@ -39,7 +39,7 @@ Afficher les opérations :
             </td>
             <td>
               <% todo.tags.each do |tag| %>
-                <%= link_to(tag.name, todos_path(tag:tag.name)) %>
+                <%= link_to(tag.name, todos_path(tag:tag.name), class: 'text-slate-300 badge badge-outline badge-sm') %>
               <% end %>
             </td>
             <td style="width:400px;"><b><%= link_to todo.name, edit_todo_path(todo)%></b></td>
@@ -49,7 +49,7 @@ Afficher les opérations :
             <td><%= todo.user.name if todo.user %></td>
             <td>
               <span class="pl-1" style="border-left: .3rem solid <%= todo.project.color %>">
-                <%= link_to todo.fullname, todo.todolist %>
+                <%= link_to todo.project_todolist_name, todo.todolist %>
               </span>
             </td>
             <td>
