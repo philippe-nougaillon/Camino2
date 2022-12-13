@@ -1,19 +1,21 @@
 <h1 class="mb-6">To-do</h1>
 
 <% if @tags.any? %>
-  Tags :
-  <% tag_cloud(@tags, ['badge badge-lg', 'badge badge-md', 'badge', 'badge badge-sm']) do |tag, css_class| %>
-    <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
-  <% end %>
+  <div class="mb-4">
+    Tags :
+    <% tag_cloud(@tags, ['badge badge-lg', 'badge badge-md', 'badge', 'badge badge-sm']) do |tag, css_class| %>
+      <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: css_class) %>
+    <% end %>
+  </div>
 <% end %>
-<br>
 
-Afficher les opérations : 
-<%= link_to_unless params[:filter] == "todo", "A faire", todos_path(filter: "todo"), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
-<%= link_to_unless params[:filter] == "pending", "En attente", todos_path(filter: "pending"), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
-<%= link_to_unless params[:filter] == "notify", "À notifier", todos_path(filter: "notify"), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
-<%= link_to_unless params[:filter] == "all", "Toutes", todos_path, class: 'link' %>
-<br><br>
+<div class="mb-4">
+  Afficher les opérations : 
+  <%= link_to_unless params[:filter] == "todo", "A faire", todos_path(filter: "todo"), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
+  <%= link_to_unless params[:filter] == "pending", "En attente", todos_path(filter: "pending"), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
+  <%= link_to_unless params[:filter] == "notify", "À notifier", todos_path(filter: "notify"), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
+  <%= link_to_unless params[:filter] == "all", "Toutes", todos_path, class: 'link' %>
+</div>
 
 <% if @todos.any? %>
   <div class="overflow-x-auto">
@@ -21,12 +23,12 @@ Afficher les opérations :
       <thead>
         <tr>
           <th>Fait ?</th>
-          <th>Doc</th>
           <th>Tags</th>
           <th>A faire</th>
           <th COLSPAN=2>Assigné à</th>
           <th>Projet</th>
           <th>Echéance</th>
+          <th>Doc</th>
         </tr>
       </thead>
 
@@ -35,14 +37,11 @@ Afficher les opérations :
           <tr class="hover">
             <th><%= image_tag("yes.png") if todo.done %></th>
             <td>
-              <%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document'), '/documents/' + todo.docfilename, { target:'_blank' }) if todo.docfilename %>
-            </td>
-            <td>
               <% todo.tags.each do |tag| %>
-                <%= link_to(tag.name, todos_path(tag:tag.name), class: 'text-slate-300 badge badge-outline badge-sm') %>
+                <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'text-slate-300 badge badge-outline badge-sm') %>
               <% end %>
             </td>
-            <td style="width:400px;"><b><%= link_to todo.name, edit_todo_path(todo)%></b></td>
+            <td style="width:400px;"><b><%= link_to truncate(todo.name, length: 50), edit_todo_path(todo)%></b></td>
             <td>
               <%= image_tag(todo.user.avatar, alt:'', class:"mini_avatar") if todo.user.avatar.attached?%>
             </td>
@@ -57,6 +56,9 @@ Afficher les opérations :
                 <small><%=  todo.duedate >= Date.today ? "dans" : "il y a " %>
                 <%= time_ago_in_words(todo.duedate) %></small>
               <% end %>
+            </td>
+            <td>
+              <%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document'), '/documents/' + todo.docfilename, { target:'_blank' }) if todo.docfilename %>
             </td>
           </tr>
         <% end %>
