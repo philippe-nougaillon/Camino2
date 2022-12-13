@@ -1,5 +1,5 @@
-<div class="w-full text-center my-24">
-  <div class="stats shadow text-left">
+<div class="flex gap-24 mb-24">
+  <div class="stats stats-vertical shadow text-left">
     <div class="stat">
       <div class="stat-title">Projets</div>
       <div class="stat-value"><%= @projects.count %></div>
@@ -36,10 +36,48 @@
     </div>
     
   </div>
+  <div class="flex-1">
+    <canvas id="chartLine"></canvas>
+  </div>
 </div>
 
-<canvas class="mb-12" id="chartLine"></canvas>
 
+<h2 class="mb-6">Répartition charge</h2>
+<div class="overflow-x-auto">
+  <table class="table table-compact w-full">
+    <thead>
+      <tr>
+        <td>Projet</td>
+        <th colspan="2">Participant</th>
+        <th>Charge estimée</th>
+        <th>Charge estimée consommée</th>
+        <th>Charge réelle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @account_projects.each do |project| %>
+        <tr class="hover">
+          <td><p class="text-lg font-bold pl-2" style="border-left: .3rem solid <%= project.color %>"><%= project.name %></p></td>
+          <td colspan=2></td>
+          <td><%= number_with_precision(project.todos.sum(:charge_est), precision: 2) %> j</td>
+          <td><%= number_with_precision(project.todos.done.sum(:charge_est),precision: 2) %> j</td>
+          <td><%= number_with_precision(project.todos.sum(:charge_reelle), precision: 2) %> j</td>
+        </tr>
+        <% project.participants.each do |participant| %>
+          <% todos = participant.user.todos.where(todolist_id: Todolist.where(project_id: project.id).pluck(:id)) %>
+          <tr class="hover">
+            <td></td>
+            <td><%= image_tag participant.user.avatar, class:'mini_avatar' if participant.user.avatar.attached? %></td>
+            <td><%= participant.user.username.humanize %></td>
+            <td><%= number_with_precision(todos.sum(:charge_est), precision: 2) %> j</td>
+            <td><%= number_with_precision(todos.done.sum(:charge_est), precision: 2) %> j</td>
+            <td><%= number_with_precision(todos.sum(:charge_reelle), precision: 2) %> j</td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <!-- Required chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

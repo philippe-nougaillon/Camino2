@@ -19,6 +19,9 @@ class PagesController < ApplicationController
     @last_commit_picture = last_commit.user.avatar if last_commit && last_commit.user.avatar.attached?
 
     @results = current_user.account.todos.done.group("DATE(todos.updated_at)").count(:id)
+
+
+    @account_projects = current_user.account.projects
   end
 
   private

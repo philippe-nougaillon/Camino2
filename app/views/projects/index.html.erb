@@ -39,7 +39,10 @@
               <i><small><%= truncate(project.description, length: 100) %></small></i>
             </td>
             <td><%= l(project.duedate) if project.duedate %></td>
-            <td><%= project.todos.sum(:charge_est) %> j / <%= project.todos.sum(:charge_reelle) %> j</td>
+            <td>
+              <%= number_with_precision(project.todos.sum(:charge_est), precision: 2) %> j
+              / <%= number_with_precision(project.todos.sum(:charge_reelle), precision: 2) %> j
+            </td>
             <td>
               <% unless project.todos.count.zero? %>
                 <progress class="progress progress-success w-56" value=<%= project.pct_avancee %> max="100"></progress>
