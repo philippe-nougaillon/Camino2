@@ -39,6 +39,8 @@ class TodosController < ApplicationController
       )
     end
 
+    @todos = @todos.reorder(sort_column + ' ' + sort_direction)
+
     respond_to do |format|
       format.html do |variant|
         variant.phone
@@ -232,6 +234,14 @@ class TodosController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def todo_params
     params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :document, :tag_list, :notifydays, :charge_est, :charge_reelle)
+  end
+
+  def sort_column
+    Todo.column_names.include?(params[:sort]) ? params[:sort] : 'duedate'
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
   def user_authorized?

@@ -1,4 +1,5 @@
 class Todo < ApplicationRecord
+  include Sortable::Model
   include LogConcern
 
   extend FriendlyId
@@ -23,6 +24,10 @@ class Todo < ApplicationRecord
 
   scope :done, -> {where(done:true)} 
   scope :undone, -> {where(done:false)} 
+
+  sortable :name, :duedate
+  sortable :project, -> { joins(:todolist) }, column: "todolists.project_id"
+  sortable :participant, -> { joins(:user) }, column: "users.name"
 
   def preview_name
     if File.extname(self.docname) == ".pdf"

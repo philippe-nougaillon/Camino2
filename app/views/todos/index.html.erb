@@ -22,12 +22,12 @@
     <table class="table table-normal">
       <thead>
         <tr>
-          <th>Fait ?</th>
+          <th><%= sortable :done do %>Fait ?<% end %></th>
           <th>Tags</th>
-          <th>A faire</th>
-          <th COLSPAN=2>Assigné à</th>
+          <th><%= sortable :name do %>À faire<% end %></th>
+          <th COLSPAN=2><%= sortable :user_id do %>Assigné à<% end %></th></th>
           <th>Projet</th>
-          <th>Echéance</th>
+          <th><%= sortable :duedate, default: true do %>Échéance<% end %></th>
           <th>Doc</th>
         </tr>
       </thead>
@@ -53,7 +53,7 @@
             </td>
             <td>
               <% if todo.duedate %>
-                <small><%=  todo.duedate >= Date.today ? "dans" : "il y a " %>
+                <small><%= todo.duedate >= Date.today ? "dans" : "il y a " %>
                 <%= time_ago_in_words(todo.duedate) %></small>
               <% end %>
             </td>
