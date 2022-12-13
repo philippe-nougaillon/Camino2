@@ -3,7 +3,7 @@
 <% if @tags.any? %>
   <div class="mb-4">
     Tags :
-    <% tag_cloud(@tags, ['badge badge-lg', 'badge badge-md', 'badge', 'badge badge-sm']) do |tag, css_class| %>
+    <% tag_cloud(@tags, ['badge badge-sm', 'badge', 'badge badge-md', 'badge badge-lg']) do |tag, css_class| %>
       <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: css_class) %>
     <% end %>
   </div>
@@ -11,10 +11,10 @@
 
 <div class="mb-4">
   Afficher les opérations : 
-  <%= link_to_unless params[:filter] == "todo", "A faire", todos_path(filter: "todo"), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
-  <%= link_to_unless params[:filter] == "pending", "En attente", todos_path(filter: "pending"), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
-  <%= link_to_unless params[:filter] == "notify", "À notifier", todos_path(filter: "notify"), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
-  <%= link_to_unless params[:filter] == "all", "Toutes", todos_path, class: 'link' %>
+  <%= link_to_unless params[:filter] == "todo", "A faire", url_for(params.permit(:tag).merge(filter: "todo")), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
+  <%= link_to_unless params[:filter] == "pending", "En attente", url_for(params.permit(:tag).merge(filter: "pending")), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
+  <%= link_to_unless params[:filter] == "notify", "À notifier", url_for(params.permit(:tag).merge(filter: "notify")), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
+  <%= link_to_unless params[:filter] == "all", "Toutes", url_for(params.permit(:tag)), class: 'link' %>
 </div>
 
 <% if @todos.any? %>
