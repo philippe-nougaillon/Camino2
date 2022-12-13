@@ -17,7 +17,8 @@
           <% if params[:project].blank? %>
             <%= todo.project.name %>:
           <% end %>
-          <%= todo.todolist.name %>:<%= todo.name %>
+          <%= todo.todolist.name %>:
+          <%= todo.name %>
           <br>
           <%= todo.user.username %>
         <% end %>

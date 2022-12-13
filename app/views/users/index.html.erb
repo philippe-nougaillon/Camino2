@@ -9,6 +9,7 @@
       <tr>
         <td></td>
         <th>Nom</th>
+        <th>Rôle</th>
         <th>Nom de connexion</th>
         <th>Courriel</th>
         <th>Participe à</th>
@@ -33,6 +34,7 @@
             </div>
           </td>
           <td class="font-bold"><%= link_to simple_format(user.name), logs_path(id: user.slug) %></td>
+          <td><%= user.role %></td>
           <td><%= user.username %></td>
           <td><%= user.email %></td>
           <td>
@@ -51,7 +53,7 @@
       <% end %>
     </tbody>
     <tfoot>
-      <tr><th colspan=5></th></tr>
+      <tr><th colspan=6></th></tr>
     </tfoot>
   </table>
 </div>

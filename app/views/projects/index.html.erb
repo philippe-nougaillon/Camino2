@@ -21,7 +21,7 @@
           <th />
           <th>Nom / Description</th>
           <th>Échéance</th>
-          <th>Charge est.</th>
+          <th>Charge</th>
           <th>Progression</th>
           <th>Phase en cours</th>
           <th>Participants</th>
@@ -39,7 +39,7 @@
               <i><small><%= truncate(project.description, length: 100) %></small></i>
             </td>
             <td><%= l(project.duedate) if project.duedate %></td>
-            <td><%= project.todos.sum(:charge_est) %> j</td>
+            <td><%= project.todos.sum(:charge_est) %> j / <%= project.todos.sum(:charge_reelle) %> j</td>
             <td>
               <% unless project.todos.count.zero? %>
                 <progress class="progress progress-success w-56" value=<%= project.pct_avancee %> max="100"></progress>

@@ -9,6 +9,8 @@ class UsersController < ApplicationController
     else
       @users = Project.find_by(slug: params[:project_id]).users
     end
+
+    @users = @users.order('role DESC, name')
   end
 
   # GET /users/1 or /users/1.json

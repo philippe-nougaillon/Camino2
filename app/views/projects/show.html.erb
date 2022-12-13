@@ -22,7 +22,8 @@
 <% end %>
 
 <% if @project.todos %>
-  | Charge estimée : <strong><%= @project.todos.sum(:charge_est) %></strong> jours
+  | Charge : <strong><%= number_with_precision(@project.todos.sum(:charge_est), precision: 2) %></strong>
+  / <strong><%= number_with_precision(@project.todos.sum(:charge_reelle), precision: 2) %></strong> jours
 <% end %>
 
 <% if @project.tag_list.any? %>
