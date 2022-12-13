@@ -55,24 +55,26 @@
       </tr>
     </thead>
     <tbody>
-      <% @account_projects.each do |project| %>
-        <tr class="hover">
-          <td><p class="text-lg font-bold pl-2" style="border-left: .3rem solid <%= project.color %>"><%= project.name %></p></td>
-          <td colspan=2></td>
-          <td><%= number_with_precision(project.todos.sum(:charge_est), precision: 2) %> j</td>
-          <td><%= number_with_precision(project.todos.done.sum(:charge_est),precision: 2) %> j</td>
-          <td><%= number_with_precision(project.todos.sum(:charge_reelle), precision: 2) %> j</td>
-        </tr>
-        <% project.participants.each do |participant| %>
-          <% todos = participant.user.todos.where(todolist_id: Todolist.where(project_id: project.id).pluck(:id)) %>
+      <% if @account_projects %>
+        <% @account_projects.each do |project| %>
           <tr class="hover">
-            <td></td>
-            <td><%= image_tag participant.user.avatar, class:'mini_avatar' if participant.user.avatar.attached? %></td>
-            <td><%= participant.user.username.humanize %></td>
-            <td><%= number_with_precision(todos.sum(:charge_est), precision: 2) %> j</td>
-            <td><%= number_with_precision(todos.done.sum(:charge_est), precision: 2) %> j</td>
-            <td><%= number_with_precision(todos.sum(:charge_reelle), precision: 2) %> j</td>
+            <td><p class="text-lg font-bold pl-2" style="border-left: .3rem solid <%= project.color %>"><%= project.name %></p></td>
+            <td colspan=2></td>
+            <td><%= number_with_precision(project.todos.sum(:charge_est), precision: 2) %> j</td>
+            <td><%= number_with_precision(project.todos.done.sum(:charge_est),precision: 2) %> j</td>
+            <td><%= number_with_precision(project.todos.sum(:charge_reelle), precision: 2) %> j</td>
           </tr>
+          <% project.participants.each do |participant| %>
+            <% todos = participant.user.todos.where(todolist_id: Todolist.where(project_id: project.id).pluck(:id)) %>
+            <tr class="hover">
+              <td></td>
+              <td><%= image_tag participant.user.avatar, class:'mini_avatar' if participant.user.avatar.attached? %></td>
+              <td><%= participant.user.username.humanize %></td>
+              <td><%= number_with_precision(todos.sum(:charge_est), precision: 2) %> j</td>
+              <td><%= number_with_precision(todos.done.sum(:charge_est), precision: 2) %> j</td>
+              <td><%= number_with_precision(todos.sum(:charge_reelle), precision: 2) %> j</td>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     </tbody>
