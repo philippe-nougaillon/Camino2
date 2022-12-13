@@ -1,3 +1,10 @@
 <h1>Un nouveau compte a été créé</h1>
 
+<p>Nom account : </p>
 <%= @account.name %>
+
+<p>Nom utilisateur : </p>
+<%= @account.users.first.name %>
+
+<p>Email utilisateur :</p>
+<%= @account.users.first.email %>

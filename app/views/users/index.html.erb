@@ -34,7 +34,7 @@
             </div>
           </td>
           <td class="font-bold"><%= link_to simple_format(user.name), logs_path(id: user.slug) %></td>
-          <td><%= user.role %></td>
+          <td><%= user.role.humanize %></td>
           <td><%= user.username %></td>
           <td><%= user.email %></td>
           <td>
