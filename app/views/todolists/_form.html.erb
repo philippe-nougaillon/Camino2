@@ -20,7 +20,7 @@
     <div class="field">
       <% if @todolist.project.workflow? and defined?(@rows) %>
          <%= f.label :indice %>
-         <%= f.select :row, options_from_collection_for_select(@rows, 'row', "name_with_indice", @todolist.row) %>
+         <%= f.select :row, options_from_collection_for_select(@rows, 'row', "name_with_indice", @todolist.row), {class: 'select select-bordered select-sm'} %>
       <% end %>
     </div>
 

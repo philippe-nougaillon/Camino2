@@ -72,6 +72,8 @@
       </tfoot>
     </table>
   </div>
+  <%= page_entries_info @todos, entry_name: 'todo' %>
+  <%= paginate @todos %>
 <% else %>
   Rien à afficher...<br> 
 <% end %>

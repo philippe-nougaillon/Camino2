@@ -41,6 +41,9 @@ class TodosController < ApplicationController
 
     @todos = @todos.reorder(sort_column + ' ' + sort_direction)
 
+    @todos = @todos.page(params[:page]).per(20)
+
+
     respond_to do |format|
       format.html do |variant|
         variant.phone
@@ -164,7 +167,7 @@ class TodosController < ApplicationController
       # il n'y a pas de liste avant celle-là et liste précédente terminée ?
       if !(@project.todolists.minimum(:row) == row) && !@project.todolists.find_by(row: row - 1).done?
         redirect_to @todo.todolist,
-                    notice: "Cette tâche ne peut pas être terminée pour l'instant (Workflow: linéaire)..."
+                    alert: "Cette tâche ne peut pas être terminée pour l'instant (Workflow: linéaire)..."
         return
       end
     end
@@ -178,7 +181,10 @@ class TodosController < ApplicationController
           # envoyer un mail pour prévenir d'une tâche à faire
           next_todo = @project.current_todolist.next_todo
           # logger.debug "DEBUG next_todo: #{next_todo.inspect}"
-          Notifier.next_todo(next_todo).deliver_now if next_todo && next_todo.user
+          if next_todo && next_todo.user
+            mailer_response = Notifier.next_todo(next_todo).deliver_now
+            MailLog.create(message_id:mailer_response.message_id, to:next_todo.user.email, subject: "Prochaine Tâche.")
+          end
         end
 
         format.html do |variant|

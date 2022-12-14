@@ -186,6 +186,13 @@ fr:
       two_words_connector: " et "
       last_word_connector: " et "
 
+  views:
+    pagination:
+      first: "&laquo; Début"
+      last: "Fin &raquo;"
+      previous: "&lsaquo; Précédent"
+      next: "Suivant &rsaquo;"
+      truncate: "&hellip;"
   helpers:
     select:
       prompt: "Veuillez sélectionner"
@@ -193,6 +200,15 @@ fr:
       create: "Créer un(e) %{model}"
       update: "Modifier ce(tte) %{model}"
       submit: "Enregistrer ce(tte) %{model}"
+    helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "0 %{entry_name} à afficher"
+          one: "Affichage de <strong>1</strong> %{entry_name}"
+          other: "Affichage de <strong>%{count}</strong> %{entry_name}s"
+      more_pages:
+        display_entries: "Affichage des %{entry_name}s <strong>%{first}&nbsp;à&nbsp;%{last}</strong> sur <strong>%{total}</strong> au total"
 
   errors: &errors
     format: "%{attribute} %{message}"

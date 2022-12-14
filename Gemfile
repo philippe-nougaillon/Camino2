@@ -106,3 +106,5 @@ gem "mailgun-ruby", "~> 1.2"
 gem "spreadsheet", "~> 1.3"
 
 gem "sortable-for-rails", "~> 1.2"
+
+gem "kaminari", "~> 1.2"

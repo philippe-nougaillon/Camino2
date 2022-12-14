@@ -37,7 +37,8 @@ class UsersController < ApplicationController
       if @user.save
 
         # notifier par mail le nouveau mot de passe
-        Notifier.account_welcome_with_password(@user).deliver_now
+        mailer_response = Notifier.account_welcome_with_password(@user).deliver_now
+        MailLog.create(message_id:mailer_response.message_id, to:@user.email, subject: "Bienvenue.")
 
         format.html { redirect_to users_path, notice: 'Utilisateur créé avec succès.' }
         format.json { render :show, status: :created, location: @user }

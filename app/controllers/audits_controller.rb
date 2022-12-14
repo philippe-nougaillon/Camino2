@@ -13,6 +13,8 @@ class AuditsController < ApplicationController
     # return if params[:user_id].blank?
 
     # @audits = @audits.where(user_id: params[:user_id])
+
+    @audits = @audits.page(params[:page]).per(20)
   end
 
   private
