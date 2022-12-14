@@ -119,11 +119,9 @@
   <h2 class="mt-4">
     Discussions
   </h2>
-  <table id="logs">
-    <%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0  %>
-  </table>
+  <%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0  %>
   <br>
-  <% if @project.comments.count > 5 %>   
+  <% if @project.comments.count > 5 %>
     <small><i>Liste des 5 derniers commentaires <%= link_to "Afficher tout", comments_path(project_id:@project.id) %></i></small>
     <br>
   <% end %>
