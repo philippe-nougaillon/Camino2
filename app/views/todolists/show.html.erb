@@ -8,7 +8,7 @@
   <%= link_to "Modifier" , edit_todolist_path(@todolist), class: 'ml-3 text-slate-300' %> 
 </div>
 
-<% if @todolist.todos.any? %>
+<% if @todos.any? %>
   <div class="overflow-x-auto">
     <table class="table">
       <thead>
@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= render partial:'todos/todo', collection: @todolist.todos %>
+        <%= render partial:'todos/todo', collection: @todos %>
       </tbody>
       <tfoot>
         <tr>

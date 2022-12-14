@@ -8,6 +8,11 @@ class TodolistsController < ApplicationController
     @todo = Todo.new
     @todo.todolist_id = @todolist.id
     @project = @todolist.project
+    @todos = @todolist.todos
+    
+    unless params[:search].blank?
+      @todos = @todos.where('todos.name ILIKE ?', "%#{params[:search]}%")
+    end
   end
 
   # GET /todolists/new
