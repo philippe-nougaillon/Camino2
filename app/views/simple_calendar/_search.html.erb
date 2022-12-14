@@ -1,6 +1,6 @@
 <%= form_tag agenda_index_path, method: :get, class: 'mb-4' do %>
   <div class="flex items-center">
-      <%= label_tag :project, 'Projet :' %>
+      <%= label_tag :project, 'Projet :', class:'font-normal' %>
       <%= select_tag :project, 
                               options_for_select(@user_projects, params[:project]), 
                               include_blank: true,
@@ -10,7 +10,7 @@
     
 
     <% if current_user.admin? %>
-      <%= label_tag :participant, 'Utilisateur :' %>
+      <%= label_tag :participant, 'Utilisateur :', class:'font-normal' %>
       <%= select_tag :participant, 
                               options_for_select(@participants, params[:participant]), 
                               include_blank: true,

@@ -13,7 +13,7 @@
 
   <div class="p-2 shadow">
     <%= f.hidden_field :todolist_id %>
-    <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 mr-10' %>
+    <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox checkbox-primary mb-4 mr-10' %>
     <%= f.text_field :name, class: 'input input-bordered lg:w-96 mb-4', required: true %>
 
     <div class="inline-flex flex-wrap items-center gap-4">
@@ -27,7 +27,7 @@
 
       <div>
         <%= f.label :notify, "Notifier ?" %>
-        <%= f.check_box :notify, class: 'checkbox' %>
+        <%= f.check_box :notify, class: 'checkbox checkbox-primary' %>
       </div>
     </div>
     <div class="sm:ml-16">

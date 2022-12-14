@@ -15,11 +15,13 @@
       <% todo_height = todo.charge_est >= 1 ? 10 : 5 %>
       <div class="shadow mt-2 p-2 pt-0" style="border-left: .3rem solid <%= todo.project.color %>; height: <%= todo_height %>rem">
         <%= link_to edit_todo_path(todo) do %>
-          <% if params[:project].blank? %>
-            <%= todo.project.name %>:
-          <% end %>
-          <%= todo.todolist.name %>:
-          <%= truncate(todo.name, length: 20) %>
+          <b>
+            <% if params[:project].blank? %>
+              <%= todo.project.name %>:
+            <% end %>
+            <%= todo.todolist.name %>:
+            <%= truncate(todo.name, length: 20) %>
+          </b>
           <br>
           <%= todo.user.username.humanize %>
           <br>
