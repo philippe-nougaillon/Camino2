@@ -3,7 +3,7 @@
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "S'inscrire", new_registration_path(resource_name), class:'btn btn-outline w-full mb-4' %><br />
+  <%= link_to "S'inscrire", new_registration_path(resource_name), class:'btn btn-secondary btn-outline w-full mb-4' %><br />
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>

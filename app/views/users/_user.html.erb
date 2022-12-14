@@ -28,8 +28,8 @@
 
         <div class="flex justify-center mt-6">
           <hr class="my-3">
-          <%= link_to 'Modifier', edit_user_path(@user), class: "btn btn-outline mr-3 !normal-case" %>
-          <%= button_to 'DÉCONNEXION', destroy_user_session_path, method: :delete, form_class:'btn btn-outline', 'data-turbo': false %>
+          <%= link_to 'Modifier', edit_user_path(@user), class: "btn btn-primary btn-outline mr-3 !normal-case" %>
+          <%= button_to 'Déconnexion', destroy_user_session_path, method: :delete, form_class:'btn btn-secondary btn-outline', 'data-turbo': false %>
         </div>
       </div>
     </div>

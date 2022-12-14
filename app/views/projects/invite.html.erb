@@ -27,7 +27,7 @@
                   options_from_collection_for_select(@users, "id", "name" ),
                   include_blank: true,
                   class: 'select select-bordered' %>
-  <%= submit_tag "Ajouter", class:"btn btn-ghost btn-active mb-6" %>
+  <%= submit_tag "Ajouter", class:"btn btn-primary btn-outline mb-6" %>
 <% end %>
 
 <%= link_to 'Voir tous les participants', users_path, class: 'link' %>
