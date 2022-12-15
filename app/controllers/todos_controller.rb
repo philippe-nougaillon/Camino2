@@ -144,7 +144,7 @@ class TodosController < ApplicationController
         elsif @todo.notify and @todo.user
           # envoyer notification au participant à qui cette tâche est assignée
           mailer_response = Notifier.todo(@todo).deliver_now
-          MailLog.create(message_id:mailer_response.message_id, to:@todo.user.email, subject: "Nouvelle tâche assignée.")
+          MailLog.create(account_id: current_user.account.id, message_id: mailer_response.message_id, to: @todo.user.email, subject: "Nouvelle tâche assignée.")
         end
         format.html { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être ajoutée" }
         format.json { render action: 'show', status: :created, location: @todo }
@@ -185,7 +185,7 @@ class TodosController < ApplicationController
           # logger.debug "DEBUG next_todo: #{next_todo.inspect}"
           if next_todo && next_todo.user
             mailer_response = Notifier.next_todo(next_todo).deliver_now
-            MailLog.create(message_id:mailer_response.message_id, to:next_todo.user.email, subject: "Prochaine Tâche.")
+            MailLog.create(account_id: current_user.account.id, message_id:mailer_response.message_id, to:next_todo.user.email, subject: "Prochaine Tâche.")
           end
         end
 

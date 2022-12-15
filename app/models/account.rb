@@ -13,6 +13,7 @@ class Account < ApplicationRecord
   has_many :participants, through: :projects
   has_many :todolists, through: :projects
   has_many :todos, through: :todolists
+  has_many :mail_logs
 
   accepts_nested_attributes_for :users
 

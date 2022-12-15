@@ -1,0 +1,30 @@
+<div id="<%= dom_id mail_log %>">
+
+  <p>
+    Il y a <%= time_ago_in_words mail_log.created_at %>
+  </p>
+  <p>
+    <strong>À :</strong>
+    <%= mail_log.to %>
+  </p>
+  <p>
+    <strong>Sujet :</strong>
+    <%= mail_log.subject %>
+  </p>
+  <p>
+    <strong>Date :</strong>
+    <%= l mail_log.created_at %>
+  </p>
+  <p>
+    <strong>Id :</strong>
+    <%= mail_log.message_id %>
+  </p>
+  <p>
+    <strong>Statut :</strong>
+    <p class="text-error">
+      <%= @result["items"].find{|item| item["message"]["headers"]["message-id"] == mail_log.message_id } %>
+    </p>
+  </p>
+
+  <hr class="my-6">
+</div>

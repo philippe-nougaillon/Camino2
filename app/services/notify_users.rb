@@ -10,7 +10,7 @@ class NotifyUsers < ApplicationService
     @todos = @todos.where(id: todos_ids.pluck(:id))
     @todos.each do |todo|
       mailer_response = Notifier.todo_notifier(todo).deliver_now
-      MailLog.create(message_id: mailer_response.message_id, to: todo.user.email, subject: "Tâche en approche.")
+      MailLog.create(account_id: todo.user.account.id, message_id: mailer_response.message_id, to: todo.user.email, subject: "Tâche en approche.")
     end
   end
 end

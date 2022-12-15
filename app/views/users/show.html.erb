@@ -22,11 +22,12 @@
 
 <p class="mt-4">
   <%= link_to "Modifier", edit_account_path(@user.account), class:"link" %> | 
-  <%= link_to "Voir les participants", users_path, class:"link" %> |
-  <%= link_to "Voir les modèles", templates_path, class:"link" %> |
-  <%= link_to "Voir les documents", documents_index_path, class:"link" %> |
-  <%= link_to "Voir l'audit trail", audits_index_path, class:"link" %>
+  <%= link_to "Participants", users_path, class:"link" %> |
+  <%= link_to "Modèles", templates_path, class:"link" %> |
+  <%= link_to "Documents", documents_index_path, class:"link" %> |
+  <%= link_to "Audit trail", audits_index_path, class:"link" %>
   <% if current_user.admin? %>
+    | <%= link_to "Mail logs", mail_logs_path, class:"link" %>
     | <%= link_to "Envoyer les mails pour les tâches à notifier", todos_todo_notifier_path, class:"link" %> 
   <% end %>
 </p>
