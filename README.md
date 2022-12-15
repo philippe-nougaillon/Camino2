@@ -26,15 +26,40 @@
     * Assignez une couleur à chaque projet
     * Notifiez automatiquement votre client dès la réalisation d'une tâche
 
-# Installation
+# Installation en local
 
 CaminoV2 est une application <a href="http://rubyonrails.org/">Ruby On Rails 7</a>. 
 
-Pour pouvoir executer l'application vous devez installer d'abord Ruby On Rails 7 sur votre serveur Linux en suivant ce tutoriel :<a href="https://gorails.com/setup/ubuntu/22.04">gorails.com/setup/ubuntu</a>.
-Ensuite, pour copier les sources à partir de ce répertoire et lancer l'application en utilisant le processus classique, lancer les commandes suivantes :
+Pour pouvoir executer l'application vous devez installer Ruby 3 et Ruby On Rails 7 sur votre machine Linux, en suivant ce tutoriel : <a href="https://gorails.com/setup/ubuntu/22.04">gorails.com/setup/ubuntu</a>.
 
-* git clone https://github.com/philippe-nougaillon/Camino2.git
-* cd Camino2
-* bundle install
-* rails db:setup
-* rails s
+Une fois Ruby on Rails correctement installé, vous pourrez cloner les sources depuis Github et lancer l'application en utilisant le processus classique :
+
+```
+git clone https://github.com/philippe-nougaillon/Camino2.git
+cd Camino2
+bundle install
+rails db:setup
+rails s
+```
+
+# Installation sur Heroku
+
+Heroku fournit un hébergement Rails de première classe et très simple à mettre en place.
+C'est la solution d'hébergement de Camino que nous conseillons.
+
+Pour fonctionner, Camino a besoin des Add-ons suivants :
+
++ Bucketeer ($5.00)
++ Heroku Data for Redis®* ($3.00)
++ Heroku Postgres ($5.00)
++ Mailgun ($19.00)
+
+Auquel s'ajoute un serveur WEB, soit un Dyno basic à ($7.00) dans la dénomination Heroku.
+
+Cette configuration, très flexible, s'installe en quelques minutes et peut évoluer selon les besoins.
+
+Pour en savoir plus sur les services proposés par Heroku, visitez leur site [Heroku.com](https://www.heroku.com/home)
+
+# Nous contacter
+
+Besoin d'aide pour installer Camino ? [Nous contacter](https://www.philnoug.com/contact)
