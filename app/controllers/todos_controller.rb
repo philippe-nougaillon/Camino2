@@ -30,7 +30,9 @@ class TodosController < ApplicationController
       @todos = @todos.done
 
     when "notify"
-      @todos = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
+      @todos_ids = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
+      @todos = @todos.where(id: @todos_ids.pluck(:id))
+      
     end
 
     unless params[:search].blank?
