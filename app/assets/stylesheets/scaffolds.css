@@ -139,7 +139,6 @@ table td {
 }
 #welcome li {
   list-style-type: none;
-  font-size: 14px;
   padding-top: 3px;
   padding-left: 1em;
   text-indent: -0.7em;
@@ -148,6 +147,9 @@ table td {
 #welcome li:before {
   content: "• ";
   color: darkred;
+}
+#welcome * {
+  font-size: 20px;
 }
 #logs a {
   text-decoration: none;
