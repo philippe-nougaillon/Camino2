@@ -1,0 +1,7 @@
+<h1>Tâche en approche</h1>
+
+<h2><%= @todo.fullname %><h2>
+
+<p>Échéance : <%= l @todo.duedate %></p>
+
+<%= link_to "Ouvrir dans Camino", todo_url(@todo) %>
