@@ -13,7 +13,7 @@ class AuditsController < ApplicationController
     @audits = @audits.where('DATE(created_at) = ?', params[:date]) unless params[:date].blank?
     @audits = @audits.where(action: params[:audit_action]) unless params[:audit_action].blank?
     @audits = @audits.where(auditable_type: params[:type]) unless params[:type].blank?
-    @audits = @audits.where(user_id: User.find_by(name: params[:user_id]).id) unless params[:user_id].blank?
+    @audits = @audits.where(user_id: User.find_by(email: params[:user_email]).id) unless params[:user_email].blank?
 
     @audits = @audits.page(params[:page]).per(20)
   end
