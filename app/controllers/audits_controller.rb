@@ -2,17 +2,18 @@ class AuditsController < ApplicationController
   before_action :user_authorized?
 
   def index
-    @audits  = Audited::Audit.where(user_id: current_user.id).order('id DESC')
+    if current_user.admin?
+      @audits  = Audited::Audit.where(user_id: current_user.account.users.pluck(:id)).order('id DESC')
+    else
+      @audits  = Audited::Audit.where(user_id: current_user.id).order('id DESC')
+    end
     @actions = @audits.pluck(:action).uniq.sort
     @types   = @audits.pluck(:auditable_type).uniq.sort
 
     @audits = @audits.where('DATE(created_at) = ?', params[:date]) unless params[:date].blank?
     @audits = @audits.where(action: params[:audit_action]) unless params[:audit_action].blank?
     @audits = @audits.where(auditable_type: params[:type]) unless params[:type].blank?
-
-    # return if params[:user_id].blank?
-
-    # @audits = @audits.where(user_id: params[:user_id])
+    @audits = @audits.where(user_id: User.find_by(name: params[:user_id]).id) unless params[:user_id].blank?
 
     @audits = @audits.page(params[:page]).per(20)
   end
