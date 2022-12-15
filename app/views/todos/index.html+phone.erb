@@ -11,7 +11,7 @@
 
 <% if @tags.any? %>
   <div class="flex items-center overflow-x-auto gap-1 pb-4">
-    <% tag_cloud(@tags, ['btn btn-xs btn-primary', 'btn btn-xs btn-secondary', 'btn btn-sm btn-accent', 'btn btn-sm btn-info']) do |tag, css_class| %>
+    <% tag_cloud(@tags, ['btn btn-xs btn-primary', 'btn btn-xs btn-accent', 'btn btn-sm btn-accent', 'btn btn-sm btn-info']) do |tag, css_class| %>
       <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
     <% end %>
   </div>
