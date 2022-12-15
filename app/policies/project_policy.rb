@@ -49,4 +49,8 @@ class ProjectPolicy < ApplicationPolicy
   def save_as_template_post?
     save_as_template?
   end
+
+  def accepter
+    true
+  end
 end

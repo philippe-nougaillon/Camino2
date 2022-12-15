@@ -52,4 +52,9 @@ class TablePolicy < ApplicationPolicy
   def link_do?
     link?
   end
+
+  def delete_record?
+    show?
+  end
+
 end
