@@ -112,6 +112,7 @@ class TablesController < ApplicationController
 
   # GET /tables/new
   def new
+    authorize Table
     @table = Table.new
   end
 
@@ -121,6 +122,7 @@ class TablesController < ApplicationController
   # POST /tables
   # POST /tables.json
   def create
+    authorize Table
     @table = Table.new(table_params)
     @user = current_user
     @table.account = @user.account
