@@ -13,18 +13,18 @@ class CreateProjetFromTemplate < ApplicationService
 		participants_js = JSON.parse(@template.participants)
 
 		ActiveRecord::Base.transaction do
-			project = Project.new(project_js.except('id','duedate','slug'))
-			project.name = @new_project_name
-			project.log_changes(:add, current_user.id)
-			project.save
+			new_project = Project.new(project_js.except('id','duedate','slug'))
+			new_project.name = @new_project_name
+			new_project.save
 
 			participants_js.each do |p|
-				project.participants.create(p.except('id','slug'))
+				new_project.participants.create(p.except('id','slug'))
 			end
 	
 			todolist_js.each do |todolist|
 				list_id = todolist['id']
-				new_todolist = project.todolists.create(todolist.except('id', 'project_id', 'duedate', 'slug'))
+				new_todolist = new_project.todolists.new(todolist.except('id', 'project_id', 'duedate', 'slug'))
+				new_todolist.save
 				todo_js.each do |todo|
 					todolist_id = todo['todolist_id']
 					new_todolist.todos.create(todo.except('id','done','duedate','slug')) if todolist_id == list_id

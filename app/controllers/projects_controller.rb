@@ -86,48 +86,12 @@ class ProjectsController < ApplicationController
     if params[:template_id].blank?
       @project = Project.new(project_params)
       @project.account_id = current_user.account_id
-    else
-      @template = Template.find(params[:template_id])
-      project_js = JSON.parse(@template.project)
-      @project = Project.new(project_js.except('duedate','slug'))
-      # remplace le nom du modele par celui du nouveau projet
-      @project.name = project_params[:name] if project_params[:name]
-      @project.description = project_params[:description] if project_params[:description]
-      # logger.debug "DEBUG #{@project.inspect}"
-    end
-
-    if @project.valid?
-      @project.id = if Project.any?
-                      Project.maximum(:id) + 1
-                    else
-                      1
-                    end
-      @project.log_changes(:add, current_user.id)
       @project.save
-      if params[:template_id].blank?
-        @project.participants.create(user_id: current_user.id)
-      else # ajoute les listes et tâches du modele
-        JSON.parse(@template.participants).each do |p|
-          @project.participants.create(p.except('id','slug'))
-        end
-
-        todolist_js = JSON.parse(@template.todolists)
-        todo_js = JSON.parse(@template.todos)
-
-        todolist_js.each do |todolist|
-          list_id = todolist['id']
-          new_todo = @project.todolists.create(todolist.except('id','project_id','slug', 'duedate'))
-          todo_js.each do |todo|
-            todolist_id = todo['todolist_id']
-            if todolist_id == list_id
-              new_todo.todos.create(todo.except('id','todolist_id', 'done','duedate','slug'))
-            end
-          end
-        end
-      end
+      @project.participants.create(user_id: current_user.id)
       redirect_to @project, notice: "Le projet '#{@project.name}' vient d'être ajouté"
     else
-      redirect_to @project, notice: "Une erreur est survenue: #{@project.errors.full_messages}..."
+      CreateProjetFromTemplate.new(params[:template_id], project_params[:name]).call 
+      redirect_to projects_path, notice: "Le projet '#{ project_params[:name] }' vient d'être créé à partir d'un modèle"
     end
   end
 
