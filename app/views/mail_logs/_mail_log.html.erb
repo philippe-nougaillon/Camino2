@@ -21,11 +21,21 @@
   </p>
   <p>
     <strong>Statut :</strong>
-      <% if status = @result["items"].find{|item| item["message"]["headers"]["message-id"] == mail_log.message_id } %>
-        <span class="text-error"><%= status %></span>
-      <% else %>
-        <span class="text-success">OK</span>
-      <% end %>
+    <% if status = @result["items"].find{|item| item["message"]["headers"]["message-id"] == mail_log.message_id } %>
+      <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+        <div class="collapse-title text-xl font-medium text-error">
+          KO
+        </div>
+        <div class="collapse-content"> 
+          <pre class="mockup-code">
+          <%= JSON.pretty_generate(status) %>
+        </pre>
+        </div>
+      </div>
+
+    <% else %>
+      <span class="text-success">OK</span>
+    <% end %>
   </p>
 
   <hr class="my-6">

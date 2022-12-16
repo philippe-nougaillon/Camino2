@@ -9,7 +9,7 @@ class MailLogsController < ApplicationController
 
     @mail_logs = current_user.account.mail_logs
 
-    @mail_logs = @mail_logs.page(params[:page]).per(5)
+    @mail_logs = @mail_logs.page(params[:page]).per(20)
   end
 
   private
