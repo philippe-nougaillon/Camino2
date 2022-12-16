@@ -1,9 +1,11 @@
 class TemplatesController < ApplicationController
   before_action :set_template, only: %i[show edit update destroy]
+  before_action :user_authorized?, except: %i[ index new create ] 
 
   # GET /templates
   # GET /templates.json
   def index
+    authorize Template
     @user = current_user
     @templates = @user.account.templates
   end
@@ -14,6 +16,8 @@ class TemplatesController < ApplicationController
 
   # GET /templates/new
   def new
+    authorize Template
+
     @template = Template.new
   end
 
@@ -23,6 +27,8 @@ class TemplatesController < ApplicationController
   # POST /templates
   # POST /templates.json
   def create
+    authorize Template
+
     @template = Template.new(template_params)
 
     respond_to do |format|
@@ -70,5 +76,9 @@ class TemplatesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def template_params
     params.require(:template).permit(:name, :project, :participants, :todolists, :todos)
+  end
+
+  def user_authorized?
+    authorize @template
   end
 end

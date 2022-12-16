@@ -113,16 +113,15 @@ class ProjectsController < ApplicationController
 
         todolist_js = JSON.parse(@template.todolists)
         todo_js = JSON.parse(@template.todos)
-        raise
 
         todolist_js.each do |todolist|
           list_id = todolist['id']
-          t = @project.todolists.new(todolist.dup)
-          t.duedate = nil
-          t.save
+          new_todo = @project.todolists.create(todolist.except('id','project_id','slug', 'duedate'))
           todo_js.each do |todo|
             todolist_id = todo['todolist_id']
-            t.todos.create(todo.except('id','done','duedate','slug')) if todolist_id == list_id
+            if todolist_id == list_id
+              new_todo.todos.create(todo.except('id','todolist_id', 'done','duedate','slug'))
+            end
           end
         end
       end

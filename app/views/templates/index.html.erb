@@ -1,7 +1,7 @@
-<h1>Modèles</h1>
+<h1 class="mb-6">Modèles</h1>
 
 <div class="overflow-x-auto">
-  <table class="table">
+  <table class="table table-zebra">
     <thead>
       <tr>
         <th>Nom</th>
@@ -9,22 +9,25 @@
         <th>Description</th>
         <th>Créé le</th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
 
     <tbody>
       <% @templates.each do |template| %>
-        <% th = JSON.parse(template.project).to_hash %> 
-        <tr>
-          <td><b><%= template.name %></b></td>
+        <% th = JSON.parse(template.project).to_h %> 
+        <tr class="hover">
+          <td><b><%= link_to template.name.humanize, template, class:'link' %></b></td>
           <td><%= th["name"] %></td>
           <td><%= th["description"] %></td>
           <td><%= l(template.created_at) %></td>
-          <td><%= link_to 'Voir', template %></td>
           <td><%= button_to '[X]', template, method: :delete, form: { data: {'turbo-confirm': 'Certain(e) ?' } } %></td>
         </tr>
       <% end %>
     </tbody>
+    <tfoot>
+    <tr>
+      <th colspan=5></th>
+    </tr>
+    </tfoot>
   </table>
 </div>

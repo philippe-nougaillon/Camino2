@@ -42,8 +42,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def save_as_template?
-    # user.admin?
-    false
+    user.admin?
   end
 
   def save_as_template_post?
