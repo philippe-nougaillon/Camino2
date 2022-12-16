@@ -34,7 +34,7 @@ class TablePolicy < ApplicationPolicy
   end
 
   def fill?
-    show?
+    true
   end
 
   def fill_do?

@@ -248,3 +248,80 @@ fr:
     previous: "<<"
     next: ">>"
     week: Semaine
+  projects:
+    index:
+      title: "Projets"
+    new:
+      title: "Nouveau projet"
+    edit:
+      title: "Modification projet"
+    save_as_template:
+      title: "Enregistrer ce projet comme modèle"
+  todolists:
+    new:
+      title: "Nouvelle todolist"
+  todos:
+    index:
+      title: "To-do"
+  agenda:
+    index:
+      title: "Agenda"
+  logs:
+    index:
+      title: "Activité"
+  comments:
+    index:
+      title: "Discussion"
+  documents:
+    index:
+      title: "Documents"
+  tables:
+    index:
+      title: "Tables"
+    new:
+      title: "Nouvelle table"
+    edit:
+      title: "Modification table"
+    link:
+      title: "Lier table"
+  fields:
+    edit:
+      title: "Modification colonne"
+  pages:
+    about:
+      title: "À propos"
+    dashboard:
+      title: "Tableau de bord"
+  users:
+    index:
+      title: "Participants"
+    new:
+      title: "Nouvel utilisateur"
+    edit:
+      title: "Modifier utilisateur"
+    registrations:
+      new:
+        title: "Inscription"
+  accounts:
+    edit:
+      title: "Modification de compte"
+  templates:
+    index:
+      title: "Modèles"
+    edit:
+      title: "Modification modèle"
+  audits:
+    index:
+      title: "Audit trail"
+  mail_logs:
+    index:
+      title: "Mail logs"
+  devise:
+    sessions:
+      new:
+        title: "Connexion"
+    passwords:
+      new:
+        title: "Mot de passe oublié"
+      edit:
+        title: "Nouveau mot de passe"

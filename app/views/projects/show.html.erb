@@ -1,6 +1,6 @@
 <div class="mb-8 pl-2" style="border-left: 7px solid <%= @project.color %>">
   <div class="flex items-center">
-    <h2><%= @project.name %></h2>
+    <h2><%= page_title! @project.name %></h2>
     <%= link_to "Modifier", edit_project_path(@project), class: 'ml-3 text-slate-300' %> 
   </div>
   <% unless @project.description.blank? %>
