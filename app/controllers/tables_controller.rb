@@ -23,11 +23,9 @@ class TablesController < ApplicationController
       @values = @table.values.where(todo_id: Project.find_by(name: params[:project]).todos.ids)
     end
 
-    # @values = if params[:search].blank?
-    #             @table.values
-    #           else
-    #             @table.values.where('data ILIKE ?', "%#{params[:search].strip}%")
-    #           end
+    unless params[:search].blank?
+      @values = @values.where('data ILIKE ?', "%#{params[:search].strip}%")
+    end
 
     respond_to do |format|
       format.html
