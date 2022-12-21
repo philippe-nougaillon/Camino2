@@ -111,4 +111,4 @@ gem "kaminari", "~> 1.2"
 
 gem "page_title_helper", "~> 6.0"
 
-gem "poppler", "~> 4.0"
+#gem "poppler", "~> 4.0"
