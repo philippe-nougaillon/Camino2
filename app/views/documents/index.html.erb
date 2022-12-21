@@ -4,6 +4,7 @@
   <table class="table table-zebra">
     <thead>
       <tr>
+        <td></td>
         <td>Nom</td>
         <th>Type</th>
         <th>Projet</th>
@@ -13,9 +14,13 @@
     </thead>
 
     <tbody>
-
       <% @documents.each do |doc| %>
         <tr>
+          <td>
+            <% if doc.previewable? %>
+              <%= link_to image_tag(doc.preview(resize_to_limit: [150, 150])),  rails_blob_path(doc, disposition: "attachment") %>
+            <% end %>
+          </td>
           <td>
             <%= link_to doc.filename.base, doc, class:'link', target: "_blank" %>
           </td>
@@ -36,7 +41,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="5"></th>
+        <th colspan="6"></th>
       </tr>
     </tfoot>
   </table>
