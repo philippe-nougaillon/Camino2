@@ -5,6 +5,17 @@
   <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les colonnes", class:'ml-3 text-slate-300' %>
 </div>
 
+<%= form_tag table_path, method: :get, class: 'mb-4' do %>
+  <div class="flex items-center">
+      <%= label_tag :project, 'Projet :', class:'font-normal' %>
+      <%= select_tag :project, 
+                              options_for_select(@table.projects.pluck(:name).uniq.sort, params[:project]), 
+                              include_blank: true,
+                              class:'select select-bordered mr-8 ml-2',
+                              onchange: 'this.form.submit()' %>
+  </div>
+<% end %>
+
 <% if @table.fields.any? %>
   <% if @table.values.any? %>
 

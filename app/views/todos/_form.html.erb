@@ -60,7 +60,11 @@
 
       <% if @table %>
         <div class="my-4">
-          <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
+          <%= link_to "Ajouter des données dans la table '#{@table.name.humanize}'", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
+          <% if @table.values.where(todo_id: @todo.id).any? %>
+            |
+            <%= link_to "Afficher les données saisies", table_path(@table, project: @todo.project.name), class:'link' %>
+          <% end %>
         </div>
       <% end %>
 
