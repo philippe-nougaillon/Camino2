@@ -11,7 +11,7 @@
       <%= select_tag :project, 
                               options_for_select(@table.projects.pluck(:name).uniq.sort, params[:project]), 
                               include_blank: true,
-                              class:'select select-bordered mr-8 ml-2',
+                              class:'select select-sm select-bordered mr-8 ml-2',
                               onchange: 'this.form.submit()' %>
   </div>
 <% end %>

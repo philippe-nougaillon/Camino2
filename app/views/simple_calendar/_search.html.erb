@@ -4,7 +4,7 @@
       <%= select_tag :project, 
                               options_for_select(@user_projects, params[:project]), 
                               include_blank: true,
-                              class:'select select-bordered mr-8 ml-2',
+                              class:'select select-sm select-bordered mr-8 ml-2',
                               onchange: 'this.form.submit()' %>
     
     
@@ -14,7 +14,7 @@
       <%= select_tag :participant, 
                               options_for_select(@participants, params[:participant]), 
                               include_blank: true,
-                              class:'select select-bordered ml-2',
+                              class:'select select-sm select-bordered ml-2',
                               onchange: 'this.form.submit()' %>
 
     <% end %>
