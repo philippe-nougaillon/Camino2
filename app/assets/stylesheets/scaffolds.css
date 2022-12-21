@@ -139,7 +139,6 @@ table td {
 }
 #welcome li {
   list-style-type: none;
-  font-size: 14px;
   padding-top: 3px;
   padding-left: 1em;
   text-indent: -0.7em;
@@ -148,6 +147,9 @@ table td {
 #welcome li:before {
   content: "• ";
   color: darkred;
+}
+#welcome * {
+  font-size: 20px;
 }
 #logs a {
   text-decoration: none;
@@ -169,7 +171,7 @@ hr.style-two {
   background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0));
 }
 /* #Alizarin Flat Button ==================================================*/
-.btn btn-active btn-ghost {
+.btn btn-primary btn-outline {
   position: relative;
   vertical-align: top;
   width: 160px;
@@ -183,7 +185,7 @@ hr.style-two {
   border: 0;
   cursor: pointer;
 }
-.btn btn-active btn-ghost:active {
+.btn btn-primary btn-outline:active {
   top: 1px;
   outline: none;
   -webkit-box-shadow: none;

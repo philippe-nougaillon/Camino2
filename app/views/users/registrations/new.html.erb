@@ -1,5 +1,3 @@
-<%= render partial: "partials/notification" %>
-
 <div class="flex min-h-screen flex-col justify-center aligns-items-center items-center mb-12">
   <div id="connexion">
     <h1 class="text-4xl font-bold text-center">Inscription</h1>
@@ -10,7 +8,7 @@
 
       <div class="field">
         <%= label_tag :account, 'Entreprise' %><br />
-        <%= text_field_tag :account, {}, { class:"input input-bordered w-full", required: true } %>
+        <%= text_field_tag :account, params[:account], { class:"input input-bordered w-full", required: true } %>
       </div>
 
       <div class="field">
@@ -25,13 +23,13 @@
 
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full", required: true %>
+        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full text-black", required: true %>
       </div>
 
       <div class="field">
         <%= f.label :password %>
         <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> charactères minimum)</em>
+        <em>(<%= @minimum_password_length %> caractères minimum)</em>
         <% end %><br />
         <%= f.password_field :password, autocomplete: "new-password", class:"input input-bordered w-full", required: true %>
       </div>
@@ -42,7 +40,7 @@
       </div>
 
       <div class="actions" data-turbo="false">
-        <%= f.submit "S'inscrire", class:"btn btn-outline w-full mb-3" %>
+        <%= f.submit "S'inscrire", class:"btn btn-primary btn-outline w-full mb-3" %>
       </div>
     <% end %>
 

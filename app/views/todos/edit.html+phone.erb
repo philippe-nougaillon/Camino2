@@ -9,15 +9,15 @@
   <% if policy(@todo).update? %>
     <%= form_for @todo do |f| %>
       <div class="flex items-center">
-        <%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-lg', 'data-turbo': false %>
+        <%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-primary checkbox-lg', 'data-turbo': false %>
         <div class="card shadow-sm ml-4">
           <div class="card-body">
-            <strong><%= @todo.name.humanize %></strong>
+            <strong class="text-lg"><%= @todo.name.humanize %></strong>
             <% @todo.tags.each do |tag| %>
               <p class="text-slate-300 badge badge-outline badge-xs"><%= tag.name %></p>
             <% end %>
             <% if @table %>
-              <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.id, todo_id:@todo.slug), class: 'link' %>
+              <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
             <% end %>
           </div>
         </div>

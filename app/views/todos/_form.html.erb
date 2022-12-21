@@ -13,7 +13,7 @@
 
   <div class="p-2 shadow">
     <%= f.hidden_field :todolist_id %>
-    <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox mb-4 mr-10' %>
+    <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox checkbox-primary mb-4 mr-10' %>
     <%= f.text_field :name, class: 'input input-bordered lg:w-96 mb-4', required: true %>
 
     <div class="inline-flex flex-wrap items-center gap-4">
@@ -27,12 +27,19 @@
 
       <div>
         <%= f.label :notify, "Notifier ?" %>
-        <%= f.check_box :notify, class: 'checkbox' %>
+        <%= f.check_box :notify, class: 'checkbox checkbox-primary' %>
       </div>
     </div>
     <div class="sm:ml-16">
-      <%= f.label 'Echéance :' %>
+      <%= f.label :duedate, 'Echéance :' %>
       <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered mt-4' %>
+
+      <%= f.label :charge_est, 'Charge estimée :' %>
+      <%= f.number_field :charge_est, step: :any, class: 'input input-bordered input-sm mt-4' %>
+
+      <%= f.label :charge_reelle, 'Charge réelle :' %>
+      <%= f.number_field :charge_reelle, step: :any, class: 'input input-bordered input-sm mt-4' %>
+      (en jour)
 
       <small class="block mt-4 sm:mt-0">Cette échéance va s'ajouter au calendrier du participant assigné et un rappel lui sera envoyé à J-
         <%= f.select :notifydays, options_for_select((1..10), @todo.notifydays.to_s), {}, { class:'select select-xs select-bordered' } %>
@@ -46,7 +53,7 @@
         </div>
 
         <div>
-          <%= f.label 'Tags :' %>
+          <%= f.label :tag_list, 'Tags :' %>
           <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered input-sm' %>
         </div>
       </div>
@@ -58,7 +65,7 @@
       <% end %>
 
       <div class="mt-4">
-        <%= f.submit @todo.new_record? ? "Ajouter" : "Enregistrer", class: 'btn btn-active btn-ghost' %> 
+        <%= f.submit @todo.new_record? ? "Ajouter" : "Enregistrer", class: 'btn btn-primary btn-outline' %> 
       </div>
     </div>
   </div>

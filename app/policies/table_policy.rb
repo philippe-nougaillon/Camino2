@@ -14,7 +14,7 @@ class TablePolicy < ApplicationPolicy
   end
 
   def new?
-    show?
+    index?
   end
 
   def create?
@@ -34,7 +34,7 @@ class TablePolicy < ApplicationPolicy
   end
 
   def fill?
-    show?
+    true
   end
 
   def fill_do?
@@ -52,4 +52,9 @@ class TablePolicy < ApplicationPolicy
   def link_do?
     link?
   end
+
+  def delete_record?
+    show?
+  end
+
 end

@@ -103,5 +103,12 @@ gem "recaptcha", "~> 5.12"
 
 gem "mailgun-ruby", "~> 1.2"
 
+gem "spreadsheet", "~> 1.3"
+
+gem "sortable-for-rails", "~> 1.2"
+
+gem "kaminari", "~> 1.2"
+
+gem "page_title_helper", "~> 6.0"
 
 gem "poppler", "~> 4.0"

@@ -1,10 +1,10 @@
 class Todolist < ApplicationRecord
   include LogConcern
 
-  audited
-
   extend FriendlyId
-  friendly_id :slug_id, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
+
+  audited
 
   belongs_to :project
   has_many :todos, dependent: :destroy
@@ -35,7 +35,7 @@ class Todolist < ApplicationRecord
 
   private
 
-  def slug_id
+  def slug_candidates
     [SecureRandom.uuid]
   end
 

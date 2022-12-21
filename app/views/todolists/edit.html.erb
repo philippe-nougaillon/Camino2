@@ -2,7 +2,7 @@
   <%= link_to @todolist.project.name, @todolist.project %>
 </h2>
 
-<h3>Modification de la liste '<%= @todolist.name %>'</h3>
+<h3><%= page_title! "Modification de la liste #{@todolist.name}" %></h3>
 
 <%= render 'form' %>
 

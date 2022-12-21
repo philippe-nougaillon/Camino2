@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   post 'todos/:id/close' => 'todos#close'
   post 'todos/:id/reopen' => 'todos#reopen'
+  get 'todos/todo_notifier' => 'todos#todo_notifier'
 
   get 'projects/:id/save_as_template' => 'projects#save_as_template'
   post 'projects/:id/save_as_template' => 'projects#save_as_template_post'
@@ -27,7 +28,7 @@ Rails.application.routes.draw do
   get "/images/close",  to: redirect("images/close.png") 
 
   resources :accounts, only: %i[ edit update ]
-  resources :comments
+  resources :comments, only: %i[ index create ]
   resources :templates
   resources :logs
   resources :todolists, except: :index
@@ -35,8 +36,8 @@ Rails.application.routes.draw do
   resources :todos
   resources :projects
   resources :tables
-  resources :values
   resources :fields, only: %i[ edit update create destroy ]
+  resources :mail_logs, only: %i[ index ]
 
   get 'tables/:id/fill' => 'tables#fill', as: :fill
   post 'tables/:id/fill' => 'tables#fill_do', as: :fill_do

@@ -1,27 +1,28 @@
 <div class="flex items-center mb-6">
   <h1>
-    <%= @table.name.humanize %>
+    <%= page_title! "Table: #{@table.name.humanize}" %>
   </h1>
   <%= link_to "Modifier", edit_table_path(@table), title:"Renommer cette table", class: 'ml-3 text-slate-300' %>
 </div>
 
 <h2>Colonnes</h2>
 <% if @table.fields.any? %>
-  <table class="table">
-    <thead>
-      <th>Nom</th>
-      <th>Type</th>
-      <th>Contenu</th>
-      <th colspan=2></th>
-    <thead>
-    <tbody>
-      <%= render partial: 'fields/field', collection: @table.fields %>
-    </tbody>
-    <tfoot>
-      <th colspan=5></th>
-    </tfoot>
-  </table>
-  <br>
+  <div class="overflow-x-auto mb-4">
+    <table class="table">
+      <thead>
+        <th>Nom</th>
+        <th>Type</th>
+        <th>Contenu</th>
+        <th colspan=2></th>
+      <thead>
+      <tbody>
+        <%= render partial: 'fields/field', collection: @table.fields %>
+      </tbody>
+      <tfoot>
+        <th colspan=5></th>
+      </tfoot>
+    </table>
+  </div>
 <% end %>
 
 <% if @field %>

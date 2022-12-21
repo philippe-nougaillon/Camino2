@@ -1,0 +1,17 @@
+<% if label.is_a?(Symbol) %>
+  <%= t label, scope: scope %>
+<% else %>
+  <%= label %>
+<% end %>
+
+<% if active %>
+  <% if direction == "asc" %>
+    <i class="fa-solid fa-sort-up"></i>
+  <% else %>
+    <i class="fa-solid fa-sort-down"></i>
+  <% end %>
+<% else %>
+  <small>
+    <i class="fa-solid fa-sort"></i>
+  </small>
+<% end %>

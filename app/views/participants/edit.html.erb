@@ -1,7 +1,7 @@
-<h1>Abonnements du participant '<%= @participant.user.name %>'</h1>
+<h1><%= page_title! "Abonnements du participant #{@participant.user.name}" %></h1>
 <h3>Projet: <%= @participant.project.name %></h3>
 <br>
 
 <%= render 'form' %>
 
-<%= link_to 'Retour', user_path(@participant.user_id) %>
+<%= link_to 'Retour', user_path(@participant.user.slug) %>

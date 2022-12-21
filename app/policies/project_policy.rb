@@ -40,4 +40,16 @@ class ProjectPolicy < ApplicationPolicy
   def invite_do?
     invite?
   end
+
+  def save_as_template?
+    user.admin?
+  end
+
+  def save_as_template_post?
+    save_as_template?
+  end
+
+  def accepter
+    true
+  end
 end

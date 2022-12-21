@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_08_145551) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_15_140317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_145551) do
     t.datetime "logo_updated_at"
     t.string "sitename"
     t.string "hostname"
+    t.string "slug"
+    t.index ["slug"], name: "index_accounts_on_slug", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -118,6 +120,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_145551) do
     t.string "message_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_mail_logs_on_account_id"
   end
 
   create_table "participants", id: :serial, force: :cascade do |t|
@@ -129,7 +133,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_145551) do
     t.boolean "want_dailynewsletter"
     t.boolean "want_weeklynewsletter"
     t.boolean "client"
+    t.string "slug"
     t.index ["project_id"], name: "index_participants_on_project_id"
+    t.index ["slug"], name: "index_participants_on_slug", unique: true
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
@@ -221,6 +227,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_145551) do
     t.string "docname"
     t.integer "notifydays", default: 1
     t.string "slug"
+    t.decimal "charge_est", precision: 7, scale: 2, default: "0.0"
+    t.decimal "charge_reelle", precision: 7, scale: 2, default: "0.0"
     t.index ["slug"], name: "index_todos_on_slug", unique: true
     t.index ["todolist_id"], name: "index_todos_on_todolist_id"
     t.index ["user_id"], name: "index_todos_on_user_id"
@@ -265,4 +273,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_145551) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "mail_logs", "accounts"
 end

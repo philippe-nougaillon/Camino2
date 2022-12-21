@@ -86,58 +86,12 @@ class ProjectsController < ApplicationController
     if params[:template_id].blank?
       @project = Project.new(project_params)
       @project.account_id = current_user.account_id
-    else
-      @template = Template.find(params[:template_id])
-      project_js = JSON.parse(@template.project)
-      @project = Project.new(project_js.except('duedate'))
-      # remplace le nom du modele par celui du nouveau projet
-      @project.name = project_params[:name] if project_params[:name]
-      @project.description = project_params[:description] if project_params[:description]
-      # logger.debug "DEBUG #{@project.inspect}"
-    end
-
-    if @project.valid?
-      @project.id = if Project.any?
-                      Project.maximum(:id) + 1
-                    else
-                      1
-                    end
-      @project.log_changes(:add, current_user.id)
       @project.save
-      if params[:template_id].blank?
-        if params[:participants]
-          params[:participants].each do |user_id|
-            @user = User.find(user_id)
-            @project.participants.create(user_id:)
-            Log.create(project_id: @project.id, user_id: current_user.id, action_id: 0,
-                       description: "ajouté le participant '#{@user.username}'")
-            Notifier.welcome_existing_user(@project, @user).deliver_now if params[:welcome_message]
-          end
-        else
-          # il faut au moins un participant (ici, le créateur du projet)
-          @project.participants.create(user_id: current_user.id)
-        end
-      else # ajoute les listes et tâches du modele
-        to_except = %w[id done duedate]
-        JSON.parse(@template.participants).each do |p|
-          @project.participants.create(p.except('id'))
-        end
-
-        todolist_js = JSON.parse(@template.todolists)
-        todo_js = JSON.parse(@template.todos)
-
-        todolist_js.each do |todolist|
-          list_id = todolist['id']
-          @todolist = @project.todolists.create(todolist.except(*to_except))
-          todo_js.each do |todo|
-            todolist_id = todo['todolist_id']
-            @todolist.todos.create(todo.except(*to_except)) if todolist_id == list_id
-          end
-        end
-      end
+      @project.participants.create(user_id: current_user.id)
       redirect_to @project, notice: "Le projet '#{@project.name}' vient d'être ajouté"
     else
-      redirect_to @project, notice: "Une erreur est survenue: #{@project.errors.full_messages}..."
+      CreateProjetFromTemplate.new(params[:template_id], project_params[:name]).call 
+      redirect_to projects_path, notice: "Le projet '#{ project_params[:name] }' vient d'être créé à partir d'un modèle"
     end
   end
 
@@ -283,7 +237,8 @@ class ProjectsController < ApplicationController
       user = User.create(name:username, username:username, email:mail_invite, password:pass, password_confirmation:pass,
                           account_id:user_qui_invite.account_id)
       # notifier par mail du mot de passe
-      Notifier.welcome(user, pass, project).deliver_now
+      mailer_response = Notifier.welcome(user, pass, project).deliver_now
+      MailLog.create(account_id: current_user.account.id, message_id:mailer_response.message_id, to:user.email, subject: "Bienvenue.")
       flash[:notice] = "Vos informations de connexion viennent d'être envoyées sur #{mail_invite} ..."
     else
       user = User.find_by(email:mail_invite)

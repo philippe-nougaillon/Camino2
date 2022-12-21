@@ -4,7 +4,6 @@ class Table < ApplicationRecord
 
   audited
 
-
   belongs_to :account
 
   has_many :fields, dependent: :destroy

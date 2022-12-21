@@ -1,21 +1,6 @@
 class FieldsController < ApplicationController
   before_action :set_field, only: %i[show edit update destroy]
 
-  # GET /fields
-  # GET /fields.json
-  def index
-    @fields = Field.all
-  end
-
-  # GET /fields/1
-  # GET /fields/1.json
-  def show; end
-
-  # GET /fields/new
-  def new
-    @field = Field.new
-  end
-
   # GET /fields/1/edit
   def edit; end
 

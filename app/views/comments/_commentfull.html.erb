@@ -1,46 +1,32 @@
 <% if @comment_day != comment.created_at.day %>
-  <tr>
-    <td /><td /><td />
-  </tr>
-  <tr>
-    <td /><td /><td />
-  </tr>
+  <% @user_id = 0 %>
+  <% @comment_day = comment.created_at.day %>
+  <% month_name = I18n.t("date.month_names")[comment.created_at.month] %>
+  <h3 class="mt-8 mb-4">
+    <b><%= "#{@comment_day} #{month_name}" %></b>
+    <%= "(Aujourd'hui)" if comment.created_at.to_date == Date.today %>
+  </h3>
 <% end %>
-<tr>
-  <% if @comment_day != comment.created_at.day %>
-    <% @user_id = 0 %>
-    <% @comment_day = comment.created_at.day %>
-    <% month_name = I18n.t("date.month_names")[comment.created_at.month] %>
-    <tr style="margin-top:50px;"></tr>
-    <td>
-      <b><%= "#{@comment_day} #{month_name}" %></b>
-      <br>
-      <%= "Aujourd'hui" if comment.created_at.to_date == Date.today %>
-    </td>
-  <% else %>
-    <td></td>
-  <% end %>
-  <td style="width: 80px">
-    <% if @user_id != comment.user_id %>
-      <% @user_id = comment.user_id %>
-      <%= image_tag(comment.user.avatar, class: 'mini_avatar') if comment.user.avatar.attached? %>
-    <% end %>
-  </td>
-  <td class="pl-2" style="border-left: 7px solid <%= comment.project.color %>">
-    <p class="break-words" style="word-break: break-word">
-      <% if comment.user_id == current_user.id %>
-        <strong>Vous</strong> avez commenté
-      <% else %>
-        <strong><%= comment.user.name %></strong> a commenté
+
+<div class="flex flex-row gap-4 lg:gap-8 mb-1">
+  <div>
+    <p>
+      <% if @user_id != comment.user_id %>
+        <% @user_id = comment.user_id %>
+        <%= image_tag(comment.user.avatar, alt:'', class:'mini_avatar mx-auto') if comment.user.avatar.attached? %>
       <% end %>
-      <strong>'<%= "#{comment.texte}" %>'</strong>
-      au sujet de <%= link_to "#{comment.project.name}:#{comment.todolist.name}:#{comment.todo.name}", edit_todo_path(comment.todo) %>
     </p>
-  </td>
-  <td>
-    <div style="color:lightgrey">
+    <p style="color:lightgrey; width:45px;">
       <%= comment.created_at.strftime("%H:%M") %>
-    </div>
-  </td>
-</tr>
-<tr /><tr /><tr />
+    </p>
+  </div>
+  <p class="break-words my-auto pl-2" style="word-break: break-word; border-left: 7px solid <%= comment.project.color if comment.project %>">
+    <% if comment.user_id == current_user.id %>
+      <strong>Vous</strong> avez commenté
+    <% else %>
+      <strong><%= comment.user.name %></strong> a commenté
+    <% end %>
+    <strong>'<%= "#{comment.texte}" %>'</strong>
+    au sujet de <%= link_to "#{comment.project.name}:#{comment.todolist.name}:#{comment.todo.name}", edit_todo_path(comment.todo) %>
+  </p>
+</div>

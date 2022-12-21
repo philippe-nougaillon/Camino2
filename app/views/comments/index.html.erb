@@ -1,18 +1,3 @@
 <h1 class="mb-6">Discussions</h1>
 
-<table id="logs">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0, user_id:0 %>  
-  </tbody>
-</table>
-
-<br>
+<%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0, user_id:0 %>  

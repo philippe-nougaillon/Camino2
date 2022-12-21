@@ -1,5 +1,5 @@
 <tr class="hover">
-  <th>
+  <td>
     <% if todolist.project.workflow? %>
       <i><%= todolist.row %>.</i>
     <% end %>
@@ -27,6 +27,13 @@
   <td>
     <%= l(todolist.duedate) if todolist.duedate %>
   </td>
+  <td>
+    <p class="text-right"><%= number_with_precision(todolist.todos.sum(:charge_est), precision: 2) %> j</p>
+  </td>
+  <td>
+    <p class="text-right"><%= number_with_precision(todolist.todos.sum(:charge_reelle), precision: 2) %> j</p>
+  </td>
+
   <td>
     <%= l(todolist.todos.done.maximum(:updated_at).to_date) if todolist.todos.done.any? %>
   </td>

@@ -1,6 +1,6 @@
 <div class="flex items-center mb-6">
   <h1>
-    <%= @table.name.humanize %>
+    <%= page_title! "Table: #{@table.name.humanize}" %>
   </h1>
   <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les colonnes", class:'ml-3 text-slate-300' %>
 </div>

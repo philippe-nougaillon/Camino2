@@ -1,54 +1,59 @@
-<h1 class="mb-6">Participants</h1>
+<div class="flex justify-between">
+  <h1 class="mb-6">Participants</h1>
+  <%= link_to 'Ajouter', new_user_path, class:'btn btn-primary btn-outline' %>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Nom</th>
-      <th>Nom de connexion</th>
-      <th>Courriel</th>
-      <th>Participe à</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
+<div class="my-4 overflow-x-auto">
+  <table class="table">
+    <thead>
       <tr>
-        <td>
-          <div class="avatar placeholder">
-            <% if user.avatar.attached? %>
-              <div class="w-16 rounded-full !bg-slate-500">
-                <%= image_tag user.avatar, class:"camino-avatar" %>
-              </div>
-            <% else %>
-                <div class="bg-primary-focus text-neutral-content rounded-full w-16">
-                  <span class="text-4xl"><%= user.username.first.humanize %></span>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </td>
-        <td class="font-bold"><%= link_to simple_format(user.name), logs_path(id: user.slug) %></td>
-        <td><%= user.username %></td>
-        <td><%= user.email %></td>
-        <td>
-          <% user.projects.order(:name).each do |project| %>
-            <span class="pl-1" style="border-left: .3rem solid <%= project.color %>">
-              <% if project.participants.where(user_id:current_user.id).any? %>
-                <%= link_to project.name, project_path(project) %>
-              <% else %>
-                <%= project.name %>
-              <% end %>
-            </span>
-            <br>
-          <% end %>
-        </td>
+        <td></td>
+        <th>Nom</th>
+        <th>Rôle</th>
+        <th>Nom de connexion</th>
+        <th>Courriel</th>
+        <th>Participe à</th>
       </tr>
-    <% end %>
-  </tbody>
-  <tfoot>
-    <tr><th colspan=5></th></tr>
-  </tfoot>
-</table>
+    </thead>
 
-<%= link_to 'Ajouter', new_user_path, class:'btn btn-outline' %>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <div class="avatar placeholder">
+              <% if user.avatar.attached? %>
+                <div class="w-16 rounded-full !bg-slate-500">
+                  <%= image_tag user.avatar, class:"camino-avatar" %>
+                </div>
+              <% else %>
+                  <div class="bg-primary-focus text-neutral-content rounded-full w-16">
+                    <span class="text-4xl"><%= user.username.first.humanize %></span>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </td>
+          <td class="font-bold"><%= link_to simple_format(user.name), logs_path(id: user.slug) %></td>
+          <td><%= user.role.humanize %></td>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% user.projects.order(:name).each do |project| %>
+              <span class="pl-1" style="border-left: .3rem solid <%= project.color %>">
+                <% if project.participants.where(user_id:current_user.id).any? %>
+                  <%= link_to project.name, project_path(project) %>
+                <% else %>
+                  <%= project.name %>
+                <% end %>
+              </span>
+              <br>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr><th colspan=6></th></tr>
+    </tfoot>
+  </table>
+</div>

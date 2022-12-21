@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-  audited
-
   extend FriendlyId
-  friendly_id :slug_id, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
+
+  audited
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -36,7 +36,7 @@ class User < ApplicationRecord
 
   private
 
-  def slug_id
+  def slug_candidates
     [SecureRandom.uuid]
   end
 end

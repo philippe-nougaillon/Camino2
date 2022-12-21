@@ -1,6 +1,6 @@
 <div class="mb-8 pl-2" style="border-left: 7px solid <%= @project.color %>">
   <div class="flex items-center">
-    <h2><%= @project.name %></h2>
+    <h2><%= page_title! @project.name %></h2>
     <%= link_to "Modifier", edit_project_path(@project), class: 'ml-3 text-slate-300' %> 
   </div>
   <% unless @project.description.blank? %>
@@ -9,28 +9,25 @@
 </div>
 
 <% unless @project.pct_avancee.zero? %>
-  <p>
-    Avancée : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
-    <small>(<%= @project.pct_avancee %>%)</small>
-  </p>
+  Avancée : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
+  <small>(<%= @project.pct_avancee %>%)</small>
 <% end %>
 
 <% if @project.workflow? and @project.current_todolist %>
-  <p>
-    Phase en cours : <%= @project.current_todolist.name %>
-  </p>
+  | Phase en cours : <%= @project.current_todolist.name %>
 <% end %>
 
 <% if @project.duedate %>
-  <p>
-    Echéance : <strong><%= l(@project.duedate) %></strong>
-  </p>
+  | Échéance : <strong><%= l(@project.duedate) %></strong>
+<% end %>
+
+<% if @project.todos %>
+  | Charge : <strong><%= number_with_precision(@project.todos.sum(:charge_est), precision: 2) %></strong>
+  / <strong><%= number_with_precision(@project.todos.sum(:charge_reelle), precision: 2) %></strong> jours
 <% end %>
 
 <% if @project.tag_list.any? %>
-  <p>
-    Tags : <%= @project.tag_list_on(:tags) %>
-  </p>
+  | Tags : <%= @project.tag_list_on(:tags) %>
 <% end %>
 
 <div class="mt-2">
@@ -38,8 +35,8 @@
     <% if @project.todos.any? %>
       <%= form_tag project_path, method: :get, class:'mb-2' do %>
         Afficher :
-        <%= radio_button_tag :show_only_undone, "no", params[:show_only_undone] == "no", { onchange: "this.form.submit();", class: 'radio radio-sm' } %> Tout
-        <%= radio_button_tag :show_only_undone, "yes", params[:show_only_undone] == "yes", { onchange: "this.form.submit();", class: 'radio radio-sm' } %> Reste à faire
+        <%= radio_button_tag :show_only_undone, "no", params[:show_only_undone] == "no", { onchange: "this.form.submit();", class: 'radio radio-accent radio-sm' } %> Tout
+        <%= radio_button_tag :show_only_undone, "yes", params[:show_only_undone] == "yes", { onchange: "this.form.submit();", class: 'radio radio-accent radio-sm ml-4' } %> Reste à faire
       <% end %>
     <% end %>
   <% else %>
@@ -70,10 +67,12 @@
 <div class="overflow-x-auto">
   <table class="table table-normal">
     <thead>
-      <th><%= @project.workflow? ? 'Phases' : 'Todo List' %></th>
+      <td><%= @project.workflow? ? 'Phases' : 'Todo List' %></td>
       <th>Tâches <%= params[:show_only_undone] == "yes" ? "(à faire)" : "(toutes)" %></th>
       <th>Réalisation</th>
       <th>Echéance</th>
+      <th>Charge est.</th>
+      <th>Réelle</th>
       <th>MÀJ</th>
       <th>Écart</th>
     </thead>
@@ -89,7 +88,7 @@
             <% end %>
           <% end %>
         </th>
-        <td colspan=6></td>
+        <td colspan=7></td>
       </tr>
     </tfoot>  
   </table>
@@ -120,11 +119,9 @@
   <h2 class="mt-4">
     Discussions
   </h2>
-  <table id="logs">
-    <%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0  %>
-  </table>
+  <%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0  %>
   <br>
-  <% if @project.comments.count > 5 %>   
+  <% if @project.comments.count > 5 %>
     <small><i>Liste des 5 derniers commentaires <%= link_to "Afficher tout", comments_path(project_id:@project.id) %></i></small>
     <br>
   <% end %>

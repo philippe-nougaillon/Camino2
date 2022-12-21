@@ -34,9 +34,9 @@
   <% end %>
 
   <% unless @todo.done %>
-    <%= button_to 'Marquer comme fait', {action:'close', id:@todo.id}, class:"btn btn-active btn-ghost" %>
+    <%= button_to 'Marquer comme fait', {action:'close', id:@todo.id}, class:"btn btn-primary btn-outline" %>
   <% else %>
-    <%= button_to 'Ré-ouvrir', {action:'reopen', id:@todo.id}, class:"btn btn-active btn-ghost" %>
+    <%= button_to 'Ré-ouvrir', {action:'reopen', id:@todo.id}, class:"btn btn-primary btn-outline" %>
   <% end %>  
 
   <br>
@@ -69,7 +69,7 @@
     <%= f.radio_button :audience, 2, checked:false, class:"big-radiobutton" %> le Client
     <%= f.radio_button :audience, 0, checked:false, class:"big-radiobutton" %> Tous
     <br><br>
-    <%= f.submit 'Publier', class:'btn btn-active btn-ghost' %>
+    <%= f.submit 'Publier', class:'btn btn-primary btn-outline' %>
   <% end %>
   <br><br>
 </div>

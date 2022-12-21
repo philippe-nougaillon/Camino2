@@ -1,0 +1,42 @@
+<div id="<%= dom_id mail_log %>">
+
+  <p>
+    Il y a <%= time_ago_in_words mail_log.created_at %>
+  </p>
+  <p>
+    <strong>À :</strong>
+    <%= mail_log.to %>
+  </p>
+  <p>
+    <strong>Sujet :</strong>
+    <%= mail_log.subject %>
+  </p>
+  <p>
+    <strong>Date :</strong>
+    <%= l mail_log.created_at %>
+  </p>
+  <p>
+    <strong>Id :</strong>
+    <%= mail_log.message_id %>
+  </p>
+  <p>
+    <strong>Statut :</strong>
+    <% if status = @result["items"].find{|item| item["message"]["headers"]["message-id"] == mail_log.message_id } %>
+      <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+        <div class="collapse-title text-xl font-medium text-error">
+          KO
+        </div>
+        <div class="collapse-content"> 
+          <pre class="mockup-code">
+          <%= JSON.pretty_generate(status) %>
+        </pre>
+        </div>
+      </div>
+
+    <% else %>
+      <span class="text-success">OK</span>
+    <% end %>
+  </p>
+
+  <hr class="my-6">
+</div>

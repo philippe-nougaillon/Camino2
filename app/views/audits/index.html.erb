@@ -27,6 +27,14 @@
                     onchange: "this.form.submit()" %>
       </div>
       <div class="mr-4">
+        <%= label_tag :user_email, "Utilisateur", class: "label" %>
+        <%= f.select :user_email, 
+                    options_for_select(current_user.account.users.pluck(:email).sort, params[:user_email]),
+                    { include_blank: true, label: "Type" }, 
+                    class: 'input select-sm select-bordered w-full max-w-xs',
+                    onchange: "this.form.submit()" %>
+      </div>
+      <div class="mr-4">
         <%= label_tag :audit_action, "Action", class: "label" %>
         <%= f.select :audit_action, 
                       options_for_select(@actions, params[:audit_action]),
@@ -62,4 +70,7 @@
       </tfoot>
     </table>
   </div>
+
+  <%= page_entries_info @audits, entry_name: 'Changement' %>
+  <%= paginate @audits %>
 </div>

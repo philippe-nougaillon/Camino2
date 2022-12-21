@@ -32,4 +32,13 @@ class TodoPolicy < ApplicationPolicy
   def destroy?
     update?
   end
+
+  # /documents/purge
+  def purge?
+    (user.admin? && user.same_account(record.user)) || record.user == user
+  end
+
+  def todo_notifier?
+    user.admin?
+  end
 end

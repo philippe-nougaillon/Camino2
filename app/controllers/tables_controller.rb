@@ -26,7 +26,11 @@ class TablesController < ApplicationController
     respond_to do |format|
       format.html
       format.xls do
-        headers['Content-Disposition'] = "attachment; filename=\"#{@table.name}-#{l(DateTime.now, format: :compact)}\""
+        book = TableToXls.new(@table).call
+        file_contents = StringIO.new
+        book.write file_contents 
+        filename = "#{@table.name}_#{DateTime.now}.xls"
+        send_data file_contents.string.force_encoding('binary'), filename: filename 
       end
     end
   end
@@ -108,6 +112,7 @@ class TablesController < ApplicationController
 
   # GET /tables/new
   def new
+    authorize Table
     @table = Table.new
   end
 
@@ -117,6 +122,7 @@ class TablesController < ApplicationController
   # POST /tables
   # POST /tables.json
   def create
+    authorize Table
     @table = Table.new(table_params)
     @user = current_user
     @table.account = @user.account

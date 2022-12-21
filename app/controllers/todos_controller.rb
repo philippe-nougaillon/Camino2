@@ -30,7 +30,9 @@ class TodosController < ApplicationController
       @todos = @todos.done
 
     when "notify"
-      @todos = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
+      @todos_ids = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
+      @todos = @todos.where(id: @todos_ids.pluck(:id))
+      
     end
 
     unless params[:search].blank?
@@ -38,6 +40,11 @@ class TodosController < ApplicationController
         'todos.name ILIKE ? OR todolists.name ILIKE ? OR projects.name ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%"
       )
     end
+
+    @todos = @todos.reorder(sort_column + ' ' + sort_direction)
+
+    @todos = @todos.page(params[:page]).per(20)
+
 
     respond_to do |format|
       format.html do |variant|
@@ -137,7 +144,7 @@ class TodosController < ApplicationController
         elsif @todo.notify and @todo.user
           # envoyer notification au participant à qui cette tâche est assignée
           mailer_response = Notifier.todo(@todo).deliver_now
-          MailLog.create(message_id:mailer_response.message_id, to:@todo.user.email, subject: "Nouvelle tâche assignée.")
+          MailLog.create(account_id: current_user.account.id, message_id: mailer_response.message_id, to: @todo.user.email, subject: "Nouvelle tâche assignée.")
         end
         format.html { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être ajoutée" }
         format.json { render action: 'show', status: :created, location: @todo }
@@ -162,7 +169,7 @@ class TodosController < ApplicationController
       # il n'y a pas de liste avant celle-là et liste précédente terminée ?
       if !(@project.todolists.minimum(:row) == row) && !@project.todolists.find_by(row: row - 1).done?
         redirect_to @todo.todolist,
-                    notice: "Cette tâche ne peut pas être terminée pour l'instant (Workflow: linéaire)..."
+                    alert: "Cette tâche ne peut pas être terminée pour l'instant (Workflow: linéaire)..."
         return
       end
     end
@@ -176,7 +183,10 @@ class TodosController < ApplicationController
           # envoyer un mail pour prévenir d'une tâche à faire
           next_todo = @project.current_todolist.next_todo
           # logger.debug "DEBUG next_todo: #{next_todo.inspect}"
-          Notifier.next_todo(next_todo).deliver_now if next_todo && next_todo.user
+          if next_todo && next_todo.user
+            mailer_response = Notifier.next_todo(next_todo).deliver_now
+            MailLog.create(account_id: current_user.account.id, message_id:mailer_response.message_id, to:next_todo.user.email, subject: "Prochaine Tâche.")
+          end
         end
 
         format.html do |variant|
@@ -222,6 +232,11 @@ class TodosController < ApplicationController
     redirect_to @todo
   end
 
+  def todo_notifier
+    NotifyUsers.new(current_user.account.todos).call
+    redirect_to user_path(current_user), notice: "Emails des tâches à notifier envoyés"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -231,7 +246,15 @@ class TodosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def todo_params
-    params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :document, :tag_list, :notifydays)
+    params.require(:todo).permit(:name, :todolist_id, :user_id, :done, :notify, :duedate, :document, :tag_list, :notifydays, :charge_est, :charge_reelle)
+  end
+
+  def sort_column
+    Todo.column_names.include?(params[:sort]) ? params[:sort] : 'duedate'
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
   def user_authorized?

@@ -4,14 +4,14 @@
 </div>
 
 <div class="btn-group w-full px-2 mb-6">
-  <%= link_to "À faire", todos_path(filter: "todo"), class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'todo' ? 'btn-active' : '' }" %>
-  <%= link_to "Terminées", todos_path(filter: "done"), class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'done' ? 'btn-active' : '' }" %>
-  <%= link_to "Toutes", todos_path, class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'all' ? 'btn-active' : '' }" %>
+  <%= link_to "À faire", url_for(params.permit(:tag).merge(filter: "todo")), class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'todo' ? 'btn-active' : '' }" %>
+  <%= link_to "Terminées", url_for(params.permit(:tag).merge(filter:  "done")), class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'done' ? 'btn-active' : '' }" %>
+  <%= link_to "Toutes", url_for(params.permit(:tag)), class: "flex-1 btn btn-sm btn-outline #{ params[:filter] == 'all' ? 'btn-active' : '' }" %>
 </div>
 
 <% if @tags.any? %>
-  <div class="flex overflow-x-auto gap-1 pb-4 hidden">
-    <% tag_cloud(@tags, ['btn btn-xs btn-primary', 'btn btn-xs btn-secondary', 'btn btn-sm btn-accent', 'btn btn-sm btn-info']) do |tag, css_class| %>
+  <div class="flex items-center overflow-x-auto gap-1 pb-4">
+    <% tag_cloud(@tags, ['btn btn-xs btn-primary', 'btn btn-xs btn-accent', 'btn btn-sm btn-accent', 'btn btn-sm btn-info']) do |tag, css_class| %>
       <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
     <% end %>
   </div>

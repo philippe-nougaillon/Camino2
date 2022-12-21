@@ -20,7 +20,7 @@
     <div class="field">
       <% if @todolist.project.workflow? and defined?(@rows) %>
          <%= f.label :indice %>
-         <%= f.select :row, options_from_collection_for_select(@rows, 'row', "name_with_indice", @todolist.row) %>
+         <%= f.select :row, options_from_collection_for_select(@rows, 'row', "name_with_indice", @todolist.row), {class: 'select select-bordered select-sm'} %>
       <% end %>
     </div>
 
@@ -31,6 +31,6 @@
       <%= f.date_field :duedate, value:(@todolist.duedate ? @todolist.duedate : nil) %>
     </div>
     <div class="actions">
-        <%= f.submit @todolist.new_record? ? "Ajouter" : "Valider", class: 'btn btn-active btn-ghost' %>
+        <%= f.submit @todolist.new_record? ? "Ajouter" : "Valider", class: 'btn btn-primary btn-outline' %>
     </div>
 <% end %>

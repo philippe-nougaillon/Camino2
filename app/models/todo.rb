@@ -1,10 +1,12 @@
 class Todo < ApplicationRecord
+  include Sortable::Model
   include LogConcern
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
 
   audited
 
-  extend FriendlyId
-  friendly_id :slug_id, use: :slugged
 
   acts_as_taggable
 
@@ -23,6 +25,10 @@ class Todo < ApplicationRecord
   scope :done, -> {where(done:true)} 
   scope :undone, -> {where(done:false)} 
 
+  sortable :name, :duedate
+  sortable :project, -> { joins(:todolist) }, column: "todolists.project_id"
+  sortable :participant, -> { joins(:user) }, column: "users.name"
+
   def preview_name
     if File.extname(self.docname) == ".pdf"
       "/documents/#{self.docfilename}.png"
@@ -35,9 +41,13 @@ class Todo < ApplicationRecord
     "#{self.project.name}:#{self.todolist.name}:#{self.name}"
   end
 
+  def project_todolist_name
+    "#{self.project.name}:#{self.todolist.name}"
+  end
+
   private
 
-  def slug_id
+  def slug_candidates
     [SecureRandom.uuid]
   end
 

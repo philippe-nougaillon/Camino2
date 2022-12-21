@@ -23,19 +23,13 @@
       <%= f.label :sitename, 'Nom du site' %><br>
       <%= f.text_field :sitename %><br>
       <small><i>Afficher le nom de site de votre choix pour remplacer l'actuel 'Camino'</i></small> 
-    </div>  
-
-    <div class="field">
-      <%= f.label 'Logo' %><br>
-      <%= f.file_field :logo %>
     </div>
 
     <div class="field">
       <%= f.label :hostname %><br>
       <%= f.text_field :hostname %><br>
-    </div>  
+    </div>
 
-    <br>
   <% end %>
 
   <% if @account.new_record? %>
@@ -56,7 +50,7 @@
         <%= users_form.label :email, 'Courriel' %><br>
         <%= users_form.text_field :email %><br>
         <small><i>Indiquez l'adresse de messagerie qui recevra les notifications</i></small>
-      </div>  
+      </div>
 
       <div class="field">
         <%= users_form.label :password, 'Mot de passe' %><br>
@@ -73,6 +67,6 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit @account.new_record? ? 'Créer le compte' : 'Enregistrer', class: 'btn btn-active btn-ghost' %>
+    <%= f.submit @account.new_record? ? 'Créer le compte' : 'Enregistrer', class: 'btn btn-primary btn-outline' %>
   </div>
 <% end %>

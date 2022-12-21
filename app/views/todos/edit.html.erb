@@ -2,7 +2,7 @@
   <h2>
     <%= link_to @todo.project.name, @todo.project %> : <%= link_to @todo.todolist.name, @todo.todolist %>
   </h2>
-  <i>Modification de '<%= truncate(@todo.name, length:70, separator:' ') %>'</i>
+  <i><%= page_title! "Modification de #{truncate(@todo.name, length:70, separator:' ')}" %></i>
 </div>
 
 <%= render 'form' %>

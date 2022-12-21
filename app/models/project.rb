@@ -2,10 +2,10 @@ class Project < ApplicationRecord
   include LogConcern
   extend SimpleCalendar
 
-  audited
-
   extend FriendlyId
-  friendly_id :slug_id, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
+
+  audited
 
   acts_as_taggable
     
@@ -54,7 +54,7 @@ class Project < ApplicationRecord
 
   private
 
-  def slug_id
+  def slug_candidates
     [SecureRandom.uuid]
   end
 end
