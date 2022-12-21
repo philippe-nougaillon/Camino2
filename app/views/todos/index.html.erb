@@ -41,7 +41,9 @@
                 <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'text-slate-300 badge badge-outline badge-sm') %>
               <% end %>
             </td>
-            <td style="width:400px;"><b><%= link_to truncate(todo.name, length: 50), edit_todo_path(todo)%></b></td>
+            <td style="width:400px;">
+              <%= link_to truncate(todo.name, length: 50), edit_todo_path(todo), class: 'bold-title text-primary' %>
+            </td>
             <td>
               <%= image_tag(todo.user.avatar, alt:'', class:"mini_avatar") if todo.user.avatar.attached?%>
             </td>

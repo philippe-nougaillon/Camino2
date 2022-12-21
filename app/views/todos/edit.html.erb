@@ -1,6 +1,8 @@
 <div class="mb-8 pl-2" style="border-left: 7px solid <%= @todo.project.color %>">
   <h2>
-    <%= link_to @todo.project.name, @todo.project %> : <%= link_to @todo.todolist.name, @todo.todolist %>
+    <%= link_to @todo.project.name.humanize, @todo.project, class: 'text-primary' %> 
+    : 
+    <%= link_to @todo.todolist.name, @todo.todolist %>
   </h2>
   <i><%= page_title! "Modification de #{truncate(@todo.name, length:70, separator:' ')}" %></i>
 </div>
