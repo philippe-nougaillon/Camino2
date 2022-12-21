@@ -27,7 +27,9 @@
   <%= link_to "Audit Trail", audits_index_path, class:"link" %>
   <% if current_user.admin? %>
     | <%= link_to "Mail Logs", mail_logs_path, class:"link" %>
-    | <%= link_to "Envoyer mails tâches à notifier", todos_todo_notifier_path, class:"link" %> 
+    | <%= link_to "Envoyer mails tâches à notifier", todos_todo_notifier_path, class:"link" %>
+    | <%= link_to "Envoyer daily newsletter", users_daily_newsletter_path, class:"link" %>
+    | <%= link_to "Envoyer weekly newsletter", users_weekly_newsletter_path, class:"link" %>
   <% end %>
 </p>
 

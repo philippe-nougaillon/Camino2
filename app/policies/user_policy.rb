@@ -32,4 +32,12 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     index? && user.same_account(record)
   end
+
+  def daily_newsletter?
+    index?
+  end
+
+  def weekly_newsletter?
+    daily_newsletter?
+  end
 end

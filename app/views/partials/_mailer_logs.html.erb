@@ -1,0 +1,26 @@
+<% if @day != log.created_at.day %>
+  <% @user_id = 0 %>
+  <% @day = log.created_at.day %>
+  <% month_name = I18n.t("date.month_names")[log.created_at.month] %>
+  <h3 class="mt-8 mb-4">
+    <b><%= "#{@day} #{month_name}" %></b>
+  </h3>
+<% end %>
+
+<div class="flex flex-row gap-4 lg:gap-8 mb-1">
+  <div>
+    <p>
+      <% if @user_id != log.user_id %>
+        <% @user_id = log.user_id %>
+        <%= image_tag(log.user.avatar, alt:'', class:'mini_avatar mx-auto') if log.user.avatar.attached? %>
+      <% end %>
+    </p>
+    <p style="color:lightgrey; width:45px;">
+      <%= log.created_at.strftime("%H:%M") %>
+    </p>
+  </div>
+  <p class="break-words my-auto" style="word-break: break-word; border-left: 7px solid <%= log.project.color if log.project %>; padding-left: 0.5rem;">
+    <strong><%= log.user.name %></strong> a
+    <%= raw log.description %>
+  </p>
+</div>

@@ -51,5 +51,8 @@ Rails.application.routes.draw do
 
   get 'audits/index'
 
+  get 'users/daily_newsletter' => 'users#daily_newsletter'
+  get 'users/weekly_newsletter' => 'users#weekly_newsletter'
+
   root 'projects#index'
 end
