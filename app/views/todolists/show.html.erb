@@ -1,7 +1,7 @@
 <div class="flex items-center mb-6 ">
   <h2>
     <span class="pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
-      <%= link_to @todolist.project.name, @todolist.project, class:'link' %>
+      <%= link_to @todolist.project.name.humanize, @todolist.project, class: 'text-primary' %>
       : <%= page_title! @todolist.name %>
     </span>
   </h2>

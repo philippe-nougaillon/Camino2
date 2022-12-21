@@ -34,7 +34,7 @@
           <tr class="hover">
             <td class="w-px opacity-50" style="background-color:<%= project.color %>"></td>
             <td>
-              <%= link_to project.name, project, class: 'bold-title' %>
+              <%= link_to project.name.humanize, project, class: 'bold-title text-primary' %>
               <br>
               <i><small><%= truncate(project.description, length: 100) %></small></i>
             </td>

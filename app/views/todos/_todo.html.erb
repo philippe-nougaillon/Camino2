@@ -8,7 +8,7 @@
   </td>
   <td>
     <% unless todo.done %>
-      <b><%= link_to todo.name, edit_todo_path(todo) %></b>
+      <%= link_to todo.name, edit_todo_path(todo), class: 'bold-title text-primary' %>
     <% else %>
       <del><b><%= todo.name %></b></del>
     <% end %>
