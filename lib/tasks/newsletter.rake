@@ -9,9 +9,11 @@ namespace :newsletter do
 
   desc "Envoyer la weekly newsletter"
   task weekly: :environment do
-    Account.all.each do |account|
-      WeeklyNewsletter.new(account).call
-      puts "DEBUG Weekly Newsletter for account ##{account.id}"
+    if Date.today.wday == 5
+      Account.all.each do |account|
+        WeeklyNewsletter.new(account).call
+        puts "DEBUG Weekly Newsletter for account ##{account.id}"
+      end
     end
   end
 end
