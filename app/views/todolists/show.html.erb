@@ -1,11 +1,11 @@
-<div class="flex items-center mb-6 ">
-  <h2>
-    <span class="pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
+<div class="mb-8 pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
+  <div class="flex items-center">
+    <h2>
       <%= link_to @todolist.project.name.humanize, @todolist.project, class: 'text-primary' %>
       : <%= page_title! @todolist.name %>
-    </span>
-  </h2>
-  <%= link_to "Modifier" , edit_todolist_path(@todolist), class: 'ml-3 text-slate-300' %> 
+    </h2>
+    <%= link_to "Modifier" , edit_todolist_path(@todolist), class: 'ml-3 text-slate-300' %> 
+  </div>
 </div>
 
 <% if @todos.any? %>
