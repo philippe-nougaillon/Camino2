@@ -33,3 +33,7 @@
   width: calc( 100% + 3px );
   height: calc( 100% + 3px );
 }
+
+.table#documents_table td {
+  vertical-align: middle;
+}

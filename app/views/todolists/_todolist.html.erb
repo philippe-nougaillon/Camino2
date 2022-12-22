@@ -4,9 +4,9 @@
       <i><%= todolist.row %>.</i>
     <% end %>
     <% if todolist.done? %>
-      <del><%= link_to todolist.name, todolist, class: 'bold-title text-primary' %></del>
+      <del><%= link_to todolist.name, todolist, class: 'text-lg text-primary' %></del>
     <% else %>
-      <%= link_to todolist.name, todolist, class: 'bold-title text-primary', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
+      <%= link_to todolist.name, todolist, class: 'text-lg text-primary', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
     <% end %>
   </th>
   <td>

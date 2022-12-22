@@ -76,16 +76,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def daily_newsletter
-    DailyNewsletter.new(current_user.account).call
-    redirect_to user_path(current_user), notice: "Daily newsletter envoyée"
-  end
-
-  def weekly_newsletter
-    WeeklyNewsletter.new(current_user.account).call
-    redirect_to user_path(current_user), notice: "Weekly newsletter envoyée"
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

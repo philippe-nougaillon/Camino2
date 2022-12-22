@@ -9,21 +9,26 @@
       <div class="field">
         <%= label_tag :account, 'Entreprise' %><br />
         <%= text_field_tag :account, params[:account], { class:"input input-bordered w-full", required: true } %>
+        <small><i>Veuillez nommer votre espace de projets. C'est dans cet espace que seront partagés les projets entre vous et les participants que vous inviterez.<br>
+    Vous pouvez en avoir plusieurs, selon la nature de vos projets (Pro/Perso/etc.).</i></small>
       </div>
 
       <div class="field">
         <%= f.label :name, 'Votre nom / prénom' %><br />
         <%= f.text_field :name, class:"input input-bordered w-full", required: true %>
+        <small><i>C'est le nom que verront les autres participants</i></small>
       </div>
 
       <div class="field">
         <%= f.label :username, 'Nom d\'utilisateur' %><br />
         <%= f.text_field :username, class:"input input-bordered w-full", required: true %>
+        <small><i>Faites court, si vous avez un pseudo, c'est le moment de l'utiliser ;-)</i></small>
       </div>
 
       <div class="field">
         <%= f.label :email %><br />
         <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full text-black", required: true %>
+        <small><i>Cet identifiant vous sera demandé à chaque connexion.<br> Indiquez l'adresse de messagerie qui recevra les notifications</i></small>
       </div>
 
       <div class="field">
