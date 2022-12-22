@@ -24,8 +24,8 @@
   </td>
   <td>
     <% if todo.tags.any? %>
-        <% tag_cloud(todo.tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-          <%= link_to(tag.name.humanize, todos_path(tag:tag.name), class: 'badge') %>
+        <% tag_cloud(todo.tags, ['badge badge-outline badge-sm', 'badge badge-outline', 'badge badge-outline badge-md', 'badge badge-outline badge-lg']) do |tag, css_class| %>
+          <%= link_to(tag.name.humanize, todos_path(tag:tag.name), class: css_class) %>
         <% end %>
     <% end %>
   </td>
