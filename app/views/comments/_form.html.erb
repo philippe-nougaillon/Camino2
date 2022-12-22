@@ -26,12 +26,6 @@
     </div>
 
     <%= f.text_field :texte, class:"input input-bordered w-full lg:w-1/3" %>
-    <p>
-      Visible par:
-      <%= f.radio_button :audience, 1, checked:true %> l'Equipe
-      <%= f.radio_button :audience, 2, checked:false %> le Client
-      <%= f.radio_button :audience, 0, checked:false %> Tous
-    </p>
     <%= f.submit 'Publier', class:'btn btn-primary btn-outline' %>
   </div>
 <% end %>

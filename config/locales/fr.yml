@@ -263,6 +263,8 @@ fr:
   todos:
     index:
       title: "To-do"
+    edit:
+      title: "Modification To-do"
   agenda:
     index:
       title: "Agenda"

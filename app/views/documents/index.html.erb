@@ -1,7 +1,7 @@
 <h1 class="mb-6">Documents</h1>
 
 <div class="overflow-x-auto">
-  <table id="documents_table" class="table table-zebra">
+  <table id="documents_table" class="table table-zebra table-normal">
     <thead>
       <tr>
         <td></td>
@@ -22,7 +22,7 @@
             <% end %>
           </td>
           <td>
-            <%= link_to doc.filename.base, rails_blob_path(doc, disposition: "attachment"), class:'link text-primary', target: "_blank" %>
+            <%= link_to doc.filename.base, rails_blob_path(doc, disposition: "attachment"), class:'text-primary', target: "_blank" %>
           </td>
           <td>
             <%= doc.content_type %>

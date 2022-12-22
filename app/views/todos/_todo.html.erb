@@ -8,9 +8,9 @@
   </td>
   <td>
     <% unless todo.done %>
-      <%= link_to todo.name, edit_todo_path(todo), class: 'text-lg text-primary' %>
+      <%= link_to todo.name.humanize, edit_todo_path(todo), class: 'text-lg text-primary' %>
     <% else %>
-      <del><b><%= todo.name %></b></del>
+      <del><b><%= todo.name.humanize %></b></del>
     <% end %>
   </td>
   <td><%= todo.user.name if todo.user %></td>
@@ -25,7 +25,7 @@
   <td>
     <% if todo.tags.any? %>
         <% tag_cloud(todo.tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-          <%= link_to(tag.name, todos_path(tag:tag.name)) %>
+          <%= link_to(tag.name.humanize, todos_path(tag:tag.name), class: 'badge') %>
         <% end %>
     <% end %>
   </td>

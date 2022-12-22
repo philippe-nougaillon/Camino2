@@ -51,14 +51,7 @@
     <div class="flex flex-wrap items-center mb-4">
 
       <%= f.text_area :texte, class:"textarea textarea-bordered w-full mb-4" %>
-      <div class="mb-4 w-full">
-        <h3 class="font-bold">Visible par :</h3>
-        <div class="flex justify-around">
-          <div><%= f.radio_button :audience, 1, checked:true, class:'radio' %> l'Equipe</div>
-          <div><%= f.radio_button :audience, 2, checked:false, class:'radio' %> le Client</div>
-          <div><%= f.radio_button :audience, 0, checked:false, class:'radio' %> Tous</div>
-        </div>
-      </div>
+
       <%= f.submit 'Publier', class:'btn btn-primary btn-outline btn-block' %>
     </div>
   <% end %>
