@@ -7,6 +7,16 @@
     <h1 class="font-bold text-4xl">Mail logs</h1>
   </div>
 
+  <%= form_tag request.path, method: :get, class: 'mb-6' do %>
+    <%= label_tag :to, "Destinataire :" %>
+    <%= select_tag :to, 
+                    options_for_select(current_user.account.mail_logs.pluck(:to).uniq.sort, params[:to]), 
+                    include_blank: true, 
+                    class: 'select select-bordered select-sm',
+                    data: { 'action-target': 'selector' },
+                    onchange: 'this.form.submit()' %>
+  <% end %>
+
   <div id="mail_logs" class="min-w-full">
     <%= render @mail_logs %>
   </div>

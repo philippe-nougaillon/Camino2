@@ -9,6 +9,10 @@ class MailLogsController < ApplicationController
 
     @mail_logs = current_user.account.mail_logs
 
+    unless params[:to].blank?
+      @mail_logs = @mail_logs.where("LOWER(mail_logs.to) like :search", {search: "%#{params[:to]}%".downcase})
+    end
+
     @mail_logs = @mail_logs.page(params[:page]).per(20)
   end
 
