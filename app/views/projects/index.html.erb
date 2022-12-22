@@ -18,7 +18,6 @@
     <table class="table table-normal">
       <thead>
         <tr>
-          <th />
           <th>Nom / Description</th>
           <th>Échéance</th>
           <th>Charge</th>
@@ -32,9 +31,8 @@
       <tbody>
         <% @projects.each do |project| %>
           <tr class="hover">
-            <td class="w-px opacity-50" style="background-color:<%= project.color %>"></td>
-            <td>
-              <%= link_to project.name.humanize, project, class: 'text-lg text-primary' %>
+            <td class="mb-8 pl-2" style="border-left: 7px solid <%= project.color %>">
+              <%= link_to project.name.humanize, project, class: 'bold-title text-primary' %>
               <br>
               <i><small><%= truncate(project.description, length: 100) %></small></i>
             </td>

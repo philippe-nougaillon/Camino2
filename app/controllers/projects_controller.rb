@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @user = current_user
-    @projects = @user.projects
+    @projects = @user.projects.order(:name)
     @logs = @user.logs.except_comments.limit(5)
     @comments = @user.comments.limit(5)
     @tags = @projects.tag_counts_on(:tags)
