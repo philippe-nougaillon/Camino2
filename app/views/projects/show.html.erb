@@ -9,7 +9,7 @@
 </div>
 
 <% unless @project.pct_avancee.zero? %>
-  Avancée : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
+  Progression : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
   <small>(<%= @project.pct_avancee %>%)</small>
 <% end %>
 

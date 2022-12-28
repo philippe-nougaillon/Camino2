@@ -1,0 +1,57 @@
+<%= link_to project do %>
+  <div class="px-2 mr-1" style="border-left: 5px solid <%= project.color %>">
+    <div class="card shadow mb-2 py-4 px-2">
+      <h2 class="text-lg text-primary"><%= project.name.humanize %></h2>
+      <% unless project.description.blank? %>
+        <i><small><%= truncate(project.description, length: 100) %></small></i>
+        <br>
+      <% end %>
+      <br>
+      <% unless project.duedate.blank? %>
+        Échéance :
+        <b><%= l(project.duedate) %></b>
+        <br>
+      <% end %>
+      Charge :
+      <%= number_with_precision(project.todos.sum(:charge_est), precision: 2) %> j
+      / <%= number_with_precision(project.todos.sum(:charge_reelle), precision: 2) %> j
+      <% if project.workflow? and project.current_todolist %>
+        <br>
+        <small><%= truncate(project.current_todolist.name, length: 15) %></small>
+      <% end %>
+      <br>
+      <%= "MÀJ : il y a #{time_ago_in_words(project.last_update)}" if project.logs.any? %>
+      <br>
+      Participants :
+      <br>
+      <div class="flex">
+        <%= link_to users_path(project_id: project.slug) do %>
+          <div class="avatar-group -space-x-6">
+            <% project.users.each do |user| %>
+              <div class="avatar placeholder">
+                <% if user.avatar.attached? %>
+                  <div class="w-8 rounded-full !bg-slate-500">
+                    <%= image_tag(user.avatar, size:'15x15', alt:'', class:"mini_avatar inline") %>
+                  </div>
+                <% else %>
+                  <div class="bg-primary-focus text-neutral-content rounded-full w-8">
+                    <span><%= user.username.first.humanize %></span>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <%= link_to invite_path(id:project.slug), title:'Inviter un nouveau participant', class:'ml-2' do %>
+          <div class="badge badge-accent badge-outline rounded badge-lg mt-2 pb-0.5 shadow">+</div>
+        <% end %>
+      </div>
+      <br>
+      
+      Progression
+      <% unless project.todos.count.zero? %>
+        <progress class="progress progress-success w-56" value=<%= project.pct_avancee %> max="100"></progress>
+      <% end %>
+    </div>
+  </div>
+<% end %>

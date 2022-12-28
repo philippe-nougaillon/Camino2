@@ -1,0 +1,107 @@
+<div class="pl-2" style="border-left: 7px solid <%= @project.color %>">
+  <div class="flex items-center">
+    <h2 class="text-primary"><%= page_title! @project.name.humanize %></h2>
+    <%= link_to "Modifier", edit_project_path(@project), class: 'ml-3 text-slate-300' %> 
+  </div>
+  <% unless @project.description.blank? %>
+    <i><%= @project.description %></i>
+  <% end %>
+
+  <% if @project.tag_list.any? %>
+    <br>
+    <div class="flex items-center overflow-x-auto gap-1 pb-4">
+      <% tag_cloud(@project.tags, ['badge  badge-outline badge-xs', 'badge badge-outline badge-sm', 'badge badge-outline', 'badge badge-outline badge-md']) do |tag, css_class| %>
+        <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @project.workflow? and @project.current_todolist %>
+    <br>
+    <%= @project.current_todolist.name %>
+  <% end %>
+
+  <% if @project.duedate %>
+    <br>
+    Échéance :
+    <strong><%= l(@project.duedate) %></strong>
+  <% end %>
+
+  <% if @project.todos %>
+    <br>
+    Charge :
+    <strong><%= number_with_precision(@project.todos.sum(:charge_est), precision: 2) %></strong>
+    / <strong><%= number_with_precision(@project.todos.sum(:charge_reelle), precision: 2) %></strong> jours
+  <% end %>
+
+  <br>
+  Progression
+  <br>
+  <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
+  <small>(<%= @project.pct_avancee %>%)</small>
+</div>
+
+<div class="mt-2">
+  <% if @project.todolists.any? %>
+    <% if @project.todos.any? %>
+      <div class="btn-group w-full px-2 mt-6">
+        <%= link_to "Tout (#{@project.todos.count})", url_for(params.permit(:tag).merge(show_only_undone: "no")), class: "flex-1 btn btn-sm btn-outline #{ params[:show_only_undone] == 'no' ? 'btn-active' : '' }" %>
+        <%= link_to "Reste à faire (#{@project.todos.done.count})", url_for(params.permit(:tag).merge(show_only_undone: "yes")), class: "flex-1 btn btn-sm btn-outline #{ params[:show_only_undone] == 'yes' ? 'btn-active' : '' }" %>
+      </div>
+    <% end %>
+  <% else %>
+    <small>
+      <i>
+        Il n'y a aucune liste pour l'instant...
+        <br><br>
+        Ces listes de choses à faire (Todo List) ou phases séquentielles (Mode linéaire) servent à découper un projet en tranches ou par thématique. 
+        <br>
+        Ex: Préparation / Travaux / Réception ou Début / Milieu / Fin (Mode Libre) ou Prospection => Evaluation => Devis => Commande => Livraison => Facturation (Mode Linéaire)
+        <br><br>
+        Cliquez sur 
+        <%= link_to new_todolist_path(id: @project.slug), title: 'Ajouter une Todo List/Phase' do %>
+          <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+        <% end %> 
+        pour saisir le nom de votre première liste.
+      </i>
+    </small>
+  <% end %>
+</div>
+
+
+<% unless @project.memo.blank? %>
+  &nbsp;&nbsp;<i><%= @project.memo %></i>
+<% end %>
+<br>
+
+<%= render partial: 'todolist_phone', collection:@todolists, as: :todolist %>
+
+<% if @logs.any? %>
+  <br>
+  <h2 class="mt-4">
+    Activité
+  </h2>
+  <table id="logs">
+    <%= render partial:'logs/log', collection: @logs, :day => 0 %>
+  </table>
+  <br>
+  <% if @logs.count > 5 %>
+    <small>
+      <i>Liste des 5 derniers changements <%= link_to "Afficher tout", logs_path(project_id:@project.id), class:"link" %></i>
+    </small>
+    <br>
+  <% end %>
+<% end %>
+
+<% if @comments.any? %>
+  <br>
+  <h2 class="mt-4">
+    Discussions
+  </h2>
+  <%= render partial:'comments/commentfull', collection:@comments, as: :comment, day:0  %>
+  <br>
+  <% if @project.comments.count > 5 %>
+    <small><i>Liste des 5 derniers commentaires <%= link_to "Afficher tout", comments_path(project_id:@project.id) %></i></small>
+    <br>
+  <% end %>
+<% end %>

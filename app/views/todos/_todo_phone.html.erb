@@ -1,4 +1,4 @@
-<div class="pl-2 mr-1" style="border-right: 3px solid <%= todo.project.color %>">
+<div class="pl-2 mr-1" style="border-left: 5px solid <%= todo.project.color %>">
   <div class="flex items-center pl-4 pr-2 my-1">
     <% if policy(todo).update? %>
       <%= form_for todo do |f| %>
