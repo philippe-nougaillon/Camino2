@@ -5,7 +5,7 @@
 
   <%= image_tag(@todo.done ? 'yes.png': 'checkboxno.png', size:'100x100') %><br><br>
   
-  <span class="pl-1" style="border-left: .3rem solid <%= todo.project.color %>">
+  <span class="pl-1" style="border-left: .3rem solid <%= @todo.project.color %>">
     <%= "#{@todo.project.name} : #{@todo.todolist.name}" %>
   </span>
   <br><br>

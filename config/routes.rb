@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :logs
   resources :todolists, except: :index
   resources :participants, only: %i[ edit update ]
-  resources :todos
+  resources :todos, except: %i[ show ]
   resources :projects
   resources :tables
   resources :fields, only: %i[ edit update create destroy ]

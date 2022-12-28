@@ -54,22 +54,6 @@ class TodosController < ApplicationController
     end
   end
 
-  # GET /todos/1
-  # GET /todos/1.json
-  def show
-    authorize @todo
-
-    @comment = Comment.new
-    @comment.todo_id = @todo.id
-    @comment.user_id = @user.id
-    @table = Table.find(@todo.project.table_id) if @todo.project.table_id
-
-    respond_to do |format|
-      format.html.phone
-      format.html.none
-    end
-  end
-
   # GET /todos/new
   def new
     @todo = Todo.new
