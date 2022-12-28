@@ -16,10 +16,12 @@
   </head>
 
   <body class="bg-gray-50 min-h-screen">
-    <%= render partial: "partials/navbar" %>
-    <main class="mx-auto px-2 lg:px-12">
-      <%= yield %>
-      <%= render partial: "partials/notification" %>
-    </main>
+    <div data-controller="service-worker">
+      <%= render partial: "partials/navbar" %>
+      <main class="mx-auto px-2 lg:px-12">
+        <%= yield %>
+        <%= render partial: "partials/notification" %>
+      </main>
+    </div>
   </body>
 </html>
