@@ -11,30 +11,40 @@
 
     <% if params[:show_only_undone] == "yes" %>
       <% todolist.todos.undone.each_with_index do |todo, index| %>
-        <%= link_to todo.name.humanize, edit_todo_path(todo), class:'mr-2' %>
+        <ul>
+          <%= link_to edit_todo_path(todo) do %>
+            <li>
+            - <%= todo.name.humanize %>
+            </li>
+          <% end %>
+        </ul>
       <% end %>
     <% else %>
       <ul>
-        <% todolist.todos.pluck(:name).each do |element| %>
+        <% todolist.todos.each do |todo| %>
           <li>
-          - <%= element.humanize %>
+          - <span class="<%= todo.done ? 'line-through' : '' %>"><%= todo.name.humanize %></span>
           </li>
         <% end %>
       </ul>
     <% end %>
 
-    <br>
-    Échéance :
-    <%= l(todolist.duedate) if todolist.duedate %>
+    <% if todolist.duedate %>
+      <br>
+      Échéance :
+      <%= l(todolist.duedate) %>
+    <% end %>
 
     <br>
     Charge :
     <%= number_with_precision(todolist.todos.sum(:charge_est), precision: 2) %> j
-    <%= number_with_precision(todolist.todos.sum(:charge_reelle), precision: 2) %> j
+    / <%= number_with_precision(todolist.todos.sum(:charge_reelle), precision: 2) %> j
 
-    <br>
-    MÀJ : il y a
-    <%= time_ago_in_words(l(todolist.todos.done.maximum(:updated_at).to_date)) if todolist.todos.done.any? %>
+    <% if todolist.todos.done.any? %>
+      <br>
+      MÀJ : il y a
+      <%= time_ago_in_words(l(todolist.todos.done.maximum(:updated_at).to_date)) %>
+    <% end %>
 
     <% if todolist.duedate and todolist.todos.done.any? %>
       <br>
