@@ -8,8 +8,7 @@
   <% end %>
 
   <% if @project.tag_list.any? %>
-    <br>
-    <div class="flex items-center overflow-x-auto gap-1 pb-4">
+    <div class="flex items-center overflow-x-auto gap-1 py-4">
       <% tag_cloud(@project.tags, ['badge badge-outline badge-sm', 'badge badge-outline', 'badge badge-outline badge-md', 'badge badge-outline badge-lg']) do |tag, css_class| %>
         <%= link_to(tag.name, project_path(tag:tag.name), class: css_class) %>
       <% end %>

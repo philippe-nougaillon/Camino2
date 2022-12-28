@@ -15,7 +15,10 @@ class TodosController < ApplicationController
     end
     @todos = @todos.order('todos.duedate')
 
-    @todos = @todos.tagged_with(params[:tag]) unless params[:tag].blank?
+    unless params[:tag].blank?
+      @todos = @todos.tagged_with(params[:tag])
+    end
+
     @tags = @todos.tag_counts_on(:tags)
 
     case params[:filter]
