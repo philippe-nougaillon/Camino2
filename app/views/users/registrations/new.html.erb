@@ -7,10 +7,10 @@
       <%= render "users/shared/error_messages", resource: resource %>
 
       <div class="field">
-        <%= label_tag :account, 'Entreprise' %><br />
+        <%= label_tag :account, 'Nom de l\'Espace de travail' %><br />
         <%= text_field_tag :account, params[:account], { class:"input input-bordered w-full", required: true } %>
-        <small><i>Veuillez nommer votre espace de projets. C'est dans cet espace que seront partagés les projets entre vous et les participants que vous inviterez.<br>
-    Vous pouvez en avoir plusieurs, selon la nature de vos projets (Pro/Perso/etc.).</i></small>
+        <small><i>Veuillez nommer votre espace de travail (habituellement le nom de votre entreprise). C'est dans cet espace que seront partagés les projets entre vous et les participants que vous inviterez.<br>
+        Vous pouvez en avoir plusieurs, selon la nature de vos projets (Pro/Perso/etc.).</i></small>
       </div>
 
       <div class="field">
