@@ -1,0 +1,35 @@
+<div class="mb-8 pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
+  <div class="flex items-center">
+    <h2>
+      <%= link_to @todolist.project.name.humanize, @todolist.project, class: 'text-primary' %>
+      : <%= page_title! @todolist.name.humanize %>
+    </h2>
+    <%= link_to "Modifier" , edit_todolist_path(@todolist), class: 'ml-3 text-slate-300' %> 
+  </div>
+</div>
+
+<% if @todos.any? %>
+  <%= render partial:'todos/todo', collection: @todos %>
+<% else %>
+  <small><i>Commencez cette liste en ajoutant, ci-dessous, une première chose à faire</i></small><br><br>
+<% end %>
+
+<% if policy(Todo).new? %>
+  <%= render partial:'todos/form' %>
+<% end %>
+
+<% if @todolist.logs.any? %>
+  <br>
+  <hr class="style-two">
+  <h2 class="mt-6">
+    Activité
+  </h2>
+  <%= render partial:'logs/log', collection:@todolist.logs.limit(15) %>
+  <br>
+  <% if @todolist.logs.count > 15 %>   
+    <small><i>Liste des 15 derniers changements.
+      <%= link_to "Afficher tout", logs_path(project_id:@todolist.project.id) %>
+    </i></small>
+    <br>
+  <% end %>
+<% end %>

@@ -1,0 +1,69 @@
+<%= form_for(@todo, multipart: true) do |f| %>
+  <div class="p-2 shadow">
+    <h2 class="">Nouvelle Todo</h2>
+    <%= f.hidden_field :todolist_id %>
+    <br>
+    <%= f.label :name, 'Nom' %>
+    <%= f.text_field :name, class: 'input input-bordered w-full mb-4', required: true %>
+
+    <div class="inline-flex flex-wrap items-center gap-4">
+      <div class="w-full">
+        <%= f.label :user_id, 'Assigné à' %>
+        <%= f.select :user_id, 
+                      options_from_collection_for_select(@project.users.order(:name), "id", "name", @todo.user_id),
+                      { include_blank: true },
+                      { class: 'select select-bordered select-sm w-full', required: true } %>
+      </div>
+
+      <div>
+        <%= f.check_box :notify, class: 'checkbox checkbox-primary' %>
+        <%= f.label :notify, "Notifier ?" %>
+      </div>
+    </div>
+    <div class="mt-4">
+      <%= f.label :duedate, 'Échéance' %>
+      <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered input-sm w-full' %>
+    </div>
+
+    <div class="mt-4">
+      <%= f.label :charge_est, 'Charge estimée (jours)' %>
+      <%= f.number_field :charge_est, step: :any, class: 'input input-bordered input-sm w-full' %>
+    </div>
+
+    <div class="mt-4">
+      <%= f.label :charge_reelle, 'Charge réelle (jours)' %>
+      <%= f.number_field :charge_reelle, step: :any, class: 'input input-bordered input-sm w-full' %>
+    </div>
+
+    <small class="block mt-4">Cette échéance va s'ajouter au calendrier du participant assigné et un rappel lui sera envoyé à J-
+      <%= f.select :notifydays, options_for_select((1..10), @todo.notifydays.to_s), {}, { class:'select select-xs select-bordered' } %>
+    </small>
+    <br>
+
+    <div>
+      <%= f.label :document, "Document" %>
+      <%= f.file_field :document, class:"file-input file-input-bordered file-input-sm w-full", accept: "application/pdf" %>
+    </div>
+
+    <div class="mt-4">
+      <%= f.label :tag_list, 'Tags' %>
+      <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered input-sm w-full' %>
+      <small><i>Pour regrouper vos todos par thème (séparés d'une virgule, ex: Urgent, Travaux, Voirie)</i></small>
+    </div>
+
+    <% if @table %>
+      <div class="my-4">
+        <%= link_to "Ajouter des données dans la table '#{@table.name.humanize}'", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
+        <% if @table.values.where(todo_id: @todo.id).any? %>
+          |
+          <%= link_to "Afficher les données saisies", table_path(@table, project: @todo.project.name), class:'link' %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="mt-4">
+      <%= f.submit @todo.new_record? ? "Ajouter" : "Enregistrer", class: 'btn btn-primary btn-outline btn-block' %> 
+    </div>
+  </div>
+
+<% end %>
