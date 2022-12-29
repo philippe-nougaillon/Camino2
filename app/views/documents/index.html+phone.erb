@@ -1,6 +1,6 @@
-<h1 class="mb-6">Document mobile</h1>
+<h1 class="mb-6">Documents</h1>
 
-<div class="flex flex-wrap gap-8">
+<div class="flex flex-wrap gap-8 mb-6">
   <% @documents.each do |doc| %>
     <div class="card shadow p-4">
       <p class="text-primary text-lg break-words"><%= doc.filename.base %></p>
