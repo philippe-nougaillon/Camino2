@@ -11,15 +11,15 @@
 
 <% if @tags.any? %>
   <div class="flex items-center overflow-x-auto gap-1 pb-4 mx-2">
-    <% tag_cloud(@tags, ['badge badge-outline badge-xs', 'badge badge-outline badge-sm', 'badge badge-outline', 'badge badge-outline badge-md']) do |tag, css_class| %>
-      <%= link_to(tag.name, todos_path(tag:tag.name), class: css_class) %>
+    <% tag_cloud(@tags, ['badge-xs', 'badge-sm', '', 'badge-md']) do |tag, css_class| %>
+      <%= link_to(tag.name, todos_path(tag:tag.name), class: 'badge badge-outline break-keep whitespace-nowrap ' + css_class) %>
     <% end %>
   </div>
 <% end %>
 <br>
 
 <% if @todos.any? %>
-  <%= render partial: 'todo_phone', collection:@todos, as: :todo %>
+  <%= render partial: 'todo', collection:@todos, as: :todo %>
 <% else %>
   Rien à afficher...
 <% end %>

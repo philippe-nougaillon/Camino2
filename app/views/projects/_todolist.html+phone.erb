@@ -3,11 +3,7 @@
     <% if todolist.project.workflow? %>
       <i><%= todolist.row %>.</i>
     <% end %>
-    <% if todolist.done? %>
-      <b><%= link_to todolist.name.humanize, todolist, class: 'text-lg text-primary line-through' %></b>
-    <% else %>
-      <b><%= link_to todolist.name.humanize, todolist, class: 'text-lg text-primary', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %></b>
-    <% end %>
+    <b class= "text-lg text-primary <%= todolist.done? ? 'line-through' : '' %>"><%= todolist.name.humanize %></b>
 
     <% if params[:show_only_undone] == "yes" %>
       <% todolist.todos.undone.each_with_index do |todo, index| %>

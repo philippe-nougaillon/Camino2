@@ -3,8 +3,8 @@
 <% if @tags.any? %>
   <div class="mb-4">
     Tags :
-    <% tag_cloud(@tags, ['badge badge-outline badge-sm', 'badge badge-outline', 'badge badge-outline badge-md', 'badge badge-outline badge-lg']) do |tag, css_class| %>
-      <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: css_class) %>
+    <% tag_cloud(@tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
+      <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'badge badge-outline ' + css_class) %>
     <% end %>
   </div>
 <% end %>
