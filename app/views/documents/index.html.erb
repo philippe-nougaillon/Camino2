@@ -18,7 +18,7 @@
         <tr>
           <td>
             <% if doc.previewable? %>
-              <%= link_to image_tag(doc.preview(resize_to_limit: [150, 150])), doc %>
+              <%= link_to image_tag(doc.preview(resize_to_limit: [150, 150]), class: 'max-w-none'), doc %>
             <% end %>
           </td>
           <td>

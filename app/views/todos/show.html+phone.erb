@@ -28,7 +28,7 @@
 
   <% if @todo.duedate %>
     <small>
-      Echéance: <%= @todo.duedate >= Date.today ? "dans" : "il y a" %> <%= time_ago_in_words(@todo.duedate) %>
+      Échéance: <%= @todo.duedate >= Date.today ? "dans" : "il y a" %> <%= time_ago_in_words(@todo.duedate) %>
     </small>
     <br><br>
   <% end %>

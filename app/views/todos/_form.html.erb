@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="sm:ml-16">
-      <%= f.label :duedate, 'Echéance :' %>
+      <%= f.label :duedate, 'Échéance :' %>
       <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered mt-4' %>
 
       <%= f.label :charge_est, 'Charge estimée :' %>
@@ -49,7 +49,7 @@
       <div class="flex flex-wrap items-center gap-4">
         <div>
           <%= f.label :document, "Document :" %>
-          <%= f.file_field :document, class:"mb-4 sm:mb-0", accept: "application/pdf" %>
+          <%= f.file_field :document, class:"mb-24 sm:mb-0 file-input file-input-bordered file-input-sm", accept: "application/pdf" %>
         </div>
 
         <div>

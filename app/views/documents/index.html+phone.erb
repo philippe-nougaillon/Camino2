@@ -1,0 +1,37 @@
+<h1 class="mb-6">Document mobile</h1>
+
+<div class="flex flex-wrap gap-8">
+  <% @documents.each do |doc| %>
+    <div class="card shadow p-4">
+      <p class="text-primary text-lg break-words"><%= doc.filename.base %></p>
+      <% if doc.previewable? %>
+        <%= link_to image_tag(doc.preview(resize_to_limit: [500, 500]), class: 'shadow'), doc %>
+      <% end %>
+      <%= link_to "#{doc.record.todolist.project.name}:#{doc.record.todolist.name}:#{doc.record.name}", doc.record.todolist, class: "pl-2 text-justify mt-4", style:"border-left: .3rem solid #{doc.record.todolist.project.color}" %>
+    </div>
+  <% end %>
+</div>
+
+<% if @logs.any? %>
+  <div style="display:block;clear: both;">
+    <br>
+    <hr class="style-two">
+
+    <h3>Activité</h3>
+    <table id="logs">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= render partial:'documents/document', collection:@logs, as: :log, day:0, user_id:0 %>  
+      </tbody>
+    </table>
+    <br>
+  </div>
+<% end %>

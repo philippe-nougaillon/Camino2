@@ -27,10 +27,11 @@
     <div class="field">
       <%= f.hidden_field :project_id %>
       <%= f.text_field :name, placeholder: @placeholder, required: true, class:'w-full md:w-1/4 mb-4' %>
-      <%= f.label 'Échéance :' %>
-      <%= f.date_field :duedate, value:(@todolist.duedate ? @todolist.duedate : nil) %>
+      <%= f.label 'Échéance' %>
+      <br>
+      <%= f.date_field :duedate, value:(@todolist.duedate ? @todolist.duedate : nil), class:'w-full' %>
     </div>
     <div class="actions">
-        <%= f.submit @todolist.new_record? ? "Ajouter" : "Valider", class: 'btn btn-primary btn-outline' %>
+        <%= f.submit @todolist.new_record? ? "Ajouter" : "Valider", class: 'btn btn-primary btn-outline btn-block' %>
     </div>
 <% end %>
