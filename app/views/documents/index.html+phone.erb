@@ -1,14 +1,14 @@
-<h1 class="mb-6">Documents</h1>
+<h1>Documents</h1>
 
 <div class="flex flex-wrap gap-8 mb-6">
   <% @documents.each do |doc| %>
     <%= link_to doc do %>
-      <div class="card camino-animation shadow p-4">
-        <p class="text-primary text-lg break-words"><%= doc.filename.base %></p>
+      <div class="card camino-animation shadow p-4 w-full">
+        <%= link_to "#{doc.record.todolist.project.name}:#{doc.record.todolist.name}:#{doc.record.name}", doc.record.todolist, class: "pl-2 text-justify mb-4", style:"border-left: .3rem solid #{doc.record.todolist.project.color}" %>
         <% if doc.previewable? %>
-          <%= image_tag(doc.preview(resize_to_limit: [500, 500]), class: 'shadow') %>
+          <%= image_tag(doc.preview(resize_to_limit: [500, 500]), class: 'shadow mb-4') %>
         <% end %>
-        <%= link_to "#{doc.record.todolist.project.name}:#{doc.record.todolist.name}:#{doc.record.name}", doc.record.todolist, class: "pl-2 text-justify mt-4", style:"border-left: .3rem solid #{doc.record.todolist.project.color}" %>
+        <p class="text-primary text-lg break-words"><%= doc.filename.base %></p>
       </div>
     <% end %>
   <% end %>

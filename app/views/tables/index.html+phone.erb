@@ -1,0 +1,36 @@
+<h1 class="mb-6">
+  Tables
+</h1>
+
+<% unless @tables.any? %>
+  <i>
+    Créez une table (base de données) pour collecter des informations complémentaires aux projets.
+    <br>
+    Ces données pourront être ajoutées lors de la clôture d'une opération.
+  </i> 
+  <br><br>
+<% else %>
+  <div class="flex flex-wrap gap-2 mb-6">
+    <% @tables.each do |table| %>
+      <%= link_to table, class:'w-full' do %>
+        <div class="card camino-animation shadow p-4 w-full">
+          <h2 class= 'text-primary text-lg'>
+            <%= table.name.humanize %>
+          </h2>
+          <%= table.fields.pluck(:name).join(', ') %>
+          <br><br>
+          <% table.projects.order(:name).each do |p| %>
+            <span class="pl-1 mr-2" style="border-left: .3rem solid <%= p.color %>">
+              <%= p.name %>
+            </span>
+          <% end %>
+          <br>
+          <% unless table.values.maximum(:updated_at).blank? %>
+            Màj : <%= "il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+<% end %>
