@@ -1,7 +1,8 @@
 class Comment < ApplicationRecord
   include LogConcern
 
-  after_create_commit { broadcast_prepend_to :comments }
+  # Crash à cause de l'appel du current_user dans le partial comments/comment
+  # after_create_commit { broadcast_prepend_to :comments }
 
   audited
 

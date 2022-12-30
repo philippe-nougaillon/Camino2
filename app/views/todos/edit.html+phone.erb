@@ -30,7 +30,6 @@
 
 <div class="px-2">
   <h2 class="my-4">Commentaires</h2>
-  <%= turbo_stream_from :comments %>
 
   <%= form_for(@comment) do |f| %>
     <% if @comment.errors.any? %>
@@ -57,8 +56,6 @@
   <% end %>
 
   <div class="mb-6">
-    <%= turbo_frame_tag :comments do %>
-      <%= render partial:'comments/comment', collection: @todo.comments %>
-    <% end %>
+    <%= render partial:'comments/comment', collection: @todo.comments %>
   </div>
 </div>

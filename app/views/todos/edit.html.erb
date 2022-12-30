@@ -9,10 +9,7 @@
 <%= render 'form' %>
 
 <h2 class="my-4">Commentaires</h2>
-<%= turbo_stream_from :comments %>
 
 <%= render partial:'comments/form' %>
 
-<%= turbo_frame_tag :comments do %>
-  <%= render partial:'comments/comment', collection:@todo.comments %>
-<% end %>
+<%= render partial:'comments/comment', collection:@todo.comments %>
