@@ -1,6 +1,6 @@
 <%= link_to project do %>
   <div class="px-2 mr-1" style="border-left: 5px solid <%= project.color %>">
-    <div class="card shadow mb-2 py-4 px-2">
+    <div class="card camino-animation shadow mb-2 py-4 px-2">
       <h2 class="text-lg text-primary"><%= project.name.humanize %></h2>
       <% unless project.description.blank? %>
         <i><small><%= truncate(project.description, length: 100) %></small></i>

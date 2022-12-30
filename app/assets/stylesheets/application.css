@@ -37,3 +37,24 @@
 .table#documents_table td {
   vertical-align: middle;
 }
+
+.camino-animation{
+  animation: button-pop var(--animation-btn,.25s)ease-out;
+  transition-property: color,background-color,border-color,-webkit-text-decoration-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  transition-duration: .2s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+.camino-animation:hover, .camino-animation:active{
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--nf,var(--n))/var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+}
+
+.camino-animation:focus-visible{
+  outline: 2px solid hsl(var(--nf));
+  outline-offset: 2px;
+}
+.camino-animation:active:hover, .camino-animation:active:focus{
+  animation: none;
+  transform: scale(var(--btn-focus-scale,.95));
+}
