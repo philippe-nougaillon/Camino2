@@ -1,14 +1,18 @@
-<div class="flex items-center gap-8 mt-4">
-  <div class="flex items-center gap-2">
-    <%= image_tag(comment.user.avatar, size:'25x25', class:"mini_avatar") if comment.user.avatar.attached? %>
-    <div>
-      <%= comment.user.name %>
-      <div style="color:lightgrey">
-        <%= "il y a #{time_ago_in_words(comment.created_at)}" %>
+<div class="chat <%= (comment.user == current_user) ? 'chat-end' : 'chat-start' %>">
+  <div class="chat-image avatar">
+    <% if comment.user.avatar.attached? %>
+      <div class="w-10 rounded-full">
+        <%= image_tag(comment.user.avatar, size:'25x25', alt:'', class:"mini_avatar") %>
       </div>
-    </div>
+    <% else %>
+      <div class="bg-primary-focus text-neutral-content rounded-full w-8">
+        <span><%= comment.user.username.first.humanize %></span>
+      </div>
+    <% end %>
   </div>
-  <div>
-    "<b><%= comment.texte %></b>"
+  <div class="chat-header">
+    <%= comment.user.name %>
+    <time class="text-xs opacity-50"><%= l(comment.created_at, format: :heure) %></time>
   </div>
+  <div class="chat-bubble <%= (comment.user == current_user) ? 'chat-bubble-accent' : '' %>"><%= comment.texte %></div>
 </div>

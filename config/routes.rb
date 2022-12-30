@@ -25,8 +25,6 @@ Rails.application.routes.draw do
 
   get "show_attrs" => "tables#show_attrs" 
 
-  get "/images/close",  to: redirect("images/close.png") 
-
   resources :accounts, only: %i[ edit update ]
   resources :comments, only: %i[ index create ]
   resources :templates

@@ -1,5 +1,25 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+
+
 <div id="welcome">
-    <h2 class="my-4">Gérez vos projets en équipe et en mobilité</h2>
+  <h2 class="my-4">Gérez vos projets en équipe et en mobilité</h2>
   <ul>
     <li>Découpez vos projets en listes de choses à faire</li>
     <li>Invitez vos contacts à participer aux projets</li>
@@ -8,7 +28,118 @@
     <li>Créez des formulaires pour collecter des données complémentaires à vos projets (inventaire, rapport d'intervention, etc.)</li>
   </ul>
 
-    <h2 class="my-4">Fonctionnalités</h2>
+  <div class="flex items-center bg-slate-100 my-4">
+    <div id="carouselExampleIndicators" class="carousel carousel-dark carousel-fade slide relative p-12" data-bs-ride="carousel">
+      <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+          class=""
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="3"
+          aria-label="Slide 4"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="4"
+          aria-label="Slide 5"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="5"
+          aria-label="Slide 6"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="6"
+          aria-label="Slide 7"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="7"
+          aria-label="Slide 8"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide-to="8"
+          aria-label="Slide 9"
+        ></button>
+      </div>
+      <div class="carousel-inner relative w-full overflow-hidden">
+        <div class="carousel-item active float-left w-full">
+          <%= image_tag "carousel/projets.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/projet.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/todolist.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/todo.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/agenda.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/documents.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/tables.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/dashboard.png" %>
+        </div>
+        <div class="carousel-item float-left w-full">
+          <%= image_tag "carousel/user.png" %>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+  <h2 class="my-4">Fonctionnalités</h2>
   <div>
     <ul>
       <li>Création rapide de projets à partir de vos <b>modèles de projets</b></li>
@@ -45,6 +176,57 @@
   <h2 class="my-4">Mobilité</h2>
   <p>Accédez à Camino depuis votre smartphone</p>
   <p>Saisissez l'URL https://camino2.herokuapp.com dans le navigateur Web de votre téléphone.</p>
+
+  <div class="flex flex-wrap gap-8 my-4">
+    <div class="mockup-phone">
+      <div class="camera"></div> 
+      <div class="display">
+        <div class="artboard artboard-demo phone-1 pt-8">
+          <%= image_tag "carousel/mobile_projets.png" %>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-phone">
+      <div class="camera"></div> 
+      <div class="display">
+        <div class="artboard artboard-demo phone-1 pt-8">
+          <%= image_tag "carousel/mobile_projet.png" %>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-phone">
+      <div class="camera"></div> 
+      <div class="display">
+        <div class="artboard artboard-demo phone-1 pt-8">
+          <%= image_tag "carousel/mobile_todolist.png" %>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-phone">
+      <div class="camera"></div> 
+      <div class="display">
+        <div class="artboard artboard-demo phone-1 pt-8">
+          <%= image_tag "carousel/mobile_todo.png" %>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-phone">
+      <div class="camera"></div> 
+      <div class="display">
+        <div class="artboard artboard-demo phone-1 pt-8">
+          <%= image_tag "carousel/mobile_todos.png" %>
+        </div>
+      </div>
+    </div>
+    <div class="mockup-phone">
+      <div class="camera"></div> 
+      <div class="display">
+        <div class="artboard artboard-demo phone-1 pt-8">
+          <%= image_tag "carousel/mobile_dashboard.png" %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <h2 class="my-4">Projet Open-Source</h2>
   <p>
