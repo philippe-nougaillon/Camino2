@@ -79,7 +79,7 @@ class TodolistsController < ApplicationController
     if @todolist.project.workflow? and @todolist.changes.include?('row')
       logger.debug "DEBUG! #{@todolist.changes}"
       row = @todolist.changes[:row]
-      @todolist.project.todolists.find_by(row: row.last).update_attributes(row: row.first)
+      @todolist.project.todolists.find_by(row: row.last).update(row: row.first)
     end
 
     respond_to do |format|
