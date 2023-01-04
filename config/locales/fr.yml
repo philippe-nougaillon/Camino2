@@ -327,3 +327,12 @@ fr:
         title: "Mot de passe oublié"
       edit:
         title: "Nouveau mot de passe"
+  users:
+    sessions:
+      new:
+        title: "Connexion"
+    registrations:
+      new:
+        title: "Inscription"
+    edit:
+      title: "Modifier utilisateur"
