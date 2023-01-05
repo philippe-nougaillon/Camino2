@@ -294,16 +294,6 @@ fr:
       title: "À propos"
     dashboard:
       title: "Tableau de bord"
-  users:
-    index:
-      title: "Participants"
-    new:
-      title: "Nouvel utilisateur"
-    edit:
-      title: "Modifier utilisateur"
-    registrations:
-      new:
-        title: "Inscription"
   accounts:
     edit:
       title: "Modification de compte"
@@ -328,11 +318,15 @@ fr:
       edit:
         title: "Nouveau mot de passe"
   users:
-    sessions:
-      new:
-        title: "Connexion"
+    index:
+      title: "Participants"
+    new:
+      title: "Nouvel utilisateur"
+    edit:
+      title: "Modifier utilisateur"
     registrations:
       new:
         title: "Inscription"
-    edit:
-      title: "Modifier utilisateur"
+    sessions:
+      new:
+        title: "Connexion"
