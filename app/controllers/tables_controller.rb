@@ -52,6 +52,8 @@ class TablesController < ApplicationController
   end
 
   def fill_do
+    return unless params[:data]
+
     @user = current_user
     data = params[:data]
     table = Table.find_by(slug: params[:table_id])
