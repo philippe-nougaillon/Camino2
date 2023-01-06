@@ -16,5 +16,5 @@
     <%= comment.user.name %>
     <time class="text-xs opacity-50"><%= l(comment.created_at, format: :heure) %></time>
   </div>
-  <div class="chat-bubble <%= (comment.user == current_user) ? 'chat-bubble-accent' : '' %>"><%= comment.texte %></div>
+  <div class="chat-bubble <%= (comment.user == current_user) ? 'chat-bubble-accent' : '' %>"><p class="lg:text-lg"><%= comment.texte %></p></div>
 </div>

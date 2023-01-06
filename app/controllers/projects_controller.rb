@@ -141,7 +141,7 @@ class ProjectsController < ApplicationController
     # @project.log_changes(:delete, current_user.id)
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url }
+      format.html { redirect_to projects_path, notice: "Projet supprimé" }
       format.json { head :no_content }
     end
   end

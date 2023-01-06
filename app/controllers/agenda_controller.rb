@@ -4,9 +4,11 @@ class AgendaController < ApplicationController
     params[:calendar_type] ||= "month_calendar"
     if current_user.admin?
       @projects = current_user.account.projects.where('duedate is not null')
+      @todolists = current_user.account.todolists.where('todolists.duedate is not null')
       @todos = current_user.account.todos.where('todos.duedate is not null')
     else
       @projects = current_user.projects.where('duedate is not null')
+      @todolists = Todolist.where(project_id: current_user.projects.pluck(:id)).where('todolists.duedate is not null')
       @todos = current_user.todos.where('duedate is not null')
     end
 

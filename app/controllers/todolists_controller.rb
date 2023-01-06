@@ -7,8 +7,9 @@ class TodolistsController < ApplicationController
   def show
     @todo = Todo.new
     @todo.todolist_id = @todolist.id
-    @project = @todolist.project
+    @todo.user = current_user
     @todos = @todolist.todos
+    @project = @todolist.project
     
     unless params[:search].blank?
       @todos = @todos.where('todos.name ILIKE ?', "%#{params[:search]}%")
