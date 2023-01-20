@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if account.users.any?
         account.users.first.update(role: "admin")
         #Création du projet de démonstration
-        # CreateWelcomeProject.new(account.id).call
+        CreateWelcomeProject.new(account.id).call
         flash[:notice] = "Vore compte a bien été créé"
       else
         account.destroy
