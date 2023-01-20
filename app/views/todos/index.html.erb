@@ -3,15 +3,15 @@
 <% if @tags.any? %>
   <div class="mb-4">
     Tags :
-    <% tag_cloud(@tags, ['badge badge-sm', 'badge', 'badge badge-md', 'badge badge-lg']) do |tag, css_class| %>
-      <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: css_class) %>
+    <% tag_cloud(@tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
+      <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'badge badge-outline ' + css_class) %>
     <% end %>
   </div>
 <% end %>
 
 <div class="mb-4">
   Afficher les opérations : 
-  <%= link_to_unless params[:filter] == "todo", "A faire", url_for(params.permit(:tag).merge(filter: "todo")), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
+  <%= link_to_unless params[:filter] == "todo", "À faire", url_for(params.permit(:tag).merge(filter: "todo")), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
   <%= link_to_unless params[:filter] == "pending", "En attente", url_for(params.permit(:tag).merge(filter: "pending")), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
   <%= link_to_unless params[:filter] == "notify", "À notifier", url_for(params.permit(:tag).merge(filter: "notify")), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
   <%= link_to_unless params[:filter] == "all", "Toutes", url_for(params.permit(:tag)), class: 'link' %>
@@ -25,7 +25,7 @@
           <th><%= sortable :done do %>Fait ?<% end %></th>
           <th>Tags</th>
           <th><%= sortable :name do %>À faire<% end %></th>
-          <th COLSPAN=2><%= sortable :user_id do %>Assigné à<% end %></th></th>
+          <th><%= sortable :user_id do %>Assigné à<% end %></th></th>
           <th>Projet</th>
           <th><%= sortable :duedate, default: true do %>Échéance<% end %></th>
           <th>Doc</th>
@@ -41,11 +41,17 @@
                 <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'text-slate-300 badge badge-outline badge-sm') %>
               <% end %>
             </td>
-            <td style="width:400px;"><b><%= link_to truncate(todo.name, length: 50), edit_todo_path(todo)%></b></td>
-            <td>
-              <%= image_tag(todo.user.avatar, alt:'', class:"mini_avatar") if todo.user.avatar.attached?%>
+            <td style="width:400px;">
+              <%= link_to truncate(todo.name, length: 50), edit_todo_path(todo), class: 'text-lg text-primary' %>
             </td>
-            <td><%= todo.user.name if todo.user %></td>
+            <td>
+              <% if todo.user %>
+                <div class="flex gap-2">
+                  <%= image_tag(todo.user.avatar, alt:'', class:"mini_avatar") if todo.user.avatar.attached? %>
+                  <%= todo.user.name if todo.user %>
+                </div>
+              <% end %>
+            </td>
             <td>
               <span class="pl-1" style="border-left: .3rem solid <%= todo.project.color %>">
                 <%= link_to todo.project_todolist_name, todo.todolist %>
@@ -58,7 +64,11 @@
               <% end %>
             </td>
             <td>
-              <%= link_to(image_tag("document.png", title:'Cliquez pour ouvrir le document'), '/documents/' + todo.docfilename, { target:'_blank' }) if todo.docfilename %>
+              <% if todo.document.attached? %>
+                <%= link_to todo.document do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 64C0 28.65 28.65 0 64 0H229.5C246.5 0 262.7 6.743 274.7 18.75L365.3 109.3C377.3 121.3 384 137.5 384 154.5V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM336 448V160H256C238.3 160 224 145.7 224 128V48H64C55.16 48 48 55.16 48 64V448C48 456.8 55.16 464 64 464H320C328.8 464 336 456.8 336 448z"/></svg>
+                <% end %>
+              <% end %>
             </td>
           </tr>
         <% end %>

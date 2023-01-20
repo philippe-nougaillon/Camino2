@@ -52,6 +52,14 @@ class Project < ApplicationRecord
     return lists.first
   end
 
+  def daily_logs
+    self.logs.where(created_at: 1.days.ago..Date.today)
+  end
+
+  def weekly_logs
+    self.logs.where(created_at: 7.days.ago..Date.today)
+  end
+
   private
 
   def slug_candidates

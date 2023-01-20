@@ -1,0 +1,61 @@
+<%= link_to todolist do %>
+  <div class="card camino-animation shadow mb-2 py-4 px-2">
+    <% if todolist.project.workflow? %>
+      <i><%= todolist.row %>.</i>
+    <% end %>
+    <b class= "text-lg text-primary <%= todolist.done? ? 'line-through' : '' %>"><%= todolist.name.humanize %></b>
+
+    <% if params[:show_only_undone] == "yes" %>
+      <% todolist.todos.undone.each_with_index do |todo, index| %>
+        <ul>
+          <%= link_to edit_todo_path(todo) do %>
+            <li>
+            - <%= todo.name.humanize %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% else %>
+      <ul>
+        <% todolist.todos.each do |todo| %>
+          <li>
+          - <span class="<%= todo.done ? 'line-through' : '' %>"><%= todo.name.humanize %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if todolist.duedate %>
+      <br>
+      Échéance :
+      <%= l(todolist.duedate) %>
+    <% end %>
+
+    <br>
+    Charge :
+    <%= number_with_precision(todolist.todos.sum(:charge_est), precision: 2) %> j
+    / <%= number_with_precision(todolist.todos.sum(:charge_reelle), precision: 2) %> j
+
+    <% if todolist.todos.done.any? %>
+      <br>
+      MÀJ : il y a
+      <%= time_ago_in_words(l(todolist.todos.done.maximum(:updated_at).to_date)) %>
+    <% end %>
+
+    <% if todolist.duedate and todolist.todos.done.any? %>
+      <br>
+      <% if todolist.duedate < todolist.todos.done.maximum(:updated_at) %>
+        En retard de
+      <% else %>
+        En avance de
+      <% end %>
+      <%= distance_of_time_in_words(todolist.duedate, todolist.todos.done.maximum(:updated_at)) %>
+    <% end %>
+
+    <% if todolist.todos.any? %>
+      <br><br>
+      Progression (<%= todolist.todos.done.count %>/<%= todolist.todos.count %>)
+      <progress class="progress progress-success" value=<%= todolist.pct_avancee %> max="100"></progress>
+    <% end %>
+  </div>
+<% end %>

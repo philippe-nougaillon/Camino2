@@ -1,29 +1,55 @@
-<div class="flex min-h-screen flex-col justify-center aligns-items-center items-center mb-12">
+<div class="flex min-h-screen flex-col lg:flex-row justify-around aligns-items-center items-center w-full pb-12">
   <div id="connexion">
-    <h1 class="text-4xl font-bold text-center">Inscription</h1>
-    <hr class="my-4">
+    <h1 class="text-4xl font-bold text-center mb-12">Inscription</h1>
+    <%- if devise_mapping.omniauthable? %>
+      <div class="mb-12">
+        <%- resource_class.omniauth_providers.each do |provider| %>
+          <%= form_for "Login",
+            url: omniauth_authorize_path(resource_name, provider),
+            method: :post,
+            data: {turbo: "false"} do |f| %>
+              <div class="flex justify-center">
+                <%= f.submit "Login", type: "image", src: url_for("/btn_google_signin_light_normal_web@2x.png"), class: 'camino-animation w-full max-w-xs mb-6' %>
+              </div>
+          <% end %>
+        <% end %>
+        <div class="divider">OU</div>
+      </div>
+    <% end %>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "users/shared/error_messages", resource: resource %>
 
       <div class="field">
-        <%= label_tag :account, 'Entreprise' %><br />
+        <%= label_tag :account, 'Nom de l\'Espace de travail' %><br />
         <%= text_field_tag :account, params[:account], { class:"input input-bordered w-full", required: true } %>
+        <small>
+          <i>
+            Veuillez nommer votre espace de travail (habituellement le nom de votre entreprise).
+            <br>
+            C'est dans cet espace que seront partagés les projets entre vous et les participants que vous inviterez.
+            <br>
+            Vous pouvez en avoir plusieurs, selon la nature de vos projets (Pro/Perso/etc.).
+          </i>
+        </small>
       </div>
 
       <div class="field">
         <%= f.label :name, 'Votre nom / prénom' %><br />
         <%= f.text_field :name, class:"input input-bordered w-full", required: true %>
+        <small><i>C'est le nom que verront les autres participants</i></small>
       </div>
 
       <div class="field">
         <%= f.label :username, 'Nom d\'utilisateur' %><br />
         <%= f.text_field :username, class:"input input-bordered w-full", required: true %>
+        <small><i>Faites court, si vous avez un pseudo, c'est le moment de l'utiliser ;-)</i></small>
       </div>
 
       <div class="field">
         <%= f.label :email %><br />
         <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full text-black", required: true %>
+        <small><i>Cet identifiant vous sera demandé à chaque connexion.<br> Indiquez l'adresse de messagerie qui recevra les notifications</i></small>
       </div>
 
       <div class="field">

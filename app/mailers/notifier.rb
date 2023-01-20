@@ -152,4 +152,24 @@ class Notifier < ApplicationMailer
     end
   end
 
+  def daily_newsletter(participant, project)
+    @logs = project.daily_logs
+    @project = project
+    mail(to:participant.user.email, subject: "Daily newsletter").tap do |message|
+      message.mailgun_options = {
+        "tag" => [participant.user.account.name, "daily_newsletter"]
+      }
+    end
+  end
+
+  def weekly_newsletter(participant, project)
+    @logs = project.weekly_logs
+    @project = project
+    mail(to:participant.user.email, subject: "Weekly newsletter").tap do |message|
+      message.mailgun_options = {
+        "tag" => [participant.user.account.name, "weekly_newsletter"]
+      }
+    end
+  end
+
 end

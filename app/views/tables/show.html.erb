@@ -5,8 +5,20 @@
   <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les colonnes", class:'ml-3 text-slate-300' %>
 </div>
 
+
 <% if @table.fields.any? %>
   <% if @table.values.any? %>
+
+    <%= form_tag table_path, method: :get, class: 'mb-4' do %>
+      <div class="flex items-center">
+          <%= label_tag :project, 'Projet :', class:'font-normal' %>
+          <%= select_tag :project, 
+                                  options_for_select(@table.projects.pluck(:name).uniq.sort, params[:project]), 
+                                  include_blank: true,
+                                  class:'select select-sm select-bordered mr-8 ml-2',
+                                  onchange: 'this.form.submit()' %>
+      </div>
+    <% end %>
 
     <div class="overflow-x-auto">
       <table class="table table-zebra table-normal">
@@ -30,9 +42,9 @@
               <% count += 1 %> 
               <% record = @values.records_at(index).first %>
               <tr class="hover">
-                <td class="font-bold">
+                <th class="font-bold">
                   <%= index %>
-                </td>
+                </th>
                 <% @table.fields.each do | field | %>
                   <td class="font-bold">
                     <%= field.values.records_at(index).first.data if field.values.records_at(index).first %>

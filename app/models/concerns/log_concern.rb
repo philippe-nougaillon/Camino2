@@ -55,7 +55,7 @@ module LogConcern
       action = "modifié"
     end
     if changes.include?(:duedate)
-      changes["Echéance"] = ["#{I18n.l(changes[:duedate].first) if changes[:duedate].first }" , "#{I18n.l(changes[:duedate].last) if changes[:duedate].last }"]
+      changes["Échéance"] = ["#{I18n.l(changes[:duedate].first) if changes[:duedate].first }" , "#{I18n.l(changes[:duedate].last) if changes[:duedate].last }"]
       changes.delete(:duedate)
       action = "modifié"
     end

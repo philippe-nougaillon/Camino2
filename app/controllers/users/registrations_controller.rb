@@ -4,6 +4,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+  def update_resource(resource, params)
+    if resource.provider == 'google_oauth2'
+      params.delete('current_password')
+      resource.password = params['password']
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
+    end
+  end
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -25,8 +35,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       super
       if account.users.any?
         account.users.first.update(role: "admin")
-        Notifier.with(account: account).new_account_notification.deliver_now
-        flash[:notice] = "Votre compte a bien été créé"
+        #Création du projet de démonstration
+        # CreateWelcomeProject.new(account.id).call
+        flash[:notice] = "Vore compte a bien été créé"
       else
         account.destroy
       end

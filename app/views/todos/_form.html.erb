@@ -1,16 +1,4 @@
 <%= form_for(@todo, multipart: true) do |f| %>
-  <% if @todo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
-
-      <ul>
-      <% @todo.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="p-2 shadow">
     <%= f.hidden_field :todolist_id %>
     <%= f.check_box :done, title:'Cochée = Terminée', class: 'checkbox checkbox-primary mb-4 mr-10' %>
@@ -31,13 +19,13 @@
       </div>
     </div>
     <div class="sm:ml-16">
-      <%= f.label :duedate, 'Echéance :' %>
+      <%= f.label :duedate, 'Échéance :' %>
       <%= f.date_field :duedate, size:5, value:(@todo.duedate ? @todo.duedate : nil), class: 'input input-bordered mt-4' %>
 
-      <%= f.label :charge_est, 'Charge estimée :' %>
+      <%= f.label :charge_est, 'Charge estimée (jours) :' %>
       <%= f.number_field :charge_est, step: :any, class: 'input input-bordered input-sm mt-4' %>
 
-      <%= f.label :charge_reelle, 'Charge réelle :' %>
+      <%= f.label :charge_reelle, 'Charge réelle (jours) :' %>
       <%= f.number_field :charge_reelle, step: :any, class: 'input input-bordered input-sm mt-4' %>
       (en jour)
 
@@ -49,18 +37,23 @@
       <div class="flex flex-wrap items-center gap-4">
         <div>
           <%= f.label :document, "Document :" %>
-          <%= f.file_field :document, class:"mb-4 sm:mb-0", accept: "application/pdf" %>
+          <%= f.file_field :document, class:"mb-24 sm:mb-0 file-input file-input-bordered file-input-sm", accept: "application/pdf" %>
         </div>
 
         <div>
           <%= f.label :tag_list, 'Tags :' %>
           <%= f.text_field :tag_list, value:@todo.tag_list.join(", "), class: 'input input-bordered input-sm' %>
+          <small><i>Pour regrouper vos todos par thème (séparés d'une virgule, ex: Urgent, Travaux, Voirie)</i></small>
         </div>
       </div>
 
       <% if @table %>
         <div class="my-4">
-          <%= link_to "Ajouter des données dans #{@table.name.humanize}", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
+          <%= link_to "Ajouter des données dans la table '#{@table.name.humanize}'", fill_url(@table.slug, todo_id:@todo.slug), class: 'link' %>
+          <% if @table.values.where(todo_id: @todo.id).any? %>
+            |
+            <%= link_to "Afficher les données saisies", table_path(@table, project: @todo.project.name), class:'link' %>
+          <% end %>
         </div>
       <% end %>
 

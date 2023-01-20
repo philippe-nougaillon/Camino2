@@ -1,0 +1,21 @@
+<div class="pl-2 mr-1" style="border-left: 5px solid <%= todo.project.color %>">
+  <div class="flex items-center pl-4 pr-2 my-1">
+    <% if policy(todo).update? %>
+      <%= form_for todo do |f| %>
+        <%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-primary checkbox-lg', 'data-turbo': false %>
+      <% end %>
+    <% end %>
+    <%= link_to edit_todo_path(todo), class:'flex-1' do %>
+      <div class="card camino-animation shadow-sm ml-4">
+        <div class="card-body">
+          <strong><i class="text-slate-300"><%= todo.project.name %>:<%= todo.todolist.name %></i></strong>
+          <strong><%= todo.name.humanize %></strong>
+          <% todo.tags.each do |tag| %>
+            <p class="text-slate-300 badge badge-outline badge-xs"><%= tag.name %></p>
+          <% end %>
+          <p><%= l todo.duedate if todo.duedate %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -32,4 +32,5 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     index? && user.same_account(record)
   end
+
 end

@@ -1,5 +1,5 @@
 <tr class="hover">
-  <td>
+  <th>
     <% if policy(todo).update? %>
       <%= form_for todo do |f| %>
         <%= f.check_box :done, :onclick => "this.form.submit();", class: 'checkbox checkbox-primary', 'data-turbo': false %>
@@ -8,9 +8,9 @@
   </td>
   <td>
     <% unless todo.done %>
-      <b><%= link_to todo.name, edit_todo_path(todo) %></b>
+      <%= link_to todo.name.humanize, edit_todo_path(todo), class: 'text-lg text-primary' %>
     <% else %>
-      <del><b><%= todo.name %></b></del>
+      <del><b><%= todo.name.humanize %></b></del>
     <% end %>
   </td>
   <td><%= todo.user.name if todo.user %></td>
@@ -24,8 +24,8 @@
   </td>
   <td>
     <% if todo.tags.any? %>
-        <% tag_cloud(todo.tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-          <%= link_to(tag.name, todos_path(tag:tag.name)) %>
+        <% tag_cloud(todo.tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
+          <%= link_to(tag.name.humanize, todos_path(tag:tag.name), class: 'badge badge-outline ' + css_class) %>
         <% end %>
     <% end %>
   </td>

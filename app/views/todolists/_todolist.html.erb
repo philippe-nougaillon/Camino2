@@ -4,15 +4,15 @@
       <i><%= todolist.row %>.</i>
     <% end %>
     <% if todolist.done? %>
-      <del><%= link_to todolist.name, todolist, class: 'bold-title' %></del>
+      <del><%= link_to todolist.name.humanize, todolist, class: 'text-lg text-primary' %></del>
     <% else %>
-      <%= link_to todolist.name, todolist, class: 'bold-title link', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
+      <%= link_to todolist.name.humanize, todolist, class: 'text-lg text-primary', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
     <% end %>
   </th>
   <td>
     <% if params[:show_only_undone] == "yes" %>
       <% todolist.todos.undone.each_with_index do |todo, index| %>
-        <%= link_to truncate(todo.name.humanize, length: 45), edit_todo_path(todo), class:'link mr-2' %>
+        <%= link_to truncate(todo.name.humanize, length: 50), edit_todo_path(todo), class:'mr-2' %>
       <% end %>
     <% else %>
       <small><%= truncate(todolist.todos.pluck(:name).join(", "), length: 100) %></small>

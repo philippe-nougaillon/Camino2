@@ -1,6 +1,6 @@
 <div class="mb-8 pl-2" style="border-left: 7px solid <%= @project.color %>">
   <div class="flex items-center">
-    <h2><%= page_title! @project.name %></h2>
+    <h2 class="text-primary"><%= page_title! @project.name.humanize %></h2>
     <%= link_to "Modifier", edit_project_path(@project), class: 'ml-3 text-slate-300' %> 
   </div>
   <% unless @project.description.blank? %>
@@ -9,7 +9,7 @@
 </div>
 
 <% unless @project.pct_avancee.zero? %>
-  Avancée : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
+  Progression : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
   <small>(<%= @project.pct_avancee %>%)</small>
 <% end %>
 
@@ -27,7 +27,10 @@
 <% end %>
 
 <% if @project.tag_list.any? %>
-  | Tags : <%= @project.tag_list_on(:tags) %>
+  | Tags : 
+  <% tag_cloud(@project.tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
+    <%= link_to(tag.name, projects_path(tag:tag.name), class: 'badge badge-outline ' + css_class) %>
+  <% end %>
 <% end %>
 
 <div class="mt-2">
@@ -70,7 +73,7 @@
       <td><%= @project.workflow? ? 'Phases' : 'Todo List' %></td>
       <th>Tâches <%= params[:show_only_undone] == "yes" ? "(à faire)" : "(toutes)" %></th>
       <th>Réalisation</th>
-      <th>Echéance</th>
+      <th>Échéance</th>
       <th>Charge est.</th>
       <th>Réelle</th>
       <th>MÀJ</th>

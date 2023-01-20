@@ -11,15 +11,21 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
-    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" %>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.46.0/dist/full.css" rel="stylesheet" type="text/css" />
     <%= render partial: "partials/gtag" %>
+
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+
+    <%= render partial: "partials/favicon" %>
   </head>
 
   <body class="bg-gray-50 min-h-screen">
-    <%= render partial: "partials/navbar" %>
-    <main class="mx-auto px-2 lg:px-12">
-      <%= yield %>
-      <%= render partial: "partials/notification" %>
-    </main>
+    <div data-controller="service-worker">
+      <%= render partial: "partials/navbar" %>
+      <main class="mx-auto px-2 lg:px-12">
+        <%= yield %>
+        <%= render partial: "partials/notification" %>
+      </main>
+    </div>
   </body>
 </html>

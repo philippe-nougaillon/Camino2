@@ -15,7 +15,10 @@ class TodosController < ApplicationController
     end
     @todos = @todos.order('todos.duedate')
 
-    @todos = @todos.tagged_with(params[:tag]) unless params[:tag].blank?
+    unless params[:tag].blank?
+      @todos = @todos.tagged_with(params[:tag])
+    end
+
     @tags = @todos.tag_counts_on(:tags)
 
     case params[:filter]
@@ -51,22 +54,6 @@ class TodosController < ApplicationController
         variant.phone
         variant.none
       end
-    end
-  end
-
-  # GET /todos/1
-  # GET /todos/1.json
-  def show
-    authorize @todo
-
-    @comment = Comment.new
-    @comment.todo_id = @todo.id
-    @comment.user_id = @user.id
-    @table = Table.find(@todo.project.table_id) if @todo.project.table_id
-
-    respond_to do |format|
-      format.html.phone
-      format.html.none
     end
   end
 

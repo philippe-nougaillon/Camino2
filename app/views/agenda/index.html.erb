@@ -7,25 +7,53 @@
     </p>
     <% @projects.where(duedate:date).each do |project| %>
       <div class="shadow mt-2 p-2" style="border-left: .6rem solid <%= project.color %>">
-        <%= link_to project.name.upcase, project, class: 'font-bold' %>
+        <% if request.variant.include?(:phone) %>
+          <small><%= link_to project.name.first(10), project, class: 'font-bold' %></small>
+        <% else %>
+          <%= link_to project.name.upcase, project, class: 'font-bold' %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% @todolists.where(duedate:date).each do |todolist| %>
+      <div class="shadow mt-2 p-2" style="border-left: .45rem solid <%= todolist.project.color %>">
+        <% if request.variant.include?(:phone) %>
+          <small><%= link_to todolist.name.first(10), todolist, class: 'font-bold' %></small>
+        <% else %>
+          <%= link_to todolist.name.upcase, todolist, class: 'font-bold' %>
+        <% end %>
       </div>
     <% end %>
 
     <% @todos.undone.where(duedate:date).each do |todo| %>
-      <% todo_height = todo.charge_est >= 1 ? 10 : 5 %>
+      <% todo_height = todo.charge_est >= 1 ? 8 : 5 %>
       <div class="shadow mt-2 p-2 pt-0" style="border-left: .3rem solid <%= todo.project.color %>; height: <%= todo_height %>rem">
         <%= link_to edit_todo_path(todo) do %>
-          <b>
+          <% if request.variant.include?(:phone) %>
+            <small><b>
+            <% if params[:project].blank? %>
+              <%= todo.project.name.first(10).upcase %>
+            <% end %>
+            <br>
+            <%= todo.name.first(10).humanize %>
+            </b>
+            <br>
+            <%= todo.user.username.humanize %>
+            <br>
+            </small>
+          <% else %>
+            <b>
             <% if params[:project].blank? %>
               <%= todo.project.name %>:
             <% end %>
             <%= todo.todolist.name %>:
             <%= truncate(todo.name, length: 20) %>
-          </b>
-          <br>
-          <%= todo.user.username.humanize %>
-          <br>
-          <%= number_with_precision(todo.charge_est, precision: 2) %> j
+            </b>
+            <br>
+            <%= todo.user.username.humanize %>
+            <br>
+            <%= number_with_precision(todo.charge_est, precision: 2) %> j
+          <% end %>
         <% end %>
       </div>
     <% end %>

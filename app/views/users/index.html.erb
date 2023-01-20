@@ -26,9 +26,8 @@
                   <%= image_tag user.avatar, class:"camino-avatar" %>
                 </div>
               <% else %>
-                  <div class="bg-primary-focus text-neutral-content rounded-full w-16">
-                    <span class="text-4xl"><%= user.username.first.humanize %></span>
-                  </div>
+                <div class="bg-primary-focus text-neutral-content rounded-full w-16">
+                  <span class="text-4xl"><%= user.username.first.humanize %></span>
                 </div>
               <% end %>
             </div>

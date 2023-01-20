@@ -1,0 +1,34 @@
+<h2 class="flex items-center mb-6">
+  <span class="pl-2 text-primary" style="border-left: 7px solid <%= @project.color %>"><%= @project.name %></span>
+</h2>
+
+<h2 class="mt-12 mb-4"><%= page_title! "Ajouter un participant au projet #{@project.name.humanize}" %></h2>
+
+<%= form_tag do %>
+  <%= hidden_field_tag :id, @project.slug %>
+  <%= select_tag :user_id, 
+                  options_from_collection_for_select(@users, "id", "name" ),
+                  include_blank: true,
+                  class: 'select select-bordered w-full' %>
+  <%= submit_tag "Ajouter", class:"btn btn-primary btn-outline btn-block my-6" %>
+<% end %>
+
+<h2 class="mb-6">Participants actuels</h2>
+<div class="flex flex-col gap-8 mb-6">
+  <% @project.participants.each do |participant| %>
+    <div class="flex items-center gap-4">
+      <% if participant.user.avatar.attached? %>
+        <%= image_tag(participant.user.avatar, alt:'', class:'camino-avatar') %>
+      <% else %>
+        <div class="avatar placeholder">
+          <div class="bg-primary-focus text-neutral-content rounded-full w-24 h-24">
+            <span class="text-4xl"><%= participant.user.username.first.humanize %></span>
+          </div>
+        </div>
+      <% end %>
+      <p class="text-center"><%= participant.user.name %></p>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'Voir tous les participants de l\'espace de travail', users_path, class: 'link' %>

@@ -17,11 +17,15 @@ class TablesController < ApplicationController
   # GET /tables/1
   # GET /tables/1.json
   def show
-    @values = if params[:search].blank?
-                @table.values
-              else
-                @table.values.where('data ILIKE ?', "%#{params[:search].strip}%")
-              end
+    @values = @table.values
+
+    unless params[:project].blank?
+      @values = @table.values.where(todo_id: Project.find_by(name: params[:project]).todos.ids)
+    end
+
+    unless params[:search].blank?
+      @values = @values.where('data ILIKE ?', "%#{params[:search].strip}%")
+    end
 
     respond_to do |format|
       format.html
@@ -48,6 +52,8 @@ class TablesController < ApplicationController
   end
 
   def fill_do
+    return unless params[:data]
+
     @user = current_user
     data = params[:data]
     table = Table.find_by(slug: params[:table_id])

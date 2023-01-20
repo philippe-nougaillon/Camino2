@@ -14,7 +14,7 @@
   <% if @todolist.project.workflow? %>
     Nouvelle phase
   <% else %>
-    Entrez le nom de la nouvelle Todo List
+    Entrez le nom de la Todo List
   <% end %>
 
     <div class="field">
@@ -27,7 +27,7 @@
     <div class="field">
       <%= f.hidden_field :project_id %>
       <%= f.text_field :name, placeholder: @placeholder, required: true, class:'w-full md:w-1/4 mb-4' %>
-      <%= f.label 'Echéance :' %>
+      <%= f.label 'Échéance :' %>
       <%= f.date_field :duedate, value:(@todolist.duedate ? @todolist.duedate : nil) %>
     </div>
     <div class="actions">

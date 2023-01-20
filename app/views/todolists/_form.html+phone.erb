@@ -1,0 +1,37 @@
+<%= form_for(@todolist) do |f| %>
+  <% if @todolist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@todolist.errors.count, "error") %> prohibited this todolist from being saved:</h2>
+
+      <ul>
+      <% @todolist.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @todolist.project.workflow? %>
+    Nouvelle phase
+  <% else %>
+    Entrez le nom de la Todo List
+  <% end %>
+
+    <div class="field">
+      <% if @todolist.project.workflow? and defined?(@rows) %>
+         <%= f.label :indice %>
+         <%= f.select :row, options_from_collection_for_select(@rows, 'row', "name_with_indice", @todolist.row), {class: 'select select-bordered select-sm'} %>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <%= f.hidden_field :project_id %>
+      <%= f.text_field :name, placeholder: @placeholder, required: true, class:'w-full md:w-1/4 mb-4' %>
+      <%= f.label 'Échéance' %>
+      <br>
+      <%= f.date_field :duedate, value:(@todolist.duedate ? @todolist.duedate : nil), class:'w-full' %>
+    </div>
+    <div class="actions">
+        <%= f.submit @todolist.new_record? ? "Ajouter" : "Valider", class: 'btn btn-primary btn-outline btn-block' %>
+    </div>
+<% end %>

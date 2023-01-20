@@ -1,0 +1,3 @@
+<h1>Daily newsletter du projet '<%= @project.name.humanize %>'</h1>
+
+<%= render partial:'partials/mailer_logs', collection: @logs, as: :log, day:0, user_id:0 %>

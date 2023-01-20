@@ -1,8 +1,13 @@
+<div class="mb-8 pl-2" style="border-left: 7px solid <%= @todolist.project.color %>">
+  <div class="flex items-center">
+    <h2 class="text-primary"><%= page_title! @todolist.project.name.humanize %>
+      : <%= @todolist.name.humanize %>
+    </h2>
+  </div>
+</div>
 <h2>
-  <%= link_to @todolist.project.name, @todolist.project %>
+  
 </h2>
-
-<h3><%= page_title! "Modification de la liste #{@todolist.name}" %></h3>
 
 <%= render 'form' %>
 

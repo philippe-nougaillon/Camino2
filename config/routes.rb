@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations: 'users/registrations' }
+  devise_for :users, controllers: { 
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
   scope "/admin" do
     resources :users
   end
@@ -25,15 +29,13 @@ Rails.application.routes.draw do
 
   get "show_attrs" => "tables#show_attrs" 
 
-  get "/images/close",  to: redirect("images/close.png") 
-
   resources :accounts, only: %i[ edit update ]
   resources :comments, only: %i[ index create ]
   resources :templates
   resources :logs
   resources :todolists, except: :index
   resources :participants, only: %i[ edit update ]
-  resources :todos
+  resources :todos, except: %i[ show ]
   resources :projects
   resources :tables
   resources :fields, only: %i[ edit update create destroy ]
@@ -50,6 +52,9 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'pages#dashboard', as: :dashboard
 
   get 'audits/index'
+
+  get '/service-worker.js' => "service_worker#service_worker"
+  get '/manifest.json' => "service_worker#manifest"
 
   root 'projects#index'
 end

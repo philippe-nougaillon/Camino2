@@ -19,6 +19,8 @@ class Account < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  after_create :account_notification
+
   # has_attached_file :logo, :styles => { :thumb => "60x60>" }, :default_url => "new_logo.png"
   # validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
   
@@ -26,5 +28,9 @@ class Account < ApplicationRecord
 
   def slug_candidates
     [SecureRandom.uuid]
+  end
+
+  def account_notification
+    Notifier.with(account: self).new_account_notification.deliver_now
   end
 end

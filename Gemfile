@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.2'
+ruby '3.1.3'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
@@ -40,7 +40,7 @@ gem 'redis', '~> 4.0'
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+#gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
@@ -111,4 +111,8 @@ gem "kaminari", "~> 1.2"
 
 gem "page_title_helper", "~> 6.0"
 
-gem "poppler", "~> 4.0"
+gem "omniauth", "~> 2.1"
+
+gem "omniauth-google-oauth2", "~> 1.1"
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"

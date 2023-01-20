@@ -10,24 +10,19 @@
 <p>
   <strong>Nom: </strong>
   <%= @user.account.name %>
-</p>
-<p>
-  <strong>Nom du site: </strong>
-  <%= @user.account.sitename %>
-</p>
-<p>
-  <strong>hostname: </strong>
-  <%= @user.account.hostname %>
+  <% if current_user.admin? %>
+    <%= link_to "Modifier", edit_account_path(@user.account), class:"link" %>
+  <% end %>
 </p>
 
 <p class="mt-4">
-  <%= link_to "Modifier", edit_account_path(@user.account), class:"link" %> | 
   <%= link_to "Participants", users_path, class:"link" %> |
-  <%= link_to "Modèles", templates_path, class:"link" %> |
-  <%= link_to "Audit Trail", audits_index_path, class:"link" %>
+  <%= link_to "Modèles de projets", templates_path, class:"link" %> |
+  <%= link_to "Audit Trail ( journal des modifications )", audits_index_path, class:"link" %>
   <% if current_user.admin? %>
-    | <%= link_to "Mail Logs", mail_logs_path, class:"link" %>
-    | <%= link_to "Envoyer mails tâches à notifier", todos_todo_notifier_path, class:"link" %> 
+    | <%= link_to "Mail Logs ( journal des envois de mails )", mail_logs_path, class:"link" %>
+    <br><br>
+    <%= link_to "Envoyer mails tâches à notifier", todos_todo_notifier_path %>
   <% end %>
 </p>
 

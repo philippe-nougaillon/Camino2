@@ -1,0 +1,63 @@
+<h1 class="mb-6">
+  Projets
+  <%= link_to new_project_path, title:'Ajouter un projet' do %>
+    <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+  <% end %>
+</h1>
+
+<% if @tags.any? %>
+  <div class="flex items-center overflow-x-auto gap-1 pb-4">
+    <% tag_cloud(@tags, ['badge-xs', 'badge-sm', '', 'badge-md']) do |tag, css_class| %>
+      <%= link_to(tag.name, projects_path(tag:tag.name), class: 'badge badge-outline break-keep whitespace-nowrap ' + css_class) %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @projects.any? %>
+  <%= render partial: 'project', collection:@projects, as: :project %>
+<% else %>
+  <% unless params[:search].blank? %>
+    <i>Aucun projet à afficher...</i>
+  <% else %>
+    <p>
+      Vous ne participez à aucun projet actuellement.
+      <br>
+      Cliquez sur
+      <%= link_to new_project_path do %>
+        <span class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</span>
+      <% end %>
+      pour créer un nouveau projet.
+    </p>
+  <% end %>
+  <br>
+<% end %>
+
+
+<% if @logs.any? %>
+  <hr class="style-two">
+  <h2 class="mt-6">
+    Activité
+  </h2>
+  <%= render partial:'logs/log', collection:@logs, day:0, user_id:0 %>
+  <br>
+  <% if @logs.count > 5 %>  
+    <small><i>Liste des 5 derniers changements. <%= link_to "Afficher tout", logs_path, class:"link" %></i></small>
+    <br>
+  <% end %>
+  <br>
+<% end %>
+
+
+<% if @comments.any? %>
+  <hr class="style-two">
+  <h2 class="mt-6">
+    Discussions
+  </h2>
+  <%= render partial:'comments/commentfull', collection:@comments, as: :comment, comment_day:0, user_id:0  %>
+  <br>
+  <% if @comments.count >= 5 %>
+    <small><i>Liste des 5 derniers commentaires. <%= link_to "Afficher tout", comments_path %></i></small>
+    <br>
+  <% end %>
+  <br>
+<% end %>
