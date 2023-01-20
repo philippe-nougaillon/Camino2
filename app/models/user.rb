@@ -53,7 +53,7 @@ class User < ApplicationRecord
       user.save
 
       #Création du projet de démonstration
-      # CreateWelcomeProject.new(user.account.id).call
+      CreateWelcomeProject.new(user.account.id).call
 
       user
       
