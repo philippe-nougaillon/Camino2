@@ -15,7 +15,7 @@
         <%= link_to truncate(todo.name.humanize, length: 50), edit_todo_path(todo), class:'mr-2' %>
       <% end %>
     <% else %>
-      <small><%= truncate(todolist.todos.pluck(:name).join(", "), length: 100) %></small>
+      <p><%= truncate(todolist.todos.pluck(:name).map(&:capitalize).join(' || '), length: 100) %></p>
     <% end %>
   </td>
   <td>
