@@ -177,8 +177,8 @@ class TodosController < ApplicationController
         end
 
         format.html do |variant|
-          variant.phone { redirect_to todos_path(filter: "todo"), notice: "La tâche '#{@todo.name}' vient d'être modifée" } 
-          variant.none { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être modifée" }
+          variant.phone { redirect_to todos_path(filter: "todo"), notice: "La tâche \"#{@todo.name.upcase}\" vient d'être modifée" } 
+          variant.none { redirect_to params[:from]== 'todos' ? todos_path(filter: params[:filter], tag: params[:tag]) : @todo.todolist, notice: "La tâche \"#{@todo.name.upcase}\" vient d'être modifée" }
         end
         format.json { head :no_content }
       else
