@@ -53,11 +53,11 @@ class Project < ApplicationRecord
   end
 
   def daily_logs
-    self.logs.where(created_at: 1.days.ago..Date.today)
+    self.logs.where(created_at: 1.days.ago.to_date..Date.today)
   end
 
   def weekly_logs
-    self.logs.where(created_at: 7.days.ago..Date.today)
+    self.logs.where(created_at: 7.days.ago.to_date..Date.today)
   end
 
   private

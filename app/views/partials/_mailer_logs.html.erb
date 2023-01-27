@@ -15,12 +15,19 @@
         <%= image_tag(log.user.avatar, alt:'', class:'mini_avatar mx-auto') if log.user.avatar.attached? %>
       <% end %>
     </p>
-    <p style="color:lightgrey; width:45px;">
-      <%= log.created_at.strftime("%H:%M") %>
-    </p>
   </div>
-  <p class="break-words my-auto" style="word-break: break-word; border-left: 7px solid <%= log.project.color if log.project %>; padding-left: 0.5rem;">
-    <strong><%= log.user.name %></strong> a
+  <p class="break-words my-auto" style="word-break: break-word;">
+    <span style="color:lightgrey;">
+      <%= log.created_at.strftime("%H:%M") %>
+    </span>
+    <span style="margin-left: 1rem; margin-right: 1rem; width: 20px;">
+      <% if log.action_id == 1 %>
+        <input disabled="disabled" type="checkbox" checked="true" />
+      <% elsif log.action_id == 0 %>
+        <input disabled="disabled" type="checkbox" />
+      <% end %>
+    </span>
+    <strong><%= log.user.username.humanize %></strong> a
     <%= raw log.description %>
   </p>
 </div>

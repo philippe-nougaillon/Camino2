@@ -152,22 +152,20 @@ class Notifier < ApplicationMailer
     end
   end
 
-  def daily_newsletter(participant, project)
-    @logs = project.daily_logs
-    @project = project
-    mail(to:participant.user.email, subject: "Daily newsletter").tap do |message|
+  def daily_newsletter
+    @projects = params[:projects]
+    mail(to: params[:user].email, bcc: "philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject: "[Camino] Récapitulatif de l'activité d'hier").tap do |message|
       message.mailgun_options = {
-        "tag" => [participant.user.account.name, "daily_newsletter"]
+        "tag" => [params[:user].account.name, "daily_newsletter"]
       }
     end
   end
 
-  def weekly_newsletter(participant, project)
-    @logs = project.weekly_logs
-    @project = project
-    mail(to:participant.user.email, subject: "Weekly newsletter").tap do |message|
+  def weekly_newsletter
+    @projects = params[:projects]
+    mail(to: params[:user].email, bcc: "philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject: "[Camino] Récapitulatif de l'activité de la semaine").tap do |message|
       message.mailgun_options = {
-        "tag" => [participant.user.account.name, "weekly_newsletter"]
+        "tag" => [params[:user].account.name, "weekly_newsletter"]
       }
     end
   end
