@@ -35,7 +35,6 @@ class TodosController < ApplicationController
     when "notify"
       @todos_ids = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
       @todos = @todos.where(id: @todos_ids.pluck(:id))
-      
     end
 
     unless params[:search].blank?
@@ -217,11 +216,6 @@ class TodosController < ApplicationController
     @todo.log_changes(:edit, current_user.id)
     @todo.save
     redirect_to @todo
-  end
-
-  def todo_notifier
-    NotifyUsers.new(current_user.account.todos).call
-    redirect_to user_path(current_user), notice: "Emails des tâches à notifier envoyés"
   end
 
   private

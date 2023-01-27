@@ -142,12 +142,11 @@ class Notifier < ApplicationMailer
     end
   end
 
-  def todo_notifier(todo)
-    @todo = todo
-    @user = todo.user
-    mail(to:todo.user.email, subject: "Tâche en approche").tap do |message|
+  def todo_notifier
+    @todos = params[:todos]
+    mail(to: params[:user].email, subject: "Tâche en approche").tap do |message|
       message.mailgun_options = {
-        "tag" => [@user.account.name, "todo_notifier"]
+        "tag" => [params[:user].account.name, "todo_notifier"]
       }
     end
   end
