@@ -35,7 +35,6 @@ class TodosController < ApplicationController
     when "notify"
       @todos_ids = @todos.where.not(duedate: nil).select { |todo| (Date.today + todo.notifydays.days) == todo.duedate }
       @todos = @todos.where(id: @todos_ids.pluck(:id))
-      
     end
 
     unless params[:search].blank?
@@ -177,8 +176,8 @@ class TodosController < ApplicationController
         end
 
         format.html do |variant|
-          variant.phone { redirect_to todos_path(filter: "todo"), notice: "La tâche '#{@todo.name}' vient d'être modifée" } 
-          variant.none { redirect_to @todo.todolist, notice: "La tâche '#{@todo.name}' vient d'être modifée" }
+          variant.phone { redirect_to todos_path(filter: "todo"), notice: "La tâche \"#{@todo.name.upcase}\" vient d'être modifée" } 
+          variant.none { redirect_to params[:from]== 'todos' ? todos_path(filter: params[:filter], tag: params[:tag]) : @todo.todolist, notice: "La tâche \"#{@todo.name.upcase}\" vient d'être modifée" }
         end
         format.json { head :no_content }
       else
@@ -217,11 +216,6 @@ class TodosController < ApplicationController
     @todo.log_changes(:edit, current_user.id)
     @todo.save
     redirect_to @todo
-  end
-
-  def todo_notifier
-    NotifyUsers.new(current_user.account.todos).call
-    redirect_to user_path(current_user), notice: "Emails des tâches à notifier envoyés"
   end
 
   private

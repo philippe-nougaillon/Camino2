@@ -1,7 +1,11 @@
-<h1>Tâche en approche</h1>
+<h1>Bonjour, vous avez des tâches en approche</h1>
 
-<h2><%= @todo.fullname %><h2>
-
-<p>Échéance : <%= l @todo.duedate %></p>
-
-<%= link_to "Ouvrir dans Camino", todo_url(@todo) %>
+<% @todos.each do |todo| %>
+  <span><%= l( todo.duedate, format: :long) %></span>
+  <span style="margin-left: 1rem; margin-right: 1rem; width: 20px;">
+    <input disabled="disabled" type="checkbox" />
+  </span>
+  <span style="font-weight: bold;"><%= todo.name.humanize %></span>
+  <span>=> <%= todo.project_todolist_name %></span>
+  <br>
+<% end %>

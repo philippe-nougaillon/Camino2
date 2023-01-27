@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
   post 'todos/:id/close' => 'todos#close'
   post 'todos/:id/reopen' => 'todos#reopen'
-  get 'todos/todo_notifier' => 'todos#todo_notifier'
 
   get 'projects/:id/save_as_template' => 'projects#save_as_template'
   post 'projects/:id/save_as_template' => 'projects#save_as_template_post'

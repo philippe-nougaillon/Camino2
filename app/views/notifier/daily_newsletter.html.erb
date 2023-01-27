@@ -1,3 +1,11 @@
-<h1>Daily newsletter du projet '<%= @project.name.humanize %>'</h1>
+<h1>Les activités d'hier des projets suivis</h1>
 
-<%= render partial:'partials/mailer_logs', collection: @logs, as: :log, day:0, user_id:0 %>
+<% @projects.each do |project| %>
+  <% if project.daily_logs.any? %>
+    <h2 style="border-left: 7px solid <%= project.color %>; padding-left: 0.5rem;">
+      <%= project.name.humanize %>
+    </h2>
+    <%= render partial:'partials/mailer_logs', collection: project.daily_logs, as: :log, day:0, user_id:0 %>
+    <br><br>
+  <% end %>
+<% end %>

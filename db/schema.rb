@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_04_092552) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_27_132634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -129,9 +129,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_092552) do
     t.integer "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "want_notification", default: true
-    t.boolean "want_dailynewsletter"
-    t.boolean "want_weeklynewsletter"
+    t.boolean "want_notification", default: false
+    t.boolean "want_dailynewsletter", default: true
+    t.boolean "want_weeklynewsletter", default: true
     t.boolean "client"
     t.string "slug"
     t.index ["project_id"], name: "index_participants_on_project_id"

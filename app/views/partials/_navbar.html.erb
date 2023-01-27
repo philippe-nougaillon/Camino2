@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
-  <div class="mx-auto lg:px-4 bg-white shadow-sm sticky top-0 z-50">
-    <div class="navbar flex items-start mb-8">
+  <div class="mx-auto lg:px-4 bg-white shadow-sm sticky top-0 z-50 mb-8">
+    <div class="navbar flex items-start">
       <div class="navbar-start">
         <div class="dropdown lg:!hidden">
           <label tabindex="0" class="btn btn-ghost">
@@ -11,7 +11,7 @@
           </ul>
         </div>
         <div class="hidden lg:!flex">
-          <p class="font-bold text-xl whitespace-nowrap mr-4 place-self-center">
+          <p class="font-bold text-xl whitespace-nowrap mr-4 place-self-center text-accent">
             <%= truncate(current_user.account.name, length: 20) %>
           </p>
           <ul class="menu menu-horizontal p-0">
@@ -47,4 +47,3 @@
     </div>
   </div>
 <% end %>
-                
