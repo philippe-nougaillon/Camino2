@@ -3,9 +3,8 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center mb-12">
-    <h1 class="font-bold text-4xl">Mail logs</h1>
-  </div>
+  <h1 class="font-bold text-4xl">Mail logs</h1>
+  <p class="italic mb-8">Statut visible 5 jours</p>
 
   <%= form_tag request.path, method: :get, class: 'mb-6' do %>
     <%= label_tag :to, "Destinataire :" %>
