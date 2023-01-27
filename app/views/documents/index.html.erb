@@ -1,12 +1,11 @@
 <h1 class="mb-6">Documents</h1>
 
 <div class="overflow-x-auto">
-  <table id="documents_table" class="table table-zebra table-normal">
+  <table id="documents_table" class="table table-normal">
     <thead>
       <tr>
         <td></td>
         <td>Nom</td>
-        <th>Type</th>
         <th>Projet</th>
         <th>MÀJ</th>
         <th></th>
@@ -15,17 +14,14 @@
 
     <tbody>
       <% @documents.each do |doc| %>
-        <tr>
+        <tr class="hover">
           <td>
             <% if doc.previewable? %>
-              <%= link_to image_tag(doc.preview(resize_to_limit: [150, 150]), class: 'max-w-none'), doc %>
+              <%= link_to image_tag(doc.preview(resize_to_limit: [150, 150]), class: 'max-w-none shadow-xl'), doc %>
             <% end %>
           </td>
           <td>
             <%= link_to doc.filename.base, rails_blob_path(doc, disposition: "attachment"), class:'text-primary', target: "_blank" %>
-          </td>
-          <td>
-            <%= doc.content_type %>
           </td>
           <td>
             <%= link_to "#{doc.record.todolist.project.name}:#{doc.record.todolist.name}:#{doc.record.name}", doc.record.todolist, class: "pl-2 text-justify", style:"border-left: .3rem solid #{doc.record.todolist.project.color}" %>
@@ -34,14 +30,14 @@
             <%= time_ago_in_words doc.created_at %>
           </td>
           <td>
-            <%= button_to "Supprimer", documents_purge_path(id: doc.id), method: :delete, form: { data: {'turbo-confirm': "Êtes-vous bien certain.e de vouloir supprimer définitivement ce document ?"} } %>
+            <%= button_to "[X]", documents_purge_path(id: doc.id), method: :delete, form: { data: {'turbo-confirm': "Êtes-vous bien certain.e de vouloir supprimer définitivement ce document ?"} } %>
           </td>
         </tr>
       <% end %>
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="6"></th>
+        <th colspan="5"></th>
       </tr>
     </tfoot>
   </table>
