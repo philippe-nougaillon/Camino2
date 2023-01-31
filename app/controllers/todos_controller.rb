@@ -167,7 +167,7 @@ class TodosController < ApplicationController
 
         if @project.workflow? and @todo.done?
           # envoyer un mail pour prévenir d'une tâche à faire
-          next_todo = @project.current_todolist.next_todo
+          next_todo = @project.current_todolist.try(:next_todo)
           # logger.debug "DEBUG next_todo: #{next_todo.inspect}"
           if next_todo && next_todo.user
             mailer_response = Notifier.next_todo(next_todo).deliver_now
