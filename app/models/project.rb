@@ -48,7 +48,7 @@ class Project < ApplicationRecord
   end
 
   def current_todolist
-    lists = self.todolists.order(:row).select{|l| !l.done? }
+    lists = self.todolists.reorder(:row).select{|l| !l.done? }
     return lists.first
   end
 

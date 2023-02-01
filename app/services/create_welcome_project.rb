@@ -8,7 +8,13 @@ class CreateWelcomeProject < ApplicationService
   def call
     user_id = @account.users.first.id
 
+    ActiveRecord::Base.connection.reset_pk_sequence!('projects')
+    ActiveRecord::Base.connection.reset_pk_sequence!('todolists')
+    ActiveRecord::Base.connection.reset_pk_sequence!('todos')
+
     ActiveRecord::Base.transaction do
+
+
       # Création de la table
       table = @account.tables.create(name: "Consommation")
       field1 = table.fields.create(name: "Café", datatype: "nombre")
