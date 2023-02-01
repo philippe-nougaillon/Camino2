@@ -297,6 +297,8 @@ fr:
   accounts:
     edit:
       title: "Modification de compte"
+    suppression_compte:
+      title: "Suppression de compte"
   templates:
     index:
       title: "Modèles"

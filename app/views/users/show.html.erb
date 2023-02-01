@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<h2>Espace de travail</h2>
+<h2 class="mb-6">Espace de travail</h2>
 <p>
   <strong>Nom: </strong>
   <%= @user.account.name %>
@@ -28,7 +28,7 @@
 <% if @user.participants.any? %>
   <hr class="style-two my-8">
 
-  <h2>Vos abonnements</h2>
+  <h2 class="mb-6">Vos abonnements</h2>
   <div class="overflow-x-auto">
     <table class="table">
       <thead>
@@ -51,10 +51,9 @@
   <br>
 <% end %>
 
-<% if @user.logs.any? %>
-  <hr class="style-two mb-8">
+<% if current_user.admin? %>
+  <hr class="style-two my-8">
 
-  <h2>Votre activité</h2>
-  <%= render partial:'logs/log', collection:@user.logs, :day => 0 %>
-  <br>
+  <h2 class="mb-6">Zone dangereuse</h2>
+  <%= link_to "Supprimer ce compte", suppression_compte_account_path(@user.account), class:"link link-error" %>
 <% end %>

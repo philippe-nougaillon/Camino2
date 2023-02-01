@@ -1,0 +1,18 @@
+<h1>Un compte a été supprimée</h1>
+
+
+<br>
+ID account #<%= @account.id %>
+<br>
+Nom account : <%= @account.name %>
+<br>
+Liste Nom/E-mail des utilisateurs : <%= @account.users.pluck(:name, :email) %>
+<br>
+Liste noms projets : <%= @account.projects.pluck(:name) %>
+<br>
+Nombre de to-dos : <%= @account.todos.count %>
+
+
+<% unless @reason.blank? %>
+  Raison :<%= @reason %>
+<% end %>

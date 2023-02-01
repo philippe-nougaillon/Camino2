@@ -14,11 +14,11 @@ class Project < ApplicationRecord
   belongs_to :account
 
   has_many :todolists, dependent: :destroy
-  has_many :todos, through: :todolists, dependent: :destroy
+  has_many :todos, through: :todolists
   has_many :comments, through: :todos
   has_many :participants, dependent: :destroy
   has_many :users, through: :participants
-  has_many :logs
+  has_many :logs, dependent: :destroy
 
   validates :name, presence: true
   validates :workflow, presence: true

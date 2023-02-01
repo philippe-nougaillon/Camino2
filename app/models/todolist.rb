@@ -7,10 +7,11 @@ class Todolist < ApplicationRecord
   audited
 
   belongs_to :project
-  has_many :todos, dependent: :destroy
-  has_many :logs
 
-  validates :name, presence:true
+  has_many :todos, dependent: :destroy
+  has_many :logs, dependent: :destroy
+
+  validates :name, presence: true
 
   def pct_avancee 
     ((self.todos.done.count * 100)  / self.todos.count)

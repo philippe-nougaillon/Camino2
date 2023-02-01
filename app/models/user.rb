@@ -17,11 +17,11 @@ class User < ApplicationRecord
 
   belongs_to :account
 
-  has_many :participants
+  has_many :todos
+  has_many :participants, dependent: :destroy
   has_many :projects, through: :participants
   has_many :logs, through: :projects
   has_many :comments, through: :projects
-  has_many :todos 
 
   validates :username, presence: true, uniqueness: true
   validates :name, presence: true
