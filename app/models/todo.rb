@@ -17,8 +17,8 @@ class Todo < ApplicationRecord
 
   has_one_attached :document
 
-  has_many :comments
-  has_many :values
+  has_many :comments, dependent: :destroy
+  has_many :values, dependent: :destroy
 
   validates :name, presence: true
 

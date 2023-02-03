@@ -14,11 +14,11 @@ class Project < ApplicationRecord
   belongs_to :account
 
   has_many :todolists, dependent: :destroy
-  has_many :todos, through: :todolists, dependent: :destroy
+  has_many :todos, through: :todolists
   has_many :comments, through: :todos
   has_many :participants, dependent: :destroy
   has_many :users, through: :participants
-  has_many :logs
+  has_many :logs, dependent: :destroy
 
   validates :name, presence: true
   validates :workflow, presence: true
@@ -53,11 +53,11 @@ class Project < ApplicationRecord
   end
 
   def daily_logs
-    self.logs.where(created_at: 1.days.ago.to_date..Date.today)
+    self.logs.where(created_at: 1.days.ago.to_date..Date.today).reorder(:created_at)
   end
 
   def weekly_logs
-    self.logs.where(created_at: 7.days.ago.to_date..Date.today)
+    self.logs.where(created_at: 7.days.ago.to_date..Date.today).reorder(:created_at)
   end
 
   private

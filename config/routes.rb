@@ -28,7 +28,12 @@ Rails.application.routes.draw do
 
   get "show_attrs" => "tables#show_attrs" 
 
-  resources :accounts, only: %i[ edit update ]
+  resources :accounts, only: %i[ edit update ] do
+    member do
+      get :suppression_compte
+      post :suppression_compte_do
+    end
+  end
   resources :comments, only: %i[ index create ]
   resources :templates
   resources :logs

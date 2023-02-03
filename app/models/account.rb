@@ -4,16 +4,17 @@ class Account < ApplicationRecord
 
   audited
 
-  has_many :projects
-  has_many :templates
-  has_many :users
-  has_many :tables
+  has_many :projects, dependent: :destroy
+  has_many :templates, dependent: :destroy
+  has_many :users, dependent: :destroy
+  has_many :tables, dependent: :destroy
+  has_many :mail_logs, dependent: :destroy
+
   has_many :values, through: :tables
-  
   has_many :participants, through: :projects
   has_many :todolists, through: :projects
   has_many :todos, through: :todolists
-  has_many :mail_logs
+  has_many :comments, through: :users
 
   accepts_nested_attributes_for :users
 

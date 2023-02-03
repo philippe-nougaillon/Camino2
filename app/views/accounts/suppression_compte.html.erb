@@ -1,0 +1,24 @@
+<div class="max-w-3xl mx-auto">
+  <h1 class="text-error mb-8">
+    Attention, vous êtes sur le point de supprimer définitivement votre espace de travail (<%= current_user.account.name %>) ainsi que tous ses participants !
+  </h1>
+  <p class="mb-2">Toutes les données ci-dessous seront détruites :</p>
+  <ul>
+    <li>- Projets (<%= current_user.account.projects.count %>)</li>
+    <li>- Todolists / To-dos (<%= current_user.account.todos.count %>)</li>
+    <li>- Documents (<%= current_user.account.todos.select { |todo| todo.document.attached? }.count %>)</li>
+    <li>- Tables (<%= current_user.account.tables.count %>)</li>
+    <li>- Activités (<%= current_user.account.projects.count %>)</li>
+    <li>- Commentaires (<%= current_user.account.comments.count %>)</li>
+    <li>- Et tout ce qui est lié, de près ou de loin, à votre espace de travail</li>
+  </ul>
+  <br>
+  <p>Si le cœur vous en dit, vous pouvez nous en expliquer la raison ci-dessous :</p>
+  <p>Vos commentaires nous permettrons d'améliorer le produit, merci :)</p>
+
+  <%= form_with(url: suppression_compte_do_account_path) do |form| %>
+    <%= form.text_area :reason, class:"textarea textarea-bordered w-full mb-8", placeholder: "Je peux expliquer ici la raison de mon départ" %>
+    <%= link_to "Annuler", user_path(current_user), class: "btn btn-outline" %>
+    <%= form.submit "Supprimer mon compte", class: "btn btn-error btn-outline", 'data-turbo-confirm': "ÊTES-VOUS BIEN SÛR DE VOULOIR SUPPRIMER VOTRE ESPACE DE TRAVAIL ? VOUS NE POURREZ PLUS REVENIR EN ARRIÈRE !!!"  %>
+  <% end %>
+</div>

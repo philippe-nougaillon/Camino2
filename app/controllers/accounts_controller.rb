@@ -23,6 +23,22 @@ class AccountsController < ApplicationController
     end
   end
 
+  def suppression_compte
+  end
+
+  def suppression_compte_do
+    Notifier.with(account: @account, reason: params[:reason]).delete_account_notification.deliver_now
+
+    @account.destroy
+
+    current_user = nil
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

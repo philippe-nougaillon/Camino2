@@ -13,4 +13,12 @@ class AccountPolicy < ApplicationPolicy
     edit?
   end
 
+  def suppression_compte?
+    user.admin? && user.account = record
+  end
+
+  def suppression_compte_do?
+    suppression_compte?
+  end
+
 end
