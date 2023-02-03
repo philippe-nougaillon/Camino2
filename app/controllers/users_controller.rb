@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
-  before_action :user_authorized?, except: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[show edit update destroy icalendar]
+  before_action :user_authorized?, except: %i[ index new create icalendar ]
+  skip_before_action :authenticate_user!, only: %i[icalendar]
 
   # GET /users or /users.json
   def index
+    authorize User
+
     if params[:project_id].blank?
       @users = User.where(id: current_user.account.users)
     else
@@ -15,21 +18,23 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    authorize @user
   end
 
   # GET /users/new
   def new
+    authorize User
+
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-    authorize @user
   end
 
   # POST /users or /users.json
   def create
+    authorize User
+
     @user = User.new(user_params)
     @user.account = current_user.account
 
@@ -51,8 +56,6 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    authorize @user
-
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: 'Utilisateur modifié avec succès.' }
@@ -66,7 +69,6 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    authorize @user
 
     @user.destroy
 
@@ -74,6 +76,25 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'Utilisateur supprimé avec succès.' }
       format.json { head :no_content }
     end
+  end
+
+  def icalendar
+    authorize User
+
+    if @user.admin?
+      @projects = @user.account.projects.where('duedate is not null')
+      @todolists = @user.account.todolists.where('todolists.duedate is not null')
+      @todos = @user.account.todos.where('todos.duedate is not null')
+    else
+      @projects = @user.projects.where('duedate is not null')
+      @todolists = Todolist.where(project_id: @user.projects.pluck(:id)).where('todolists.duedate is not null')
+      @todos = @user.todos.where('duedate is not null')
+    end
+
+    filename = "Camino_Agenda_iCal"
+    response.headers['Content-Disposition'] = 'attachment; filename="' + filename + '.ics"'
+    headers['Content-Type'] = "text/calendar; charset=UTF-8"
+    render plain: AgendaToIcalendar.new(@projects, @todos).call
   end
 
   private
@@ -89,6 +110,6 @@ class UsersController < ApplicationController
   end
 
   def user_authorized?
-    authorize User
+    authorize @user
   end
 end

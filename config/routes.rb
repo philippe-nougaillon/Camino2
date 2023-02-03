@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   scope "/admin" do
-    resources :users
+    resources :users do
+      member do
+        get :icalendar
+      end
+    end
   end
 
   get "sitemap" => "sitemap#show", format: :xml, as: :sitemap
@@ -24,7 +28,6 @@ Rails.application.routes.draw do
   delete 'documents/purge'
 
   get "agenda/index"
-  get "agenda/export_icalendar"
 
   get "show_attrs" => "tables#show_attrs" 
 

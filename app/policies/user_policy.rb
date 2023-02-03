@@ -33,4 +33,8 @@ class UserPolicy < ApplicationPolicy
     index? && user.same_account(record)
   end
 
+  def icalendar?
+    true
+  end
+
 end
