@@ -101,4 +101,4 @@
   <% end %>
 </div>
 
-<%= link_to "Exporter au format iCalendar", url_for(params.permit!.merge(format: :ics)), class: 'link' %>
+<%= link_to "Votre agenda au format iCal (Goggle Calendar / Calendrier Apple / Outlook)", icalendar_user_path(current_user), class: 'link' %>
