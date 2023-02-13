@@ -1,7 +1,9 @@
 <h1 class="mb-6">
   Projets
-  <%= link_to new_project_path, title:'Ajouter un projet' do %>
-    <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+  <% if policy(Project).new? %>
+    <%= link_to new_project_path, title:'Ajouter un projet' do %>
+      <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+    <% end %>
   <% end %>
 </h1>
 

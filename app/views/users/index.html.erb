@@ -13,6 +13,7 @@
         <th>Nom de connexion</th>
         <th>Courriel</th>
         <th>Participe à</th>
+        <th></th>
       </tr>
     </thead>
 
@@ -48,11 +49,12 @@
               <br>
             <% end %>
           </td>
+          <td><%= link_to "Modifier", edit_user_path(user) %></td>
         </tr>
       <% end %>
     </tbody>
     <tfoot>
-      <tr><th colspan=6></th></tr>
+      <tr><th colspan=7></th></tr>
     </tfoot>
   </table>
 </div>

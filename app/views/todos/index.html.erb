@@ -44,7 +44,7 @@
             </th>
             <td>
               <% todo.tags.each do |tag| %>
-                <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'text-slate-300 badge badge-outline badge-sm') %>
+                <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'text-slate-400 badge badge-outline badge-sm') %>
               <% end %>
             </td>
             <td style="width:400px;">
