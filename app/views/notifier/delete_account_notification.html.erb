@@ -2,17 +2,18 @@
 
 
 <br>
-ID account #<%= @account.id %>
+account ID #<%= @account.id %>
 <br>
-Nom account : <%= @account.name %>
+Nom : <%= @account.name %>
 <br>
-Liste Nom/E-mail des utilisateurs : <%= @account.users.pluck(:name, :email) %>
+Utilisateurs : <%= @account.users.pluck(:role, :email) %>
 <br>
-Liste noms projets : <%= @account.projects.pluck(:name) %>
+Projets : <%= @account.projects.pluck(:name) %>
 <br>
 Nombre de to-dos : <%= @account.todos.count %>
 
 
 <% unless @reason.blank? %>
-  Raison :<%= @reason %>
+  <br><br>
+  Raison : <%= @reason %>
 <% end %>

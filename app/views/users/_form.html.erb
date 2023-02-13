@@ -26,12 +26,19 @@
     <%= form.email_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :password, 'Mot de passe' %>
-    <%= form.password_field :password, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <% if current_user.admin? %>
+    <div class="my-5">
+      <%= form.label :role %>
+      <%= form.select :role, options_for_select(User.roles.keys.sort, user.role), {}, class: "block select select-bordered mt-2 w-full" %>
+    </div>
+  <% end %>
 
   <% if @user.new_record? %>
+    <div class="my-5">
+      <%= form.label :password, 'Mot de passe' %>
+      <%= form.password_field :password, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
     <div class="my-5">
       <%= form.label :password_confirmation, 'Confirmation mot de passe' %>
       <%= form.password_field :password_confirmation, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
@@ -41,7 +48,7 @@
   <div class="my-5">
     <%= form.label :avatar %>
     <br>
-    <%= form.file_field :avatar, accept: 'image/*' %>
+    <%= form.file_field :avatar, accept: 'image/*', class: "file-input file-input-bordered file-input-sm mt-2 w-full" %>
   </div>
 
   <div class="inline">
