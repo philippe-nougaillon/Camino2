@@ -6,7 +6,7 @@ module Api
       def index
         todos = Account.find_by(slug: params[:slug]).todos
 
-        render json: todos
+        render json: {data: todos}
       end
     end
   end
