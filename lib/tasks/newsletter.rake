@@ -13,7 +13,7 @@ namespace :newsletter do
 
   desc "Envoyer la weekly newsletter"
   task weekly: :environment do
-    if Date.today.wday == 6
+    if Date.today.wday == 0
       User.all.each do |user|
         projects = Project.where(id: Participant.where(user_id: user.id, want_weeklynewsletter: true).pluck(:project_id))
         logs = Log.where(project_id: projects.pluck(:id), created_at: 7.days.ago.to_date..Date.today)
