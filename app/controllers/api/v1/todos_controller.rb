@@ -9,6 +9,10 @@ module Api
           todos = todos.where(duedate: params[:duedate].to_date)
         end
 
+        unless params[:id] == "null"
+          todos = todos.where(id: params[:id])
+        end
+
         render json: {data: todos}
       end
     end
