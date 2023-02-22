@@ -5,7 +5,7 @@ module Api
 
       def index
         todos = Account.find_by(slug: params[:slug]).todos
-        unless params[:duedate].blank?
+        unless params[:duedate] == "null"
           todos = todos.where(duedate: params[:duedate].to_date)
         end
 
