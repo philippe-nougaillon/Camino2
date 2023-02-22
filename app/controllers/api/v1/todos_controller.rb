@@ -13,7 +13,7 @@ module Api
           todos = todos.where(id: params[:id])
         end
 
-        render json: {data: todos}
+        render json: todos
       end
     end
   end
