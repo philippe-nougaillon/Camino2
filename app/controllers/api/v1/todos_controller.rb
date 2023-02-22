@@ -5,6 +5,9 @@ module Api
 
       def index
         todos = Account.find_by(slug: params[:slug]).todos
+        unless params[:duedate].blank?
+          todos = todos.where(duedate: params[:duedate].to_date)
+        end
 
         render json: {data: todos}
       end
