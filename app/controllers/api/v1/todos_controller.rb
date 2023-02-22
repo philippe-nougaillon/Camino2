@@ -4,14 +4,13 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def index
-        todos = Account.find_by(slug: params[:slug]).todos
-
-        unless params[:duedate] == "null" || params[:duedate].blank?
-          todos = todos.where(duedate: params[:duedate].to_date)
-        end
-
-        unless params[:id] == "null" || params[:id].blank?
-          todos = todos.where(id: params[:id])
+        if params[:id] != "null"
+          todos = Todo.where(id: params[:id])
+        else
+          todos = Account.find_by(slug: params[:slug]).todos
+          if params[:duedate] != "null"
+            todos = todos.where(duedate: params[:duedate].to_date)
+          end
         end
 
         render json: {data: todos}
