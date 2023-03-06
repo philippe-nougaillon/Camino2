@@ -34,7 +34,7 @@ class Notifier < ApplicationMailer
     @password = pass
     @project = Project.friendly.find(project.id)
 
-    mail(to:user.email, bcc:"philippe.nougaillon@gmail.com").tap do |message|
+    mail(to:user.email).tap do |message|
       message.mailgun_options = {
         "tag" => [@user.account.name, "welcome"]
       }
@@ -57,7 +57,7 @@ class Notifier < ApplicationMailer
     @user = user
     @account = account
 
-    mail(to:user.email, subject:"[Camino] Votre espace de projet '#{@account.name}' a été créé", bcc:"philippe.nougaillon@gmail.com").tap do |message|
+    mail(to:user.email, subject:"[Camino] Votre espace de projet '#{@account.name}' a été créé").tap do |message|
       message.mailgun_options = {
         "tag" => [@account.name, "account_welcome"]
       }
@@ -68,7 +68,7 @@ class Notifier < ApplicationMailer
     @greeting = "Bienvenue"
     @user = user
 
-    mail(to:user.email, subject:"[Camino] Votre espace de projet '#{user.account.name}' a été créé", bcc:"philippe.nougaillon@gmail.com").tap do |message|
+    mail(to:user.email, subject:"[Camino] Votre espace de projet '#{user.account.name}' a été créé").tap do |message|
       message.mailgun_options = {
         "tag" => [@user.account.name, "account_welcome_with_password"]
       }
@@ -163,7 +163,7 @@ class Notifier < ApplicationMailer
 
   def daily_newsletter
     @projects = params[:projects]
-    mail(to: params[:user].email, bcc: "philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject: "[Camino] Récapitulatif de l'activité d'hier").tap do |message|
+    mail(to: params[:user].email, subject: "[Camino] Récapitulatif de l'activité d'hier").tap do |message|
       message.mailgun_options = {
         "tag" => [params[:user].account.name, "daily_newsletter"]
       }
@@ -172,7 +172,7 @@ class Notifier < ApplicationMailer
 
   def weekly_newsletter
     @projects = params[:projects]
-    mail(to: params[:user].email, bcc: "philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject: "[Camino] Récapitulatif de l'activité de la semaine").tap do |message|
+    mail(to: params[:user].email, subject: "[Camino] Récapitulatif de l'activité de la semaine").tap do |message|
       message.mailgun_options = {
         "tag" => [params[:user].account.name, "weekly_newsletter"]
       }
