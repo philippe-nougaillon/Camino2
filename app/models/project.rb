@@ -23,6 +23,8 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :workflow, presence: true
 
+  default_scope {order('projects.name')}
+
   def pct_avancee 
     unless self.todos.count.zero?
       ((self.todos.done.count * 100)  / self.todos.count)

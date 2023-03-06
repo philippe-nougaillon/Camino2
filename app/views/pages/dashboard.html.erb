@@ -78,8 +78,14 @@
         <% end %>
       <% end %>
     </tbody>
+    <tfoot>
+      <th colspan=6></th>
+    </tfoot>
   </table>
 </div>
+<% if @account_projects %>
+  <%= link_to "Export xls", dashboard_path(format: :xls), class: "btn btn-accent btn-sm" %>
+<% end %>
 
 <!-- Required chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

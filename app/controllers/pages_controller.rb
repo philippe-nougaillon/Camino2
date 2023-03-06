@@ -18,10 +18,22 @@ class PagesController < ApplicationController
     last_commit = current_user.account.todos.done.order(:updated_at).last
     @last_commit_picture = last_commit.user.avatar if last_commit && last_commit.user.avatar.attached?
 
-    @results = current_user.account.todos.done.group("DATE(todos.updated_at)").count(:id)
-
+    @results = current_user.account.todos.done.group("DATE(todos.updated_at), projects.name").count(:id)
 
     @account_projects = current_user.account.projects
+
+    respond_to do |format|
+      format.html do 
+      end
+
+      format.xls do
+        book = ProjectsToXls.new(@account_projects).call
+        file_contents = StringIO.new
+        book.write file_contents # => Now file_contents contains the rendered file output
+        filename = "#{current_user.account.name.humanize}_Répartition_charge_projets.xls"
+        send_data file_contents.string.force_encoding('binary'), filename: filename 
+      end
+    end
   end
 
   private

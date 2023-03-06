@@ -16,7 +16,7 @@ module Api
           todolist = todo.todolist
           project = todolist.project
 
-          data = todo.to_json + todolist.to_json + project.to_json
+          data = todo << todolist + project
         else
           data = nil
         end
