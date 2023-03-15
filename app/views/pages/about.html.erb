@@ -4,7 +4,9 @@
 </head>
 
 <div id="welcome">
-  <h2 class="my-4">Gérez vos projets en équipe et en mobilité</h2>
+  <h1 class="!text-4xl mt-12 text-primary">Camino v2</h1>
+
+  <h2 class="my-4">Gérez vos projets, en équipe et en mobilité</h2>
   <ul>
     <li>Découpez vos projets en listes de choses à faire</li>
     <li>Invitez vos contacts à participer aux projets</li>
@@ -13,73 +15,29 @@
     <li>Créez des formulaires pour collecter des données complémentaires à vos projets (inventaire, rapport d'intervention, etc.)</li>
   </ul>
 
-    <div class="flex items-center bg-slate-100 my-4">
-      <div class="carousel w-full" data-turbo="false">
-        <div id="slide1" class="carousel-item relative w-full">
-          <%= image_tag "carousel/projets.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide9" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide2" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div> 
-        <div id="slide2" class="carousel-item relative w-full">
-          <%= image_tag "carousel/projet.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide1" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide3" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div> 
-        <div id="slide3" class="carousel-item relative w-full">
-          <%= image_tag "carousel/todolist.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide2" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide4" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div>
-        <div id="slide4" class="carousel-item relative w-full">
-          <%= image_tag "carousel/todo.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide3" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide5" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div>
-        <div id="slide5" class="carousel-item relative w-full">
-          <%= image_tag "carousel/agenda.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide4" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide6" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div>
-        <div id="slide6" class="carousel-item relative w-full">
-          <%= image_tag "carousel/documents.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide5" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide7" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div>
-        <div id="slide7" class="carousel-item relative w-full">
-          <%= image_tag "carousel/tables.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide6" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide8" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div>
-        <div id="slide8" class="carousel-item relative w-full">
-          <%= image_tag "carousel/dashboard.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide7" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide9" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div>
-        <div id="slide9" class="carousel-item relative w-full">
-          <%= image_tag "carousel/user.png" %>
-          <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
-            <a href="#slide8" class="btn btn-circle btn-secondary btn-outline">❮</a> 
-            <a href="#slide1" class="btn btn-circle btn-secondary btn-outline">❯</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <h2 class="my-4">Projet Open-Source</h2>
+  <p>
+    Les sources de ce projet sont disponibles ici :
+    <%= link_to "https://github.com/philippe-nougaillon/Camino2", "https://github.com/philippe-nougaillon/Camino2" %>
+  </p>
+
+  <h2 class="my-4">Développement</h2>
+  <p>
+    CAMINO est développé et maintenu par 
+    <%= link_to 'Philnoug & Partners', 'https://philnoug.com', class:'link', target: '_blank' %>
+  </p>
+
+  <h2 class="my-4">Support et services</h2>
+  <p>
+    Vous souhaitez une nouvelle fonctionnalité ou installer CAMINO sur votre serveur Linux ?
+    <%= link_to 'Consultez notre offre de services', 'https://philnoug.com/services', class:'link', target: '_blank' %>
+  </p>
+
+  <h2 class="my-4">Contact</h2>
+  <p>
+    Vous avez une question, une remarque ou un projet à nous soumettre ?
+    <%= link_to 'Contactez-nous', 'https://philnoug.com/contact', class:'link', target: '_blank' %>
+  </p>
 
   <h2 class="my-4">Fonctionnalités</h2>
   <div>
@@ -109,6 +67,76 @@
     </ul>
   </div>
 
+
+  <div class="flex items-center bg-slate-100 my-12">
+    <div class="carousel w-full" data-turbo="false">
+      <div id="slide1" class="carousel-item relative w-full">
+        <%= image_tag "carousel/projets.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide9" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide2" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div> 
+      <div id="slide2" class="carousel-item relative w-full">
+        <%= image_tag "carousel/projet.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide1" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide3" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div> 
+      <div id="slide3" class="carousel-item relative w-full">
+        <%= image_tag "carousel/todolist.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide2" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide4" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div>
+      <div id="slide4" class="carousel-item relative w-full">
+        <%= image_tag "carousel/todo.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide3" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide5" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div>
+      <div id="slide5" class="carousel-item relative w-full">
+        <%= image_tag "carousel/agenda.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide4" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide6" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div>
+      <div id="slide6" class="carousel-item relative w-full">
+        <%= image_tag "carousel/documents.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide5" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide7" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div>
+      <div id="slide7" class="carousel-item relative w-full">
+        <%= image_tag "carousel/tables.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide6" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide8" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div>
+      <div id="slide8" class="carousel-item relative w-full">
+        <%= image_tag "carousel/dashboard.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide7" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide9" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div>
+      <div id="slide9" class="carousel-item relative w-full">
+        <%= image_tag "carousel/user.png" %>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-2 right-5 top-1/2">
+          <a href="#slide8" class="btn btn-circle btn-secondary btn-outline">❮</a> 
+          <a href="#slide1" class="btn btn-circle btn-secondary btn-outline">❯</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
   <h2 class="my-4">Formulaires & Tables de données</h2>
   <p>
     Créez vos propres formulaires pour collecter des informations complémentaires à vos projets (temps passé, ressources consommées, rapports d'intervention, etc.).
@@ -169,34 +197,6 @@
       </div>
     </div>
   </div>
-
-  <h2 class="my-4">Projet Open-Source</h2>
-  <p>
-    Les sources de ce projet sont disponibles ici :
-    <%= link_to "https://github.com/philippe-nougaillon/Camino2", "https://github.com/philippe-nougaillon/Camino2" %>
-  </p>
-
-  <h2 class="my-4">Développement</h2>
-  <p>
-    CAMINO est développé et maintenu par 
-    <%= link_to 'Philnoug & Partners', 'https://philnoug.com', class:'link', target: '_blank' %>
-  </p>
-
-  <h2 class="my-4">Support et services</h2>
-  <p>
-    Vous souhaitez une nouvelle fonctionnalité ou installer CAMINO sur votre serveur Linux ?
-    <br>
-    <%= link_to 'Consultez notre offre de services', 'https://philnoug.com/services', class:'link', target: '_blank' %>
-  </p>
-
-  <h2 class="my-4">Contact</h2>
-  <p>
-    Vous avez une question, une remarque ou un projet à nous soumettre ?
-
-    <br>
-    <%= link_to 'Contactez-nous', 'https://philnoug.com/contact', class:'link', target: '_blank' %>
-  </p>
-
 
 </div>
 
