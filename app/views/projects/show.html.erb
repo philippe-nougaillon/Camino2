@@ -1,7 +1,7 @@
 <div class="mb-8 pl-2" style="border-left: 7px solid <%= @project.color %>">
   <div class="flex items-center">
     <h2 class="text-primary"><%= page_title! @project.name.humanize %></h2>
-    <%= link_to "Modifier", edit_project_path(@project), class: 'ml-3 text-slate-400 hover:text-black' %> 
+    <%= link_to "Modifier", edit_project_path(@project), class: 'ml-3 text-base-content hover:text-black' %> 
   </div>
   <% unless @project.description.blank? %>
     <i><%= @project.description %></i>

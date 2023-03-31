@@ -8,10 +8,10 @@
     <%= link_to edit_todo_path(todo), class:'flex-1' do %>
       <div class="card camino-animation shadow-sm ml-4">
         <div class="card-body">
-          <strong><i class="text-slate-400"><%= todo.project.name %>:<%= todo.todolist.name %></i></strong>
+          <strong><i class="text-base-content"><%= todo.project.name %>:<%= todo.todolist.name %></i></strong>
           <strong><%= todo.name.humanize %></strong>
           <% todo.tags.each do |tag| %>
-            <p class="text-slate-400 badge badge-outline badge-xs"><%= tag.name %></p>
+            <p class="text-base-content badge badge-outline badge-xs"><%= tag.name %></p>
           <% end %>
           <p><%= l todo.duedate if todo.duedate %></p>
         </div>

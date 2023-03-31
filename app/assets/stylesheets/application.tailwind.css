@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer directive{
+  h1, h2, h3, h4, h5, h6, p, small, strong, b, a, i, li{
+    /* text-base-content */
+    --tw-text-opacity: 1;
+    color: hsl(var(--bc)/var(--tw-text-opacity));
+  }
+
+  th, td{
+    /* text-accent */
+    --tw-text-opacity: 1;
+      color: hsl(var(--a)/var(--tw-text-opacity));
+  }
+
+  .prev, .next, .page, .last, .first{
+    /* bg-gray-100 
+    hover:bg-sky-400 */
+  }
+
+}
 
 @layer components {
 
@@ -11,11 +30,6 @@
   h2{
     @apply !text-2xl !font-bold
   }
-
-  h1, h2, h3, h4, h5, h6{
-    @apply text-base-content
-  }
-
 
   #connexion{
     @apply p-8 border-2 rounded-xl mt-12 max-w-fit
@@ -30,7 +44,7 @@
   /* //// PAGINATION //// */
 
   .prev, .next, .page, .last, .first{
-    @apply ml-2 rounded-lg py-1 px-2 bg-info inline-block font-medium hover:bg-sky-400
+    @apply ml-2 rounded-lg py-1 px-2 bg-gray-100 inline-block font-medium hover:bg-sky-400
   }
 
   .current{
