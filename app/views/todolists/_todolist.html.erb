@@ -4,7 +4,7 @@
       <i><%= todolist.row %>.</i>
     <% end %>
     <% if todolist.done? %>
-      <del><%= link_to todolist.name.humanize, todolist, class: 'text-lg text-primary' %></del>
+      <del class="text-primary"><%= link_to todolist.name.humanize, todolist, class: 'text-lg' %></del>
     <% else %>
       <%= link_to todolist.name.humanize, todolist, class: 'text-lg text-primary', title:"Cliquez pour ouvrir cette liste et voir les choses à faire", data: { no_turbolink: true } %>
     <% end %>

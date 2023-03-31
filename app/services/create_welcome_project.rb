@@ -24,7 +24,7 @@ class CreateWelcomeProject < ApplicationService
       field5 = table.fields.create(name: "Humeur", datatype: "liste", items: "Extra, Bonne, Neutre, Mauvaise, Exécrable")
 
       # Création du projet
-      project = @account.projects.create(name: "Découvrir Camino", description: "Projet de bienvenue", table_id: table.id, duedate: Date.today + 7.days)
+      project = @account.projects.create(name: "Découvrir Camino", description: "Projet de bienvenue", table_id: table.id, duedate: Date.today + 7.days, color: "#38cdbe")
       project.participants.create(user_id: user_id)
 
       # Ajout de todolists
