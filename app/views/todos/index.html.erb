@@ -2,19 +2,23 @@
 
 <% if @tags.any? %>
   <div class="mb-4">
-    Tags :
-    <% tag_cloud(@tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
-      <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'badge badge-outline ' + css_class) %>
-    <% end %>
+    <span>
+      Tags :
+      <% tag_cloud(@tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
+        <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'badge badge-outline ' + css_class) %>
+      <% end %>
+    </span>
   </div>
 <% end %>
 
 <div class="mb-4">
-  Afficher les opérations : 
-  <%= link_to_unless params[:filter] == "todo", "À faire", url_for(params.permit(:tag).merge(filter: "todo")), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
-  <%= link_to_unless params[:filter] == "pending", "En attente", url_for(params.permit(:tag).merge(filter: "pending")), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
-  <%= link_to_unless params[:filter] == "notify", "À notifier", url_for(params.permit(:tag).merge(filter: "notify")), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
-  <%= link_to_unless params[:filter] == "all", "Toutes", url_for(params.permit(:tag)), class: 'link' %>
+  <span>
+    Afficher les opérations : 
+    <%= link_to_unless params[:filter] == "todo", "À faire", url_for(params.permit(:tag).merge(filter: "todo")), title:"Affiche les opérations non terminées qui vous sont assignées", class: 'link' %> |
+    <%= link_to_unless params[:filter] == "pending", "En attente", url_for(params.permit(:tag).merge(filter: "pending")), title:"Affiche toutes opérations non terminées", class: 'link'  %> |
+    <%= link_to_unless params[:filter] == "notify", "À notifier", url_for(params.permit(:tag).merge(filter: "notify")), title:"Affiche les opérations non terminées et arrivées à échéance", class: 'link' %> |
+    <%= link_to_unless params[:filter] == "all", "Toutes", url_for(params.permit(:tag)), class: 'link' %>
+  </span>
 </div>
 
 <% if @todos.any? %>
@@ -44,7 +48,7 @@
             </th>
             <td>
               <% todo.tags.each do |tag| %>
-                <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'text-base-content badge badge-outline badge-sm') %>
+                <%= link_to(tag.name.humanize, todos_path(tag: tag.name), class: 'text-base-content badge badge-outline text-base-content badge-sm') %>
               <% end %>
             </td>
             <td style="width:400px;">
@@ -88,9 +92,8 @@
       </tfoot>
     </table>
   </div>
-  <%= page_entries_info @todos, entry_name: 'todo' %>
+  <span><%= page_entries_info @todos, entry_name: 'todo' %></span>
   <%= paginate @todos %>
 <% else %>
-  Rien à afficher...<br> 
+  <span>Rien à afficher...</span>
 <% end %>
-<br>

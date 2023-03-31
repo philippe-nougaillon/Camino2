@@ -9,37 +9,46 @@
 </div>
 
 <% unless @project.pct_avancee.zero? %>
-  Progression : <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
-  <small>(<%= @project.pct_avancee %>%)</small>
+  <span>
+    Progression : 
+    <progress class="progress progress-success !w-56" value=<%= @project.pct_avancee %> max="100"></progress>
+    <small>(<%= @project.pct_avancee %>%)</small>
+  </span>
 <% end %>
 
 <% if @project.workflow? and @project.current_todolist %>
-  | Phase en cours : <%= @project.current_todolist.name %>
+  <span>| Phase en cours : <%= @project.current_todolist.name %></span>
 <% end %>
 
 <% if @project.duedate %>
-  | Échéance : <strong><%= l(@project.duedate) %></strong>
+  <span>| Échéance :<strong><%= l(@project.duedate) %></strong></span>
 <% end %>
 
 <% if @project.todos %>
-  | Charge : <strong><%= number_with_precision(@project.todos.sum(:charge_est), precision: 2) %></strong>
-  / <strong><%= number_with_precision(@project.todos.sum(:charge_reelle), precision: 2) %></strong> jours
+  <span>
+    | Charge :<strong><%= number_with_precision(@project.todos.sum(:charge_est), precision: 2) %></strong>
+    / <strong><%= number_with_precision(@project.todos.sum(:charge_reelle), precision: 2) %></strong> jours
+  </span>
 <% end %>
 
 <% if @project.tag_list.any? %>
-  | Tags : 
-  <% tag_cloud(@project.tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
-    <%= link_to(tag.name, projects_path(tag:tag.name), class: 'badge badge-outline ' + css_class) %>
-  <% end %>
+  <span>
+  | Tags :
+    <% tag_cloud(@project.tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
+      <%= link_to(tag.name, projects_path(tag:tag.name), class: 'badge badge-outline ' + css_class) %>
+    <% end %>
+  </span>
 <% end %>
 
 <div class="mt-2">
   <% if @project.todolists.any? %>
     <% if @project.todos.any? %>
       <%= form_tag project_path, method: :get, class:'mb-2' do %>
-        Afficher :
-        <%= radio_button_tag :show_only_undone, "no", params[:show_only_undone] == "no", { onchange: "this.form.submit();", class: 'radio radio-accent radio-sm' } %> Tout
-        <%= radio_button_tag :show_only_undone, "yes", params[:show_only_undone] == "yes", { onchange: "this.form.submit();", class: 'radio radio-accent radio-sm ml-4' } %> Reste à faire
+        <span>
+          Afficher :
+          <%= radio_button_tag :show_only_undone, "no", params[:show_only_undone] == "no", { onchange: "this.form.submit();", class: 'radio radio-accent radio-sm' } %> Tout
+          <%= radio_button_tag :show_only_undone, "yes", params[:show_only_undone] == "yes", { onchange: "this.form.submit();", class: 'radio radio-accent radio-sm ml-4' } %> Reste à faire
+        </span>
       <% end %>
     <% end %>
   <% else %>

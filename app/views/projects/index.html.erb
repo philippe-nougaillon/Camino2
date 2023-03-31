@@ -8,11 +8,14 @@
 </h1>
 
 <% if @tags.any? %>
-  Tags :
-  <% tag_cloud(@tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
-    <%= link_to(tag.name, projects_path(tag:tag.name), class: 'badge badge-outline ' + css_class) %>
-  <% end %>
-  <br><br>
+  <div class="mb-4">
+    <span>
+      Tags :
+      <% tag_cloud(@tags, ['badge-sm', '', 'badge-md', 'badge-lg']) do |tag, css_class| %>
+        <%= link_to(tag.name, projects_path(tag:tag.name), class: 'badge badge-outline ' + css_class) %>
+      <% end %>
+    <span>
+  </div>
 <% end %>
 
 <% if @projects.any? %>
