@@ -9,6 +9,12 @@
     color: hsl(var(--bc)/var(--tw-text-opacity));
   }
 
+  input, select, a.link{
+    /* text-base-content */
+    --tw-text-opacity: 1;
+    color: hsl(var(--bc)/var(--tw-text-opacity)) !important;
+  }
+
   th, td{
     /* text-accent */
     --tw-text-opacity: 1;

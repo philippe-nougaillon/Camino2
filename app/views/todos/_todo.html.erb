@@ -10,7 +10,7 @@
     <% unless todo.done %>
       <%= link_to todo.name.humanize, edit_todo_path(todo), class: 'text-lg text-primary' %>
     <% else %>
-      <del><b><%= todo.name.humanize %></b></del>
+      <del class="text-primary"><b class="text-primary"><%= todo.name.humanize %></b></del>
     <% end %>
   </td>
   <td><%= todo.user.name if todo.user %></td>
