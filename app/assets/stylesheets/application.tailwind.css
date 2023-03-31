@@ -18,13 +18,13 @@
   th, td{
     /* text-accent */
     --tw-text-opacity: 1;
-      color: hsl(var(--a)/var(--tw-text-opacity));
+    color: hsl(var(--a)/var(--tw-text-opacity));
   }
 
   .prev, .next, .page, .last, .first{
     /* text-accent */
     --tw-text-opacity: 1;
-      color: hsl(var(--a)/var(--tw-text-opacity));
+    color: hsl(var(--a)/var(--tw-text-opacity));
     
     /* border-accent */
     --tw-border-opacity: 1;
@@ -60,6 +60,14 @@
 
   .current{
     @apply font-black
+  }
+
+  /* //PAGINATION */
+
+  /* //// PAGINATION //// */
+
+  .navbar .menu :where(li)>:where(:not(ul)){
+    @apply px-3 bg-transparent
   }
 
   /* //PAGINATION */
