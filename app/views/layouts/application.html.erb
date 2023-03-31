@@ -15,11 +15,12 @@
     <%= render partial: "partials/gtag" %>
 
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
 
     <%= render partial: "partials/favicon" %>
   </head>
 
-  <body class="bg-gray-50 min-h-screen pb-12">
+  <body class="bg-base-100 min-h-screen pb-12">
     <div data-controller="service-worker">
       <%= render partial: "partials/navbar" %>
       <main class="mx-auto px-2 lg:px-12">
