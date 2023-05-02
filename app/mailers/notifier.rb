@@ -11,7 +11,7 @@ class Notifier < ApplicationMailer
 
   def new_account_notification
     @account = params[:account]
-    mail(to:"philippe.nougaillon@gmail.com, p-edacquet@hotmail.fr", subject:"[Camino] Un compte a été créé").tap do |message|
+    mail(to:"philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject:"[Camino] Un compte a été créé").tap do |message|
       message.mailgun_options = {
         "tag" => [@account.name, "new_account"]
       }
@@ -21,7 +21,7 @@ class Notifier < ApplicationMailer
   def delete_account_notification
     @account = params[:account]
     @reason = params[:reason]
-    mail(to:"philippe.nougaillon@gmail.com, p-edacquet@hotmail.fr", subject:"[Camino] Un compte a été supprimé").tap do |message|
+    mail(to:"philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject:"[Camino] Un compte a été supprimé").tap do |message|
       message.mailgun_options = {
         "tag" => [@account.name, "account deleted"]
       }

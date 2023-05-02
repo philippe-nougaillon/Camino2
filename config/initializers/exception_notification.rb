@@ -20,7 +20,7 @@ ExceptionNotification.configure do |config|
   config.add_notifier :email, {
     email_prefix: '[Camino2] ',
     sender_address: %{"Camino2" <camino2@philnoug.com>},
-    exception_recipients: %w{philippe.nougaillon@gmail.com, p-edacquet@hotmail.fr}
+    exception_recipients: %w{philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com}
   }
 
   config.error_grouping = true
