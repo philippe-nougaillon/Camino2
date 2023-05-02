@@ -1,6 +1,7 @@
-<h1><%= page_title! "Abonnements du participant #{@participant.user.name}" %></h1>
-<h3>Projet: <%= @participant.project.name %></h3>
-<br>
+<h1>Vos abonnements</h1>
+<div class="mb-8 pl-2" style="border-left: 7px solid <%= @participant.project.color %>">
+  <h2>Projet: <%= @participant.project.name %></h2>
+</div>
 
 <%= render 'form' %>
 

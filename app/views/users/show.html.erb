@@ -35,7 +35,7 @@
         <tr style="text-align:left;color:lightgray;">
           <th />
           <th>Nom du projet</th>
-          <th>Recevoir les notification par mail ?</th>
+          <th>Recevoir les notifications par mail ?</th>
           <th>Recevoir la Daily Newsletter?</th>
           <th>Recevoir la Weekly Newsletter?</th>
           <th />
@@ -48,7 +48,11 @@
       </tfoot>
     </table>
   </div>
-  <br>
+  <p>
+    L'envoi de notifications par e-mail est un service payant.
+    <%= link_to 'Contactez-nous', 'https://philnoug.com/contact', class:'link', target: '_blank' %>
+    pour activer le service.
+  </p>
 <% end %>
 
 <% if current_user.admin? %>
