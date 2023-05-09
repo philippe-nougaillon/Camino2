@@ -6,6 +6,5 @@ SitemapGenerator::Sitemap.compress = false
 SitemapGenerator::Sitemap.include_root = false
 
 SitemapGenerator::Sitemap.create do
-  add '/users/sign_in'
-  add '/about', :priority => 0.9
+  add '/about'
 end
