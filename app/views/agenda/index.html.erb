@@ -88,17 +88,46 @@
 <% end %>
 
 
+<h2 class="mt-6 mb-3">Échéances à venir</h2>
+<% if @projects.where("duedate >= ?", Date.today()).any? %>
+  <div class="flex flex-col mb-6">
+    <% @projects.where("duedate >= ?", Date.today()).each do |project| %>
+      <div>
+        <%= l project.duedate %>
+        <span class="pl-1 ml-2" style="border-left: .3rem solid <%= project.color %>">
+          <%= project.name %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>Aucune échéance à venir. It's all good, man!</p>
+<% end %>
 
-<h2 class="my-6">Échéances à venir</h2>
-<div class="flex flex-col mb-6">
-  <% @projects.where("duedate >= ?", Date.today()).each do |project| %>
-    <div>
-      <%= l project.duedate %>
-      <span class="pl-1 ml-2" style="border-left: .3rem solid <%= project.color %>">
-        <%= project.name %>
-      </span>
-    </div>
-  <% end %>
+<h2 class="mt-6 mb-3">
+  Synchronisation du calendrier
+</h2>
+<p>
+  Ajouter le lien ci-dessous à votre calendrier personnel (Google Agenda, Apple Calendar, Outlook, ...) pour que vos échéances apparaissent automatiquement.
+</p>
+
+<div class="form-control">
+  <div class="input-group">
+    <input type="text" class="input input-bordered w-full" value=<%= root_url + icalendar_user_path(current_user) %> id="calendar-clipboard">
+    <span id="myTooltip" onclick="myFunction()" class="input-group-text" style="cursor: pointer;">
+      Copier
+    </span>
+  </div>
 </div>
 
-<%= link_to "Votre agenda au format iCal (Goggle Calendar / Calendrier Apple / Outlook)", icalendar_user_path(current_user), class: 'link' %>
+<script>
+  function myFunction() {
+    var copyText = document.getElementById("calendar-clipboard");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+    
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copié!";
+  }
+</script>
