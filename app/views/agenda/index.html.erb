@@ -25,34 +25,40 @@
       </div>
     <% end %>
 
+    <% task_name = nil %>
     <% @todos.undone.where(duedate:date).each do |todo| %>
-      <% todo_height = todo.charge_est >= 1 ? 8 : 5 %>
-      <div class="shadow mt-2 p-2 pt-0" style="border-left: .3rem solid <%= todo.project.color %>; height: <%= todo_height %>rem">
+      <div class="shadow mt-2 p-2 pt-0" style="border-left: .3rem solid <%= todo.project.color %>">
         <%= link_to edit_todo_path(todo) do %>
-          <% if request.variant.include?(:phone) %>
-            <small><b>
-            <% if params[:project].blank? %>
-              <%= todo.project.name.first(10).upcase %>
-            <% end %>
-            <br>
-            <%= todo.name.first(10).humanize %>
-            </b>
-            <br>
-            <%= todo.user.username.humanize %>
-            <br>
-            </small>
+          <% if task_name == todo.name %>
+            ... +
+            <%= todo.user.username %>
           <% else %>
-            <b>
-            <% if params[:project].blank? %>
-              <%= todo.project.name %>:
+            <% if request.variant.include?(:phone) %>
+              <small><b>
+              <% if params[:project].blank? %>
+                <%= todo.project.name.first(10).upcase %>
+              <% end %>
+              <br>
+              <%= todo.name.first(10).humanize %>
+              </b>
+              <br>
+              <%= todo.user.username.humanize %>
+              <br>
+              </small>
+            <% else %>
+              <b>
+              <% if params[:project].blank? %>
+                <%= todo.project.name %>:
+              <% end %>
+              <%= todo.todolist.name %>:
+              <%= truncate(todo.name, length: 20) %>
+              </b>
+              <br>
+              <%= todo.user.username.humanize %>
+              <br>
+              <%= number_with_precision(todo.charge_est, precision: 2) %> j
             <% end %>
-            <%= todo.todolist.name %>:
-            <%= truncate(todo.name, length: 20) %>
-            </b>
-            <br>
-            <%= todo.user.username.humanize %>
-            <br>
-            <%= number_with_precision(todo.charge_est, precision: 2) %> j
+            <% task_name = todo.name %>
           <% end %>
         <% end %>
       </div>
@@ -71,17 +77,27 @@
       </div>
     <% end %>
 
+    <% task_name = nil %>
     <% @todos.undone.where(duedate:date).each do |todo| %>
-        <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
-          <%= link_to edit_todo_path(todo) do %>
-            <% if params[:project].blank? %>
-              <%= todo.project.name %>:
-            <% end %>
-            <%= todo.todolist.name %>:<%= todo.name %>
+      <div class="shadow mt-2 p-2" style="border-left: .3rem solid <%= todo.project.color %>">
+        <%= link_to edit_todo_path(todo) do %>
+          <% if task_name == todo.name %>
+            ... +
+            <%= todo.user.username %>
+          <% else %>
+            <b>
+              <% if params[:project].blank? %>
+                <%= todo.project.name %>:
+              <% end %>
+              <%= todo.todolist.name %>:
+              <%= truncate(todo.name, length: 20) %>
+            </b>
             <br>
             <%= todo.user.username %>
+            <% task_name = todo.name %>
           <% end %>
-        </div>
+        <% end %>
+      </div>
     <% end %>
 
   <% end %>
