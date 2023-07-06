@@ -3,5 +3,5 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@fortawesome/fontawesome-free"
 
-Turbo.session.drive = false;
-// Turbo.setFormMode("off");
+// Turbo.session.drive = false;
+Turbo.setFormMode("off");
