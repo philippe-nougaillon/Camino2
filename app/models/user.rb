@@ -39,25 +39,29 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     require "open-uri"
 
-    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.name = auth.info.name   # assuming the user model has a name
-      user.username = auth.info.email.split('@').first
-      user.role = "admin"
-      user.account = Account.create(name: user.username)
-      user.avatar.attach(io: URI.open(auth.info.image), filename:"photo.png") # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails, 
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
-
-      user.save
-
-      #Création du projet de démonstration
-      CreateWelcomeProject.new(user.account.id).call
-
+    if user = User.find_by(email: auth.info.email)
       user
-      
+    else
+      find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
+        user.email = auth.info.email
+        user.password = Devise.friendly_token[0, 20]
+        user.name = auth.info.name   # assuming the user model has a name
+        user.username = auth.info.email.split('@').first
+        user.role = "admin"
+        user.account = Account.create(name: user.username)
+        user.avatar.attach(io: URI.open(auth.info.image), filename:"photo.png") # assuming the user model has an image
+        # If you are using confirmable and the provider(s) you use validate emails, 
+        # uncomment the line below to skip the confirmation emails.
+        # user.skip_confirmation!
+
+        user.save
+
+        #Création du projet de démonstration
+        CreateWelcomeProject.new(user.account.id).call
+
+        user
+        
+      end
     end
   end
 
