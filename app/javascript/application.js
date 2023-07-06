@@ -4,3 +4,4 @@ import "controllers"
 import "@fortawesome/fontawesome-free"
 
 // Turbo.session.drive = false;
+Turbo.setFormMode("off");
