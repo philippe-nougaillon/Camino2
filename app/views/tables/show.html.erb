@@ -1,8 +1,8 @@
-<div class="flex items-center mb-6">
+<div class="mb-6">
   <h1>
     <%= page_title! "Table: #{@table.name.humanize}" %>
   </h1>
-  <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les colonnes", class:'ml-3 text-base-content' %>
+  <%= link_to "Modifier", show_attrs_path(id:@table), title:"Modifier les colonnes", class:'text-secondary' %>
 </div>
 
 
@@ -25,12 +25,12 @@
         <thead>
           <tr>
             <th>#</th>
+            <th>Date</th>
+            <th>Par</th>
+            <th>Projet</th>
             <% @table.fields.each do | field | %>
               <th><%= field.name %></th>
             <% end %>
-            <th><small>Ajoutée</small></th>
-            <th><small>Par</small></th>
-            <th><small>Dans</small></th>
             <th colspan="1"></th>
           </tr>
         </thead>
@@ -45,35 +45,25 @@
                 <th class="font-bold">
                   <%= index %>
                 </th>
+                <td>
+                    il y a <%= time_ago_in_words record.created_at %>
+                </td>
+                <td>
+                  <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
+                  <%= record.user.username if record.user %>
+                </td>
+                <td>
+                  <% if record.todo %>
+                    <span class="pl-1" style="border-left: .3rem solid <%= record.todo.project.color %>">
+                      <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
+                    </span>
+                  <% end %>
+                </td>
                 <% @table.fields.each do | field | %>
                   <td class="font-bold">
                     <%= field.values.records_at(index).first.data if field.values.records_at(index).first %>
                   </td>
                 <% end %>
-                <td>
-                  <small> 
-                    il y a <%= time_ago_in_words record.created_at %>
-                  </small>
-                </td>
-                <td>
-                  <%= image_tag(record.user.avatar, alt:'', class:"mini_avatar inline") if record.user.avatar.attached? %>
-                  <small><%= record.user.username if record.user %></small>
-                </td>
-                <td>
-                  <% if record.todo %>
-                    <small>
-                      <span class="pl-1" style="border-left: .3rem solid <%= record.todo.project.color %>">
-                        <%= link_to record.todo.fullname, edit_todo_path(record.todo) %>
-                      </span>
-                    </small>
-                  <% end %>
-                </td>
-
-      <%
-=begin%>
-<td><%= link_to "Modifier", fill_url(@table.slug, record_index:index) %></td> 
-<%
-=end%>
                 <td><%= button_to "[X]", delete_record_url(@table.slug, record_index:index), method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>
               </tr>
             <% end %>
@@ -90,10 +80,15 @@
         </tfoot>
       </table>
     </div>
-    <p>
+    <p class="mb-4">
       <%= "#{count} enregistrement#{@table.size > 1 ? 's':''} sur #{@table.size} au total" %>
     </p>
-    <%= link_to "Exporter vers Excel", url_for(params.permit.merge(format:'xls')), class: 'link' %>
+    <%= link_to url_for(params.permit.merge(format:'xls')) do %>
+      <%= image_tag 'excel_logo.png', size:'25x25', class: 'inline' %>
+      <span class="">
+        Exporter vers Excel
+      </span>
+    <% end %>
   <% else %>
     Il n'y a aucune valeur à afficher. Pour afficher de nouvelles données, modifiez une tâche et utilisez le lien "Ajouter des données...".
   <% end %>

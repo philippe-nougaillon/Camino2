@@ -14,8 +14,8 @@ class TableToXls < ApplicationService
       sheet = book.create_worksheet name: @table.name
       bold = Spreadsheet::Format.new :weight => :bold, :size => 11
 
-      headers = @table.fields.pluck(:name)
-      headers << ["Créé le", "Par", "Dans"]
+      headers = ["Date", "Par", "Projet"]
+      headers << @table.fields.pluck(:name).map {|e| e.humanize}
 
       sheet.row(0).concat headers.flatten
       sheet.row(0).default_format = bold
@@ -26,12 +26,12 @@ class TableToXls < ApplicationService
         index = i + 1
         if table.values.records_at(index).any?
           record = table.values.records_at(index).first
+          fields_to_export << [record.created_at, record.user.username, record.try(:todo).try(:fullname)]
           table.fields.each do | field |
             if field.values.records_at(index).first
               fields_to_export << field.values.records_at(index).first.data
             end
           end
-          fields_to_export << [record.created_at, record.user.username, record.todo.fullname]
         end
         sheet.row(row_index).replace fields_to_export.flatten
         fields_to_export = []

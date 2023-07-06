@@ -11,7 +11,7 @@
   <strong>Nom: </strong>
   <%= @user.account.name %>
   <% if current_user.admin? %>
-    <%= link_to "Modifier", edit_account_path(@user.account), class:"link" %>
+    <%= link_to "Modifier", edit_account_path(@user.account), class:"text-secondary" %>
   <% end %>
 </p>
 
