@@ -15,9 +15,8 @@
       <thead>
         <tr>
           <td>Nom</td>
-          <th>Colonnes</th>
-          <th>Utilisée par les projets</th>
-          <th>Lignes</th>
+          <th>Projets associés</th>
+          <th>Enregistrements</th>
           <th>MÀJ</th>
           <th colspan="3"></th>
         </tr>
@@ -32,21 +31,14 @@
               </strong>
             </td>
             <td>
-              <%= table.fields.pluck(:name).join(', ') %>
-              <%= link_to "(#{table.fields.count})", 
-                          table_path(table, attrs:1), 
-                          title:"#{table.fields.any? ? "Modifier les" : "Ajouter des"} colonnes: #{table.fields.pluck(:name).join(", ")}",
-                          class: 'link' %>
-            </td>
-            <td>
               <% table.projects.order(:name).each do |p| %>
-                <span class="pl-1 mr-2" style="border-left: .3rem solid <%= p.color %>">
+                <p class="pl-1 mr-2" style="border-left: .3rem solid <%= p.color %>">
                   <% if p.participants.where(user_id:current_user.id).any? %>
                     <%= link_to p.name, project_path(p) %>
                   <% else %>
                     <%= p.name %>
                   <% end %>
-                </span>
+                </p>
               <% end %>
               <%= link_to link_path(id: table.slug), title:'Lier cette table à un projet' do %>
                 <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
@@ -56,10 +48,11 @@
             <td><%= "Il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>
             
             <td>
-                <%= link_to_if table.values.any?, 
-                                image_tag('excel_logo.png', size:'25x25'), 
+              <% if table.values.any? %>
+                <%= link_to image_tag('excel_logo.png', size:'25x25'), 
                                 table_path(table, format:'xls'), 
                                 title:'Export Excel' %>
+              <% end %>
             </td>
             <td><%= link_to "Modifier", show_attrs_path(id: table), title:"Modifier les colonnes de la table" %></td>
             <td><%= button_to '[X]', table, method: :delete, form: { data: {'turbo-confirm': 'Are you sure?' } } %></td>

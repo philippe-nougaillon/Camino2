@@ -1,7 +1,7 @@
 <div class="flex min-h-screen flex-col lg:flex-row justify-around aligns-items-center items-center w-full pb-12">
   <div id="connexion">
     <h1 class="text-4xl font-bold text-center mb-12">Inscription</h1>
-    <%- if devise_mapping.omniauthable? %>
+    <%- if false && devise_mapping.omniauthable? %>
       <div class="mb-12">
         <%- resource_class.omniauth_providers.each do |provider| %>
           <%= form_for "Login",
