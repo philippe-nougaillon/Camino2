@@ -84,8 +84,8 @@
       <%= "#{count} enregistrement#{@table.size > 1 ? 's':''} sur #{@table.size} au total" %>
     </p>
     <%= link_to url_for(params.permit.merge(format:'xls')) do %>
-      <%= image_tag 'excel_logo.png', size:'25x25', class: 'inline' %>
-      <span class="">
+      <%= image_tag 'excel_logo.png', size:'25x25' %>
+      <span class="hover:underline">
         Exporter vers Excel
       </span>
     <% end %>

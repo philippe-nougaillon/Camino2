@@ -31,18 +31,22 @@
               </strong>
             </td>
             <td>
-              <% table.projects.order(:name).each do |p| %>
-                <p class="pl-1 mr-2" style="border-left: .3rem solid <%= p.color %>">
-                  <% if p.participants.where(user_id:current_user.id).any? %>
-                    <%= link_to p.name, project_path(p) %>
-                  <% else %>
-                    <%= p.name %>
+              <div class="flex items-center gap-4">
+                <div>
+                  <% table.projects.order(:name).each do |p| %>
+                    <p class="pl-1 mr-2 mb-2" style="border-left: .3rem solid <%= p.color %>">
+                      <% if p.participants.where(user_id:current_user.id).any? %>
+                        <%= link_to p.name, project_path(p) %>
+                      <% else %>
+                        <%= p.name %>
+                      <% end %>
+                    </p>
                   <% end %>
-                </p>
-              <% end %>
-              <%= link_to link_path(id: table.slug), title:'Lier cette table à un projet' do %>
-                <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
-              <% end %>
+                </div>
+                <%= link_to link_path(id: table.slug), title:'Lier cette table à un projet' do %>
+                  <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+                <% end %>
+              </div>
             </td>
             <td><%= table.size %></td>
             <td><%= "Il y a #{time_ago_in_words(table.values.maximum(:updated_at))}" if table.values.any? %>

@@ -7,7 +7,15 @@
     <tr>
       <% @project.participants.each do |participant| %>
         <td>
-          <%= image_tag(participant.user.avatar, alt:'', class:'camino-avatar inline') if participant.user.avatar.attached? %>
+          <% if participant.user.avatar.attached? %>
+            <%= image_tag(participant.user.avatar, alt:'', class:'camino-avatar') %>
+          <% else %>
+            <div class="avatar placeholder">
+              <div class="bg-primary-focus text-neutral-content rounded-full w-12 h-12">
+                <span class="text-2xl text-primary-content"><%= participant.user.username.first.humanize %></span>
+              </div>
+            </div>
+          <% end %>
         </td>
         <td>
           <%= participant.user.name %>
