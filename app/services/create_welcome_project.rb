@@ -31,6 +31,7 @@ class CreateWelcomeProject < ApplicationService
       todolist1 = project.todolists.create(name: "Découvrir le b.a.-ba (Béaba)")
       todolist2 = project.todolists.create(name: "Créer un projet avec Camino")
       todolist3 = project.todolists.create(name: "Inviter un collègue", duedate: Date.today + 6.days)
+      todolist4 = project.todolists.create(name: "Découvrir toutes les fonctionnalités de Camino")
 
       # Ajout de todos
       todolist1_todo_1 = todolist1.todos.create(name: "Parcourir les menus (To-do, Agenda, Activité, Discussions...)", user_id: user_id, done: false, duedate: Date.tomorrow)
@@ -42,6 +43,12 @@ class CreateWelcomeProject < ApplicationService
       todolist3_todo_1 = todolist3.todos.create(name: "Créer un utilisateur(participant)", user_id: user_id, done: false)
       todolist3_todo_1.comments.create(user_id: user_id, texte: "Pour créer un participant, il faut aller sur l'onglet 'Projets', et cliquer sur le bouton (+) à côté de votre avatar")
       todolist3_todo_2 = todolist3.todos.create(name: "Ajouter le nouvel utilisateur au projet", user_id: user_id, done: false)
+
+      todolist4_todo_1 = todolist4.todos.create(name: "Ouvrir le document 'README.pdf'", user_id: user_id, done: false)
+
+      # Ajout d'un document à la todo
+      filename = File.join(Rails.root, 'public', 'À propos - CaminoV2.pdf')
+      todolist4_todo_1.document.attach(io: File.open(filename), filename: 'README.pdf', content_type: 'application/pdf')
 
       # Ajout de données dans la table
       todolist2_todo_1.values.create(data: '4', field_id: field1.id, record_index: 1, user_id: user_id, table_id: table.id)
