@@ -12,9 +12,13 @@
     <%= javascript_importmap_tags %>
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.46.0/dist/full.css" rel="stylesheet" type="text/css" />
-    <%= render partial: "partials/gtag" %>
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <%= render partial: "partials/gtag" %>
     <%= render partial: "partials/favicon" %>
   </head>
 

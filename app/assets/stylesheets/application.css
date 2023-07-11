@@ -14,6 +14,9 @@
  *= require_self
  */
 
+body{
+  font-family: 'Roboto', sans-serif;
+}
 
 .camino-footer:before{
   content: "";
