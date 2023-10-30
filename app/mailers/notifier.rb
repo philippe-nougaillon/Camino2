@@ -1,14 +1,6 @@
 # encoding: utf-8
 
 class Notifier < ApplicationMailer
-  default from: '"Camino" <camino2@philnoug.com>'
-
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.notifier.welcome.subject
-  #
-
   def new_account_notification
     @account = params[:account]
     mail(to:"philippe.nougaillon@gmail.com, pierreemmanuel.dacquet@gmail.com", subject:"[Camino] Un compte a été créé").tap do |message|
@@ -105,11 +97,6 @@ class Notifier < ApplicationMailer
     end
   end
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.notifier.update.subject
-  #
   def update(log)
     @log = log
     project_name = "#{log.project.name}" 
@@ -134,12 +121,6 @@ class Notifier < ApplicationMailer
       }
     end
   end
-
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.notifier.reminder.subject
-  #
 
   def forgot_password(user, pass)
     @user = user

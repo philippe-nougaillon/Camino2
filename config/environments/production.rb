@@ -99,12 +99,6 @@ Rails.application.configure do
   #   :domain         => 'camino2.herokuapp.com',
   #   :authentication => :plain,
   # }
-  ActionMailer::Base.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    :api_key => ENV['MAILGUN_API_KEY'],
-    :domain => ENV['MAILGUN_DOMAIN'],
-    # :api_host => 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
-  }
 
   config.action_mailer.default_url_options = { host: 'camino2.herokuapp.com', protocol: 'https' }
 end
