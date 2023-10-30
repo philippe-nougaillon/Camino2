@@ -38,5 +38,12 @@ module CaminoV2
     config.i18n.default_locale = :fr
 
     config.active_record.use_yaml_unsafe_load = true
+
+    config.action_mailer.mailgun_settings = {
+      :api_key => ENV['MAILGUN_API_KEY'],
+      :domain => ENV['MAILGUN_DOMAIN'],
+      :api_host => 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
+    }
+    ActionMailer::Base.delivery_method = :mailgun
   end
 end
