@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   devise_for :users, controllers: { 
     omniauth_callbacks: 'users/omniauth_callbacks',
     sessions: 'users/sessions',
@@ -57,6 +58,9 @@ Rails.application.routes.draw do
 
   get 'about', to: 'pages#about', as: :about
   get 'dashboard', to: 'pages#dashboard', as: :dashboard
+
+  get 'admin/stats'
+  get 'admin/suppression_compte'
 
   get 'audits/index'
 
