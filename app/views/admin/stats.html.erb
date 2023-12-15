@@ -8,7 +8,7 @@
       <thead>
         <tr>
           <th>Dernière Connexion</th>
-          <th>Dernier Changement</th>
+          <th>Modifié le</th>
           <th>Nb Connexions</th>
           <th>Email</th>
           <th>Account</th>
@@ -21,13 +21,12 @@
         <% @users.each do |user| %>
           <% account = user.account %>
           <% participant_count = User.where(id: account.users).count %>
-          <% last_change = Audited::Audit.where(user_id: user.id).last %>
           <% if account.users.first == user %>
             <% total_lignes = account_infos(account) %>
           <% end %>
           <tr>
             <td><%= time_ago_in_words user.last_sign_in_at if user.sign_in_count.positive? %></td>
-            <td><%= time_ago_in_words last_change.created_at if last_change %></td>
+            <td><%= time_ago_in_words user.updated_at if last_change %></td>
             <td class=" <%= user.sign_in_count > 1 ? 'text-info font-black' : ''  %>"><%= user.sign_in_count %></td>
             <td><%= user.email %></td>
             <td class=<%= 'text-info' if participant_count > 1 %>><%= account.name %> (<%= participant_count %> users)</td>
