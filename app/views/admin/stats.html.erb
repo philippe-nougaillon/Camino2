@@ -24,8 +24,8 @@
             <% total_lignes = account_infos(account) %>
           <% end %>
           <tr>
-            <td><%= time_ago_in_words user.current_sign_in_at if user.sign_in_count.positive? %></td>
-            <td class=<%= 'text-success' if user.sign_in_count > 1 %>><%= user.sign_in_count %></td>
+            <td><%= time_ago_in_words user.last_sign_in_at if user.sign_in_count.positive? %></td>
+            <td class=<%= 'text-success font-black' if user.sign_in_count > 1 %>><%= user.sign_in_count %></td>
             <td><%= user.email %></td>
             <td class=<%= 'text-success' if participant_count > 1 %>><%= account.name %> (<%= participant_count %> users)</td>
             <% if account.users.first == user %>
