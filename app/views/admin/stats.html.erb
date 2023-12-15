@@ -26,7 +26,7 @@
           <% end %>
           <tr>
             <td><%= time_ago_in_words user.last_sign_in_at if user.sign_in_count.positive? %></td>
-            <td><%= time_ago_in_words user.updated_at if last_change %></td>
+            <td><%= time_ago_in_words user.updated_at %></td>
             <td class=" <%= user.sign_in_count > 1 ? 'text-info font-black' : ''  %>"><%= user.sign_in_count %></td>
             <td><%= user.email %></td>
             <td class=<%= 'text-info' if participant_count > 1 %>><%= account.name %> (<%= participant_count %> users)</td>
