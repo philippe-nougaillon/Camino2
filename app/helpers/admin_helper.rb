@@ -21,6 +21,9 @@ module AdminHelper
     account.projects.each do |project|
       total_audit += project.audits.count
       total_lignes += 1
+      project.logs.each do |log|
+        total_lignes += 1
+      end
       project.todolists.each do |todolist|
         total_audit += todolist.audits.count
         total_lignes += 1

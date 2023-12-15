@@ -23,7 +23,7 @@
         <% @users.each do |user| %>
           <% account = user.account %>
           <tr>
-            <td><%= time_ago_in_words user.last_sign_in_at if user.sign_in_count.positive? %></td>
+            <td><%= time_ago_in_words user.current_sign_in_at if user.sign_in_count.positive? %></td>
             <td><%= user.sign_in_count %></td>
             <td><%= user.email %></td>
             <td><%= account.name %> (<%= @participants_count %> users)</td>
@@ -32,6 +32,8 @@
               <td><%= account_infos(account).last %></td>
               <td><%= account_infos(account).first %></td>
               <td><%= link_to "[X]", admin_suppression_compte_path(account:), class:"btn btn-ghost btn-sm" %></td>
+            <% else %>
+              <td colspan=4></td>
             <% end %>
           </tr>
         <% end %>
