@@ -19,14 +19,18 @@
       <tbody>
         <% @users.each do |user| %>
           <% account = user.account %>
+          <% participant_count = User.where(id: account.users).count %>
+          <% if account.users.first == user %>
+            <% total_lignes = account_infos(account) %>
+          <% end %>
           <tr>
             <td><%= time_ago_in_words user.current_sign_in_at if user.sign_in_count.positive? %></td>
-            <td><%= user.sign_in_count %></td>
+            <td class=<%= 'text-success' if user.sign_in_count > 1 %>><%= user.sign_in_count %></td>
             <td><%= user.email %></td>
-            <td><%= account.name %> (<%= User.where(id: account.users).count %> users)</td>
+            <td class=<%= 'text-success' if participant_count > 1 %>><%= account.name %> (<%= participant_count %> users)</td>
             <% if account.users.first == user %>
-              <td><%= account.projects.count %></td>
-              <td><%= account_infos(account) %></td>
+              <td class=<%= 'text-success' if account.projects.count > 1 %>><%= account.projects.count %></td>
+              <td class=<%= 'text-success' if total_lignes > 32 %>><%= total_lignes %></td>
               <td><%= link_to "[X]", admin_suppression_compte_path(account:), class:"btn btn-ghost btn-sm" %></td>
             <% else %>
               <td colspan=3></td>
