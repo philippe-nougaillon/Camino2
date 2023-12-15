@@ -3,13 +3,11 @@ class AdminController < ApplicationController
 
   def stats
     @users = User.all.order(current_sign_in_at: :desc)
-    @participants_count = User.where(id: current_user.account.users).count
     @total_audit = Audited::Audit.all.count
-    @total_lignes = 0
-    Account.all.each do |account|
-      # @total_audit += helpers.account_infos(account).first
-      @total_lignes += helpers.account_infos(account).last
-    end
+    # Account.all.each do |account|
+    #   # @total_audit += helpers.account_infos(account).first
+    #   @total_lignes += helpers.account_infos(account).last
+    # end
 
     @users = @users.page(params[:page]).per(30)
   end
