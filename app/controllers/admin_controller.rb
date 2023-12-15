@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   before_action :user_authorized?
 
   def stats
-    @users = User.all.order(last_sign_in_at: :desc)
+    @users = User.all.order(sign_in_count: :desc)
     @total_audit = Audited::Audit.all.count
     # Account.all.each do |account|
     #   # @total_audit += helpers.account_infos(account).first
