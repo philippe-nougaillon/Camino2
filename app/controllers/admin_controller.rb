@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   before_action :user_authorized?
 
   def stats
-    @users = User.all.order(:current_sign_in_at)
+    @users = User.all.order(current_sign_in_at: :desc)
     @participants_count = User.where(id: current_user.account.users).count
     @total_audit = Audited::Audit.all.count
     @total_lignes = 0
