@@ -9,7 +9,7 @@ class AdminController < ApplicationController
     #   @total_lignes += helpers.account_infos(account).last
     # end
 
-    @users = @users.page(params[:page]).per(30)
+    @users = @users.page(params[:page]).per(50)
   end
 
   def suppression_compte
