@@ -10,6 +10,8 @@ class AdminController < ApplicationController
       # @total_audit += helpers.account_infos(account).first
       @total_lignes += helpers.account_infos(account).last
     end
+
+    @users = @users.page(params[:page]).per(30)
   end
 
   def suppression_compte
