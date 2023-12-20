@@ -81,6 +81,8 @@ class UsersController < ApplicationController
   def icalendar
     authorize User
 
+    return unless @user
+
     if @user.admin?
       @projects = @user.account.projects.where('duedate is not null')
       @todolists = @user.account.todolists.where('todolists.duedate is not null')

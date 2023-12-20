@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.6'
+gem 'rails', '~> 7.1.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -78,7 +78,7 @@ gem 'devise', '~> 4.8'
 
 gem 'simple_calendar', '~> 2.4'
 
-gem 'acts-as-taggable-on', '~> 9.0'
+gem 'acts-as-taggable-on'
 
 # Exception Notifier Plugin for Rails
 gem 'exception_notification'
@@ -111,7 +111,7 @@ gem "sortable-for-rails", "~> 1.2"
 
 gem "kaminari", "~> 1.2"
 
-gem "page_title_helper", "~> 6.0"
+gem "page_title_helper"
 
 gem "omniauth", "~> 2.1"
 
