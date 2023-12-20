@@ -18,9 +18,9 @@
 <p class="mt-4">
   <%= link_to "Participants", users_path, class:"link" %> |
   <%= link_to "Modèles de projets", templates_path, class:"link" %> |
-  <%= link_to "Audit Trail ( journal des modifications )", audits_index_path, class:"link" %>
+  <%= link_to "Audit Trail (Journal des modifications)", audits_index_path, class:"link" %>
   <% if current_user.admin? %>
-    | <%= link_to_if false, "Mail Logs ( journal des envois de mails )", mail_logs_path, class:"link" %>
+    | <%= link_to "Mail Logs (Journal des envois de mails)", mail_logs_path, class:"link" %>
   <% end %>
 </p>
 
