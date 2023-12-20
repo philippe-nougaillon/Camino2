@@ -2,14 +2,8 @@ class AdminController < ApplicationController
   before_action :user_authorized?
 
   def stats
-    @users = User.all.order(sign_in_count: :desc)
-    @total_audit = Audited::Audit.all.count
-    # Account.all.each do |account|
-    #   # @total_audit += helpers.account_infos(account).first
-    #   @total_lignes += helpers.account_infos(account).last
-    # end
-
-    @users = @users.page(params[:page]).per(50)
+    @accounts = Account.all.joins(:users).order('users.current_sign_in_at DESC')
+    @accounts = @accounts.page(params[:page]).per(50)
   end
 
   def suppression_compte
