@@ -117,20 +117,20 @@ module LogConcern
         # notify all participants by sending update emails
         log = Log.first
         if log.project.participants.notification_subcribers.any?
-          # Notifier.update(log).deliver_now
+          Notifier.update(log).deliver_now
         end 
         
         if action == "terminé"
           # notify all clients by sending update emails
           log.project.participants.where(client:true).each do |participant|
-            # Notifier.update_client(log, participant).deliver_now
+            Notifier.update_client(log, participant).deliver_now
           end 
         end    
 
         if action == "commenté" and (self.audience == 2 or self.audience == 0) # envoi le commentaire au client si audience = client ou tous
           # notify all clients by sending update emails
           log.project.participants.where(client:true).each do |participant|
-            # Notifier.update_client(log, participant).deliver_now
+            Notifier.update_client(log, participant).deliver_now
           end 
         end
       end
