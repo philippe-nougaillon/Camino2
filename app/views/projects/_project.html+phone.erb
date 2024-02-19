@@ -24,7 +24,7 @@
       <br>
       Participants :
       <br>
-      <div class="flex">
+      <div class="flex items-center">
         <%= link_to users_path(project_id: project.slug) do %>
           <div class="avatar-group -space-x-6">
             <% project.users.each do |user| %>
@@ -43,7 +43,7 @@
           </div>
         <% end %>
         <%= link_to invite_path(id:project.slug), title:'Inviter un nouveau participant', class:'ml-2' do %>
-          <div class="badge badge-accent badge-outline rounded badge-lg mt-2 pb-0.5 shadow">+</div>
+          <div class="btn btn-accent btn-outline btn-xs">+</div>
         <% end %>
       </div>
       <br>
