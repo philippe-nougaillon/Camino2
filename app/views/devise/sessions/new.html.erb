@@ -1,7 +1,7 @@
 <div class="flex flex-wrap">
   <div class="flex-1">
-    <%= image_tag "undraw_qa_engineers_dg-5-p.svg", width: "65%", class:"mt-12" %>
-    <h1 class="!text-4xl mt-12 text-primary">Camino v2</h1>
+    <%= image_tag "undraw_qa_engineers_dg-5-p.svg", width: "65%", class:"opacity-50 mt-12" %>
+    <h1 class="!text-4xl text-primary">Camino v2</h1>
     <h2 class="mb-6">Gérez vos projets, en équipe et en mobilité</h2>
 
     <ul class="list-disc mb-6">
@@ -18,7 +18,7 @@
 
   <div class="flex-1 my-12">
     <div class="flex flex-col justify-center aligns-items-center items-center">
-      <div class="p-16 border-2 rounded-xl">
+      <div class="p-12 border rounded-xl shadow-xl">
         <h1 class="text-4xl font-bold text-center">Connexion</h1>
         <hr class="my-4">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

@@ -1,8 +1,8 @@
 <h1 class="mb-6">
   Projets
   <% if policy(Project).new? %>
-    <%= link_to new_project_path, title:'Ajouter un projet' do %>
-      <div class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</div>
+    <%= link_to new_project_path, title:'Ajouter un nouveau projet' do %>
+      <div class="btn btn-accent btn-outline btn-xs">+</div>
     <% end %>
   <% end %>
 </h1>
@@ -57,7 +57,7 @@
               <% end %>
             </td>
             <td>
-              <div class="flex">
+              <div class="flex items-center">
                 <%= link_to users_path(project_id: project.slug) do %>
                   <div class="avatar-group -space-x-6">
                     <% project.users.each do |user| %>
@@ -76,7 +76,7 @@
                   </div>
                 <% end %>
                 <%= link_to invite_path(id:project.slug), title:'Inviter un nouveau participant', class:'ml-2' do %>
-                  <div class="badge badge-accent badge-outline rounded badge-lg mt-2 pb-0.5 shadow">+</div>
+                  <div class="btn btn-accent btn-outline btn-xs">+</div>
                 <% end %>
               </div>
             </td>
@@ -96,7 +96,7 @@
       <br>
       Cliquez sur
       <%= link_to new_project_path do %>
-        <span class="badge badge-accent badge-outline rounded badge-lg pb-0.5 shadow">+</span>
+        <span class="btn btn-accent btn-outline btn-xs">+</span>
       <% end %>
       pour créer un nouveau projet.
     </p>
