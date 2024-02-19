@@ -8,7 +8,7 @@
           <th>Account</th>
           <th>User email</th>
           <th>Dernière Connexion</th>
-          <th>Nbr</th>
+          <th>Nbr_co</th>
           <th>Projets</th>
           <th>Lignes</th>
           <th>Modifié le</th>
@@ -16,35 +16,33 @@
         </tr>
       </thead>
       <tbody>
-        <% @accounts.uniq.each do |account| %>
-          <% account.users.each do |user| %>
-            <% total_lignes = account_infos(account) %>
-            <tr>
-              <td><%= account.name %></td>
-              <td><%= user.email %></td>
-              <td><%= time_ago_in_words user.last_sign_in_at if user.sign_in_count.positive? %></td>
-              <td class=" <%= user.sign_in_count > 1 ? 'text-info font-black' : ''  %>"><%= user.sign_in_count %></td>
-              <% if account.users.first == user %>
-                <td class=<%= 'text-info' if account.projects.count > 1 %>><%= account.projects.count %></td>
-                <td class=<%= 'text-info' if total_lignes > 32 %>><%= total_lignes %></td>
-                <td><%= time_ago_in_words user.updated_at %></td>
-                <td><%= link_to "[X]", admin_suppression_compte_path(account:), class:"btn btn-ghost btn-sm" %></td>
-              <% else %>
-                <td colspan=2></td>
-                <td><%= time_ago_in_words user.updated_at %></td>
-                <td></td>
-              <% end %>
-              
-            </tr>
-          <% end %>
-          <tr></tr>
+        <% @users.each do |user| %>
+          <% total_lignes = account_infos(user.account) %>
+          <tr>
+            <td class="text-neutral"><%= user.account.name %></td>
+            <td class="text-neutral"><%= user.email %></td>
+            <td class="text-neutral"><%= time_ago_in_words user.last_sign_in_at if user.sign_in_count.positive? %></td>
+            <td class=" <%= user.sign_in_count > 1 ? 'text-error font-black' : 'text-black'  %>"><%= user.sign_in_count %></td>
+            <% if user.account.users.first == user %>
+              <td class=<%= 'text-error' if user.account.projects.count > 1 %>><%= user.account.projects.count %></td>
+              <td class=<%= 'text-error' if total_lignes > 32 %>><%= total_lignes %></td>
+              <td class="text-neutral"><%= time_ago_in_words user.updated_at %></td>
+              <td class="text-neutral"><%= link_to "[X]", admin_suppression_compte_path(account: user.account), class:"btn btn-ghost btn-sm" %></td>
+            <% else %>
+              <td colspan=2></td>
+              <td class="text-neutral"><%= time_ago_in_words user.updated_at %></td>
+              <td></td>
+            <% end %>
+            
+          </tr>
         <% end %>
+        <tr></tr>
       </tbody>
     </table>
   </div>
 
-  <span><%= page_entries_info @accounts, entry_name: 'user' %></span>
-  <%= paginate @accounts %>
+  <span><%= page_entries_info @users, entry_name: 'user' %></span>
+  <%= paginate @users %>
 
 
 </div>
