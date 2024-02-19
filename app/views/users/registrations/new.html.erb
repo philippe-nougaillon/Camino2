@@ -22,7 +22,7 @@
 
       <div class="field">
         <%= label_tag :account, 'Nom de l\'Espace de travail' %><br />
-        <%= text_field_tag :account, params[:account], { class:"input input-bordered w-full", required: true } %>
+        <%= text_field_tag :account, "Projets_Camino_#{SecureRandom.hex(3)}", { class:"input input-bordered w-full", required: true } %>
         <small>
           <i>
             Veuillez nommer votre espace de travail (habituellement le nom de votre entreprise).
@@ -36,19 +36,19 @@
 
       <div class="field">
         <%= f.label :name, 'Votre nom / prénom' %><br />
-        <%= f.text_field :name, class:"input input-bordered w-full", required: true %>
+        <%= f.text_field :name, value: "Camino", class:"input input-bordered w-full", required: true %>
         <small><i>C'est le nom que verront les autres participants</i></small>
       </div>
 
       <div class="field">
         <%= f.label :username, 'Nom d\'utilisateur' %><br />
-        <%= f.text_field :username, class:"input input-bordered w-full", required: true %>
+        <%= f.text_field :username, value: "Démo", class:"input input-bordered w-full", required: true %>
         <small><i>Faites court, si vous avez un pseudo, c'est le moment de l'utiliser ;-)</i></small>
       </div>
 
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full text-black", required: true %>
+        <%= f.email_field :email, autocomplete: "email", class:"input input-bordered w-full text-black", required: true, autofocus: true %>
         <small><i>Cet identifiant vous sera demandé à chaque connexion.<br> Indiquez l'adresse de messagerie qui recevra les notifications</i></small>
       </div>
 
