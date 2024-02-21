@@ -25,11 +25,10 @@
       url: omniauth_authorize_path(resource_name, provider),
       method: :post,
       data: {turbo: "false"} do |f| %>
-        <div class="px-6 sm:px-0 max-w-sm">
-          <button type="submit" style ="background: #4285F4; color: white" class="btn btn-ghost">
-            <svg class="mr-2 -ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
-            Se connecter / S'inscrire avec Google
-            <div></div>
+        <div class="px-6 sm:px-0">
+          <button type="submit" style ="color: #444;border-radius: 5px;border: thin solid #888;box-shadow: 1px 1px 1px grey;white-space: nowrap;" class="btn btn-ghost btn-block py-2">
+            <%= image_tag "Google__G__logo.svg", class: 'mr-2' %>
+            <p class="mt-1">Continuer avec Google</p>
           </button>
         </div>
     <% end %>
