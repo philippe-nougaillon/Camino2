@@ -36,13 +36,13 @@
 
       <div class="field">
         <%= f.label :name, 'Votre nom / prénom' %><br />
-        <%= f.text_field :name, value: "Camino", class:"input input-bordered w-full", required: true %>
+        <%= f.text_field :name, value: "Camino_#{SecureRandom.hex(3)}", class:"input input-bordered w-full", required: true %>
         <small><i>C'est le nom que verront les autres participants</i></small>
       </div>
 
       <div class="field">
         <%= f.label :username, 'Nom d\'utilisateur' %><br />
-        <%= f.text_field :username, value: "Démo", class:"input input-bordered w-full", required: true %>
+        <%= f.text_field :username, value: "Démo_#{SecureRandom.hex(3)}", class:"input input-bordered w-full", required: true %>
         <small><i>Faites court, si vous avez un pseudo, c'est le moment de l'utiliser ;-)</i></small>
       </div>
 
