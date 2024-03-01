@@ -58,9 +58,9 @@ class User < ApplicationRecord
 
         #Création du projet de démonstration
         CreateWelcomeProject.new(user.account.id).call
+        Notifier.with(account: user.account).new_account_notification.deliver_now
 
         user
-        
       end
     end
   end
