@@ -60,6 +60,11 @@ Cette configuration, très flexible, s'installe en quelques minutes et peut évo
 
 Pour en savoir plus sur les services proposés par Heroku, visitez leur site [Heroku.com](https://www.heroku.com/home)
 
+
+# Installation aved Docker
+
+Les fichiers nécessaires à l'installation de l'application dans un conteneur Docker sont fournis avec le code source.
+
 # Nous contacter
 
 Besoin d'aide pour installer Camino ? [Nous contacter](https://www.philnoug.com/contact)
