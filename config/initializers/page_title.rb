@@ -1,1 +1,1 @@
-PageTitleHelper.options[:app] = 'Camino v2.9.c'
+PageTitleHelper.options[:app] = 'Camino v2.9.d'
