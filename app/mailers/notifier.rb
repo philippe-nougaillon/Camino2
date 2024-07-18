@@ -20,6 +20,10 @@ class Notifier < ApplicationMailer
     end
   end
 
+  def welcome_admin(user_email)
+    mail(to: user_email, subject: "[Camino] Bienvenue !")
+  end
+
   def welcome(user, pass, project)
     @greeting = "Bienvenue"
     @user = user
