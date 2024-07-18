@@ -68,6 +68,9 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
+  # Parce qu'on utilise RSpec
+  config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
+
   config.action_controller.default_url_options = { host: '127.0.0.1', port: 3000 }
 
   # config.action_mailer.delivery_method = :letter_opener

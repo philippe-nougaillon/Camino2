@@ -38,6 +38,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         #Création du projet de démonstration
         CreateWelcomeProject.new(account.id).call
         flash[:notice] = "Votre compte a bien été créé, bienvenue !"
+
+        Notifier.welcome_admin(params[:user][:email]).deliver_now
         Notifier.with(account: account).new_account_notification.deliver_now
       else
         account.destroy
