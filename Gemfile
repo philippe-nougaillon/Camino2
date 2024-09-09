@@ -88,7 +88,7 @@ gem 'audited', '~> 5.0'
 
 gem 'rubocop', '~> 1.38'
 
-gem "aws-sdk-s3", require: false
+#gem "aws-sdk-s3", require: false
 
 # iCal
 gem 'icalendar'
