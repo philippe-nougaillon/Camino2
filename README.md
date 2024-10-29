@@ -67,4 +67,4 @@ Les fichiers nécessaires à l'installation de l'application dans un conteneur D
 
 # Nous contacter
 
-Besoin d'aide pour installer Camino ? [Nous contacter](https://www.philnoug.com/contact)
+Besoin d'aide pour installer Camino ? [Nous contacter](https://www.aikku.eu/contact)
