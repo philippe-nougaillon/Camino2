@@ -12,4 +12,8 @@ class AdminPolicy < ApplicationPolicy
   def suppression_compte?
     stats?
   end
+
+  def mentions_legales?
+    true
+  end
 end
